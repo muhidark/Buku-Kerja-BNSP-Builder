@@ -18,6 +18,7 @@ from datetime import datetime
 from pathlib import Path
 
 from app import library
+from app import cache_berkas
 from app.schema_parser import baca_skema
 from app.unit_matcher import cocokkan, indeks_pdf
 
@@ -70,10 +71,8 @@ def _tulis_json_atomik(path: Path, data: dict) -> None:
 
 
 def _baca_json(path: Path) -> dict | None:
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+    # Dibaca berulang dalam satu render (T-18) -> lewat cache ber-mtime.
+    return cache_berkas.baca_json(path)
 
 
 def _sha256(path: Path) -> str:
@@ -411,10 +410,7 @@ def _json_unit(kode: str) -> dict | None:
     for folder in JUDUL_JSON:
         p = folder / f'{kode}.json'
         if p.exists():
-            try:
-                return json.loads(p.read_text(encoding='utf-8'))
-            except Exception:
-                return None
+            return cache_berkas.baca_json(p)
     return None
 
 

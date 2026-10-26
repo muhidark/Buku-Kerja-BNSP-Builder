@@ -15,6 +15,7 @@ import os
 import re
 from datetime import datetime
 from pathlib import Path
+from app import cache_berkas
 
 ROOT = Path(__file__).resolve().parent.parent
 JSON_DIR = ROOT / 'data' / 'json'
@@ -58,10 +59,7 @@ def muat_json_mesin(kode_unit: str) -> dict | None:
     jalur = cari_berkas_mesin(kode_unit)
     if not jalur:
         return None
-    try:
-        return json.loads(jalur.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+    return cache_berkas.baca_json(jalur)
 
 
 def hitung_hash_berkas(jalur: Path | None) -> str:
@@ -168,10 +166,7 @@ def ambil_koreksi(kode_unit: str) -> dict | None:
         return None
     if not jalur.is_file():
         return None
-    try:
-        return json.loads(jalur.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+    return cache_berkas.baca_json(jalur)
 
 
 def status_koreksi(kode_unit: str, koreksi_data: dict | None = None) -> dict:
