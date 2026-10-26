@@ -592,3 +592,33 @@ input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; accent-
   .nav.is-terbuka { display: flex; }
   .nav-item { white-space: nowrap; padding: 10px 12px; font-size: 14px; }
 }
+
+/* --- hierarki halaman: langkah berikutnya & detail teknis (langkah 3.7) --- */
+.kartu-langkah { border-left: 4px solid var(--navy-2); }
+.langkah-list {
+  list-style: none; margin: 0 0 16px; padding: 0;
+  display: grid; gap: 8px;
+}
+.langkah-list li {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 10px; border: 1px solid var(--border); border-radius: 8px;
+  background: #fafafa;
+}
+.langkah-list li.is-kini {
+  background: var(--green-bg); border-color: #bfe6ce; font-weight: 600;
+}
+.langkah-list li > span:nth-child(2) { flex: 1; }
+.langkah-no {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--navy-2); color: #fff; font-size: 12px; font-weight: 700;
+  flex: none;
+}
+.is-kini .langkah-no { background: var(--green); }
+.detail-teknis {
+  margin-top: 10px; padding: 10px 12px;
+  border: 1px dashed var(--border); border-radius: 8px; background: #fafafa;
+}
+.detail-teknis > summary {
+  cursor: pointer; font-size: 12.5px; font-weight: 600; color: var(--navy-2);
+}

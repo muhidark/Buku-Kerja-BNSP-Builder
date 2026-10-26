@@ -215,6 +215,35 @@ def main() -> int:
         pos_dasar != -1 and pos_override > pos_dasar,
         f'posisi dasar={pos_dasar} override={pos_override}')
 
+
+    # ------------------------------------------------- 7. hierarki (3.7)
+    print('\n7. HIERARKI: SATU AKSI UTAMA & DETAIL TEKNIS TERSEMBUNYI (T-10, T-26)')
+    dasbor = (project_root / 'app' / 'templates' / 'dashboard.html').read_text(encoding='utf-8')
+    cek('dashboard punya blok "Langkah berikutnya"', 'Langkah berikutnya' in dasbor)
+    cek('dashboard punya satu tombol utama', dasbor.count('btn-hijau') == 1,
+        f"jumlah={dasbor.count('btn-hijau')}")
+    cek('langkah berikutnya ditentukan dari data',
+        'ada_skkni' in dasbor and 'ada_skema' in dasbor and 'ada_unit' in dasbor)
+    cek('status modul disembunyikan di <details>', 'detail-teknis' in dasbor)
+    cek('kolom path internal diganti nama berkas',
+        "a.berkas.split('/')[-1]" in dasbor)
+
+    # satu aksi berwarna per template
+    for t in sorted(TEMPLATES.glob('*.html')):
+        isi_t = t.read_text(encoding='utf-8')
+        n_kuat = sum(isi_t.count(k) for k in ('btn-hijau', 'btn-teal', 'btn-biru'))
+        if n_kuat > 1:
+            cek(f'{t.name} hanya satu tombol berwarna', False, f'jumlah={n_kuat}')
+    cek('setiap template maksimal satu tombol berwarna', True)
+
+    # SHA-256 & path internal tidak boleh tampil tanpa <details>
+    for nama in ('skema_detail.html', 'skkni_detail.html', 'unit_preview.html'):
+        isi_t = (TEMPLATES / nama).read_text(encoding='utf-8')
+        if 'SHA-256' in isi_t or 'Berkas JSON' in isi_t:
+            cek(f'{nama}: detail teknis ada di dalam <details>',
+                'detail-teknis' in isi_t)
+    cek('path internal tidak tampil tanpa <details>', True)
+
     print('\n' + '=' * 100)
     print(f'HASIL: {len(lulus)} lulus, {len(gagal)} gagal')
     if gagal:

@@ -22,9 +22,15 @@
     <div><dt>Nomor dokumen</dt><dd>{{ dok.nomor_dokumen or 'belum tersedia' }}</dd></div>
     <div><dt>Ditambahkan</dt><dd>{{ (dok.tanggal_ditambah or '')[:16] }}</dd></div>
     <div><dt>Ukuran</dt><dd>{{ (dok.ukuran_byte / 1024)|round|int }} KB</dd></div>
-    <div><dt>Nama internal</dt><dd><code>{{ dok.nama_internal }}</code></dd></div>
-    <div><dt>SHA-256</dt><dd><code title="{{ dok.sha256 }}">{{ dok.sha256[:16] }}…</code></dd></div>
+    
   </dl>
+  <details class="detail-teknis">
+    <summary>Detail teknis</summary>
+    <dl>
+      <div><dt>Nama internal berkas</dt><dd><code>{{ dok.nama_internal }}</code></dd></div>
+      <div><dt>SHA-256 berkas</dt><dd><code>{{ dok.sha256 }}</code></dd></div>
+    </dl>
+  </details>
   {% if dok.pesan_identifikasi %}
   <p class="note warn-text">{{ dok.pesan_identifikasi }}</p>
   {% endif %}
@@ -250,7 +256,7 @@
             🖨️ Cetak Semua Dokumen (Paket Lengkap)
           </button>
           <a
-            class="btn btn-small btn-biru"
+            class="btn btn-small btn-ghost"
            
             {% if gerbang and gerbang.ada_gagal %}href="javascript:void(0)" title="Ada unit Gagal"{% else %}href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all"{% endif %}
           >

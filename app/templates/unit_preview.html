@@ -42,8 +42,11 @@
     <div><dt>Halaman tampil (1-based)</dt><dd>{{ ((data.metadata_sumber or {}).rentang_halaman_pdf or [0])[0] + 1 }}</dd></div>
     <div><dt>Elemen</dt><dd>{{ data.elemen_kompetensi|length }}</dd></div>
     <div><dt>KUK</dt><dd>{{ data.elemen_kompetensi|map(attribute='kuk')|map('length')|sum }}</dd></div>
-    <div><dt>Berkas JSON</dt><dd><code>{{ berkas }}</code></dd></div>
   </dl>
+  <details class="detail-teknis">
+    <summary>Detail teknis</summary>
+    <dl><div><dt>Berkas JSON sumber</dt><dd><code>{{ berkas }}</code></dd></div></dl>
+  </details>
 </article>
 
 <article class="card" style="border-left: 4px solid #2563eb;">
