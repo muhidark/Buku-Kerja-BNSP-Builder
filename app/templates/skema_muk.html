@@ -1511,6 +1511,9 @@ function simpanBagianAktif() {
   tampilkanPesanSimpan('');
   document.getElementById('muk-json-input').value = JSON.stringify(bagian);
   bersihkanSemuaKotor();   // jangan picu peringatan "tinggalkan halaman?"
+  if (window.tampilkanProses) {
+    window.tampilkanProses('Menyimpan ' + namaBagian(panelId) + '…');
+  }
   var form = document.getElementById('form-muk');
   // form.submit() tidak memicu onsubmit, jadi payload bagian tidak tertimpa.
   form.submit();

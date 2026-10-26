@@ -150,6 +150,26 @@ def main() -> int:
         w in t.read_text(encoding='utf-8').lower()
         for t in TEMPLATES.glob('*.html') for w in warna_terlarang))
 
+
+    # ------------------------------------------------ 5. indikator proses
+    print('\n5. INDIKATOR PROSES (T-09)')
+    js = (project_root / 'app' / 'static' / 'js' / 'app.js').read_text(encoding='utf-8')
+    for fitur, pola in [
+        ('fungsi tampilkanProses', 'function tampilkanProses'),
+        ('overlay proses dibuat', "className = 'proses-overlay'"),
+        ('tombol dinonaktifkan saat kirim', 'b.disabled = true'),
+        ('label tombol berubah', 'Memproses'),
+        ('penjaga klik ganda unduhan', "a[href*=\"/unduh-\"]"),
+        ('indikator bisa ditutup dengan Esc', "e.key === 'Escape'"),
+        ('pesan jangan tutup halaman', 'Jangan tutup halaman ini'),
+    ]:
+        cek(f'{fitur} ada', pola in js)
+
+    for kelas in ('.proses-overlay', '.proses-kotak', '.proses-lingkar'):
+        cek(f'{kelas} didefinisikan di CSS', kelas in css)
+    cek('animasi menghormati prefers-reduced-motion',
+        'prefers-reduced-motion' in css)
+
     print('\n' + '=' * 100)
     print(f'HASIL: {len(lulus)} lulus, {len(gagal)} gagal')
     if gagal:
