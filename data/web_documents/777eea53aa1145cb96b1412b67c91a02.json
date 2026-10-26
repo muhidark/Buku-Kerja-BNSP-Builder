@@ -1,0 +1,81 @@
+{
+  "id": "777eea53aa1145cb96b1412b67c91a02",
+  "schema_id": "ad086999cce24093ae152b7bb4f51240",
+  "nama_skema": "SOCIAL MEDIA MARKETING",
+  "nama_asli": "Skema SOCIAL MEDIA MARKETING",
+  "dibuat": "2026-10-25T21:09:00",
+  "status": "draft_perlu_verifikasi",
+  "persetujuan_draft": true,
+  "jumlah_unit": 4,
+  "total_elemen": 21,
+  "total_kuk": 79,
+  "units": [
+    {
+      "kode_unit": "J.63OPR00.004.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+      "nomor_urut": 1,
+      "sumber_skkni": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+      "halaman_pdf_0based": 21,
+      "sha256_pdf": "a64404bdd5a75d88a13b321869236e856f219a8278f96c774cf561e4e3f0dc65",
+      "json": "data/json/browser_extraction/J.63OPR00.004.2.json",
+      "validasi_struktur": "valid_struktur",
+      "validasi_kelengkapan": "valid_kelengkapan",
+      "terverifikasi_manual": false,
+      "waktu_verifikasi_manual": null
+    },
+    {
+      "kode_unit": "J.63OPR00.005.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar",
+      "nomor_urut": 2,
+      "sumber_skkni": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+      "halaman_pdf_0based": 25,
+      "sha256_pdf": "a64404bdd5a75d88a13b321869236e856f219a8278f96c774cf561e4e3f0dc65",
+      "json": "data/json/browser_extraction/J.63OPR00.005.2.json",
+      "validasi_struktur": "perlu_verifikasi",
+      "validasi_kelengkapan": "valid_kelengkapan",
+      "terverifikasi_manual": false,
+      "waktu_verifikasi_manual": null
+    },
+    {
+      "kode_unit": "J.63OPR00.013.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+      "nomor_urut": 3,
+      "sumber_skkni": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+      "halaman_pdf_0based": 54,
+      "sha256_pdf": "a64404bdd5a75d88a13b321869236e856f219a8278f96c774cf561e4e3f0dc65",
+      "json": "data/json/browser_extraction/J.63OPR00.013.2.json",
+      "validasi_struktur": "valid_struktur",
+      "validasi_kelengkapan": "valid_kelengkapan",
+      "terverifikasi_manual": false,
+      "waktu_verifikasi_manual": null
+    },
+    {
+      "kode_unit": "M.70MKT00.012.1",
+      "judul_unit": "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)",
+      "nomor_urut": 4,
+      "sumber_skkni": "7dc1610c0d844733b48f0bf52806cea1.pdf",
+      "halaman_pdf_0based": 62,
+      "sha256_pdf": "1ff24672456c721d7d9e0aa1346a07b1b23d510289ca553894d658a3debd1235",
+      "json": "data/json/browser_extraction/M.70MKT00.012.1.json",
+      "validasi_struktur": "valid_struktur",
+      "validasi_kelengkapan": "valid_kelengkapan",
+      "terverifikasi_manual": false,
+      "waktu_verifikasi_manual": null
+    }
+  ],
+  "masalah": [
+    {
+      "kode": "J.63OPR00.005.2",
+      "jenis": "validasi_struktur",
+      "pesan": "Validasi struktur: perlu_verifikasi."
+    }
+  ],
+  "berkas_docx": "output/web_documents/777eea53aa1145cb96b1412b67c91a02.docx",
+  "ukuran_byte": 44399,
+  "urutan_kode": [
+    "J.63OPR00.004.2",
+    "J.63OPR00.005.2",
+    "J.63OPR00.013.2",
+    "M.70MKT00.012.1"
+  ]
+}

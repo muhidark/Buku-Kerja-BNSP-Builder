@@ -1,0 +1,297 @@
+/* SKKNI Extractor — gaya antarmuka lokal (Fase 4A) */
+
+:root {
+  --navy: #0b2540;
+  --navy-2: #123a61;
+  --navy-3: #1c4c7a;
+  --bg: #f3f5f9;
+  --card: #ffffff;
+  --text: #1b2733;
+  --muted: #6b7a8c;
+  --border: #e2e8f0;
+  --green: #1f9d55;
+  --green-bg: #e7f6ee;
+  --amber: #a8650a;
+  --amber-bg: #fdf3e2;
+  --red: #b42318;
+  --red-bg: #fdeceb;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(16, 38, 64, .06), 0 6px 18px rgba(16, 38, 64, .05);
+}
+
+* { box-sizing: border-box; }
+
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app { display: grid; grid-template-columns: 244px 1fr; min-height: 100vh; }
+
+/* ---------------------------------------------------------------- sidebar */
+.sidebar {
+  background: linear-gradient(180deg, var(--navy) 0%, #0a2038 100%);
+  color: #dce7f1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 14px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.brand { display: flex; gap: 10px; align-items: center; padding: 4px 8px 18px; }
+.brand-mark {
+  width: 36px; height: 36px; border-radius: 9px;
+  background: var(--navy-3); color: #fff;
+  display: grid; place-items: center;
+  font-weight: 700; font-size: 13px; letter-spacing: .5px;
+}
+.brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+.brand-text strong { font-size: 15px; color: #fff; }
+.brand-text small { color: #93a8bf; font-size: 11.5px; }
+
+.nav { display: flex; flex-direction: column; gap: 2px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 9px 12px; border-radius: 8px;
+  color: #c6d6e6; text-decoration: none; font-size: 14px;
+  transition: background .15s, color .15s;
+}
+.nav-item:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.nav-item.is-active { background: var(--navy-3); color: #fff; font-weight: 600; }
+.nav-icon { width: 16px; text-align: center; opacity: .85; }
+
+.sidebar-foot {
+  margin-top: auto; font-size: 12px; color: #8ba1b8;
+  display: flex; align-items: center; gap: 7px; padding: 10px 8px 0;
+  border-top: 1px solid rgba(255, 255, 255, .08);
+}
+.dot { width: 7px; height: 7px; border-radius: 50%; background: #38c172; display: inline-block; }
+
+/* ------------------------------------------------------------------- main */
+.main { display: flex; flex-direction: column; min-width: 0; }
+
+.topbar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 16px 28px; display: flex; align-items: center;
+  justify-content: space-between; gap: 16px; position: sticky; top: 0; z-index: 5;
+}
+.topbar h1 { margin: 0; font-size: 20px; font-weight: 650; letter-spacing: -.2px; }
+.topbar .muted { margin: 2px 0 0; font-size: 13px; }
+
+.content { padding: 24px 28px 8px; display: flex; flex-direction: column; gap: 18px; }
+
+.footer {
+  margin-top: auto; padding: 14px 28px 22px;
+  color: var(--muted); font-size: 12.5px;
+}
+
+.muted { color: var(--muted); }
+
+/* ------------------------------------------------------------------ cards */
+.cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.card {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+.card h2 { margin: 0 0 12px; font-size: 15.5px; font-weight: 650; }
+.card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+.card-head h2 { margin: 0; }
+
+.stat { display: flex; flex-direction: column; gap: 2px; }
+.stat-label { color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: .4px; }
+.stat-value { font-size: 30px; font-weight: 700; color: var(--navy); line-height: 1.15; }
+.stat-text { font-size: 20px; letter-spacing: .5px; }
+.stat-note { color: var(--muted); font-size: 12.5px; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* --------------------------------------------------------------- statuses */
+.status-list, .module-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.status-list li { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; align-items: center; }
+.status-name { font-weight: 550; }
+.status-detail { grid-column: 1 / -1; color: var(--muted); font-size: 12.5px; }
+.module-list li { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.module-list code { font-size: 12.5px; color: var(--navy-2); }
+
+.badge {
+  display: inline-block; padding: 2px 9px; border-radius: 999px;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+}
+.badge-green { background: var(--green-bg); color: var(--green); }
+.badge-amber { background: var(--amber-bg); color: var(--amber); }
+.badge-red { background: var(--red-bg); color: var(--red); }
+.badge-neutral { background: #eef2f7; color: #46586c; }
+
+/* ----------------------------------------------------------------- tables */
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th {
+  text-align: left; font-weight: 600; color: var(--muted);
+  text-transform: uppercase; font-size: 11.5px; letter-spacing: .5px;
+  padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap;
+}
+.table td { padding: 9px 10px; border-bottom: 1px solid #eef2f7; vertical-align: top; }
+.table tbody tr:hover { background: #f8fafc; }
+.table tbody tr:last-child td { border-bottom: none; }
+.table code { font-size: 12.5px; background: #f1f5f9; padding: 1px 6px; border-radius: 5px; color: var(--navy-2); }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.nowrap { white-space: nowrap; }
+
+.filter {
+  border: 1px solid var(--border); border-radius: 8px;
+  padding: 7px 11px; font-size: 13.5px; min-width: 240px;
+  background: #fff; color: var(--text);
+}
+.filter:focus { outline: 2px solid #cfe0f5; border-color: #9dbfe4; }
+
+.empty {
+  background: #f8fafc; border: 1px dashed var(--border);
+  border-radius: 8px; padding: 14px 16px; color: var(--muted); margin: 0;
+}
+.note { color: var(--muted); font-size: 12.5px; margin: 0 0 6px 2px; }
+
+.code {
+  background: #0f2740; color: #e6eef8; border-radius: 8px;
+  padding: 12px 14px; font-size: 13px; overflow-x: auto;
+}
+
+/* ---------------------------------------------------------------- responsive */
+@media (max-width: 1100px) {
+  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; flex-direction: row; align-items: center;
+             gap: 14px; padding: 12px 14px; overflow-x: auto; }
+  .brand { padding: 0; }
+  .brand-text small { display: none; }
+  .nav { flex-direction: row; gap: 4px; }
+  .nav-item { white-space: nowrap; padding: 7px 10px; font-size: 13px; }
+  .sidebar-foot { display: none; }
+  .grid-2, .cards-3 { grid-template-columns: 1fr; }
+  .topbar { padding: 14px 18px; }
+  .content { padding: 18px; }
+}
+
+@media (max-width: 620px) {
+  .cards { grid-template-columns: 1fr; }
+  .card-head { flex-direction: column; align-items: flex-start; }
+  .filter { width: 100%; min-width: 0; }
+  .table { display: block; overflow-x: auto; white-space: nowrap; }
+}
+
+/* --------------------------------------------------- perpustakaan SKKNI (4B) */
+.btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--navy-2); color: #fff; border: 1px solid var(--navy-2);
+  border-radius: 8px; padding: 8px 14px; font-size: 13.5px; font-weight: 600;
+  text-decoration: none; cursor: pointer; line-height: 1.2;
+}
+.btn:hover { background: var(--navy-3); border-color: var(--navy-3); }
+.btn-ghost { background: #fff; color: var(--navy-2); border-color: var(--border); }
+.btn-ghost:hover { background: #f1f5f9; border-color: #cbd8e6; }
+.btn-small { padding: 5px 10px; font-size: 12.5px; font-weight: 550; }
+
+.upload, .cari { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.upload input[type="file"] {
+  border: 1px dashed #c3d3e4; border-radius: 8px; padding: 9px 12px;
+  background: #f8fafc; font-size: 13.5px; min-width: 260px;
+}
+.upload select {
+  border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px;
+  font-size: 13.5px; background: #fff; min-width: 220px;
+}
+.cari input[type="search"] {
+  border: 1px solid var(--border); border-radius: 8px; padding: 8px 11px;
+  font-size: 13.5px; min-width: 260px; background: #fff;
+}
+
+.alert {
+  border-radius: 9px; padding: 12px 15px; font-size: 13.5px;
+  display: flex; gap: 12px; align-items: center; justify-content: space-between;
+  border: 1px solid transparent;
+}
+.alert a { font-weight: 600; }
+.alert-sukses { background: var(--green-bg); color: #16663a; border-color: #bfe6ce; }
+.alert-galat { background: var(--red-bg); color: var(--red); border-color: #f3c9c5; }
+.alert-info { background: #eaf2fb; color: var(--navy-2); border-color: #c8dcf1; }
+
+.tag {
+  display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 5px;
+  background: #eef2f7; color: #46586c; font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: .4px;
+}
+
+.info-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 12px 24px; margin: 0;
+}
+.info-grid dt { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .4px; }
+.info-grid dd { margin: 2px 0 0; font-size: 14px; overflow-wrap: anywhere; }
+.info-grid dd code { word-break: break-all; }
+
+.pagination { display: flex; align-items: center; gap: 14px; padding-top: 14px; flex-wrap: wrap; }
+.breadcrumb { margin: 0 0 2px; font-size: 13.5px; }
+.breadcrumb a { color: var(--navy-2); text-decoration: none; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+.badge-blue { background: #e8f0fb; color: #1f4e8c; }
+.small { font-size: 12px; }
+.warn-text { color: var(--amber); margin-top: 3px; }
+.is-sorot { background: #f4f9ff; }
+
+/* ------------------------------------------------- skema sertifikasi (4C) */
+.aksi-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.inline-form { margin: 0; }
+
+.badge-baris { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
+.tag-mini {
+  display: inline-block; padding: 1px 6px; border-radius: 4px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: .2px;
+  border: 1px solid transparent;
+}
+.tag-mini.on { background: var(--green-bg); color: var(--green); border-color: #bfe6ce; }
+.tag-mini.off { background: #f1f4f8; color: #93a1b1; border-color: #e6ebf1; }
+
+/* -------------------------------------------------- job ekstraksi (4D) */
+.progress {
+  height: 10px; background: #eef2f7; border-radius: 999px;
+  overflow: hidden; margin: 14px 0 6px; border: 1px solid var(--border);
+}
+.progress-bar {
+  height: 100%; background: linear-gradient(90deg, var(--navy-3), #3d7fbf);
+  transition: width .4s ease;
+}
+.judul-unit { font-size: 16px; font-weight: 600; margin: -4px 0 14px; }
+
+.kuk { padding: 2px 0 6px; }
+.kuk-no { font-weight: 650; color: var(--navy-2); margin-right: 4px; }
+
+.daftar-nomor { list-style: none; margin: 0; padding: 0; }
+.daftar-nomor li { display: flex; gap: 8px; padding: 3px 0; }
+.daftar-nomor .nomor { font-weight: 650; color: var(--navy-2); min-width: 46px; }
+.daftar-nomor .lvl-2 { padding-left: 20px; }
+.daftar-nomor .lvl-3 { padding-left: 40px; }
+.daftar-nomor .lvl-4 { padding-left: 60px; }
+
+/* ------------------------------------------- dokumen Word (4E) */
+.checklist {
+  display: grid; gap: 6px; margin: 10px 0 14px;
+  max-height: 320px; overflow-y: auto; padding-right: 4px;
+}
+.checklist label { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
+.checklist code { font-size: 12.5px; }
+.cek-draft { display: flex; gap: 8px; align-items: center; font-size: 13.5px; margin: 4px 0 14px; }
+.masalah-list { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
+.masalah-list code { font-size: 12.5px; }

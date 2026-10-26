@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block subjudul %}Progres ekstraksi unit dari skema {{ job.nama_skema }}{% endblock %}
+{% block konten %}
+<p class="breadcrumb"><a href="/skema/{{ job.schema_id }}">← Kembali ke detail skema</a></p>
+
+<article class="card">
+  <div class="card-head">
+    <h2>Job Ekstraksi</h2>
+    <span class="badge {% if job.status == 'selesai' %}badge-green{% elif job.status == 'berjalan' or job.status == 'menunggu' %}badge-blue{% else %}badge-amber{% endif %}"
+          data-status>{{ job.status }}</span>
+  </div>
+  <dl class="info-grid">
+    <div><dt>Skema</dt><dd>{{ job.nama_skema }}</dd></div>
+    <div><dt>Mode</dt><dd>{{ 'satu unit' if job.mode == 'satu_unit' else 'seluruh unit' }}</dd></div>
+    <div><dt>Dibuat</dt><dd>{{ job.dibuat }}</dd></div>
+    <div><dt>Selesai</dt><dd>{{ job.selesai or '—' }}</dd></div>
+    <div><dt>ID job</dt><dd><code>{{ job.id }}</code></dd></div>
+  </dl>
+
+  {% set total = (job.progress or {}).get('total') or 1 %}
+  {% set selesai = ((job.progress or {}).get('selesai') or 0) + ((job.progress or {}).get('gagal') or 0) %}
+  <div class="progress">
+    <div class="progress-bar" data-progress style="width: {{ (selesai / total * 100)|round(0, 'floor') }}%"></div>
+  </div>
+  <p class="muted small" data-ringkasan>
+    {{ (job.progress or {}).get('selesai') or 0 }} selesai ·
+    {{ (job.progress or {}).get('gagal') or 0 }} gagal ·
+    dari {{ (job.progress or {}).get('total') or 0 }} unit
+  </p>
+  {% if job.pesan %}<div class="alert alert-galat">{{ job.pesan }}</div>{% endif %}
+  {% if job.status in ('selesai', 'selesai_sebagian') %}
+  <p><a class="btn" href="/skema/{{ job.schema_id }}#buat-dokumen">Buat Dokumen Word</a></p>
+  {% endif %}
+</article>
+
+<article class="card">
+  <h2>Unit yang Diekstrak</h2>
+  <table class="table">
+    <thead><tr><th>No</th><th>Kode Unit</th><th>Sumber</th><th>Elemen</th><th>KUK</th><th>Validasi</th><th>Status</th></tr></thead>
+    <tbody data-baris>
+      {% for u in job.units %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td><code>{{ u.kode_unit }}</code></td>
+        <td>{{ u.pdf or '—' }}{% if u.halaman_pdf_0based is not none %}<div class="small muted">halaman {{ u.halaman_pdf_0based + 1 }} (1-based)</div>{% endif %}</td>
+        <td class="num">{{ u.elemen }}</td>
+        <td class="num">{{ u.kuk }}</td>
+        <td>
+          {% if u.validasi_kelengkapan %}
+            <span class="badge {% if u.validasi_kelengkapan == 'valid_kelengkapan' %}badge-green{% else %}badge-amber{% endif %}">
+              {{ u.validasi_kelengkapan.replace('_', ' ') }}
+            </span>
+          {% else %}<span class="muted small">—</span>{% endif %}
+        </td>
+        <td>
+          <span class="badge {% if u.status == 'selesai' %}badge-green{% elif u.status == 'gagal' %}badge-red{% elif u.status == 'berjalan' %}badge-blue{% else %}badge-neutral{% endif %}">
+            {{ u.status }}
+          </span>
+          {% if u.pesan %}<div class="small warn-text">{{ u.pesan }}</div>{% endif %}
+          {% if u.catatan %}<div class="small muted">{{ u.catatan|join('; ') }}</div>{% endif %}
+          {% if u.berkas %}<a class="small" href="/skema/{{ job.schema_id }}/unit/{{ u.kode_unit }}">Preview</a>{% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</article>
+
+<script>
+(function () {
+  var id = "{{ job.id }}";
+  var status = "{{ job.status }}";
+  if (status === 'selesai' || status === 'gagal' || status === 'selesai_sebagian' || status === 'terputus') return;
+
+  var timer = setInterval(function () {
+    fetch('/api/jobs/' + id).then(function (r) { return r.json(); }).then(function (j) {
+      var total = j.progress.total || 1;
+      var selesai = j.progress.selesai + j.progress.gagal;
+      var bar = document.querySelector('[data-progress]');
+      if (bar) bar.style.width = Math.round(selesai / total * 100) + '%';
+      var ringkas = document.querySelector('[data-ringkasan]');
+      if (ringkas) ringkas.textContent = j.progress.selesai + ' selesai · ' +
+        j.progress.gagal + ' gagal · dari ' + j.progress.total + ' unit';
+      var badge = document.querySelector('[data-status]');
+      if (badge) badge.textContent = j.status;
+      if (j.status !== 'berjalan' && j.status !== 'menunggu') {
+        clearInterval(timer);
+        location.reload();
+      }
+    }).catch(function () { });
+  }, 1500);
+})();
+</script>
+{% endblock %}

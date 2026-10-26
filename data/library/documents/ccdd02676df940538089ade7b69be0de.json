@@ -1,0 +1,1676 @@
+{
+  "id": "ccdd02676df940538089ade7b69be0de",
+  "nama_asli": "SKKNI 2024-171 Fotografi.pdf",
+  "nama_internal": "data/library/pdf/ccdd02676df940538089ade7b69be0de.pdf",
+  "sumber": "unggahan",
+  "sha256": "777dfd3238cdccc370c904b8daaf662a3151e1084435fc68098ecf944b80a4c3",
+  "ukuran_byte": 2244406,
+  "nomor": "171",
+  "tahun": "2024",
+  "judul": "Jasa Profesional, Ilmiah, dan Teknis",
+  "halaman": 136,
+  "tanggal_ditambah": "2026-10-26T10:37:34",
+  "status_identifikasi": "lengkap",
+  "units": [
+    {
+      "nomor": 1,
+      "kode_unit": "M.74FTG00.001.3",
+      "judul_unit": "Mengelola Gagasan Konsumen",
+      "halaman_pdf_0based": 13,
+      "halaman_akhir_0based": 14,
+      "halaman_tampil": 14,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 2,
+      "kode_unit": "M.74FTG00.002.2",
+      "judul_unit": "Menentukan Kebijakan Penyelesaian Masalah Fotografi",
+      "halaman_pdf_0based": 15,
+      "halaman_akhir_0based": 16,
+      "halaman_tampil": 16,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 3,
+      "kode_unit": "M.74FTG00.003.3",
+      "judul_unit": "Melakukan Perhitungan Biaya Produksi",
+      "halaman_pdf_0based": 17,
+      "halaman_akhir_0based": 18,
+      "halaman_tampil": 18,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 4,
+      "kode_unit": "M.74FTG00.004.2",
+      "judul_unit": "Menyusun Rancangan Karya Fotografi",
+      "halaman_pdf_0based": 19,
+      "halaman_akhir_0based": 22,
+      "halaman_tampil": 20,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 5,
+      "kode_unit": "M.74FTG00.006.2",
+      "judul_unit": "Menerapkan Prinsip-Prinsip Desain Elementer Fotografi",
+      "halaman_pdf_0based": 23,
+      "halaman_akhir_0based": 24,
+      "halaman_tampil": 24,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 6,
+      "kode_unit": "M.74FTG00.007.2",
+      "judul_unit": "Menyiapkan Konsep Kreatif Fotografi",
+      "halaman_pdf_0based": 25,
+      "halaman_akhir_0based": 26,
+      "halaman_tampil": 26,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 7,
+      "kode_unit": "M.74FTG00.008.2",
+      "judul_unit": "Mengelola Tim Kerja Editorial",
+      "halaman_pdf_0based": 27,
+      "halaman_akhir_0based": 29,
+      "halaman_tampil": 28,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 8,
+      "kode_unit": "M.74FTG00.009.3",
+      "judul_unit": "Melakukan Komunikasi dengan Rekan Kerja",
+      "halaman_pdf_0based": 30,
+      "halaman_akhir_0based": 31,
+      "halaman_tampil": 31,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 9,
+      "kode_unit": "M.74FTG00.010.1",
+      "judul_unit": "Mengurus Perizinan",
+      "halaman_pdf_0based": 32,
+      "halaman_akhir_0based": 33,
+      "halaman_tampil": 33,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 10,
+      "kode_unit": "M.74FTG00.011.3",
+      "judul_unit": "Memilih Jenis Kamera",
+      "halaman_pdf_0based": 34,
+      "halaman_akhir_0based": 35,
+      "halaman_tampil": 35,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 11,
+      "kode_unit": "M.74FTG00.012.3",
+      "judul_unit": "Memeriksa Perangkat Kamera",
+      "halaman_pdf_0based": 36,
+      "halaman_akhir_0based": 37,
+      "halaman_tampil": 37,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 12,
+      "kode_unit": "M.74FTG00.013.3",
+      "judul_unit": "Menentukan Pengaturan Pencahayaan",
+      "halaman_pdf_0based": 38,
+      "halaman_akhir_0based": 39,
+      "halaman_tampil": 39,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 13,
+      "kode_unit": "M.74FTG00.014.3",
+      "judul_unit": "Mengatur Ketajaman Gambar",
+      "halaman_pdf_0based": 40,
+      "halaman_akhir_0based": 41,
+      "halaman_tampil": 41,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 14,
+      "kode_unit": "M.74FTG00.015.3",
+      "judul_unit": "Menentukan Sudut Pengambilan",
+      "halaman_pdf_0based": 42,
+      "halaman_akhir_0based": 43,
+      "halaman_tampil": 43,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 15,
+      "kode_unit": "M.74FTG00.016.3",
+      "judul_unit": "Menentukan Ruang Tajam",
+      "halaman_pdf_0based": 44,
+      "halaman_akhir_0based": 45,
+      "halaman_tampil": 45,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 16,
+      "kode_unit": "M.74FTG00.017.3",
+      "judul_unit": "Menentukan Komposisi Pengambilan Gambar",
+      "halaman_pdf_0based": 46,
+      "halaman_akhir_0based": 47,
+      "halaman_tampil": 47,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 17,
+      "kode_unit": "M.74FTG00.018.3",
+      "judul_unit": "Menentukan Variabel Pencahayaan",
+      "halaman_pdf_0based": 48,
+      "halaman_akhir_0based": 49,
+      "halaman_tampil": 49,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 18,
+      "kode_unit": "M.74FTG00.019.3",
+      "judul_unit": "Menentukan Tata Letak Perangkat Pencahayaan Buatan",
+      "halaman_pdf_0based": 50,
+      "halaman_akhir_0based": 51,
+      "halaman_tampil": 51,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 19,
+      "kode_unit": "M.74FTG00.020.3",
+      "judul_unit": "Melaksanakan Pemotretan dengan Perangkat Pencahayaan Buatan",
+      "halaman_pdf_0based": 52,
+      "halaman_akhir_0based": 53,
+      "halaman_tampil": 53,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 20,
+      "kode_unit": "M.74FTG00.021.2",
+      "judul_unit": "Menggunakan Perangkat Studio",
+      "halaman_pdf_0based": 54,
+      "halaman_akhir_0based": 56,
+      "halaman_tampil": 55,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 21,
+      "kode_unit": "M.74FTG00.022.2",
+      "judul_unit": "Mengerjakan Pemotretan Underwater",
+      "halaman_pdf_0based": 57,
+      "halaman_akhir_0based": 59,
+      "halaman_tampil": 58,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 22,
+      "kode_unit": "M.74FTG00.023.3",
+      "judul_unit": "Mengerjakan Pemotretan Alam",
+      "halaman_pdf_0based": 60,
+      "halaman_akhir_0based": 61,
+      "halaman_tampil": 61,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 23,
+      "kode_unit": "M.74FTG00.024.3",
+      "judul_unit": "Mengerjakan Pemotretan Manusia",
+      "halaman_pdf_0based": 62,
+      "halaman_akhir_0based": 64,
+      "halaman_tampil": 63,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 24,
+      "kode_unit": "M.74FTG00.025.3",
+      "judul_unit": "Mengerjakan Pemotretan Benda",
+      "halaman_pdf_0based": 65,
+      "halaman_akhir_0based": 66,
+      "halaman_tampil": 66,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 25,
+      "kode_unit": "M.74FTG00.026.3",
+      "judul_unit": "Mengerjakan Pemotretan Arsitektur",
+      "halaman_pdf_0based": 67,
+      "halaman_akhir_0based": 68,
+      "halaman_tampil": 68,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 26,
+      "kode_unit": "M.74FTG00.027.3",
+      "judul_unit": "Mengerjakan Pemotretan Peristiwa",
+      "halaman_pdf_0based": 69,
+      "halaman_akhir_0based": 71,
+      "halaman_tampil": 70,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 27,
+      "kode_unit": "M.74FTG00.028.3",
+      "judul_unit": "Mengerjakan Pemotretan Ilustrasi",
+      "halaman_pdf_0based": 72,
+      "halaman_akhir_0based": 73,
+      "halaman_tampil": 73,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 28,
+      "kode_unit": "M.74FTG00.029.2",
+      "judul_unit": "Mengerjakan Pemotretan Aerial",
+      "halaman_pdf_0based": 74,
+      "halaman_akhir_0based": 76,
+      "halaman_tampil": 75,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 29,
+      "kode_unit": "M.74FTG00.030.3",
+      "judul_unit": "Melaksanakan Prosedur Keselamatan dan Kesehatan Kerja (K3) di Tempat Kerja",
+      "halaman_pdf_0based": 77,
+      "halaman_akhir_0based": 78,
+      "halaman_tampil": 78,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 30,
+      "kode_unit": "M.74FTG00.031.3",
+      "judul_unit": "Melakukan Penyalinan Foto Digital",
+      "halaman_pdf_0based": 79,
+      "halaman_akhir_0based": 80,
+      "halaman_tampil": 80,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 31,
+      "kode_unit": "M.74FTG00.032.3",
+      "judul_unit": "Menyeleksi Gambar Sesuai dengan Kebutuhan",
+      "halaman_pdf_0based": 81,
+      "halaman_akhir_0based": 82,
+      "halaman_tampil": 82,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 32,
+      "kode_unit": "M.74FTG00.033.3",
+      "judul_unit": "Mengolah Foto Digital Dasar",
+      "halaman_pdf_0based": 83,
+      "halaman_akhir_0based": 84,
+      "halaman_tampil": 84,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 33,
+      "kode_unit": "M.74FTG00.034.3",
+      "judul_unit": "Mengolah Foto Digital Lanjut",
+      "halaman_pdf_0based": 85,
+      "halaman_akhir_0based": 86,
+      "halaman_tampil": 86,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 34,
+      "kode_unit": "M.74FTG00.035.2",
+      "judul_unit": "Melengkapi Informasi Metadata Foto Peristiwa",
+      "halaman_pdf_0based": 87,
+      "halaman_akhir_0based": 88,
+      "halaman_tampil": 88,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 35,
+      "kode_unit": "M.74FTG00.036.3",
+      "judul_unit": "Mengerjakan Pengarsipan Karya",
+      "halaman_pdf_0based": 89,
+      "halaman_akhir_0based": 90,
+      "halaman_tampil": 90,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 36,
+      "kode_unit": "M.74FTG00.037.3",
+      "judul_unit": "Melakukan Pencetakan Foto Digital",
+      "halaman_pdf_0based": 91,
+      "halaman_akhir_0based": 92,
+      "halaman_tampil": 92,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 37,
+      "kode_unit": "M.74FTG00.038.2",
+      "judul_unit": "Mengirimkan Produk Fotografi",
+      "halaman_pdf_0based": 93,
+      "halaman_akhir_0based": 94,
+      "halaman_tampil": 94,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 38,
+      "kode_unit": "M.74FTG00.039.2",
+      "judul_unit": "Mengisi Daftar Penyelesaian Pekerjaan",
+      "halaman_pdf_0based": 95,
+      "halaman_akhir_0based": 96,
+      "halaman_tampil": 96,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 39,
+      "kode_unit": "M.74FTG00.040.3",
+      "judul_unit": "Melakukan Evaluasi Hasil Kerja",
+      "halaman_pdf_0based": 97,
+      "halaman_akhir_0based": 98,
+      "halaman_tampil": 98,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 40,
+      "kode_unit": "M.74FTG00.041.3",
+      "judul_unit": "Melakukan Presentasi Karya Fotografi",
+      "halaman_pdf_0based": 99,
+      "halaman_akhir_0based": 100,
+      "halaman_tampil": 100,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 41,
+      "kode_unit": "M.74FTG00.042.2",
+      "judul_unit": "Memublikasikan Karya Fotografi",
+      "halaman_pdf_0based": 101,
+      "halaman_akhir_0based": 102,
+      "halaman_tampil": 102,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 42,
+      "kode_unit": "M.74FTG00.043.2",
+      "judul_unit": "Menyajikan Koleksi Karya Fotografi untuk Pameran",
+      "halaman_pdf_0based": 103,
+      "halaman_akhir_0based": 104,
+      "halaman_tampil": 104,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 43,
+      "kode_unit": "M.74FTG00.044.2",
+      "judul_unit": "Memasarkan Foto Hasil Karya Fotografi",
+      "halaman_pdf_0based": 105,
+      "halaman_akhir_0based": 106,
+      "halaman_tampil": 106,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 44,
+      "kode_unit": "M.74FTG00.045.2",
+      "judul_unit": "Membuat Gambar Bergerak Video Clip",
+      "halaman_pdf_0based": 107,
+      "halaman_akhir_0based": 108,
+      "halaman_tampil": 108,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 45,
+      "kode_unit": "M.74FTG00.046.2",
+      "judul_unit": "Menerapkan Hak Cipta dalam Bekerja",
+      "halaman_pdf_0based": 109,
+      "halaman_akhir_0based": 110,
+      "halaman_tampil": 110,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 46,
+      "kode_unit": "M.74FTG00.047.2",
+      "judul_unit": "Menerapkan Tata Artistik dalam Karya Fotografi",
+      "halaman_pdf_0based": 111,
+      "halaman_akhir_0based": 112,
+      "halaman_tampil": 112,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 47,
+      "kode_unit": "M.74FTG00.048.2",
+      "judul_unit": "Melakukan Diseminasi Karya Profesional",
+      "halaman_pdf_0based": 113,
+      "halaman_akhir_0based": 114,
+      "halaman_tampil": 114,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 48,
+      "kode_unit": "M.74FTG00.049.2",
+      "judul_unit": "Menulis Naskah Editorial Foto",
+      "halaman_pdf_0based": 115,
+      "halaman_akhir_0based": 116,
+      "halaman_tampil": 116,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 49,
+      "kode_unit": "M.74FTG00.050.2",
+      "judul_unit": "Melakukan Proses Kritik Fotografi",
+      "halaman_pdf_0based": 117,
+      "halaman_akhir_0based": 118,
+      "halaman_tampil": 118,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 50,
+      "kode_unit": "M.74FTG00.051.2",
+      "judul_unit": "Menulis Reportase Fotografi",
+      "halaman_pdf_0based": 119,
+      "halaman_akhir_0based": 120,
+      "halaman_tampil": 120,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 51,
+      "kode_unit": "M.74FTG00.052.2",
+      "judul_unit": "Menulis Naskah Kuratorial",
+      "halaman_pdf_0based": 121,
+      "halaman_akhir_0based": 122,
+      "halaman_tampil": 122,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 52,
+      "kode_unit": "M.74FTG00.053.1",
+      "judul_unit": "Melaksanakan Penilaian Foto",
+      "halaman_pdf_0based": 123,
+      "halaman_akhir_0based": 124,
+      "halaman_tampil": 124,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 53,
+      "kode_unit": "M.74FTG00.054.2",
+      "judul_unit": "Melakukan Pendampingan Penciptaan Karya Foto",
+      "halaman_pdf_0based": 125,
+      "halaman_akhir_0based": 126,
+      "halaman_tampil": 126,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 54,
+      "kode_unit": "M.74FTG00.055.2",
+      "judul_unit": "Melakukan Riset Fotografi",
+      "halaman_pdf_0based": 127,
+      "halaman_akhir_0based": 128,
+      "halaman_tampil": 128,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 55,
+      "kode_unit": "M.74FTG00.056.2",
+      "judul_unit": "Melaksanakan Tata Kelola Proyek Fotografi",
+      "halaman_pdf_0based": 129,
+      "halaman_akhir_0based": 130,
+      "halaman_tampil": 130,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 56,
+      "kode_unit": "M.74FTG00.057.1",
+      "judul_unit": "Melakukan Kurasi Foto untuk Pameran",
+      "halaman_pdf_0based": 131,
+      "halaman_akhir_0based": 132,
+      "halaman_tampil": 132,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 57,
+      "kode_unit": "M.74FTG00.058.2",
+      "judul_unit": "Melaksanakan Kegiatan Pameran Fotografi",
+      "halaman_pdf_0based": 133,
+      "halaman_akhir_0based": 135,
+      "halaman_tampil": 134,
+      "status": "teridentifikasi"
+    }
+  ],
+  "jumlah_unit": 57,
+  "jumlah_unit_teridentifikasi": 57,
+  "jumlah_unit_perlu_verifikasi": 0,
+  "validasi_kelengkapan": {
+    "versi": 3,
+    "status": "perlu_verifikasi",
+    "diperiksa_pada": "2026-10-26T10:38:35",
+    "ringkasan": {
+      "unit_diperiksa": 57,
+      "unit_terbandingkan": 11,
+      "unit_tanpa_json": 46,
+      "unit_lengkap": 11,
+      "unit_bermasalah": 0,
+      "nomor_hilang": 0,
+      "nomor_ekstra": 0,
+      "nomor_duplikat": 0
+    },
+    "unit": {
+      "M.74FTG00.001.3": {
+        "kode_unit": "M.74FTG00.001.3",
+        "halaman_pdf_0based": [
+          13,
+          14
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            14
+          ],
+          "1.2": [
+            14
+          ],
+          "1.3": [
+            14
+          ],
+          "2.1": [
+            14
+          ],
+          "2.2": [
+            14
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.002.2": {
+        "kode_unit": "M.74FTG00.002.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.003.3": {
+        "kode_unit": "M.74FTG00.003.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.004.2": {
+        "kode_unit": "M.74FTG00.004.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.006.2": {
+        "kode_unit": "M.74FTG00.006.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.007.2": {
+        "kode_unit": "M.74FTG00.007.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.008.2": {
+        "kode_unit": "M.74FTG00.008.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.009.3": {
+        "kode_unit": "M.74FTG00.009.3",
+        "halaman_pdf_0based": [
+          30,
+          31
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            31
+          ],
+          "1.2": [
+            31
+          ],
+          "2.1": [
+            31
+          ],
+          "2.2": [
+            31
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.010.1": {
+        "kode_unit": "M.74FTG00.010.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.011.3": {
+        "kode_unit": "M.74FTG00.011.3",
+        "halaman_pdf_0based": [
+          34,
+          35
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            35
+          ],
+          "1.2": [
+            35
+          ],
+          "2.1": [
+            35
+          ],
+          "2.2": [
+            35
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.012.3": {
+        "kode_unit": "M.74FTG00.012.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.013.3": {
+        "kode_unit": "M.74FTG00.013.3",
+        "halaman_pdf_0based": [
+          38,
+          39
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            39
+          ],
+          "1.2": [
+            39
+          ],
+          "1.3": [
+            39
+          ],
+          "2.1": [
+            39
+          ],
+          "2.2": [
+            39
+          ],
+          "2.3": [
+            39
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.014.3": {
+        "kode_unit": "M.74FTG00.014.3",
+        "halaman_pdf_0based": [
+          40,
+          41
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            41
+          ],
+          "1.2": [
+            41
+          ],
+          "2.1": [
+            41
+          ],
+          "2.2": [
+            41
+          ],
+          "2.3": [
+            41
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.015.3": {
+        "kode_unit": "M.74FTG00.015.3",
+        "halaman_pdf_0based": [
+          42,
+          43
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            43
+          ],
+          "1.2": [
+            43
+          ],
+          "2.1": [
+            43
+          ],
+          "2.2": [
+            43
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.016.3": {
+        "kode_unit": "M.74FTG00.016.3",
+        "halaman_pdf_0based": [
+          44,
+          45
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "2.3"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            45
+          ],
+          "1.2": [
+            45
+          ],
+          "2.1": [
+            45
+          ],
+          "2.2": [
+            45
+          ],
+          "2.3": [
+            45
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.017.3": {
+        "kode_unit": "M.74FTG00.017.3",
+        "halaman_pdf_0based": [
+          46,
+          47
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            47
+          ],
+          "1.2": [
+            47
+          ],
+          "2.1": [
+            47
+          ],
+          "2.2": [
+            47
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.018.3": {
+        "kode_unit": "M.74FTG00.018.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.019.3": {
+        "kode_unit": "M.74FTG00.019.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.020.3": {
+        "kode_unit": "M.74FTG00.020.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.021.2": {
+        "kode_unit": "M.74FTG00.021.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.022.2": {
+        "kode_unit": "M.74FTG00.022.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.023.3": {
+        "kode_unit": "M.74FTG00.023.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.024.3": {
+        "kode_unit": "M.74FTG00.024.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.025.3": {
+        "kode_unit": "M.74FTG00.025.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.026.3": {
+        "kode_unit": "M.74FTG00.026.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.027.3": {
+        "kode_unit": "M.74FTG00.027.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.028.3": {
+        "kode_unit": "M.74FTG00.028.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.029.2": {
+        "kode_unit": "M.74FTG00.029.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.030.3": {
+        "kode_unit": "M.74FTG00.030.3",
+        "halaman_pdf_0based": [
+          77,
+          78
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            78
+          ],
+          "1.2": [
+            78
+          ],
+          "2.1": [
+            78
+          ],
+          "2.2": [
+            78
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.031.3": {
+        "kode_unit": "M.74FTG00.031.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.032.3": {
+        "kode_unit": "M.74FTG00.032.3",
+        "halaman_pdf_0based": [
+          81,
+          82
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "3.1",
+          "3.2"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "2.1",
+          "2.2",
+          "3.1",
+          "3.2"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            82
+          ],
+          "1.2": [
+            82
+          ],
+          "2.1": [
+            82
+          ],
+          "2.2": [
+            82
+          ],
+          "3.1": [
+            82
+          ],
+          "3.2": [
+            82
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.033.3": {
+        "kode_unit": "M.74FTG00.033.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.034.3": {
+        "kode_unit": "M.74FTG00.034.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.035.2": {
+        "kode_unit": "M.74FTG00.035.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.036.3": {
+        "kode_unit": "M.74FTG00.036.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.037.3": {
+        "kode_unit": "M.74FTG00.037.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.038.2": {
+        "kode_unit": "M.74FTG00.038.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.039.2": {
+        "kode_unit": "M.74FTG00.039.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.040.3": {
+        "kode_unit": "M.74FTG00.040.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.041.3": {
+        "kode_unit": "M.74FTG00.041.3",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.042.2": {
+        "kode_unit": "M.74FTG00.042.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.043.2": {
+        "kode_unit": "M.74FTG00.043.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.044.2": {
+        "kode_unit": "M.74FTG00.044.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.045.2": {
+        "kode_unit": "M.74FTG00.045.2",
+        "halaman_pdf_0based": [
+          107,
+          108
+        ],
+        "kuk_pdf": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2",
+          "2.3",
+          "2.4"
+        ],
+        "kuk_json": [
+          "1.1",
+          "1.2",
+          "1.3",
+          "2.1",
+          "2.2",
+          "2.3",
+          "2.4"
+        ],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "kemunculan": {
+          "1.1": [
+            108
+          ],
+          "1.2": [
+            108
+          ],
+          "1.3": [
+            108
+          ],
+          "2.1": [
+            108
+          ],
+          "2.2": [
+            108
+          ],
+          "2.3": [
+            108
+          ],
+          "2.4": [
+            108
+          ]
+        },
+        "metode": {
+          "tabel": 1,
+          "kata": 0
+        },
+        "status": "valid_kelengkapan",
+        "catatan": []
+      },
+      "M.74FTG00.046.2": {
+        "kode_unit": "M.74FTG00.046.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.047.2": {
+        "kode_unit": "M.74FTG00.047.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.048.2": {
+        "kode_unit": "M.74FTG00.048.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.049.2": {
+        "kode_unit": "M.74FTG00.049.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.050.2": {
+        "kode_unit": "M.74FTG00.050.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.051.2": {
+        "kode_unit": "M.74FTG00.051.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.052.2": {
+        "kode_unit": "M.74FTG00.052.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.053.1": {
+        "kode_unit": "M.74FTG00.053.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.054.2": {
+        "kode_unit": "M.74FTG00.054.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.055.2": {
+        "kode_unit": "M.74FTG00.055.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.056.2": {
+        "kode_unit": "M.74FTG00.056.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.057.1": {
+        "kode_unit": "M.74FTG00.057.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.74FTG00.058.2": {
+        "kode_unit": "M.74FTG00.058.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      }
+    },
+    "catatan": [
+      "Unit tanpa JSON (belum diekstrak): M.74FTG00.002.2, M.74FTG00.003.3, M.74FTG00.004.2, M.74FTG00.006.2, M.74FTG00.007.2, M.74FTG00.008.2, M.74FTG00.010.1, M.74FTG00.012.3, M.74FTG00.018.3, M.74FTG00.019.3, M.74FTG00.020.3, M.74FTG00.021.2, M.74FTG00.022.2, M.74FTG00.023.3, M.74FTG00.024.3, M.74FTG00.025.3, M.74FTG00.026.3, M.74FTG00.027.3, M.74FTG00.028.3, M.74FTG00.029.2, M.74FTG00.031.3, M.74FTG00.033.3, M.74FTG00.034.3, M.74FTG00.035.2, M.74FTG00.036.3, M.74FTG00.037.3, M.74FTG00.038.2, M.74FTG00.039.2, M.74FTG00.040.3, M.74FTG00.041.3, M.74FTG00.042.2, M.74FTG00.043.2, M.74FTG00.044.2, M.74FTG00.046.2, M.74FTG00.047.2, M.74FTG00.048.2, M.74FTG00.049.2, M.74FTG00.050.2, M.74FTG00.051.2, M.74FTG00.052.2, M.74FTG00.053.1, M.74FTG00.054.2, M.74FTG00.055.2, M.74FTG00.056.2, M.74FTG00.057.1, M.74FTG00.058.2."
+    ]
+  },
+  "diperbarui": "2026-10-26T10:38:35",
+  "pesan_identifikasi": null,
+  "identifikasi_pada": "2026-10-26T10:37:34"
+}

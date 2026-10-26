@@ -1,0 +1,371 @@
+{
+  "source_file": "SKKNI 2023-101.pdf.pdf",
+  "pdf_page_count": 182,
+  "total_units_found": 52,
+  "units": [
+    {
+      "code": "M.73ADV00.001.1",
+      "title": "Menyusun Rencana Pengembangan Usaha Perusahaan Periklanan",
+      "start_page": 21,
+      "end_page": 24,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.002.1",
+      "title": "Mengembangkan Hubungan dengan Calon Klien dalam Pengembangan Usaha Perusahaan Periklanan",
+      "start_page": 25,
+      "end_page": 27,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.003.1",
+      "title": "Mengelola Rencana Anggaran Proyek Periklanan",
+      "start_page": 28,
+      "end_page": 31,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.004.1",
+      "title": "Mengelola Umpan Balik Klien Sepanjang Pelaksanaan Proyek Periklanan",
+      "start_page": 32,
+      "end_page": 34,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.005.1",
+      "title": "Melaksanakan Monitoring Pengelolaan Proyek Periklanan",
+      "start_page": 35,
+      "end_page": 37,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.006.1",
+      "title": "Melaksanakan Manajemen Risiko Proyek Periklanan",
+      "start_page": 38,
+      "end_page": 40,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.007.1",
+      "title": "Melaksanakan Analisis Situasi",
+      "start_page": 41,
+      "end_page": 43,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.008.1",
+      "title": "Melaksanakan Analisis Kekuatan, Kelemahan, Peluang, dan Ancaman",
+      "start_page": 44,
+      "end_page": 46,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.009.1",
+      "title": "Mengumpulkan Data tentang Audiens",
+      "start_page": 47,
+      "end_page": 49,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.010.1",
+      "title": "Merumuskan Strategi Kampanye Periklanan",
+      "start_page": 50,
+      "end_page": 52,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.011.1",
+      "title": "Menyusun Rencana Pengukuran Keberhasilan Strategi Kampanye Periklanan",
+      "start_page": 53,
+      "end_page": 55,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.012.1",
+      "title": "Menerapkan Rencana Strategi Kampanye Periklanan",
+      "start_page": 56,
+      "end_page": 58,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.013.1",
+      "title": "Mengukur Keberhasilan Strategi Kampanye Periklanan",
+      "start_page": 59,
+      "end_page": 61,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.014.1",
+      "title": "Melaksanakan Evaluasi Keberhasilan Strategi Kampanye Periklanan",
+      "start_page": 62,
+      "end_page": 64,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.015.1",
+      "title": "Menerjemahkan Client Brief",
+      "start_page": 65,
+      "end_page": 67,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.016.1",
+      "title": "Menyusun Strategi Kreatif",
+      "start_page": 68,
+      "end_page": 70,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.017.1",
+      "title": "Menyusun Kebutuhan Biaya Produksi Kreatif Periklanan",
+      "start_page": 71,
+      "end_page": 73,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.018.1",
+      "title": "Memproduksi Iklan",
+      "start_page": 74,
+      "end_page": 76,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.019.1",
+      "title": "Melakukan Pemantauan Proses Produksi Iklan",
+      "start_page": 77,
+      "end_page": 79,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.020.1",
+      "title": "Melakukan Evaluasi Kualitas Hasil Produksi Iklan",
+      "start_page": 80,
+      "end_page": 82,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.021.1",
+      "title": "Menyusun Strategi Konten Iklan",
+      "start_page": 83,
+      "end_page": 85,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.022.1",
+      "title": "Menyusun Content Plan",
+      "start_page": 86,
+      "end_page": 88,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.023.1",
+      "title": "Membuat Naskah Konten Iklan",
+      "start_page": 89,
+      "end_page": 91,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.024.1",
+      "title": "Membuat Materi Konten Iklan",
+      "start_page": 92,
+      "end_page": 95,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.025.1",
+      "title": "Melaksanakan Penempatan Konten Iklan di Media dan Saluran",
+      "start_page": 96,
+      "end_page": 98,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.026.1",
+      "title": "Melaksanakan Monitoring Distribusi Konten Iklan",
+      "start_page": 99,
+      "end_page": 101,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.027.1",
+      "title": "Menetapkan Tolok Ukur Keberhasilan Konten Iklan",
+      "start_page": 102,
+      "end_page": 104,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.028.1",
+      "title": "Mengukur Keberhasilan Konten Iklan",
+      "start_page": 105,
+      "end_page": 107,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.029.1",
+      "title": "Melaksanakan Riset untuk Perencanaan Media dan Saluran",
+      "start_page": 108,
+      "end_page": 110,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.030.1",
+      "title": "Menyusun Strategi Pemilihan Media dan Saluran",
+      "start_page": 111,
+      "end_page": 113,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.031.1",
+      "title": "Menyusun Cara Pembelanjaan Media dan Saluran",
+      "start_page": 114,
+      "end_page": 117,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.032.1",
+      "title": "Mengimplementasikan Pembelanjaan Media dan Saluran",
+      "start_page": 118,
+      "end_page": 120,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.033.1",
+      "title": "Melaksanakan Monitoring Penayangan Iklan di Media dan Saluran",
+      "start_page": 121,
+      "end_page": 123,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.034.1",
+      "title": "Melaksanakan Evaluasi Penayangan Iklan di Media dan Saluran",
+      "start_page": 124,
+      "end_page": 126,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.035.1",
+      "title": "Menyusun Rencana Strategi Optimasi Periklanan Konvensional",
+      "start_page": 127,
+      "end_page": 130,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.036.1",
+      "title": "Menyusun Rencana Strategi Optimasi Periklanan Digital",
+      "start_page": 131,
+      "end_page": 133,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.037.1",
+      "title": "Melaksanakan Optimasi Periklanan Konvensional",
+      "start_page": 134,
+      "end_page": 136,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.038.1",
+      "title": "Melaksanakan Optimasi Periklanan Digital",
+      "start_page": 137,
+      "end_page": 139,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.039.1",
+      "title": "Melaksanakan Monitoring Optimasi Periklanan",
+      "start_page": 140,
+      "end_page": 142,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.040.1",
+      "title": "Melaksanakan Evaluasi Optimasi Periklanan",
+      "start_page": 143,
+      "end_page": 145,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.041.1",
+      "title": "Melaksanakan Analisis Kebutuhan Klien",
+      "start_page": 146,
+      "end_page": 147,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.042.1",
+      "title": "Melakukan Integrasi Data",
+      "start_page": 148,
+      "end_page": 150,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.043.1",
+      "title": "Memberikan Pelayanan Data",
+      "start_page": 151,
+      "end_page": 153,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.044.1",
+      "title": "Menyusun Desain Riset",
+      "start_page": 154,
+      "end_page": 156,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.045.1",
+      "title": "Melaksanakan Riset",
+      "start_page": 157,
+      "end_page": 159,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.046.1",
+      "title": "Membuat Rencana Pengembangan Teknologi Pendukung Periklanan",
+      "start_page": 160,
+      "end_page": 162,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.047.1",
+      "title": "Melakukan Monitoring Pengembangan Teknologi Pendukung Periklanan",
+      "start_page": 163,
+      "end_page": 165,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.048.1",
+      "title": "Membangun Rancangan Customer Experience",
+      "start_page": 166,
+      "end_page": 168,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.049.1",
+      "title": "Merencanakan Strategi Personalisasi Customer Experience",
+      "start_page": 169,
+      "end_page": 171,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.050.1",
+      "title": "Menganalisis Data Konsumen",
+      "start_page": 172,
+      "end_page": 174,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.051.1",
+      "title": "Melakukan Optimalisasi Customer Experience",
+      "start_page": 175,
+      "end_page": 177,
+      "status": "ok"
+    },
+    {
+      "code": "M.73ADV00.052.1",
+      "title": "Mengevaluasi Program Customer Experience",
+      "start_page": 178,
+      "end_page": 181,
+      "status": "ok"
+    }
+  ]
+}

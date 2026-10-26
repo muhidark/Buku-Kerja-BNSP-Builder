@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block subjudul %}Ringkasan data dan status sistem{% endblock %}
+{% block konten %}
+<section class="cards">
+  {% set kartu = [
+    ('Dokumen SKKNI', data.stats.dokumen_skkni, 'Berkas PDF di data/pdf'),
+    ('Skema Sertifikasi', data.stats.skema_sertifikasi, 'Dokumen DOCX di data/skema'),
+    ('Unit Kompetensi', data.stats.unit_kompetensi, 'Unit dari JSON hasil ekstraksi'),
+    ('Dokumen Hasil', data.stats.hasil_ekstraksi, 'DOCX/PDF di folder output')
+  ] %}
+  {% for label, nilai, ket in kartu %}
+  <article class="card stat">
+    <span class="stat-label">{{ label }}</span>
+    <span class="stat-value">{{ nilai }}</span>
+    <span class="stat-note">{{ ket }}</span>
+  </article>
+  {% endfor %}
+</section>
+
+<section class="grid-2">
+  <article class="card">
+    <h2>Status Sistem</h2>
+    <ul class="status-list">
+      {% for s in data.sistem %}
+      <li>
+        <span class="status-name">{{ s.nama }}</span>
+        <span class="badge {{ 'badge-green' if s.status in ('aktif','siap') else 'badge-red' }}">{{ s.status }}</span>
+        <span class="status-detail">{{ s.detail }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </article>
+
+  <article class="card">
+    <h2>Status Modul Ekstraktor</h2>
+    <ul class="module-list">
+      {% for nama, ok in data.modul.items() %}
+      <li>
+        <code>{{ nama }}</code>
+        <span class="badge {{ 'badge-green' if ok else 'badge-red' }}">{{ 'tersedia' if ok else 'tidak tersedia' }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </article>
+</section>
+
+<article class="card">
+  <h2>Aktivitas</h2>
+  {% if data.aktivitas %}
+  <table class="table">
+    <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Ringkasan</th><th>Sumber</th></tr></thead>
+    <tbody>
+      {% for a in data.aktivitas %}
+      <tr>
+        <td class="nowrap">{{ a.waktu or '-' }}</td>
+        <td>{{ a.judul }}</td>
+        <td>{{ a.detail }}</td>
+        <td><code>{{ a.berkas }}</code></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">Riwayat aktivitas belum tersedia. Jalankan proses ekstraksi untuk menghasilkan data.</p>
+  {% endif %}
+</article>
+{% endblock %}

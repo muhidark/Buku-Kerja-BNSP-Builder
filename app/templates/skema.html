@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block subjudul %}Perpustakaan dokumen skema sertifikasi dan pencocokan unit{% endblock %}
+{% block konten %}
+
+{% if pesan %}
+<div class="alert alert-{{ tipe or 'info' }}">
+  <span>{{ pesan }}</span>
+  {% if doc_sorot %}<a href="/skema/{{ doc_sorot }}">Buka skema</a>{% endif %}
+</div>
+{% endif %}
+
+{% set total_unit = daftar|sum(attribute='jumlah_unit') %}
+
+<section class="cards cards-3">
+  <article class="card stat">
+    <span class="stat-label">Dokumen skema</span>
+    <span class="stat-value">{{ total_semua }}</span>
+    <span class="stat-note">Total DOCX yang dikelola</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Unit pada hasil tampil</span>
+    <span class="stat-value">{{ total_unit }}</span>
+    <span class="stat-note">{{ daftar|length }} skema</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Batas unggah</span>
+    <span class="stat-value stat-text">{{ batas_mb }} MB</span>
+    <span class="stat-note">Hanya .docx, divalidasi ZIP &amp; struktur</span>
+  </article>
+</section>
+
+<article class="card">
+  <h2>Unggah Skema Sertifikasi</h2>
+  <form class="upload" method="post" action="/skema/upload" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="file" name="berkas" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+    <button type="submit" class="btn">Unggah &amp; baca unit</button>
+  </form>
+  <p class="note">
+    Hanya format .docx (bukan .doc/.docm). Signature ZIP, struktur Word, ukuran isi arsip,
+    dan keberadaan makro diperiksa. Duplikat SHA-256 ditolak; nama asli hanya disimpan
+    sebagai metadata.
+  </p>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <h2>Daftar Skema</h2>
+    <form class="cari" method="get" action="/skema">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama skema atau berkas...">
+      <button type="submit" class="btn btn-ghost">Cari</button>
+      {% if q %}<a class="btn btn-ghost" href="/skema">Reset</a>{% endif %}
+    </form>
+  </div>
+
+  {% if daftar %}
+  <table class="table">
+    <thead>
+      <tr><th>No</th><th>Nama Skema</th><th>Jumlah Unit</th><th>Unit Ditemukan</th>
+          <th>Status</th><th>Tanggal</th><th></th></tr>
+    </thead>
+    <tbody>
+      {% for d in daftar %}
+      {% set ringkas = (d.hasil_pencocokan or {}).ringkasan or {} %}
+      <tr{% if d.id == doc_sorot %} class="is-sorot"{% endif %}>
+        <td>{{ loop.index }}</td>
+        <td>
+          {{ d.nama_skema or '(nama belum teridentifikasi)' }}
+          <div class="small muted">{{ d.nama_asli }}{% if d.jenis_skema %} · {{ d.jenis_skema }}{% endif %}</div>
+        </td>
+        <td class="num">{{ d.jumlah_unit or 0 }}</td>
+        <td class="num">{{ ringkas.ditemukan if ringkas else '-' }}</td>
+        <td>
+          {% if d.status_identifikasi == 'lengkap' and not ringkas %}
+            <span class="badge badge-green">terbaca</span>
+          {% elif ringkas and ringkas.tidak_ditemukan == 0 and ringkas.konflik == 0 %}
+            <span class="badge badge-green">lengkap</span>
+          {% elif ringkas %}
+            <span class="badge badge-amber">perlu verifikasi</span>
+          {% else %}
+            <span class="badge badge-amber">perlu verifikasi</span>
+          {% endif %}
+          {% if ringkas and ringkas.konflik %}<div class="small warn-text">{{ ringkas.konflik }} konflik</div>{% endif %}
+          {% if ringkas and ringkas.judul_berbeda %}<div class="small warn-text">{{ ringkas.judul_berbeda }} judul berbeda</div>{% endif %}
+        </td>
+        <td class="nowrap">{{ (d.tanggal_ditambah or '')[:16] }}</td>
+        <td><a class="btn btn-small" href="/skema/{{ d.id }}">Detail</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">
+    {% if q %}Tidak ada skema yang cocok dengan "{{ q }}".{% else %}
+    Belum ada dokumen skema. Unggah DOCX skema sertifikasi untuk memulai.{% endif %}
+  </p>
+  {% endif %}
+</article>
+{% endblock %}

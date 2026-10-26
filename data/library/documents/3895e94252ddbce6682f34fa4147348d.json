@@ -1,0 +1,284 @@
+{
+  "id": "3895e94252ddbce6682f34fa4147348d",
+  "nama_asli": "SKKNI 2018-107.pdf.pdf",
+  "nama_internal": "data/pdf/SKKNI 2018-107.pdf.pdf",
+  "sumber": "proyek",
+  "sha256": "b09b58735220f84ec101805372ac35e6350ee446bd61b55c0c9b6f4501d090ab",
+  "ukuran_byte": 1900415,
+  "nomor": "107",
+  "tahun": "2018",
+  "judul": "INFORMASI DAN KOMUNIKASI",
+  "halaman": 151,
+  "tanggal_ditambah": "2026-10-26T10:36:58",
+  "status_identifikasi": "lengkap",
+  "units": [
+    {
+      "nomor": 1,
+      "kode_unit": "J.59MTM00.001.1",
+      "judul_unit": "Menyusun Anggaran Proyek Multimedia",
+      "halaman_pdf_0based": 14,
+      "halaman_akhir_0based": 18,
+      "halaman_tampil": 15,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 2,
+      "kode_unit": "J.59MTM00.002.1",
+      "judul_unit": "Melakukan Riset Kreatif Multimedia",
+      "halaman_pdf_0based": 19,
+      "halaman_akhir_0based": 23,
+      "halaman_tampil": 20,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 3,
+      "kode_unit": "J.59MTM00.003.1",
+      "judul_unit": "Menyusun Proposal Proyek Multimedia",
+      "halaman_pdf_0based": 24,
+      "halaman_akhir_0based": 28,
+      "halaman_tampil": 25,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 4,
+      "kode_unit": "J.59MTM00.004.1",
+      "judul_unit": "Menyusun Creative Brief",
+      "halaman_pdf_0based": 29,
+      "halaman_akhir_0based": 32,
+      "halaman_tampil": 30,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 5,
+      "kode_unit": "J.59MTM00.005.1",
+      "judul_unit": "Menyusun Technical Brief",
+      "halaman_pdf_0based": 33,
+      "halaman_akhir_0based": 37,
+      "halaman_tampil": 34,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 6,
+      "kode_unit": "J.59MTM00.006.1",
+      "judul_unit": "Membuat Arahan Visual",
+      "halaman_pdf_0based": 38,
+      "halaman_akhir_0based": 42,
+      "halaman_tampil": 39,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 7,
+      "kode_unit": "J.59MTM00.007.1",
+      "judul_unit": "Mengevaluasi Output Visual",
+      "halaman_pdf_0based": 43,
+      "halaman_akhir_0based": 47,
+      "halaman_tampil": 44,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 8,
+      "kode_unit": "J.59MTM00.008.1",
+      "judul_unit": "Merencanakan Arahan Tampilan Pengguna (User Experience)",
+      "halaman_pdf_0based": 48,
+      "halaman_akhir_0based": 52,
+      "halaman_tampil": 49,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 9,
+      "kode_unit": "J.59MTM00.009.1",
+      "judul_unit": "Mengevaluasi Tampilan Pengguna (User Experience)",
+      "halaman_pdf_0based": 53,
+      "halaman_akhir_0based": 57,
+      "halaman_tampil": 54,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 10,
+      "kode_unit": "J.59MTM00.010.1",
+      "judul_unit": "Menterjemahkan Arah Visual ke Dalam Langkah Kerja",
+      "halaman_pdf_0based": 58,
+      "halaman_akhir_0based": 61,
+      "halaman_tampil": 59,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 11,
+      "kode_unit": "J.59MTM00.011.1",
+      "judul_unit": "Membuat Aset Visual Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+      "halaman_pdf_0based": 62,
+      "halaman_akhir_0based": 65,
+      "halaman_tampil": 63,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 12,
+      "kode_unit": "J.59MTM00.012.1",
+      "judul_unit": "Merencanakan Arah Kebutuhan Aset Audio",
+      "halaman_pdf_0based": 66,
+      "halaman_akhir_0based": 70,
+      "halaman_tampil": 67,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 13,
+      "kode_unit": "J.59MTM00.013.1",
+      "judul_unit": "Mengevaluasi Hasil Pembuatan Aset Audio",
+      "halaman_pdf_0based": 71,
+      "halaman_akhir_0based": 75,
+      "halaman_tampil": 72,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 14,
+      "kode_unit": "J.59MTM00.014.1",
+      "judul_unit": "Menterjemahkan Arah Audio Ke Dalam Langkah Kerja",
+      "halaman_pdf_0based": 76,
+      "halaman_akhir_0based": 80,
+      "halaman_tampil": 77,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 15,
+      "kode_unit": "J.59MTM00.015.1",
+      "judul_unit": "Membuat Aset Audio Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+      "halaman_pdf_0based": 81,
+      "halaman_akhir_0based": 84,
+      "halaman_tampil": 82,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 16,
+      "kode_unit": "J.59MTM00.016.1",
+      "judul_unit": "Merencanakan Arah Kebutuhan Teknik",
+      "halaman_pdf_0based": 85,
+      "halaman_akhir_0based": 89,
+      "halaman_tampil": 86,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 17,
+      "kode_unit": "J.59MTM00.017.1",
+      "judul_unit": "Menentukan Kebutuhan Asset Teknik",
+      "halaman_pdf_0based": 90,
+      "halaman_akhir_0based": 94,
+      "halaman_tampil": 91,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 18,
+      "kode_unit": "J.59MTM00.018.1",
+      "judul_unit": "Mengintegrasikan Seluruh Komponen Multimedia Terkait Audio dan Visual",
+      "halaman_pdf_0based": 95,
+      "halaman_akhir_0based": 99,
+      "halaman_tampil": 96,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 19,
+      "kode_unit": "J.59MTM00.019.1",
+      "judul_unit": "Mengevaluasi Hasil Pekerjaan Asset Teknis",
+      "halaman_pdf_0based": 100,
+      "halaman_akhir_0based": 104,
+      "halaman_tampil": 101,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 20,
+      "kode_unit": "J.59MTM00.020.1",
+      "judul_unit": "Menentukan Arah Kebutuhan Teknis ke dalam Langkah Kerja",
+      "halaman_pdf_0based": 105,
+      "halaman_akhir_0based": 108,
+      "halaman_tampil": 106,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 21,
+      "kode_unit": "J.59MTM00.021.1",
+      "judul_unit": "Membangun Sistem Aksesbilitas Pengguna Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+      "halaman_pdf_0based": 109,
+      "halaman_akhir_0based": 112,
+      "halaman_tampil": 110,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 22,
+      "kode_unit": "J.59MTM00.022.1",
+      "judul_unit": "Menerjemahkan Brief ke Dalam Langkah Kerja",
+      "halaman_pdf_0based": 113,
+      "halaman_akhir_0based": 116,
+      "halaman_tampil": 114,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 23,
+      "kode_unit": "J.59MTM00.023.1",
+      "judul_unit": "Membuat Pemrograman Interaktif Berdasarkan Langkah Kerja",
+      "halaman_pdf_0based": 117,
+      "halaman_akhir_0based": 120,
+      "halaman_tampil": 118,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 24,
+      "kode_unit": "J.59MTM00.024.1",
+      "judul_unit": "Mengelola Pekerjaan Pemrograman",
+      "halaman_pdf_0based": 121,
+      "halaman_akhir_0based": 125,
+      "halaman_tampil": 122,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 25,
+      "kode_unit": "J.59MTM00.025.1",
+      "judul_unit": "Mengevaluasi Hasil Program/Perangkat Lunak dan User Experience (UX)",
+      "halaman_pdf_0based": 126,
+      "halaman_akhir_0based": 130,
+      "halaman_tampil": 127,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 26,
+      "kode_unit": "J.59MTM00.026.1",
+      "judul_unit": "Memvalidasi Hasil Evaluasi Program/Perangkat Lunak Sesuai Dengan Brief",
+      "halaman_pdf_0based": 131,
+      "halaman_akhir_0based": 134,
+      "halaman_tampil": 132,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 27,
+      "kode_unit": "J.59MTM00.027.1",
+      "judul_unit": "Mengumpulkan Asset Multimedia",
+      "halaman_pdf_0based": 135,
+      "halaman_akhir_0based": 139,
+      "halaman_tampil": 136,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 28,
+      "kode_unit": "J.59MTM00.028.1",
+      "judul_unit": "Membuat Data based Multimedia",
+      "halaman_pdf_0based": 140,
+      "halaman_akhir_0based": 144,
+      "halaman_tampil": 141,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 29,
+      "kode_unit": "J.59MTM00.029.1",
+      "judul_unit": "Mendistribusikan Asset Multimedia",
+      "halaman_pdf_0based": 145,
+      "halaman_akhir_0based": 150,
+      "halaman_tampil": 146,
+      "status": "teridentifikasi"
+    }
+  ],
+  "jumlah_unit": 29,
+  "jumlah_unit_teridentifikasi": 29,
+  "jumlah_unit_perlu_verifikasi": 0,
+  "validasi_kelengkapan": null,
+  "diperbarui": "2026-10-26T11:06:46",
+  "pesan_identifikasi": null,
+  "identifikasi_pada": "2026-10-26T11:06:46"
+}

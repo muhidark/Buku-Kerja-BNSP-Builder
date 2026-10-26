@@ -1,0 +1,524 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.017.3",
+    "rentang_halaman_pdf": [
+      46,
+      47
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.017.3",
+  "judul_unit": "Menentukan Komposisi Pengambilan Gambar",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam memilih posisi objek utama dan elemen pendukung dalam bidang gambar.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Menetapkan posisi objek utama",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Objek utama dipilih sesuai dengan tujuan pengambilan gambar.",
+          "halaman_pdf": 46,
+          "teks_mentah": "Objek utama dipilih sesuai dengan tujuan pengambilan gambar."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Posisi objek utama terhadap elemen pendukung dipilih sesuai kebutuhan pengambilan gambar.",
+          "halaman_pdf": 46,
+          "teks_mentah": "Posisi objek utama terhadap elemen pendukung dipilih sesuai kebutuhan pengambilan gambar."
+        }
+      ],
+      "halaman_pdf": 46,
+      "teks_mentah": "1. Menetapkan posisi\nobjek utama"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menata elemen pendukung yang diperlukan",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Elemen pendukung objek diidentifikasi sesuai prosedur pengambilan gambar.",
+          "halaman_pdf": 46,
+          "teks_mentah": "Elemen pendukung objek diidentifikasi sesuai prosedur pengambilan gambar."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Elemen pendukung dipilih sesuai dengan tujuan pengambilan gambar.",
+          "halaman_pdf": 46,
+          "teks_mentah": "Elemen pendukung dipilih sesuai dengan tujuan pengambilan gambar."
+        }
+      ],
+      "halaman_pdf": 46,
+      "teks_mentah": "2. Menata elemen\npendukung yang\ndiperlukan"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"BATASAN VARIABEL\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 46,
+    "halaman_akhir": 47,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 17,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1.4",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": null,
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": false,
+        "judul": "- 48 -",
+        "teks": "- 48 -",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          35.97596740722656,
+          325.989990234375,
+          63.79201126098633
+        ],
+        "teks_mentah": "- 48 -",
+        "items": []
+      },
+      {
+        "nomor": "1.4",
+        "level": 2,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "teks": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          507.6100158691406
+        ],
+        "teks_mentah": "1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes\nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi,\nverifikasi bukti/portofolio, dan wawancara serta metode lain yang\nrelevan.",
+        "items": []
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi (Tidak ada.)",
+        "teks": "Persyaratan kompetensi (Tidak ada.)",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          507.6100158691406
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi\n(Tidak ada.)",
+        "items": []
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          507.6100158691406
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Istilah komposisi dalam teknis Fotografi",
+                "teks": "Istilah komposisi dalam teknis Fotografi",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.1.1 Istilah komposisi dalam teknis Fotografi",
+                "items": []
+              },
+              {
+                "nomor": "3.1.2",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Jenis-jenis komposisi",
+                "teks": "Jenis-jenis komposisi",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.1.2 Jenis-jenis komposisi",
+                "items": []
+              },
+              {
+                "nomor": "3.1.3",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Karakter objek utama dan elemen pendukung",
+                "teks": "Karakter objek utama dan elemen pendukung",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.1.3 Karakter objek utama dan elemen pendukung",
+                "items": []
+              },
+              {
+                "nomor": "3.1.4",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Pembagian bidang dalam teknis pengambilan gambar",
+                "teks": "Pembagian bidang dalam teknis pengambilan gambar",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.1.4 Pembagian bidang dalam teknis pengambilan gambar",
+                "items": []
+              },
+              {
+                "nomor": "3.1.5",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Makna komposisi dalam Fotografi",
+                "teks": "Makna komposisi dalam Fotografi",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.1.5 Makna komposisi dalam Fotografi",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Menata objek utama dan elemen pendukung sesuai kebutuhan pengambilan gambar",
+                "teks": "Menata objek utama dan elemen pendukung sesuai kebutuhan pengambilan gambar",
+                "halaman_pdf": 47,
+                "halaman_akhir": 47,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  507.6100158691406
+                ],
+                "teks_mentah": "3.2.1 Menata objek utama dan elemen pendukung  sesuai kebutuhan\npengambilan gambar",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          507.6100158691406
+        ],
+        "teks_mentah": "4. Sikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Cermat dan teliti dalam menentukan, menata objek utama dan elemen pendukung",
+            "teks": "Cermat dan teliti dalam menentukan, menata objek utama dan elemen pendukung",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "4.1 Cermat dan teliti dalam menentukan, menata objek utama dan elemen\npendukung",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Teliti dalam mengatur keseimbangan objek utama dan elemen pendukung dalam bidang gambar",
+            "teks": "Teliti dalam mengatur keseimbangan objek utama dan elemen pendukung dalam bidang gambar",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "4.2 Teliti dalam mengatur keseimbangan objek utama dan elemen\npendukung dalam bidang gambar",
+            "items": []
+          },
+          {
+            "nomor": "4.3",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Peka dalam memilih objek utama dan elemen pendukung pengambilan gambar",
+            "teks": "Peka dalam memilih objek utama dan elemen pendukung pengambilan gambar",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "4.3 Peka dalam memilih objek utama dan elemen pendukung pengambilan\ngambar",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 47,
+        "halaman_akhir": 47,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          507.6100158691406
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Ketepatan dalam memilih posisi objek utama terhadap elemen pendukung sesuai kebutuhan pengambilan gambar",
+            "teks": "Ketepatan dalam memilih posisi objek utama terhadap elemen pendukung sesuai kebutuhan pengambilan gambar",
+            "halaman_pdf": 47,
+            "halaman_akhir": 47,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              507.6100158691406
+            ],
+            "teks_mentah": "5.1 Ketepatan dalam memilih posisi objek utama terhadap elemen\npendukung sesuai kebutuhan pengambilan gambar",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [
+      "Nomor 1.4 (level 2) muncul tanpa induk"
+    ],
+    "teks_mentah": "- 48 -\n1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes \nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, \nverifikasi bukti/portofolio, dan wawancara serta metode lain yang \nrelevan. \n2. Persyaratan kompetensi \n(Tidak ada.) \n3. Pengetahuan dan keterampilan yang diperlukan \n3.1 Pengetahuan \n3.1.1 Istilah komposisi dalam teknis Fotografi \n3.1.2 Jenis-jenis komposisi \n3.1.3 Karakter objek utama dan elemen pendukung \n3.1.4 Pembagian bidang dalam teknis pengambilan gambar \n3.1.5 Makna komposisi dalam Fotografi \n3.2 Keterampilan \n3.2.1 Menata objek utama dan elemen pendukung  sesuai kebutuhan \npengambilan gambar \n4. Sikap kerja yang diperlukan \n4.1 Cermat dan teliti dalam menentukan, menata objek utama dan elemen \npendukung \n4.2 Teliti dalam mengatur keseimbangan objek utama dan elemen \npendukung dalam bidang gambar \n4.3 Peka dalam memilih objek utama dan elemen pendukung pengambilan \ngambar \n5. Aspek kritis \n5.1 Ketepatan dalam memilih posisi objek utama terhadap elemen \npendukung sesuai kebutuhan pengambilan gambar"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 17,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1.4",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 247.97,
+    "x1_maks_kolom_kiri": 240.52999877929688,
+    "x0_min_kolom_kanan": 318.9100036621094,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      92.90399932861328,
+      188.15602111816406,
+      240.52999877929688,
+      202.13601684570312
+    ],
+    "header_kuk_bbox": [
+      318.9100036621094,
+      188.15602111816406,
+      482.6199951171875,
+      202.13601684570312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "BATASAN VARIABEL tidak ditemukan; tabel diambil sampai akhir halaman",
+      "Batas kolom (76.8) tidak melewati tepi kanan header ELEMEN (240.5)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: heading tidak ditemukan",
+      "PANDUAN PENILAIAN: penomoran tidak berurutan di bawah root: ['1.4', '2', '3', '4', '5'] (diharapkan ['1', '2', '3', '4', '5'])",
+      "PANDUAN PENILAIAN: kelompok tidak dimulai dari nomor 1 (mulai 1.4)",
+      "PANDUAN PENILAIAN: penomoran tidak dimulai dari 1 (mulai 1.4)"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

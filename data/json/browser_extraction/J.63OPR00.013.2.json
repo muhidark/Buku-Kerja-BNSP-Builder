@@ -1,0 +1,1301 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+    "kode_unit": "J.63OPR00.013.2",
+    "rentang_halaman_pdf": [
+      54,
+      57
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.0
+  },
+  "kode_unit": "J.63OPR00.013.2",
+  "judul_unit": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap yang dibutuhkan untuk mengukur kemampuan dalam mengklasifikasikan dan mengalokasikan kebutuhan perangkat lunak tingkat lanjut.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Menggunakan tabel dalam slide",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Tabel dibuat dari menu yang tersedia dengan perangkat lunak presentasi.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.2499084472656,
+            311.9300231933594,
+            532.4201049804688,
+            463.1498107910156
+          ],
+          "teks_mentah": "1.1 Tabel dibuat dari menu yang tersedia \ndengan perangkat lunak presentasi. \n1.2 Banyaknya kolom dan baris dipilih \nsesuai kebutuhan pengguna. \n1.3 Kolom \ndan \nbaris \ndihapus \nsesuai \nkebutuhan pengguna. \n1.4 Kolom dan baris disisipkan sesuai \nkebutuhan pengguna. \n1.5 Tinggi dan lebar kolom dimodifikasi \nsesuai kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Banyaknya kolom dan baris dipilih sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.2499084472656,
+            311.9300231933594,
+            532.4201049804688,
+            463.1498107910156
+          ],
+          "teks_mentah": "1.1 Tabel dibuat dari menu yang tersedia \ndengan perangkat lunak presentasi. \n1.2 Banyaknya kolom dan baris dipilih \nsesuai kebutuhan pengguna. \n1.3 Kolom \ndan \nbaris \ndihapus \nsesuai \nkebutuhan pengguna. \n1.4 Kolom dan baris disisipkan sesuai \nkebutuhan pengguna. \n1.5 Tinggi dan lebar kolom dimodifikasi \nsesuai kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Kolom dan baris dihapus sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.2499084472656,
+            311.9300231933594,
+            532.4201049804688,
+            463.1498107910156
+          ],
+          "teks_mentah": "1.1 Tabel dibuat dari menu yang tersedia \ndengan perangkat lunak presentasi. \n1.2 Banyaknya kolom dan baris dipilih \nsesuai kebutuhan pengguna. \n1.3 Kolom \ndan \nbaris \ndihapus \nsesuai \nkebutuhan pengguna. \n1.4 Kolom dan baris disisipkan sesuai \nkebutuhan pengguna. \n1.5 Tinggi dan lebar kolom dimodifikasi \nsesuai kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "1.4",
+          "uraian_kuk": "Kolom dan baris disisipkan sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.2499084472656,
+            311.9300231933594,
+            532.4201049804688,
+            463.1498107910156
+          ],
+          "teks_mentah": "1.1 Tabel dibuat dari menu yang tersedia \ndengan perangkat lunak presentasi. \n1.2 Banyaknya kolom dan baris dipilih \nsesuai kebutuhan pengguna. \n1.3 Kolom \ndan \nbaris \ndihapus \nsesuai \nkebutuhan pengguna. \n1.4 Kolom dan baris disisipkan sesuai \nkebutuhan pengguna. \n1.5 Tinggi dan lebar kolom dimodifikasi \nsesuai kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "1.5",
+          "uraian_kuk": "Tinggi dan lebar kolom dimodifikasi sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.2499084472656,
+            311.9300231933594,
+            532.4201049804688,
+            463.1498107910156
+          ],
+          "teks_mentah": "1.1 Tabel dibuat dari menu yang tersedia \ndengan perangkat lunak presentasi. \n1.2 Banyaknya kolom dan baris dipilih \nsesuai kebutuhan pengguna. \n1.3 Kolom \ndan \nbaris \ndihapus \nsesuai \nkebutuhan pengguna. \n1.4 Kolom dan baris disisipkan sesuai \nkebutuhan pengguna. \n1.5 Tinggi dan lebar kolom dimodifikasi \nsesuai kebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 54,
+      "bbox": [
+        93.14409637451172,
+        311.9300231933594,
+        261.0500793457031,
+        338.4618225097656
+      ],
+      "teks_mentah": "1. Menggunakan \ntabel \ndalam slide"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menggunakan grafik (charts) dalam slide",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Grafik dibuat dengan input data dari file lain.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Bentuk grafik dipilih dari menu yang tersedia.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.3",
+          "uraian_kuk": "Bentuk grafik diubah sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.4",
+          "uraian_kuk": "Judul grafik dibuat sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.5",
+          "uraian_kuk": "Judul grafik diubah sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.6",
+          "uraian_kuk": "Label data dari grafik dibuat sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "2.7",
+          "uraian_kuk": "Background warna dimodifikasi sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            471.54998779296875,
+            532.4212036132812,
+            685.1797485351562
+          ],
+          "teks_mentah": "2.1 Grafik dibuat dengan input data dari \nfile lain. \n2.2 Bentuk grafik dipilih dari menu yang \ntersedia. \n2.3 Bentuk \ngrafik \ndiubah \nsesuai \nkebutuhan pengguna. \n2.4 Judul grafik dibuat sesuai kebutuhan \npengguna. \n2.5 Judul grafik diubah sesuai kebutuhan \npengguna. \n2.6 Label data dari grafik dibuat sesuai \nkebutuhan pengguna. \n2.7 Background warna dimodifikasi sesuai \nkebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 54,
+      "bbox": [
+        93.14409637451172,
+        471.54998779296875,
+        261.0500793457031,
+        498.0821838378906
+      ],
+      "teks_mentah": "2. Menggunakan \ngrafik \n(charts) dalam slide"
+    },
+    {
+      "nomor_elemen": "3",
+      "nama_elemen": "Menampilkan slide dengan animasi",
+      "kuk": [
+        {
+          "nomor_kuk": "3.1",
+          "uraian_kuk": "Animasi dipilih dari fasilitas yang tersedia.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            693.5800170898438,
+            532.4080810546875,
+            768.3400268554688
+          ],
+          "teks_mentah": "3.1 Animasi dipilih dari fasilitas yang \ntersedia. \n3.2 Waktu untuk animasi diatur sesuai \nkebutuhan pengguna. \n3.3 Urutan animasinya diubah."
+        },
+        {
+          "nomor_kuk": "3.2",
+          "uraian_kuk": "Waktu untuk animasi diatur sesuai kebutuhan pengguna.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            693.5800170898438,
+            532.4080810546875,
+            768.3400268554688
+          ],
+          "teks_mentah": "3.1 Animasi dipilih dari fasilitas yang \ntersedia. \n3.2 Waktu untuk animasi diatur sesuai \nkebutuhan pengguna. \n3.3 Urutan animasinya diubah."
+        },
+        {
+          "nomor_kuk": "3.3",
+          "uraian_kuk": "Urutan animasinya diubah.",
+          "halaman_pdf": 54,
+          "bbox": [
+            268.25,
+            693.5800170898438,
+            532.4080810546875,
+            768.3400268554688
+          ],
+          "teks_mentah": "3.1 Animasi dipilih dari fasilitas yang \ntersedia. \n3.2 Waktu untuk animasi diatur sesuai \nkebutuhan pengguna. \n3.3 Urutan animasinya diubah."
+        }
+      ],
+      "halaman_pdf": 54,
+      "bbox": [
+        93.14409637451172,
+        693.5800170898438,
+        261.28985595703125,
+        720.0997924804688
+      ],
+      "teks_mentah": "3. Menampilkan \nslide \ndengan animasi"
+    },
+    {
+      "nomor_elemen": "4",
+      "nama_elemen": "Melengkapi slide dengan fitur tambahan.",
+      "kuk": [
+        {
+          "nomor_kuk": "4.1",
+          "uraian_kuk": "Slide dilengkapi dengan hyperlinks.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            100.69998931884766,
+            532.4202270507812,
+            144.2599334716797
+          ],
+          "teks_mentah": "4.1 Slide dilengkapi dengan hyperlinks. \n4.2 Slide \nditampilkan \ndengan \nfasilitas \nview modes."
+        },
+        {
+          "nomor_kuk": "4.2",
+          "uraian_kuk": "Slide ditampilkan dengan fasilitas view modes.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            100.69998931884766,
+            532.4202270507812,
+            144.2599334716797
+          ],
+          "teks_mentah": "4.1 Slide dilengkapi dengan hyperlinks. \n4.2 Slide \nditampilkan \ndengan \nfasilitas \nview modes."
+        }
+      ],
+      "halaman_pdf": 55,
+      "bbox": [
+        93.14409637451172,
+        100.81998443603516,
+        261.28985595703125,
+        127.34020233154297
+      ],
+      "teks_mentah": "4. Melengkapi \nslide \ndengan fitur tambahan."
+    },
+    {
+      "nomor_elemen": "5",
+      "nama_elemen": "Merancang template presentasi",
+      "kuk": [
+        {
+          "nomor_kuk": "5.1",
+          "uraian_kuk": "View modes dipilih sesuai kebutuhan pengguna.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            152.89999389648438,
+            532.4083251953125,
+            241.69981384277344
+          ],
+          "teks_mentah": "5.1 View modes dipilih sesuai kebutuhan \npengguna. \n5.2 Posisi elemen template ditentukan \nsesuai dengan rancangan. \n5.3 Template diimplementasikan sesuai \ndengan kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "5.2",
+          "uraian_kuk": "Posisi elemen template ditentukan sesuai dengan rancangan.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            152.89999389648438,
+            532.4083251953125,
+            241.69981384277344
+          ],
+          "teks_mentah": "5.1 View modes dipilih sesuai kebutuhan \npengguna. \n5.2 Posisi elemen template ditentukan \nsesuai dengan rancangan. \n5.3 Template diimplementasikan sesuai \ndengan kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "5.3",
+          "uraian_kuk": "Template diimplementasikan sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            152.89999389648438,
+            532.4083251953125,
+            241.69981384277344
+          ],
+          "teks_mentah": "5.1 View modes dipilih sesuai kebutuhan \npengguna. \n5.2 Posisi elemen template ditentukan \nsesuai dengan rancangan. \n5.3 Template diimplementasikan sesuai \ndengan kebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 55,
+      "bbox": [
+        93.14409637451172,
+        152.89999389648438,
+        261.2899475097656,
+        179.29978942871094
+      ],
+      "teks_mentah": "5. Merancang \ntemplate \npresentasi"
+    },
+    {
+      "nomor_elemen": "6",
+      "nama_elemen": "Mengelola objek",
+      "kuk": [
+        {
+          "nomor_kuk": "6.1",
+          "uraian_kuk": "Objek diidentifikasi.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            250.24996948242188,
+            532.3418579101562,
+            324.8900146484375
+          ],
+          "teks_mentah": "6.1 Objek diidentifikasi. \n6.2 Slide dilengkapi dengan fasilitas video \ndan audio. \n6.3 Slide \ndapat \ndibuat \nvideo \nsecara \notomatis. "
+        },
+        {
+          "nomor_kuk": "6.2",
+          "uraian_kuk": "Slide dilengkapi dengan fasilitas video dan audio.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            250.24996948242188,
+            532.3418579101562,
+            324.8900146484375
+          ],
+          "teks_mentah": "6.1 Objek diidentifikasi. \n6.2 Slide dilengkapi dengan fasilitas video \ndan audio. \n6.3 Slide \ndapat \ndibuat \nvideo \nsecara \notomatis. "
+        },
+        {
+          "nomor_kuk": "6.3",
+          "uraian_kuk": "Slide dapat dibuat video secara otomatis.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.25,
+            250.24996948242188,
+            532.3418579101562,
+            324.8900146484375
+          ],
+          "teks_mentah": "6.1 Objek diidentifikasi. \n6.2 Slide dilengkapi dengan fasilitas video \ndan audio. \n6.3 Slide \ndapat \ndibuat \nvideo \nsecara \notomatis. "
+        }
+      ],
+      "halaman_pdf": 55,
+      "bbox": [
+        93.14409637451172,
+        250.24996948242188,
+        212.32984924316406,
+        262.6099853515625
+      ],
+      "teks_mentah": "6. Mengelola objek "
+    },
+    {
+      "nomor_elemen": "7",
+      "nama_elemen": "Menyesuaikan jenis berkas slide",
+      "kuk": [
+        {
+          "nomor_kuk": "7.1",
+          "uraian_kuk": "Fitur ekspor diimplementasikan sesuai format fitur tersebut.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.9700012207031,
+            333.4100036621094,
+            532.4081420898438,
+            436.3900451660156
+          ],
+          "teks_mentah": "7.1 Fitur ekspor diimplementasikan sesuai \nformat fitur tersebut. \n7.2 Fitur import/insert diimplementasikan \nsesuai format fitur tersebut \n7.3 Berkas \natau \nslide \nlainnya \ndiintegrasikan \nsesuai \ndengan \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "7.2",
+          "uraian_kuk": "Fitur import/insert diimplementasikan sesuai format fitur tersebut",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.9700012207031,
+            333.4100036621094,
+            532.4081420898438,
+            436.3900451660156
+          ],
+          "teks_mentah": "7.1 Fitur ekspor diimplementasikan sesuai \nformat fitur tersebut. \n7.2 Fitur import/insert diimplementasikan \nsesuai format fitur tersebut \n7.3 Berkas \natau \nslide \nlainnya \ndiintegrasikan \nsesuai \ndengan \nkebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "7.3",
+          "uraian_kuk": "Berkas atau slide lainnya diintegrasikan sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 55,
+          "bbox": [
+            268.9700012207031,
+            333.4100036621094,
+            532.4081420898438,
+            436.3900451660156
+          ],
+          "teks_mentah": "7.1 Fitur ekspor diimplementasikan sesuai \nformat fitur tersebut. \n7.2 Fitur import/insert diimplementasikan \nsesuai format fitur tersebut \n7.3 Berkas \natau \nslide \nlainnya \ndiintegrasikan \nsesuai \ndengan \nkebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 55,
+      "bbox": [
+        93.14409637451172,
+        333.4100036621094,
+        261.23614501953125,
+        359.8215026855469
+      ],
+      "teks_mentah": "7. Menyesuaikan \njenis \nberkas slide"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 55,
+    "halaman_akhir": 56,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 15,
+      "jumlah_paragraf_tanpa_nomor": 2,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks variabel",
+        "teks": "Konteks variabel",
+        "halaman_pdf": 55,
+        "halaman_akhir": 55,
+        "bbox": [
+          86.42379760742188,
+          484.8699035644531,
+          210.77008056640625,
+          497.22991943359375
+        ],
+        "teks_mentah": "1. Konteks variabel",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Perangkat lunak presentasi adalah aplikasi komputer yang digunakan untuk membuat file presentasi seperti power point, google slide.",
+            "teks": "Perangkat lunak presentasi adalah aplikasi komputer yang digunakan untuk membuat file presentasi seperti power point, google slide.",
+            "halaman_pdf": 55,
+            "halaman_akhir": 55,
+            "bbox": [
+              107.66018676757812,
+              505.9898376464844,
+              543.885986328125,
+              518.3499755859375
+            ],
+            "teks_mentah": "1.1 Perangkat lunak presentasi adalah aplikasi komputer yang\ndigunakan untuk membuat file presentasi seperti power point,\ngoogle slide.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Animasi adalah gambar begerak berbentuk dari sekumpulan objek (gambar) yang disusun secara beraturan mengikuti alur pergerakan yang telah ditentukan pada setiap pertambahan hitungan waktu yang terjadi yang animasi dalam hal ini adalah transisi antar slide.",
+            "teks": "Animasi adalah gambar begerak berbentuk dari sekumpulan objek (gambar) yang disusun secara beraturan mengikuti alur pergerakan yang telah ditentukan pada setiap pertambahan hitungan waktu yang terjadi yang animasi dalam hal ini adalah transisi antar slide.",
+            "halaman_pdf": 55,
+            "halaman_akhir": 55,
+            "bbox": [
+              107.6600112915039,
+              569.3489990234375,
+              543.8297729492188,
+              581.7100219726562
+            ],
+            "teks_mentah": "1.2 Animasi adalah gambar begerak berbentuk dari sekumpulan objek\n(gambar) yang disusun secara beraturan mengikuti alur pergerakan\nyang telah ditentukan pada setiap pertambahan hitungan waktu\nyang terjadi yang animasi dalam hal ini adalah transisi antar slide.",
+            "items": []
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Hyperlinks digunakan untuk menghubungkan kepada slide yang lain atau file lain, seperti e-mail, alamat internet.",
+            "teks": "Hyperlinks digunakan untuk menghubungkan kepada slide yang lain atau file lain, seperti e-mail, alamat internet.",
+            "halaman_pdf": 55,
+            "halaman_akhir": 55,
+            "bbox": [
+              107.66000366210938,
+              653.980224609375,
+              543.9400634765625,
+              666.3521728515625
+            ],
+            "teks_mentah": "1.3 Hyperlinks digunakan untuk menghubungkan kepada slide yang\nlain atau file lain, seperti e-mail, alamat internet.",
+            "items": []
+          },
+          {
+            "nomor": "1.4",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "View modes, seperti normal view, slide sorter, slide master, view outline, handout master.",
+            "teks": "View modes, seperti normal view, slide sorter, slide master, view outline, handout master.",
+            "halaman_pdf": 55,
+            "halaman_akhir": 55,
+            "bbox": [
+              107.659912109375,
+              696.2200317382812,
+              543.6390380859375,
+              708.5919799804688
+            ],
+            "teks_mentah": "1.4 View modes, seperti normal view, slide sorter, slide master, view\noutline, handout master.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peralatan dan perlengkapan",
+        "teks": "Peralatan dan perlengkapan",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.42379760742188,
+          73.69998931884766,
+          278.6903076171875,
+          86.05998992919922
+        ],
+        "teks_mentah": "2. Peralatan dan perlengkapan",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Peralatan",
+            "teks": "Peralatan",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              109.33985900878906,
+              94.81986236572266,
+              197.09002685546875,
+              107.17986297607422
+            ],
+            "teks_mentah": "2.1 Peralatan",
+            "items": [
+              {
+                "nomor": "2.1.1",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Perangkat komputer dan kelengkapannya atau mesin sejenis",
+                "teks": "Perangkat komputer dan kelengkapannya atau mesin sejenis",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  137.3000030517578,
+                  115.93973541259766,
+                  541.4197387695312,
+                  128.2997283935547
+                ],
+                "teks_mentah": "2.1.1 Perangkat komputer dan kelengkapannya atau mesin sejenis",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "2.2",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Perlengkapan",
+            "teks": "Perlengkapan",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              109.33992004394531,
+              137.05960083007812,
+              221.09007263183594,
+              149.4196014404297
+            ],
+            "teks_mentah": "2.2 Perlengkapan",
+            "items": [
+              {
+                "nomor": "2.2.1",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Dokumen Scope of Work (SOW)",
+                "teks": "Dokumen Scope of Work (SOW)",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  137.30006408691406,
+                  158.17947387695312,
+                  364.0298767089844,
+                  170.55148315429688
+                ],
+                "teks_mentah": "2.2.1 Dokumen Scope of Work (SOW)",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peraturan yang diperlukan",
+        "teks": "Peraturan yang diperlukan",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.42379760742188,
+          200.53915405273438,
+          270.0500793457031,
+          212.89915466308594
+        ],
+        "teks_mentah": "3. Peraturan yang diperlukan",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": false,
+            "judul": "(Tidak ada.)",
+            "teks": "(Tidak ada.)",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              108.02008056640625,
+              222.66746520996094,
+              180.98001098632812,
+              234.0194549560547
+            ],
+            "teks_mentah": "(Tidak ada.)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Norma dan standar",
+        "teks": "Norma dan standar",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.42401123046875,
+          263.9293518066406,
+          226.13088989257812,
+          276.28936767578125
+        ],
+        "teks_mentah": "4. Norma dan standar",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Norma",
+            "teks": "Norma",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.78111267089844,
+              285.0492248535156,
+              179.06101989746094,
+              297.40924072265625
+            ],
+            "teks_mentah": "4.1 Norma",
+            "items": [
+              {
+                "nomor": null,
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": false,
+                "judul": "(Tidak ada.)",
+                "teks": "(Tidak ada.)",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  136.10101318359375,
+                  307.1770935058594,
+                  209.09103393554688,
+                  318.52911376953125
+                ],
+                "teks_mentah": "(Tidak ada.)",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Standar",
+            "teks": "Standar",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.78111267089844,
+              327.2889709472656,
+              186.98101806640625,
+              339.64898681640625
+            ],
+            "teks_mentah": "4.2 Standar",
+            "items": [
+              {
+                "nomor": "4.2.1",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "SNI Open Dokumen Format Nomor ISO/IEC 26300:2011",
+                "teks": "SNI Open Dokumen Format Nomor ISO/IEC 26300:2011",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  136.34085083007812,
+                  348.4092712402344,
+                  515.739990234375,
+                  360.7812805175781
+                ],
+                "teks_mentah": "4.2.1 SNI Open Dokumen Format Nomor ISO/IEC 26300:2011",
+                "items": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. Konteks variabel\n1.1 Perangkat lunak presentasi adalah aplikasi komputer yang\ndigunakan untuk membuat file presentasi seperti power point,\ngoogle slide.\n1.2 Animasi adalah gambar begerak berbentuk dari sekumpulan objek\n(gambar) yang disusun secara beraturan mengikuti alur pergerakan\nyang telah ditentukan pada setiap pertambahan hitungan waktu\nyang terjadi yang animasi dalam hal ini adalah transisi antar slide.\n1.3 Hyperlinks digunakan untuk menghubungkan kepada slide yang\nlain atau file lain, seperti e-mail, alamat internet.\n1.4 View modes, seperti normal view, slide sorter, slide master, view\noutline, handout master.\n2. Peralatan dan perlengkapan\n2.1 Peralatan\n2.1.1 Perangkat komputer dan kelengkapannya atau mesin sejenis\n2.2 Perlengkapan\n2.2.1 Dokumen Scope of Work (SOW)\n3. Peraturan yang diperlukan\n(Tidak ada.)\n4. Norma dan standar\n4.1 Norma\n(Tidak ada.)\n4.2 Standar\n4.2.1 SNI Open Dokumen Format Nomor ISO/IEC 26300:2011"
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 56,
+    "halaman_akhir": 57,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 19,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks penilaian",
+        "teks": "Konteks penilaian",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.90399932861328,
+          411.7688293457031,
+          217.7300262451172,
+          424.12884521484375
+        ],
+        "teks_mentah": "1. Konteks penilaian",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Kompetensi ini diujikan secara tertulis dan praktek di tempat kerja atau tempat lain yang memungkinkan untuk dilakukan penilaian.",
+            "teks": "Kompetensi ini diujikan secara tertulis dan praktek di tempat kerja atau tempat lain yang memungkinkan untuk dilakukan penilaian.",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.66033935546875,
+              432.9090270996094,
+              543.9402465820312,
+              445.26904296875
+            ],
+            "teks_mentah": "1.1 Kompetensi ini diujikan secara tertulis dan praktek di tempat kerja\natau tempat lain yang memungkinkan untuk dilakukan penilaian.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Untuk UK ini, kepada operator perangkat lunak diberikan studi kasus/permasalahan untuk membuat presentasi dengan perangkat lunak presentasi tertentu.",
+            "teks": "Untuk UK ini, kepada operator perangkat lunak diberikan studi kasus/permasalahan untuk membuat presentasi dengan perangkat lunak presentasi tertentu.",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.65994262695312,
+              475.26873779296875,
+              543.9398803710938,
+              487.6287536621094
+            ],
+            "teks_mentah": "1.2 Untuk UK ini, kepada operator perangkat lunak diberikan studi\nkasus/permasalahan untuk membuat presentasi dengan perangkat\nlunak presentasi tertentu.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi",
+        "teks": "Persyaratan kompetensi",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.90396881103516,
+          559.748779296875,
+          253.49014282226562,
+          572.1087646484375
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "J.63OPR00.006.2 Menggunakan Perangkat Lunak Presentasi Tingkat Dasar",
+            "teks": "J.63OPR00.006.2 Menggunakan Perangkat Lunak Presentasi Tingkat Dasar",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              108.02000427246094,
+              580.86865234375,
+              543.8538208007812,
+              593.2286376953125
+            ],
+            "teks_mentah": "2.1 J.63OPR00.006.2\nMenggunakan\nPerangkat\nLunak\nPresentasi\nTingkat Dasar",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 56,
+        "halaman_akhir": 56,
+        "bbox": [
+          86.9040756225586,
+          644.2589111328125,
+          395.5903625488281,
+          656.618896484375
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.78036499023438,
+              665.3787841796875,
+              216.6504364013672,
+              677.73876953125
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Proses pembuatan perangkat lunak presentasi",
+                "teks": "Proses pembuatan perangkat lunak presentasi",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  135.9803466796875,
+                  686.4990844726562,
+                  456.2196960449219,
+                  698.8590698242188
+                ],
+                "teks_mentah": "3.1.1 Proses pembuatan perangkat lunak presentasi",
+                "items": []
+              },
+              {
+                "nomor": "3.1.2",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Teknik-teknik design dan animasi perangkat lunak presentasi",
+                "teks": "Teknik-teknik design dan animasi perangkat lunak presentasi",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  135.97988891601562,
+                  707.6190185546875,
+                  543.9398803710938,
+                  719.990966796875
+                ],
+                "teks_mentah": "3.1.2 Teknik-teknik\ndesign\ndan\nanimasi\nperangkat\nlunak\npresentasi",
+                "items": []
+              },
+              {
+                "nomor": "3.1.3",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Standar design dan animasi perangkat lunak presentasi",
+                "teks": "Standar design dan animasi perangkat lunak presentasi",
+                "halaman_pdf": 56,
+                "halaman_akhir": 56,
+                "bbox": [
+                  135.9798583984375,
+                  749.978271484375,
+                  512.8603515625,
+                  762.3502197265625
+                ],
+                "teks_mentah": "3.1.3 Standar design dan animasi perangkat lunak presentasi",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 56,
+            "halaman_akhir": 56,
+            "bbox": [
+              107.78048706054688,
+              771.1181030273438,
+              218.57046508789062,
+              783.4780883789062
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Menggunakan metode design dan animasi perangkat lunak presentasi",
+                "teks": "Menggunakan metode design dan animasi perangkat lunak presentasi",
+                "halaman_pdf": 57,
+                "halaman_akhir": 57,
+                "bbox": [
+                  135.97999572753906,
+                  73.69998931884766,
+                  543.9400024414062,
+                  86.07199096679688
+                ],
+                "teks_mentah": "3.2.1 Menggunakan metode design dan animasi perangkat lunak\npresentasi",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja",
+        "teks": "Sikap kerja",
+        "halaman_pdf": 57,
+        "halaman_akhir": 57,
+        "bbox": [
+          86.9037857055664,
+          137.05960083007812,
+          178.33999633789062,
+          149.4196014404297
+        ],
+        "teks_mentah": "4. Sikap kerja",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Teliti",
+            "teks": "Teliti",
+            "halaman_pdf": 57,
+            "halaman_akhir": 57,
+            "bbox": [
+              107.77997589111328,
+              158.17910766601562,
+              169.219970703125,
+              170.5391082763672
+            ],
+            "teks_mentah": "4.1 Teliti",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Cermat",
+            "teks": "Cermat",
+            "halaman_pdf": 57,
+            "halaman_akhir": 57,
+            "bbox": [
+              107.77992248535156,
+              179.29898071289062,
+              183.37966918945312,
+              191.6589813232422
+            ],
+            "teks_mentah": "4.2 Cermat",
+            "items": []
+          },
+          {
+            "nomor": "4.3",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Disiplin",
+            "teks": "Disiplin",
+            "halaman_pdf": 57,
+            "halaman_akhir": 57,
+            "bbox": [
+              107.77915954589844,
+              200.53878784179688,
+              185.7789306640625,
+              212.89878845214844
+            ],
+            "teks_mentah": "4.3 Disiplin",
+            "items": []
+          },
+          {
+            "nomor": "4.4",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Tanggung jawab",
+            "teks": "Tanggung jawab",
+            "halaman_pdf": 57,
+            "halaman_akhir": 57,
+            "bbox": [
+              107.77909851074219,
+              221.65908813476562,
+              236.20883178710938,
+              234.0190887451172
+            ],
+            "teks_mentah": "4.4 Tanggung jawab",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 57,
+        "halaman_akhir": 57,
+        "bbox": [
+          86.90264129638672,
+          263.9289855957031,
+          181.69883728027344,
+          276.28900146484375
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Fasilitas perangkat lunak presentasi untuk fitur tingkat lanjut dapat digunakan",
+            "teks": "Fasilitas perangkat lunak presentasi untuk fitur tingkat lanjut dapat digunakan",
+            "halaman_pdf": 57,
+            "halaman_akhir": 57,
+            "bbox": [
+              107.05890655517578,
+              285.0488586425781,
+              543.9381713867188,
+              297.40887451171875
+            ],
+            "teks_mentah": "5.1 Fasilitas perangkat lunak presentasi untuk fitur tingkat lanjut\ndapat digunakan",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. Konteks penilaian\n1.1 Kompetensi ini diujikan secara tertulis dan praktek di tempat kerja\natau tempat lain yang memungkinkan untuk dilakukan penilaian.\n1.2 Untuk UK ini, kepada operator perangkat lunak diberikan studi\nkasus/permasalahan untuk membuat presentasi dengan perangkat\nlunak presentasi tertentu.\n2. Persyaratan kompetensi\n2.1 J.63OPR00.006.2 \nMenggunakan \nPerangkat \nLunak \nPresentasi\nTingkat Dasar\n3. Pengetahuan dan keterampilan yang diperlukan\n3.1 Pengetahuan\n3.1.1 Proses pembuatan perangkat lunak presentasi\n3.1.2 Teknik-teknik \ndesign \ndan \nanimasi \nperangkat \nlunak\npresentasi\n3.1.3 Standar design dan animasi perangkat lunak presentasi\n3.2 Keterampilan\n3.2.1 Menggunakan metode design dan animasi perangkat lunak\npresentasi\n4. Sikap kerja\n4.1 Teliti\n4.2 Cermat\n4.3 Disiplin\n4.4 Tanggung jawab\n5. Aspek kritis\n5.1 Fasilitas perangkat lunak presentasi untuk fitur tingkat lanjut\ndapat digunakan"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 15,
+        "jumlah_paragraf_tanpa_nomor": 2,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 19,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 264.74,
+    "x1_maks_kolom_kiri": 261.29,
+    "x0_min_kolom_kanan": 268.2,
+    "keyakinan": "high",
+    "header_elemen_bbox": [
+      102.86000061035156,
+      291.16998291015625,
+      250.49002075195312,
+      302.57000732421875
+    ],
+    "header_kuk_bbox": [
+      318.5299987792969,
+      291.16998291015625,
+      482.2600402832031,
+      302.57000732421875
+    ],
+    "catatan": []
+  },
+  "validasi": {
+    "status": "valid_struktur",
+    "catatan": [],
+    "peringatan_format_sumber": [
+      {
+        "kategori": "peringatan_format_sumber",
+        "nomor_kuk": "7.2",
+        "halaman_pdf": 55,
+        "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+      }
+    ]
+  },
+  "validasi_kelengkapan": {
+    "status": "valid_kelengkapan",
+    "kuk_pdf": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5",
+      "2.1",
+      "2.2",
+      "2.3",
+      "2.4",
+      "2.5",
+      "2.6",
+      "2.7",
+      "3.1",
+      "3.2",
+      "3.3",
+      "4.1",
+      "4.2",
+      "5.1",
+      "5.2",
+      "5.3",
+      "6.1",
+      "6.2",
+      "6.3",
+      "7.1",
+      "7.2",
+      "7.3"
+    ],
+    "kuk_json": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "1.5",
+      "2.1",
+      "2.2",
+      "2.3",
+      "2.4",
+      "2.5",
+      "2.6",
+      "2.7",
+      "3.1",
+      "3.2",
+      "3.3",
+      "4.1",
+      "4.2",
+      "5.1",
+      "5.2",
+      "5.3",
+      "6.1",
+      "6.2",
+      "6.3",
+      "7.1",
+      "7.2",
+      "7.3"
+    ],
+    "kuk_hilang": [],
+    "kuk_ekstra": [],
+    "duplikat": [],
+    "catatan": [],
+    "diperiksa_pada": "2026-10-25T21:08:46",
+    "metode": "validator independen (find_tables + kata)"
+  },
+  "sumber_ekstraksi": {
+    "aplikasi": "SKKNI Extractor",
+    "jalur": "browser (job manager)",
+    "waktu": "2026-10-25T21:08:46"
+  }
+}

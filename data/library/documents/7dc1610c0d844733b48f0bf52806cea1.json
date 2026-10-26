@@ -1,0 +1,1054 @@
+{
+  "id": "7dc1610c0d844733b48f0bf52806cea1",
+  "nama_asli": "SKKNI 2022-124.pdf.pdf",
+  "nama_internal": "data/library/pdf/7dc1610c0d844733b48f0bf52806cea1.pdf",
+  "sumber": "unggahan",
+  "sha256": "1ff24672456c721d7d9e0aa1346a07b1b23d510289ca553894d658a3debd1235",
+  "ukuran_byte": 1713613,
+  "nomor": "124",
+  "tahun": "2022",
+  "judul": "AKTIVITAS PROFESIONAL, ILMIAH DAN TEKNIS",
+  "halaman": 221,
+  "tanggal_ditambah": "2026-10-25T06:39:43",
+  "status_identifikasi": "lengkap",
+  "units": [
+    {
+      "nomor": 1,
+      "kode_unit": "M.70MKT00.001.2",
+      "judul_unit": "Melaksanakan Komunikasi Efektif",
+      "halaman_pdf_0based": 20,
+      "halaman_akhir_0based": 24,
+      "halaman_tampil": 21,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 2,
+      "kode_unit": "M.70MKT00.002.2",
+      "judul_unit": "Melaksanakan Penulisan Bisnis (Business Writing)",
+      "halaman_pdf_0based": 25,
+      "halaman_akhir_0based": 27,
+      "halaman_tampil": 26,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 3,
+      "kode_unit": "M.70MKT00.003.2",
+      "judul_unit": "Melaksanakan Analisis Lingkungan Bisnis",
+      "halaman_pdf_0based": 28,
+      "halaman_akhir_0based": 31,
+      "halaman_tampil": 29,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 4,
+      "kode_unit": "M.70MKT00.004.1",
+      "judul_unit": "Mengembangkan dan Menerapkan Strategi Bisnis",
+      "halaman_pdf_0based": 32,
+      "halaman_akhir_0based": 35,
+      "halaman_tampil": 33,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 5,
+      "kode_unit": "M.70MKT00.005.2",
+      "judul_unit": "Mengidentifikasi Elemen Pemasaran Organisasi",
+      "halaman_pdf_0based": 36,
+      "halaman_akhir_0based": 39,
+      "halaman_tampil": 37,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 6,
+      "kode_unit": "M.70MKT00.006.2",
+      "judul_unit": "Menyusun Elemen Pemasaran organisasi",
+      "halaman_pdf_0based": 40,
+      "halaman_akhir_0based": 43,
+      "halaman_tampil": 41,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 7,
+      "kode_unit": "M.70MKT00.007.1",
+      "judul_unit": "Melaksanakan Audit Pemasaran",
+      "halaman_pdf_0based": 44,
+      "halaman_akhir_0based": 47,
+      "halaman_tampil": 45,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 8,
+      "kode_unit": "M.70MKT00.008.1",
+      "judul_unit": "Melaksanakan Pengukuran Efektivitas Pemasaran",
+      "halaman_pdf_0based": 48,
+      "halaman_akhir_0based": 51,
+      "halaman_tampil": 49,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 9,
+      "kode_unit": "M.70MKT00.009.2",
+      "judul_unit": "Merencanakan Riset Terhadap Sebuah Produk dan/atau Merek",
+      "halaman_pdf_0based": 52,
+      "halaman_akhir_0based": 55,
+      "halaman_tampil": 53,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 10,
+      "kode_unit": "M.70MKT00.010.2",
+      "judul_unit": "Mengolah Data Riset",
+      "halaman_pdf_0based": 56,
+      "halaman_akhir_0based": 58,
+      "halaman_tampil": 57,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 11,
+      "kode_unit": "M.70MKT00.011.2",
+      "judul_unit": "Melaksanakan Event Sebagai Bagian dari Komunikasi Merek",
+      "halaman_pdf_0based": 59,
+      "halaman_akhir_0based": 61,
+      "halaman_tampil": 60,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 12,
+      "kode_unit": "M.70MKT00.012.1",
+      "judul_unit": "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)",
+      "halaman_pdf_0based": 62,
+      "halaman_akhir_0based": 65,
+      "halaman_tampil": 63,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 13,
+      "kode_unit": "M.70MKT00.013.1",
+      "judul_unit": "Melaksanakan Kegiatan Analisis di Media Sosial dan Media Bisnis Digital",
+      "halaman_pdf_0based": 66,
+      "halaman_akhir_0based": 70,
+      "halaman_tampil": 67,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 14,
+      "kode_unit": "M.70MKT00.014.1",
+      "judul_unit": "Mempersiapkan Konten Digital",
+      "halaman_pdf_0based": 71,
+      "halaman_akhir_0based": 74,
+      "halaman_tampil": 72,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 15,
+      "kode_unit": "M.70MKT00.015.1",
+      "judul_unit": "Mengoptimalkan Pengelolaan Media Sosial dan Rencana Aplikasi Digital",
+      "halaman_pdf_0based": 75,
+      "halaman_akhir_0based": 78,
+      "halaman_tampil": 76,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 16,
+      "kode_unit": "M.70MKT00.016.1",
+      "judul_unit": "Menciptakan Pengalaman Bagi Pengguna Media Digital",
+      "halaman_pdf_0based": 79,
+      "halaman_akhir_0based": 83,
+      "halaman_tampil": 80,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 17,
+      "kode_unit": "M.70MKT00.017.1",
+      "judul_unit": "Melaksanakan Kegiatan Promosi Merek",
+      "halaman_pdf_0based": 84,
+      "halaman_akhir_0based": 87,
+      "halaman_tampil": 85,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 18,
+      "kode_unit": "M.70MKT00.018.2",
+      "judul_unit": "Menyusun dan Mengelola Strategi Portofolio Produk dan/atau Merek",
+      "halaman_pdf_0based": 88,
+      "halaman_akhir_0based": 90,
+      "halaman_tampil": 89,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 19,
+      "kode_unit": "M.70MKT00.019.2",
+      "judul_unit": "Mengelola Momen Kebenaran (Moment of Truth)",
+      "halaman_pdf_0based": 91,
+      "halaman_akhir_0based": 94,
+      "halaman_tampil": 92,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 20,
+      "kode_unit": "M.70MKT00.020.2",
+      "judul_unit": "Menangani Keluhan Pelanggan",
+      "halaman_pdf_0based": 95,
+      "halaman_akhir_0based": 98,
+      "halaman_tampil": 96,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 21,
+      "kode_unit": "M.70MKT00.021.2",
+      "judul_unit": "Mengelola Program Loyalitas Pelanggan",
+      "halaman_pdf_0based": 99,
+      "halaman_akhir_0based": 102,
+      "halaman_tampil": 100,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 22,
+      "kode_unit": "M.70MKT00.022.2",
+      "judul_unit": "Mengelola Lingkungan Layanan (Service Environment)",
+      "halaman_pdf_0based": 103,
+      "halaman_akhir_0based": 105,
+      "halaman_tampil": 104,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 23,
+      "kode_unit": "M.70MKT00.023.1",
+      "judul_unit": "Memprediksi dan Merencanakan Layanan Menggunakan Analisis Informasi Lalu Lintas Keterlibatan Pelanggan",
+      "halaman_pdf_0based": 106,
+      "halaman_akhir_0based": 109,
+      "halaman_tampil": 107,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 24,
+      "kode_unit": "M.70MKT00.024.1",
+      "judul_unit": "Membangun Standar Layanan Pelanggan Secara Daring",
+      "halaman_pdf_0based": 110,
+      "halaman_akhir_0based": 117,
+      "halaman_tampil": 111,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 25,
+      "kode_unit": "M.70MKT00.026.1",
+      "judul_unit": "Mengelola Risiko Reputasi organisasi dalam Lingkungan Daring",
+      "halaman_pdf_0based": 118,
+      "halaman_akhir_0based": 121,
+      "halaman_tampil": 119,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 26,
+      "kode_unit": "M.70MKT00.027.2",
+      "judul_unit": "Menyusun Pelayanan yang Khas Berdasarkan Merek organisasi (Branded Service)",
+      "halaman_pdf_0based": 122,
+      "halaman_akhir_0based": 136,
+      "halaman_tampil": 123,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 27,
+      "kode_unit": "M.70MKT00.031.2",
+      "judul_unit": "Menyusun Rencana Aktifitas Penjualan",
+      "halaman_pdf_0based": 137,
+      "halaman_akhir_0based": 140,
+      "halaman_tampil": 138,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 28,
+      "kode_unit": "M.70MKT00.032.1",
+      "judul_unit": "Mencapai Target Penjualan",
+      "halaman_pdf_0based": 141,
+      "halaman_akhir_0based": 144,
+      "halaman_tampil": 142,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 29,
+      "kode_unit": "M.70MKT00.033.1",
+      "judul_unit": "Mengembangkan Pengetahuan Produk (Barang/Jasa)",
+      "halaman_pdf_0based": 145,
+      "halaman_akhir_0based": 148,
+      "halaman_tampil": 146,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 30,
+      "kode_unit": "M.70MKT00.034.1",
+      "judul_unit": "Melaksanakan Prospek Penjualan",
+      "halaman_pdf_0based": 149,
+      "halaman_akhir_0based": 151,
+      "halaman_tampil": 150,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 31,
+      "kode_unit": "M.70MKT00.035.1",
+      "judul_unit": "Membangun Relasi Pelanggan dan Jejaring Bisnis",
+      "halaman_pdf_0based": 152,
+      "halaman_akhir_0based": 155,
+      "halaman_tampil": 153,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 32,
+      "kode_unit": "M.70MKT00.036.2",
+      "judul_unit": "Melaksanakan Keterampilan Penjualan",
+      "halaman_pdf_0based": 156,
+      "halaman_akhir_0based": 160,
+      "halaman_tampil": 157,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 33,
+      "kode_unit": "M.70MKT00.037.1",
+      "judul_unit": "Mengelola Penjualan Melalui Sarana Telepon (Telesales)",
+      "halaman_pdf_0based": 161,
+      "halaman_akhir_0based": 165,
+      "halaman_tampil": 162,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 34,
+      "kode_unit": "M.70MKT00.038.1",
+      "judul_unit": "Memberikan Solusi Penjualan kepada Pelanggan",
+      "halaman_pdf_0based": 166,
+      "halaman_akhir_0based": 169,
+      "halaman_tampil": 167,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 35,
+      "kode_unit": "M.70MKT00.039.1",
+      "judul_unit": "Mengelola Proses Aplikasi Kredit",
+      "halaman_pdf_0based": 170,
+      "halaman_akhir_0based": 173,
+      "halaman_tampil": 171,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 36,
+      "kode_unit": "M.70MKT00.040.1",
+      "judul_unit": "Mengembangkan Cara Berpikir Kritis dan Kreatif",
+      "halaman_pdf_0based": 174,
+      "halaman_akhir_0based": 177,
+      "halaman_tampil": 175,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 37,
+      "kode_unit": "M.70MKT00.041.1",
+      "judul_unit": "Mengelola Stres dalam Dinamika Tim Penjualan",
+      "halaman_pdf_0based": 178,
+      "halaman_akhir_0based": 182,
+      "halaman_tampil": 179,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 38,
+      "kode_unit": "M.70MKT00.042.1",
+      "judul_unit": "Mengembangkan Pola Komunikasi Efektif kepada Pemangku Kepentingan",
+      "halaman_pdf_0based": 183,
+      "halaman_akhir_0based": 186,
+      "halaman_tampil": 184,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 39,
+      "kode_unit": "M.70MKT00.043.1",
+      "judul_unit": "Mengembangkan Struktur organisasi dan Personil Tim Penjualan",
+      "halaman_pdf_0based": 187,
+      "halaman_akhir_0based": 191,
+      "halaman_tampil": 188,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 40,
+      "kode_unit": "M.70MKT00.044.1",
+      "judul_unit": "Memberikan Bimbingan dan Peningkatan Kualitas Hidup",
+      "halaman_pdf_0based": 192,
+      "halaman_akhir_0based": 196,
+      "halaman_tampil": 193,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 41,
+      "kode_unit": "M.70MKT00.045.1",
+      "judul_unit": "Mengembangkan Keterampilan dan Kerjasama Anggota Tim Penjualan",
+      "halaman_pdf_0based": 197,
+      "halaman_akhir_0based": 199,
+      "halaman_tampil": 198,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 42,
+      "kode_unit": "M.70MKT00.046.1",
+      "judul_unit": "Memimpin Tim Operasional Penjualan",
+      "halaman_pdf_0based": 200,
+      "halaman_akhir_0based": 203,
+      "halaman_tampil": 201,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 43,
+      "kode_unit": "M.70MKT00.047.1",
+      "judul_unit": "Mengembangkan Strategi Penjualan",
+      "halaman_pdf_0based": 204,
+      "halaman_akhir_0based": 207,
+      "halaman_tampil": 205,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 44,
+      "kode_unit": "M.70MKT00.048.1",
+      "judul_unit": "Mengelola Target dan Pencapaian Penjualan",
+      "halaman_pdf_0based": 208,
+      "halaman_akhir_0based": 211,
+      "halaman_tampil": 209,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 45,
+      "kode_unit": "M.70MKT00.049.1",
+      "judul_unit": "Mengoptimalkan Cakupan Wilayah dan Pelanggan",
+      "halaman_pdf_0based": 212,
+      "halaman_akhir_0based": 215,
+      "halaman_tampil": 213,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 46,
+      "kode_unit": "M.70MKT00.050.1",
+      "judul_unit": "Memimpin Program Transformasi dalam Penjualan dan Layanan",
+      "halaman_pdf_0based": 216,
+      "halaman_akhir_0based": 220,
+      "halaman_tampil": 217,
+      "status": "teridentifikasi"
+    }
+  ],
+  "jumlah_unit": 46,
+  "jumlah_unit_teridentifikasi": 46,
+  "jumlah_unit_perlu_verifikasi": 0,
+  "validasi_kelengkapan": {
+    "versi": 3,
+    "status": "perlu_verifikasi",
+    "diperiksa_pada": "2026-10-25T06:40:53",
+    "ringkasan": {
+      "unit_diperiksa": 46,
+      "unit_terbandingkan": 0,
+      "unit_tanpa_json": 46,
+      "unit_lengkap": 0,
+      "unit_bermasalah": 0,
+      "nomor_hilang": 0,
+      "nomor_ekstra": 0,
+      "nomor_duplikat": 0
+    },
+    "unit": {
+      "M.70MKT00.001.2": {
+        "kode_unit": "M.70MKT00.001.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.002.2": {
+        "kode_unit": "M.70MKT00.002.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.003.2": {
+        "kode_unit": "M.70MKT00.003.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.004.1": {
+        "kode_unit": "M.70MKT00.004.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.005.2": {
+        "kode_unit": "M.70MKT00.005.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.006.2": {
+        "kode_unit": "M.70MKT00.006.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.007.1": {
+        "kode_unit": "M.70MKT00.007.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.008.1": {
+        "kode_unit": "M.70MKT00.008.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.009.2": {
+        "kode_unit": "M.70MKT00.009.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.010.2": {
+        "kode_unit": "M.70MKT00.010.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.011.2": {
+        "kode_unit": "M.70MKT00.011.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.012.1": {
+        "kode_unit": "M.70MKT00.012.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.013.1": {
+        "kode_unit": "M.70MKT00.013.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.014.1": {
+        "kode_unit": "M.70MKT00.014.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.015.1": {
+        "kode_unit": "M.70MKT00.015.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.016.1": {
+        "kode_unit": "M.70MKT00.016.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.017.1": {
+        "kode_unit": "M.70MKT00.017.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.018.2": {
+        "kode_unit": "M.70MKT00.018.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.019.2": {
+        "kode_unit": "M.70MKT00.019.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.020.2": {
+        "kode_unit": "M.70MKT00.020.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.021.2": {
+        "kode_unit": "M.70MKT00.021.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.022.2": {
+        "kode_unit": "M.70MKT00.022.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.023.1": {
+        "kode_unit": "M.70MKT00.023.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.024.1": {
+        "kode_unit": "M.70MKT00.024.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.026.1": {
+        "kode_unit": "M.70MKT00.026.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.027.2": {
+        "kode_unit": "M.70MKT00.027.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.031.2": {
+        "kode_unit": "M.70MKT00.031.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.032.1": {
+        "kode_unit": "M.70MKT00.032.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.033.1": {
+        "kode_unit": "M.70MKT00.033.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.034.1": {
+        "kode_unit": "M.70MKT00.034.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.035.1": {
+        "kode_unit": "M.70MKT00.035.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.036.2": {
+        "kode_unit": "M.70MKT00.036.2",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.037.1": {
+        "kode_unit": "M.70MKT00.037.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.038.1": {
+        "kode_unit": "M.70MKT00.038.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.039.1": {
+        "kode_unit": "M.70MKT00.039.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.040.1": {
+        "kode_unit": "M.70MKT00.040.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.041.1": {
+        "kode_unit": "M.70MKT00.041.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.042.1": {
+        "kode_unit": "M.70MKT00.042.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.043.1": {
+        "kode_unit": "M.70MKT00.043.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.044.1": {
+        "kode_unit": "M.70MKT00.044.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.045.1": {
+        "kode_unit": "M.70MKT00.045.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.046.1": {
+        "kode_unit": "M.70MKT00.046.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.047.1": {
+        "kode_unit": "M.70MKT00.047.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.048.1": {
+        "kode_unit": "M.70MKT00.048.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.049.1": {
+        "kode_unit": "M.70MKT00.049.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      },
+      "M.70MKT00.050.1": {
+        "kode_unit": "M.70MKT00.050.1",
+        "kuk_pdf": [],
+        "kuk_json": [],
+        "kuk_hilang": [],
+        "kuk_ekstra": [],
+        "duplikat": [],
+        "halaman_tanpa_bukti": [],
+        "status": "tidak_dapat_dibandingkan",
+        "catatan": [
+          "JSON unit belum tersedia; ekstraksi belum dijalankan untuk unit ini sehingga nomor KUK tidak dapat dibandingkan."
+        ]
+      }
+    },
+    "catatan": [
+      "Unit tanpa JSON (belum diekstrak): M.70MKT00.001.2, M.70MKT00.002.2, M.70MKT00.003.2, M.70MKT00.004.1, M.70MKT00.005.2, M.70MKT00.006.2, M.70MKT00.007.1, M.70MKT00.008.1, M.70MKT00.009.2, M.70MKT00.010.2, M.70MKT00.011.2, M.70MKT00.012.1, M.70MKT00.013.1, M.70MKT00.014.1, M.70MKT00.015.1, M.70MKT00.016.1, M.70MKT00.017.1, M.70MKT00.018.2, M.70MKT00.019.2, M.70MKT00.020.2, M.70MKT00.021.2, M.70MKT00.022.2, M.70MKT00.023.1, M.70MKT00.024.1, M.70MKT00.026.1, M.70MKT00.027.2, M.70MKT00.031.2, M.70MKT00.032.1, M.70MKT00.033.1, M.70MKT00.034.1, M.70MKT00.035.1, M.70MKT00.036.2, M.70MKT00.037.1, M.70MKT00.038.1, M.70MKT00.039.1, M.70MKT00.040.1, M.70MKT00.041.1, M.70MKT00.042.1, M.70MKT00.043.1, M.70MKT00.044.1, M.70MKT00.045.1, M.70MKT00.046.1, M.70MKT00.047.1, M.70MKT00.048.1, M.70MKT00.049.1, M.70MKT00.050.1."
+    ]
+  },
+  "diperbarui": "2026-10-25T06:40:53",
+  "pesan_identifikasi": null,
+  "identifikasi_pada": "2026-10-25T06:39:43"
+}

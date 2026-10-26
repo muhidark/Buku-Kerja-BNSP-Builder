@@ -1,0 +1,178 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.011.3",
+    "rentang_halaman_pdf": [
+      34,
+      35
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.011.3",
+  "judul_unit": "Memilih Jenis Kamera",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk menentukan jenis kamera, lensa, dan perangkat pendukung pengambilan gambar.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Mendefinisikan persyaratan spesifikasi kamera",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Kebutuhan teknis diidentifikasi berdasarkan rincian pekerjaan.",
+          "halaman_pdf": 34,
+          "teks_mentah": "Kebutuhan teknis diidentifikasi berdasarkan rincian pekerjaan."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Persyaratan spesifikasi perangkat kamera ditentukan sesuai dengan kebutuhan teknis.",
+          "halaman_pdf": 34,
+          "teks_mentah": "Persyaratan spesifikasi perangkat kamera ditentukan sesuai dengan kebutuhan teknis."
+        }
+      ],
+      "halaman_pdf": 34,
+      "teks_mentah": "1. Mendefinisikan\npersyaratan spesifikasi\nkamera"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menentukan jenis kamera",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Jenis perangkat kamera ditetapkan berdasarkan persyaratan spesifikasi kamera.",
+          "halaman_pdf": 34,
+          "teks_mentah": "Jenis perangkat kamera ditetapkan berdasarkan persyaratan spesifikasi kamera."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Pelindung peralatan disesuaikan dengan kondisi pekerjaan.",
+          "halaman_pdf": 34,
+          "teks_mentah": "Pelindung peralatan disesuaikan dengan kondisi pekerjaan."
+        }
+      ],
+      "halaman_pdf": 34,
+      "teks_mentah": "2. Menentukan jenis\nkamera"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"BATASAN VARIABEL\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 35,
+    "halaman_akhir": 35,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [],
+    "teks_mentah": ""
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 252.47,
+    "x1_maks_kolom_kiri": 243.52999877929688,
+    "x0_min_kolom_kanan": 321.9100036621094,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      95.90399932861328,
+      188.15602111816406,
+      243.52999877929688,
+      202.13601684570312
+    ],
+    "header_kuk_bbox": [
+      321.9100036621094,
+      188.15602111816406,
+      485.6199951171875,
+      202.13601684570312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "BATASAN VARIABEL tidak ditemukan; tabel diambil sampai akhir halaman",
+      "Batas kolom (76.8) tidak melewati tepi kanan header ELEMEN (243.5)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: heading tidak ditemukan",
+      "PANDUAN PENILAIAN: tidak ada bagian bernomor yang terbaca"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

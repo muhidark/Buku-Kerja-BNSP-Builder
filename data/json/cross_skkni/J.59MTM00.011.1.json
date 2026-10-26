@@ -1,0 +1,1277 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2018-107.pdf.pdf",
+    "kode_unit": "J.59MTM00.011.1",
+    "rentang_halaman_pdf": [
+      62,
+      65
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "J.59MTM00.011.1",
+  "judul_unit": "Membuat Aset Visual Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+  "deskripsi_unit": "Unit ini berhubungan dengan pengetahuan, keterampilan dan sikap kerja yang dibutuhkan untuk dapat membuat aset visual berdasarkan langkah kerja yang telah ditetapkan.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Memproduksi aset visual multimedia",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Prosedur pengerjaan asset visual teridentifikasi.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.12994384765625,
+            260.7799987792969,
+            536.7278442382812,
+            335.56976318359375
+          ],
+          "teks_mentah": "1.1 Prosedur pengerjaan asset visual \nteridentifikasi. \n1.2 Aset visual multimedia di-produksi. \n1.3 Penyimpanan asset secara berkala \ndilakukan."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Aset visual multimedia di-produksi.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.12994384765625,
+            260.7799987792969,
+            536.7278442382812,
+            335.56976318359375
+          ],
+          "teks_mentah": "1.1 Prosedur pengerjaan asset visual \nteridentifikasi. \n1.2 Aset visual multimedia di-produksi. \n1.3 Penyimpanan asset secara berkala \ndilakukan."
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Penyimpanan asset secara berkala dilakukan.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.12994384765625,
+            260.7799987792969,
+            536.7278442382812,
+            335.56976318359375
+          ],
+          "teks_mentah": "1.1 Prosedur pengerjaan asset visual \nteridentifikasi. \n1.2 Aset visual multimedia di-produksi. \n1.3 Penyimpanan asset secara berkala \ndilakukan."
+        }
+      ],
+      "halaman_pdf": 62,
+      "bbox": [
+        98.90390014648438,
+        260.7799987792969,
+        264.3801574707031,
+        287.17950439453125
+      ],
+      "teks_mentah": "1. Memproduksi aset visual \nmultimedia"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Mereview hasil desain",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Hasil kerja dievaluasi secara berkala.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.1300048828125,
+            343.7300109863281,
+            536.6618041992188,
+            404.3291015625
+          ],
+          "teks_mentah": "2.1 Hasil kerja dievaluasi secara berkala. \n2.2 Tuntutan \nperbaikan \nvisual \ndipersiapkan.  \n2.3 Proses perbaikan dilakukan. "
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Tuntutan perbaikan visual dipersiapkan.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.1300048828125,
+            343.7300109863281,
+            536.6618041992188,
+            404.3291015625
+          ],
+          "teks_mentah": "2.1 Hasil kerja dievaluasi secara berkala. \n2.2 Tuntutan \nperbaikan \nvisual \ndipersiapkan.  \n2.3 Proses perbaikan dilakukan. "
+        },
+        {
+          "nomor_kuk": "2.3",
+          "uraian_kuk": "Proses perbaikan dilakukan.",
+          "halaman_pdf": 62,
+          "bbox": [
+            283.1300048828125,
+            343.7300109863281,
+            536.6618041992188,
+            404.3291015625
+          ],
+          "teks_mentah": "2.1 Hasil kerja dievaluasi secara berkala. \n2.2 Tuntutan \nperbaikan \nvisual \ndipersiapkan.  \n2.3 Proses perbaikan dilakukan. "
+        }
+      ],
+      "halaman_pdf": 62,
+      "bbox": [
+        98.90390014648438,
+        343.7300109863281,
+        250.72991943359375,
+        356.1020202636719
+      ],
+      "teks_mentah": "2. Mereview hasil desain  "
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 62,
+    "halaman_akhir": 63,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 25,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks variabel",
+        "teks": "Konteks variabel",
+        "halaman_pdf": 62,
+        "halaman_akhir": 62,
+        "bbox": [
+          86.4241943359375,
+          452.9302673339844,
+          209.57029724121094,
+          465.290283203125
+        ],
+        "teks_mentah": "1. Konteks variabel",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Kompetensi ini digunakan untuk mengukur kemampuan seseorang didalam membuat aset visual berdasarkan langkah kerja yang telah ditetapkan. Aset visual merupakan salah satu unsur dalam produk multimedia.",
+            "teks": "Kompetensi ini digunakan untuk mengukur kemampuan seseorang didalam membuat aset visual berdasarkan langkah kerja yang telah ditetapkan. Aset visual merupakan salah satu unsur dalam produk multimedia.",
+            "halaman_pdf": 62,
+            "halaman_akhir": 62,
+            "bbox": [
+              107.66059112548828,
+              474.0501708984375,
+              543.9622802734375,
+              486.4101867675781
+            ],
+            "teks_mentah": "1.1 Kompetensi ini digunakan untuk mengukur kemampuan seseorang\ndidalam membuat aset visual berdasarkan langkah kerja yang telah\nditetapkan. Aset visual merupakan salah satu unsur dalam produk\nmultimedia.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Proses produksi asset visual dilaksanakan atas dasar konsep, prosedur dan dilaksanakan berdasarkan creative brief yang telah ditetapkan.",
+            "teks": "Proses produksi asset visual dilaksanakan atas dasar konsep, prosedur dan dilaksanakan berdasarkan creative brief yang telah ditetapkan.",
+            "halaman_pdf": 62,
+            "halaman_akhir": 62,
+            "bbox": [
+              107.66062927246094,
+              558.5501098632812,
+              543.9945678710938,
+              570.9220581054688
+            ],
+            "teks_mentah": "1.2 Proses produksi asset visual dilaksanakan atas dasar konsep,\nprosedur dan dilaksanakan berdasarkan creative brief yang telah\nditetapkan.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peralatan dan perlengkapan",
+        "teks": "Peralatan dan perlengkapan",
+        "halaman_pdf": 62,
+        "halaman_akhir": 62,
+        "bbox": [
+          86.42430114746094,
+          643.0301513671875,
+          277.4905700683594,
+          655.39013671875
+        ],
+        "teks_mentah": "2. Peralatan dan perlengkapan",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Peralatan",
+            "teks": "Peralatan",
+            "halaman_pdf": 62,
+            "halaman_akhir": 62,
+            "bbox": [
+              107.66068267822266,
+              664.1500244140625,
+              195.89053344726562,
+              676.510009765625
+            ],
+            "teks_mentah": "2.1 Peralatan",
+            "items": [
+              {
+                "nomor": "2.1.1",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Komputer dengan software yang terkait",
+                "teks": "Komputer dengan software yang terkait",
+                "halaman_pdf": 62,
+                "halaman_akhir": 62,
+                "bbox": [
+                  136.1005096435547,
+                  685.3898315429688,
+                  415.9906311035156,
+                  697.7617797851562
+                ],
+                "teks_mentah": "2.1.1 Komputer dengan software yang terkait",
+                "items": []
+              },
+              {
+                "nomor": "2.1.2",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Alat penyimpan data",
+                "teks": "Alat penyimpan data",
+                "halaman_pdf": 62,
+                "halaman_akhir": 62,
+                "bbox": [
+                  136.10064697265625,
+                  706.539794921875,
+                  304.610595703125,
+                  718.8997802734375
+                ],
+                "teks_mentah": "2.1.2 Alat penyimpan data",
+                "items": []
+              },
+              {
+                "nomor": "2.1.3",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Printer",
+                "teks": "Printer",
+                "halaman_pdf": 62,
+                "halaman_akhir": 62,
+                "bbox": [
+                  136.10064697265625,
+                  727.6597290039062,
+                  220.6105499267578,
+                  740.0316772460938
+                ],
+                "teks_mentah": "2.1.3 Printer",
+                "items": []
+              },
+              {
+                "nomor": "2.1.4",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Media pemutar multimedia",
+                "teks": "Media pemutar multimedia",
+                "halaman_pdf": 62,
+                "halaman_akhir": 62,
+                "bbox": [
+                  136.10064697265625,
+                  748.780029296875,
+                  342.0706787109375,
+                  761.1400146484375
+                ],
+                "teks_mentah": "2.1.4 Media pemutar multimedia",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "2.2",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Perlengkapan",
+            "teks": "Perlengkapan",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.66000366210938,
+              73.67996978759766,
+              219.88983154296875,
+              86.03997039794922
+            ],
+            "teks_mentah": "2.2 Perlengkapan",
+            "items": [
+              {
+                "nomor": "2.2.1",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Alat tulis menulis",
+                "teks": "Alat tulis menulis",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09982299804688,
+                  94.8201675415039,
+                  286.60980224609375,
+                  107.18016815185547
+                ],
+                "teks_mentah": "2.2.1 Alat tulis menulis",
+                "items": []
+              },
+              {
+                "nomor": "2.2.2",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Alat tulis kantor",
+                "teks": "Alat tulis kantor",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09982299804688,
+                  115.9400405883789,
+                  278.4500427246094,
+                  128.30003356933594
+                ],
+                "teks_mentah": "2.2.2 Alat tulis kantor",
+                "items": []
+              },
+              {
+                "nomor": "2.2.3",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Alat presentasi",
+                "teks": "Alat presentasi",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09982299804688,
+                  137.05990600585938,
+                  270.2897644042969,
+                  149.41990661621094
+                ],
+                "teks_mentah": "2.2.3 Alat presentasi",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peraturan yang diperlukan",
+        "teks": "Peraturan yang diperlukan",
+        "halaman_pdf": 63,
+        "halaman_akhir": 63,
+        "bbox": [
+          86.42282104492188,
+          179.30007934570312,
+          270.050048828125,
+          191.6600799560547
+        ],
+        "teks_mentah": "3. Peraturan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Undang-Undang Republik Indonesia Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik",
+            "teks": "Undang-Undang Republik Indonesia Nomor 14 Tahun 2008 tentang Keterbukaan Informasi Publik",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.66000366210938,
+              200.41995239257812,
+              543.9132080078125,
+              212.7799530029297
+            ],
+            "teks_mentah": "3.1 Undang-Undang Republik Indonesia Nomor 14 Tahun 2008 tentang\nKeterbukaan Informasi Publik",
+            "items": []
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Undang-undang Republik Indonesia Nomor 28 Tahun 2014 tentang Hak Cipta",
+            "teks": "Undang-undang Republik Indonesia Nomor 28 Tahun 2014 tentang Hak Cipta",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.65972900390625,
+              242.78005981445312,
+              544.0238647460938,
+              255.1400604248047
+            ],
+            "teks_mentah": "3.2 Undang-undang Republik Indonesia Nomor 28 Tahun 2014 tentang\nHak Cipta",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Norma dan standar",
+        "teks": "Norma dan standar",
+        "halaman_pdf": 63,
+        "halaman_akhir": 63,
+        "bbox": [
+          86.42344665527344,
+          306.1698303222656,
+          226.1295166015625,
+          318.52984619140625
+        ],
+        "teks_mentah": "4. Norma dan standar",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Norma",
+            "teks": "Norma",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.65982818603516,
+              327.2889099121094,
+              179.05966186523438,
+              339.64892578125
+            ],
+            "teks_mentah": "4.1 Norma",
+            "items": [
+              {
+                "nomor": "4.1.1",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika profesi multimedia maker",
+                "teks": "Etika profesi multimedia maker",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.0996551513672,
+                  348.4087829589844,
+                  367.7498779296875,
+                  360.7807922363281
+                ],
+                "teks_mentah": "4.1.1 Etika profesi multimedia maker",
+                "items": []
+              },
+              {
+                "nomor": "4.1.2",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika profesi penyiaran",
+                "teks": "Etika profesi penyiaran",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09988403320312,
+                  369.5290832519531,
+                  319.5098876953125,
+                  381.88909912109375
+                ],
+                "teks_mentah": "4.1.2 Etika profesi penyiaran",
+                "items": []
+              },
+              {
+                "nomor": "4.1.3",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika profesi periklanan",
+                "teks": "Etika profesi periklanan",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09988403320312,
+                  390.6489562988281,
+                  324.0699768066406,
+                  403.00897216796875
+                ],
+                "teks_mentah": "4.1.3 Etika profesi periklanan",
+                "items": []
+              },
+              {
+                "nomor": "4.1.4",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika profesi jurnalistik",
+                "teks": "Etika profesi jurnalistik",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.0999755859375,
+                  411.7688293457031,
+                  321.6700744628906,
+                  424.12884521484375
+                ],
+                "teks_mentah": "4.1.4 Etika profesi jurnalistik",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Standar",
+            "teks": "Standar",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.66007995605469,
+              432.88873291015625,
+              187.0098419189453,
+              445.2487487792969
+            ],
+            "teks_mentah": "4.2 Standar",
+            "items": [
+              {
+                "nomor": "4.2.1",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "Standar operating procedure produksi multimedia",
+                "teks": "Standar operating procedure produksi multimedia",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.0998992919922,
+                  454.0086364746094,
+                  475.0600280761719,
+                  466.3806457519531
+                ],
+                "teks_mentah": "4.2.1 Standar operating procedure produksi multimedia",
+                "items": []
+              },
+              {
+                "nomor": "4.2.2",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "Metode dan standar produksi asset visual multimedia",
+                "teks": "Metode dan standar produksi asset visual multimedia",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.09994506835938,
+                  475.24884033203125,
+                  500.2596435546875,
+                  487.620849609375
+                ],
+                "teks_mentah": "4.2.2 Metode dan standar produksi asset visual multimedia",
+                "items": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. Konteks variabel\n1.1 Kompetensi ini digunakan untuk mengukur kemampuan seseorang\ndidalam membuat aset visual berdasarkan langkah kerja yang telah\nditetapkan. Aset visual merupakan salah satu unsur dalam produk\nmultimedia.\n1.2 Proses produksi asset visual dilaksanakan atas dasar konsep,\nprosedur dan dilaksanakan berdasarkan creative brief yang telah\nditetapkan.\n2. Peralatan dan perlengkapan\n2.1 Peralatan\n2.1.1 Komputer dengan software yang terkait\n2.1.2 Alat penyimpan data\n2.1.3 Printer\n2.1.4 Media pemutar multimedia\n2.2 Perlengkapan\n2.2.1 Alat tulis menulis\n2.2.2 Alat tulis kantor\n2.2.3 Alat presentasi\n3. Peraturan yang diperlukan\n3.1 Undang-Undang Republik Indonesia Nomor 14 Tahun 2008 tentang\nKeterbukaan Informasi Publik\n3.2 Undang-undang Republik Indonesia Nomor 28 Tahun 2014 tentang\nHak Cipta\n4. Norma dan standar\n4.1 Norma\n4.1.1 Etika profesi multimedia maker\n4.1.2 Etika profesi penyiaran\n4.1.3 Etika profesi periklanan\n4.1.4 Etika profesi jurnalistik\n4.2 Standar\n4.2.1 Standar operating procedure produksi multimedia\n4.2.2 Metode dan standar produksi asset visual multimedia"
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 63,
+    "halaman_akhir": 65,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 30,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks penilaian",
+        "teks": "Konteks penilaian",
+        "halaman_pdf": 63,
+        "halaman_akhir": 63,
+        "bbox": [
+          86.4238510131836,
+          538.6284790039062,
+          217.49014282226562,
+          550.9884643554688
+        ],
+        "teks_mentah": "1. Konteks penilaian",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Proses penilaian harus memastikan :",
+            "teks": "Proses penilaian harus memastikan :",
+            "halaman_pdf": 63,
+            "halaman_akhir": 63,
+            "bbox": [
+              107.66014862060547,
+              559.7484130859375,
+              358.630126953125,
+              572.1083984375
+            ],
+            "teks_mentah": "1.1 Proses penilaian harus memastikan :",
+            "items": [
+              {
+                "nomor": "1.1.1",
+                "level": 3,
+                "parent_nomor": "1.1",
+                "is_numbered": true,
+                "judul": "Adanya akses kepada situasi pembuatan aset visual berdasarkan langkah kerja dan standar kualitas yang telah ditetapkan.",
+                "teks": "Adanya akses kepada situasi pembuatan aset visual berdasarkan langkah kerja dan standar kualitas yang telah ditetapkan.",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.0999755859375,
+                  580.8682861328125,
+                  544.0482788085938,
+                  593.228271484375
+                ],
+                "teks_mentah": "1.1.1 Adanya akses kepada situasi pembuatan aset visual\nberdasarkan langkah kerja dan standar kualitas yang telah\nditetapkan.",
+                "items": []
+              },
+              {
+                "nomor": "1.1.2",
+                "level": 3,
+                "parent_nomor": "1.1",
+                "is_numbered": true,
+                "judul": "Adanya akses kepada sumber-sumber informasi yang relevan dengan situasi penilaian dalam proses peembuatan aset visual berdasarkan langkah kerja yang telah ditetapkan.",
+                "teks": "Adanya akses kepada sumber-sumber informasi yang relevan dengan situasi penilaian dalam proses peembuatan aset visual berdasarkan langkah kerja yang telah ditetapkan.",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.0999755859375,
+                  644.22802734375,
+                  544.0057373046875,
+                  656.5880126953125
+                ],
+                "teks_mentah": "1.1.2 Adanya akses kepada sumber-sumber informasi yang\nrelevan dengan situasi penilaian dalam proses peembuatan\naset visual berdasarkan langkah kerja yang telah ditetapkan.",
+                "items": []
+              },
+              {
+                "nomor": "1.1.3",
+                "level": 3,
+                "parent_nomor": "1.1",
+                "is_numbered": true,
+                "judul": "Adanya akses atau alat ukur yang bisa digunakan sebagai tolok ukur evaluasi dan sumber personal ahli yang bisa memberikan penilaian secara obyektif.",
+                "teks": "Adanya akses atau alat ukur yang bisa digunakan sebagai tolok ukur evaluasi dan sumber personal ahli yang bisa memberikan penilaian secara obyektif.",
+                "halaman_pdf": 63,
+                "halaman_akhir": 63,
+                "bbox": [
+                  136.10009765625,
+                  707.7376708984375,
+                  543.88427734375,
+                  720.09765625
+                ],
+                "teks_mentah": "1.1.3 Adanya akses atau alat ukur yang bisa digunakan sebagai\ntolok ukur evaluasi dan sumber personal ahli yang bisa\nmemberikan penilaian secara obyektif.",
+                "items": []
+              },
+              {
+                "nomor": "1.1.4",
+                "level": 3,
+                "parent_nomor": "1.1",
+                "is_numbered": true,
+                "judul": "Adanya akses kepada dukungan pembelajaran dan asesmen yang memadai, apabila diperlukan.",
+                "teks": "Adanya akses kepada dukungan pembelajaran dan asesmen yang memadai, apabila diperlukan.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.10000610351562,
+                  73.67996978759766,
+                  543.89599609375,
+                  86.03997039794922
+                ],
+                "teks_mentah": "1.1.4 Adanya akses kepada dukungan pembelajaran dan asesmen\nyang memadai, apabila diperlukan.",
+                "items": []
+              },
+              {
+                "nomor": "1.1.5",
+                "level": 3,
+                "parent_nomor": "1.1",
+                "is_numbered": true,
+                "judul": "Digunakannya proses uji kompetensi yang memperhatikan karakteristik dan kemampuan peserta didik secara tepat serta digunakannya teknik-teknik uji kompetensi yang sesuai dengan bahasa dan kecakapan baca-tulis dari para pembelajar yang berlatar belakang dunia kreatif multimedia.",
+                "teks": "Digunakannya proses uji kompetensi yang memperhatikan karakteristik dan kemampuan peserta didik secara tepat serta digunakannya teknik-teknik uji kompetensi yang sesuai dengan bahasa dan kecakapan baca-tulis dari para pembelajar yang berlatar belakang dunia kreatif multimedia.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.10011291503906,
+                  115.9400405883789,
+                  544.0184326171875,
+                  128.30003356933594
+                ],
+                "teks_mentah": "1.1.5 Digunakannya proses uji kompetensi yang memperhatikan\nkarakteristik dan kemampuan peserta didik secara tepat\nserta digunakannya teknik-teknik uji kompetensi yang\nsesuai dengan bahasa dan kecakapan baca-tulis dari para\npembelajar yang berlatar belakang dunia kreatif multimedia.",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Beragam metoda asesmen perlu dilaksanakan untuk mengases",
+            "teks": "Beragam metoda asesmen perlu dilaksanakan untuk mengases pengetahuan dan keterampilan praktis yang telah dikuasi peserta ujian sebelumnya. Contoh-contoh yang berikut ini tepat untuk uji kompetensi unit ini :",
+            "halaman_pdf": 64,
+            "halaman_akhir": 64,
+            "bbox": [
+              107.66031646728516,
+              221.65933227539062,
+              543.8721313476562,
+              234.0193328857422
+            ],
+            "teks_mentah": "1.2 Beragam metoda asesmen perlu dilaksanakan untuk mengases\npengetahuan dan keterampilan praktis yang telah dikuasi peserta\nujian sebelumnya. Contoh-contoh yang berikut ini tepat untuk uji\nkompetensi unit ini :",
+            "items": [
+              {
+                "nomor": "1.2.1",
+                "level": 3,
+                "parent_nomor": "1.2",
+                "is_numbered": true,
+                "judul": "Tanya jawab langsung dikombinasikan dengan tinjauan atau review portofolio dan laporan-laporan dari pihak ketiga di tempat kerja mengenai kinerja kandidat/peserta ujian.",
+                "teks": "Tanya jawab langsung dikombinasikan dengan tinjauan atau review portofolio dan laporan-laporan dari pihak ketiga di tempat kerja mengenai kinerja kandidat/peserta ujian.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.1001434326172,
+                  306.1689758300781,
+                  543.9820556640625,
+                  318.52899169921875
+                ],
+                "teks_mentah": "1.2.1 Tanya jawab langsung dikombinasikan dengan tinjauan atau\nreview portofolio dan laporan-laporan dari pihak ketiga di\ntempat kerja mengenai kinerja kandidat/peserta ujian.",
+                "items": []
+              },
+              {
+                "nomor": "1.2.2",
+                "level": 3,
+                "parent_nomor": "1.2",
+                "is_numbered": true,
+                "judul": "Evaluasi terhadap hasil kerja atau tingkat pengetahuan, keterampilan dan sikap yang dimiliki peserta uji kompetensi, baik melalui instruksi, contoh studi kasus, praktek senyatanya terhadap jenis-jenis pekerjaan yang harus dikuasasi peserta uji kompetensi.",
+                "teks": "Evaluasi terhadap hasil kerja atau tingkat pengetahuan, keterampilan dan sikap yang dimiliki peserta uji kompetensi, baik melalui instruksi, contoh studi kasus, praktek senyatanya terhadap jenis-jenis pekerjaan yang harus dikuasasi peserta uji kompetensi.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.10023498535156,
+                  369.5290222167969,
+                  543.908447265625,
+                  381.8890380859375
+                ],
+                "teks_mentah": "1.2.2 Evaluasi terhadap hasil kerja atau tingkat pengetahuan,\nketerampilan dan sikap yang dimiliki peserta uji kompetensi,\nbaik\nmelalui\ninstruksi,\ncontoh\nstudi\nkasus,\npraktek\nsenyatanya terhadap jenis-jenis pekerjaan yang harus\ndikuasasi peserta uji kompetensi.",
+                "items": []
+              },
+              {
+                "nomor": "1.2.3",
+                "level": 3,
+                "parent_nomor": "1.2",
+                "is_numbered": true,
+                "judul": "Inspeksi terhadap sistem pengarsipan informasi atau karya- karya yang telah dimiliki yang dilakukan oleh kandidat.",
+                "teks": "Inspeksi terhadap sistem pengarsipan informasi atau karya- karya yang telah dimiliki yang dilakukan oleh kandidat.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.10028076171875,
+                  475.248779296875,
+                  540.1004638671875,
+                  487.6087951660156
+                ],
+                "teks_mentah": "1.2.3 Inspeksi terhadap sistem pengarsipan informasi atau karya-\nkarya yang telah dimiliki yang dilakukan oleh kandidat.",
+                "items": []
+              },
+              {
+                "nomor": "1.2.4",
+                "level": 3,
+                "parent_nomor": "1.2",
+                "is_numbered": true,
+                "judul": "Tanya jawab secara lisan atau tertulis untuk menguji berbagai pengetahuan yang tertulis di dalam bagian “pengetahuan” dan “keterampilan” yang diperlukan pada unit kompetensi ini.",
+                "teks": "Tanya jawab secara lisan atau tertulis untuk menguji berbagai pengetahuan yang tertulis di dalam bagian “pengetahuan” dan “keterampilan” yang diperlukan pada unit kompetensi ini.",
+                "halaman_pdf": 64,
+                "halaman_akhir": 64,
+                "bbox": [
+                  136.10040283203125,
+                  517.508544921875,
+                  543.884521484375,
+                  529.8685302734375
+                ],
+                "teks_mentah": "1.2.4 Tanya jawab secara lisan atau tertulis untuk menguji\nberbagai pengetahuan yang tertulis di dalam bagian\n“pengetahuan” dan “keterampilan” yang diperlukan pada\nunit kompetensi ini.",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Penilaian dapat dilakukan dengan cara: lisan, tertulis, presentasi studi kasus, simulasi penugasan baik di tempat kerja yang bersangkutan dan atau di Tempat Uji Kompetensi (TUK).",
+            "teks": "Penilaian dapat dilakukan dengan cara: lisan, tertulis, presentasi studi kasus, simulasi penugasan baik di tempat kerja yang bersangkutan dan atau di Tempat Uji Kompetensi (TUK).",
+            "halaman_pdf": 64,
+            "halaman_akhir": 64,
+            "bbox": [
+              107.66060638427734,
+              601.9881591796875,
+              543.8602905273438,
+              614.34814453125
+            ],
+            "teks_mentah": "1.3 Penilaian dapat dilakukan dengan cara: lisan, tertulis, presentasi\nstudi kasus, simulasi penugasan baik di tempat kerja yang\nbersangkutan dan atau di Tempat Uji Kompetensi (TUK).",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi",
+        "teks": "Persyaratan kompetensi",
+        "halaman_pdf": 64,
+        "halaman_akhir": 64,
+        "bbox": [
+          86.42423248291016,
+          686.4677734375,
+          270.2905578613281,
+          698.8277587890625
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": false,
+            "judul": "(Tidak ada.)",
+            "teks": "(Tidak ada.)",
+            "halaman_pdf": 64,
+            "halaman_akhir": 64,
+            "bbox": [
+              108.98052978515625,
+              708.625732421875,
+              181.94046020507812,
+              719.9777221679688
+            ],
+            "teks_mentah": "(Tidak ada.)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 65,
+        "halaman_akhir": 65,
+        "bbox": [
+          86.42379760742188,
+          73.67996978759766,
+          395.5901794433594,
+          86.03997039794922
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.6601791381836,
+              94.8201675415039,
+              216.7700958251953,
+              107.18016815185547
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Memahami dan mengetahui karakteristik produk multimedia sebagai medium komunikasi, produk kreatif, dan produk dagang",
+                "teks": "Memahami dan mengetahui karakteristik produk multimedia sebagai medium komunikasi, produk kreatif, dan produk dagang",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.10000610351562,
+                  115.9400405883789,
+                  544.0601196289062,
+                  128.30003356933594
+                ],
+                "teks_mentah": "3.1.1 Memahami dan mengetahui karakteristik produk multimedia\nsebagai medium komunikasi, produk kreatif, dan produk\ndagang",
+                "items": []
+              },
+              {
+                "nomor": "3.1.2",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Memahami dan mengetahui proses pembuatan aset visual berdasarkan langkah kerja yang telah ditetapkan",
+                "teks": "Memahami dan mengetahui proses pembuatan aset visual berdasarkan langkah kerja yang telah ditetapkan",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.10000610351562,
+                  179.30007934570312,
+                  544.03564453125,
+                  191.6600799560547
+                ],
+                "teks_mentah": "3.1.2 Memahami dan mengetahui proses pembuatan aset visual\nberdasarkan langkah kerja yang telah ditetapkan",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.66020965576172,
+              221.65975952148438,
+              218.69003295898438,
+              234.01976013183594
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Terampil berdiskusi, mengemukakan gagasan, mempertahanan argumentasi dan mengungkapkan keunggulan produk yang dimiliki",
+                "teks": "Terampil berdiskusi, mengemukakan gagasan, mempertahanan argumentasi dan mengungkapkan keunggulan produk yang dimiliki",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.10003662109375,
+                  242.78005981445312,
+                  544.0482177734375,
+                  255.1400604248047
+                ],
+                "teks_mentah": "3.2.1 Terampil\nberdiskusi,\nmengemukakan\ngagasan,\nmempertahanan\nargumentasi\ndan\nmengungkapkan\nkeunggulan produk yang dimiliki",
+                "items": []
+              },
+              {
+                "nomor": "3.2.2",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Terampil berkomunikasi dua arah, menerima gagasan orang lain dan menyimpulkan sebagai bahan perbaikan produk",
+                "teks": "Terampil berkomunikasi dua arah, menerima gagasan orang lain dan menyimpulkan sebagai bahan perbaikan produk",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.10003662109375,
+                  306.1701965332031,
+                  543.871826171875,
+                  318.53021240234375
+                ],
+                "teks_mentah": "3.2.2 Terampil berkomunikasi dua arah, menerima gagasan orang\nlain dan menyimpulkan sebagai bahan perbaikan produk",
+                "items": []
+              },
+              {
+                "nomor": "3.2.3",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Terampil mengorganisisr data, informasi, dan fakta-fakta yang terjadi untuk mengambil keputusan secara cepat dan tepat",
+                "teks": "Terampil mengorganisisr data, informasi, dan fakta-fakta yang terjadi untuk mengambil keputusan secara cepat dan tepat",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.1001434326172,
+                  348.4099426269531,
+                  544.0603637695312,
+                  360.76995849609375
+                ],
+                "teks_mentah": "3.2.3 Terampil mengorganisisr data, informasi, dan fakta-fakta\nyang terjadi untuk mengambil keputusan secara cepat dan\ntepat",
+                "items": []
+              },
+              {
+                "nomor": "3.2.4",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Mampu mengoperasikan komputer baik untuk perluan olah data, penulisan, maupun presentasi",
+                "teks": "Mampu mengoperasikan komputer baik untuk perluan olah data, penulisan, maupun presentasi",
+                "halaman_pdf": 65,
+                "halaman_akhir": 65,
+                "bbox": [
+                  136.10015869140625,
+                  411.7699890136719,
+                  543.9698486328125,
+                  424.1300048828125
+                ],
+                "teks_mentah": "3.2.4 Mampu mengoperasikan komputer baik untuk perluan olah\ndata, penulisan, maupun presentasi",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 65,
+        "halaman_akhir": 65,
+        "bbox": [
+          86.42394256591797,
+          475.12969970703125,
+          277.9703063964844,
+          487.4897155761719
+        ],
+        "teks_mentah": "4. Sikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Kooperatif (cooperative)",
+            "teks": "Kooperatif (cooperative)",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.66032409667969,
+              496.25,
+              279.89007568359375,
+              508.62200927734375
+            ],
+            "teks_mentah": "4.1 Kooperatif (cooperative)",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Berpikiran terbuka (open mind)",
+            "teks": "Berpikiran terbuka (open mind)",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.66007995605469,
+              517.5098266601562,
+              323.8293151855469,
+              529.8817749023438
+            ],
+            "teks_mentah": "4.2 Berpikiran terbuka (open mind)",
+            "items": []
+          },
+          {
+            "nomor": "4.3",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Kreatif",
+            "teks": "Kreatif",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.65937805175781,
+              538.630126953125,
+              179.05909729003906,
+              550.9901123046875
+            ],
+            "teks_mentah": "4.3 Kreatif",
+            "items": []
+          },
+          {
+            "nomor": "4.4",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Produktif",
+            "teks": "Produktif",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.6593017578125,
+              559.75,
+              194.44927978515625,
+              572.1099853515625
+            ],
+            "teks_mentah": "4.4 Produktif",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 65,
+        "halaman_akhir": 65,
+        "bbox": [
+          86.42301940917969,
+          601.9898681640625,
+          181.69932556152344,
+          614.349853515625
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Prosedur pengerjaan asset visual yang salah yang tidak tepat akan menghasilkan aset visual yang salah",
+            "teks": "Prosedur pengerjaan asset visual yang salah yang tidak tepat akan menghasilkan aset visual yang salah",
+            "halaman_pdf": 65,
+            "halaman_akhir": 65,
+            "bbox": [
+              107.6594009399414,
+              623.1097412109375,
+              543.9567260742188,
+              635.481689453125
+            ],
+            "teks_mentah": "5.1 Prosedur pengerjaan asset visual yang salah yang tidak tepat akan\nmenghasilkan aset visual yang salah",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. Konteks penilaian\n1.1 Proses penilaian harus memastikan :\n1.1.1 Adanya akses kepada situasi pembuatan aset visual\nberdasarkan langkah kerja dan standar kualitas yang telah\nditetapkan.\n1.1.2 Adanya akses kepada sumber-sumber informasi yang\nrelevan dengan situasi penilaian dalam proses peembuatan\naset visual berdasarkan langkah kerja yang telah ditetapkan.\n1.1.3 Adanya akses atau alat ukur yang bisa digunakan sebagai\ntolok ukur evaluasi dan sumber personal ahli yang bisa\nmemberikan penilaian secara obyektif.\n1.1.4 Adanya akses kepada dukungan pembelajaran dan asesmen\nyang memadai, apabila diperlukan.\n1.1.5 Digunakannya proses uji kompetensi yang memperhatikan\nkarakteristik dan kemampuan peserta didik secara tepat\nserta digunakannya teknik-teknik uji kompetensi yang\nsesuai dengan bahasa dan kecakapan baca-tulis dari para\npembelajar yang berlatar belakang dunia kreatif multimedia.\n1.2 Beragam metoda asesmen perlu dilaksanakan untuk mengases\npengetahuan dan keterampilan praktis yang telah dikuasi peserta\nujian sebelumnya. Contoh-contoh yang berikut ini tepat untuk uji\nkompetensi unit ini :\n1.2.1 Tanya jawab langsung dikombinasikan dengan tinjauan atau\nreview portofolio dan laporan-laporan dari pihak ketiga di\ntempat kerja mengenai kinerja kandidat/peserta ujian.\n1.2.2 Evaluasi terhadap hasil kerja atau tingkat pengetahuan,\nketerampilan dan sikap yang dimiliki peserta uji kompetensi,\nbaik \nmelalui \ninstruksi, \ncontoh \nstudi \nkasus, \npraktek\nsenyatanya terhadap jenis-jenis pekerjaan yang harus\ndikuasasi peserta uji kompetensi.\n1.2.3 Inspeksi terhadap sistem pengarsipan informasi atau karya-\nkarya yang telah dimiliki yang dilakukan oleh kandidat.\n1.2.4 Tanya jawab secara lisan atau tertulis untuk menguji\nberbagai pengetahuan yang tertulis di dalam bagian\n“pengetahuan” dan “keterampilan” yang diperlukan pada\nunit kompetensi ini.\n1.3 Penilaian dapat dilakukan dengan cara: lisan, tertulis, presentasi\nstudi kasus, simulasi penugasan baik di tempat kerja yang\nbersangkutan dan atau di Tempat Uji Kompetensi (TUK).\n2. Persyaratan kompetensi\n(Tidak ada.)\n3. Pengetahuan dan keterampilan yang diperlukan\n3.1 Pengetahuan\n3.1.1 Memahami dan mengetahui karakteristik produk multimedia\nsebagai medium komunikasi, produk kreatif, dan produk\ndagang\n3.1.2 Memahami dan mengetahui proses pembuatan aset visual\nberdasarkan langkah kerja yang telah ditetapkan\n3.2 Keterampilan\n3.2.1 Terampil \nberdiskusi, \nmengemukakan \ngagasan,\nmempertahanan \nargumentasi \ndan \nmengungkapkan\nkeunggulan produk yang dimiliki\n3.2.2 Terampil berkomunikasi dua arah, menerima gagasan orang\nlain dan menyimpulkan sebagai bahan perbaikan produk\n3.2.3 Terampil mengorganisisr data, informasi, dan fakta-fakta\nyang terjadi untuk mengambil keputusan secara cepat dan\ntepat\n3.2.4 Mampu mengoperasikan komputer baik untuk perluan olah\ndata, penulisan, maupun presentasi\n4. Sikap kerja yang diperlukan\n4.1 Kooperatif (cooperative)\n4.2 Berpikiran terbuka (open mind)\n4.3 Kreatif\n4.4 Produktif\n5. Aspek kritis\n5.1 Prosedur pengerjaan asset visual yang salah yang tidak tepat akan\nmenghasilkan aset visual yang salah"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 25,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 30,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 273.74,
+    "x1_maks_kolom_kiri": 264.38,
+    "x0_min_kolom_kanan": 283.1,
+    "keyakinan": "high",
+    "metode": "block",
+    "header_elemen_bbox": [
+      109.45999908447266,
+      241.21998596191406,
+      257.0899963378906,
+      252.61997985839844
+    ],
+    "header_kuk_bbox": [
+      327.30999755859375,
+      241.21998596191406,
+      491.0198059082031,
+      252.61997985839844
+    ],
+    "catatan": []
+  },
+  "validasi": {
+    "status": "valid_struktur",
+    "catatan": [],
+    "peringatan_format_sumber": []
+  }
+}

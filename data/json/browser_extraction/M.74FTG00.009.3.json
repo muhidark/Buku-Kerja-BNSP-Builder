@@ -1,0 +1,428 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.009.3",
+    "rentang_halaman_pdf": [
+      30,
+      31
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.009.3",
+  "judul_unit": "Melakukan Komunikasi dengan Rekan Kerja",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam pembagian tugas dan koordinasi dengan rekan kerja.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Menetapkan pembagian tugas pekerjaan dengan rekan kerja",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Rencana kerja diidentifikasi sesuai dengan tujuan pengambilan gambar.",
+          "halaman_pdf": 30,
+          "teks_mentah": "Rencana kerja diidentifikasi sesuai dengan tujuan pengambilan gambar."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Pembagian tugas rekan kerja dipetakan sesuai dengan rencana kerja.",
+          "halaman_pdf": 30,
+          "teks_mentah": "Pembagian tugas rekan kerja dipetakan sesuai dengan rencana kerja."
+        }
+      ],
+      "halaman_pdf": 30,
+      "teks_mentah": "1. Menetapkan\npembagian tugas\npekerjaan dengan\nrekan kerja"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Mengomunikasikan pelaksanaan pekerjaan",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Pembagian tugas didistribusikan ke rekan kerja sesuai dengan rencana kerja.",
+          "halaman_pdf": 30,
+          "teks_mentah": "Pembagian tugas didistribusikan ke rekan kerja sesuai dengan rencana kerja."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Lembar isian daftar pekerjaan hasil komunikasi dalam proses kerja disesuaikan dengan rencana kerja.",
+          "halaman_pdf": 30,
+          "teks_mentah": "Lembar isian daftar pekerjaan hasil komunikasi dalam proses kerja disesuaikan dengan rencana kerja."
+        }
+      ],
+      "halaman_pdf": 30,
+      "teks_mentah": "2. Mengomunikasikan\npelaksanaan\npekerjaan"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 30,
+    "halaman_akhir": 31,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 12,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": null,
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": false,
+        "judul": "- 32 - verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "teks": "- 32 - verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "halaman_pdf": 31,
+        "halaman_akhir": 31,
+        "bbox": [
+          70.94400024414062,
+          35.97596740722656,
+          325.989990234375,
+          63.79201126098633
+        ],
+        "teks_mentah": "- 32 -\nverifikasi bukti/portofolio, dan wawancara serta metode lain yang\nrelevan.",
+        "items": []
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi (Tidak ada.)",
+        "teks": "Persyaratan kompetensi (Tidak ada.)",
+        "halaman_pdf": 31,
+        "halaman_akhir": 31,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          380.75
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi\n(Tidak ada.)",
+        "items": []
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 31,
+        "halaman_akhir": 31,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          380.75
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Ilmu komunikasi",
+                "teks": "Ilmu komunikasi",
+                "halaman_pdf": 31,
+                "halaman_akhir": 31,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  380.75
+                ],
+                "teks_mentah": "3.1.1 Ilmu komunikasi",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Melakukan komunikasi dengan rekan kerja",
+                "teks": "Melakukan komunikasi dengan rekan kerja",
+                "halaman_pdf": 31,
+                "halaman_akhir": 31,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  380.75
+                ],
+                "teks_mentah": "3.2.1 Melakukan komunikasi dengan rekan kerja",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 31,
+        "halaman_akhir": 31,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          380.75
+        ],
+        "teks_mentah": "4. Sikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Cermat dalam memetakan rencana pengambilan gambar",
+            "teks": "Cermat dalam memetakan rencana pengambilan gambar",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "4.1 Cermat dalam memetakan rencana pengambilan gambar",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Tepat dalam mendistribusikan pembagian tugas",
+            "teks": "Tepat dalam mendistribusikan pembagian tugas",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "4.2 Tepat dalam mendistribusikan pembagian tugas",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 31,
+        "halaman_akhir": 31,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          380.75
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Keterampilan dalam mendistribusikan pembagian tugas ke rekan kerja sesuai dengan rencana kerja",
+            "teks": "Keterampilan dalam mendistribusikan pembagian tugas ke rekan kerja sesuai dengan rencana kerja",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "5.1 Keterampilan dalam mendistribusikan pembagian tugas ke rekan kerja\nsesuai dengan rencana kerja",
+            "items": []
+          },
+          {
+            "nomor": "5.2",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Ketepatan dalam menyesuaikan lembar isian daftar pekerjaan hasil komunikasi dalam proses kerja sesuai dengan rencana kerja",
+            "teks": "Ketepatan dalam menyesuaikan lembar isian daftar pekerjaan hasil komunikasi dalam proses kerja sesuai dengan rencana kerja",
+            "halaman_pdf": 31,
+            "halaman_akhir": 31,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              380.75
+            ],
+            "teks_mentah": "5.2 Ketepatan dalam menyesuaikan lembar isian daftar pekerjaan hasil\nkomunikasi dalam proses kerja sesuai dengan rencana kerja",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "- 32 -\nverifikasi bukti/portofolio, dan wawancara serta metode lain yang \nrelevan. \n2. Persyaratan kompetensi \n(Tidak ada.) \n3. Pengetahuan dan keterampilan yang diperlukan \n3.1 Pengetahuan \n3.1.1 Ilmu komunikasi \n3.2 Keterampilan \n3.2.1 Melakukan komunikasi dengan rekan kerja \n4. Sikap kerja yang diperlukan \n4.1 Cermat dalam memetakan rencana pengambilan gambar \n4.2 Tepat dalam mendistribusikan pembagian tugas \n5. Aspek kritis \n5.1 Keterampilan dalam mendistribusikan pembagian tugas ke rekan kerja \nsesuai dengan rencana kerja \n5.2 Ketepatan dalam menyesuaikan lembar isian daftar pekerjaan hasil \nkomunikasi dalam proses kerja sesuai dengan rencana kerja"
+  },
+  "panduan_penilaian": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"PANDUAN PENILAIAN\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 12,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 237.89,
+    "x1_maks_kolom_kiri": 231.88999938964844,
+    "x0_min_kolom_kanan": 310.0299987792969,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      84.26399993896484,
+      174.11598205566406,
+      231.88999938964844,
+      188.09597778320312
+    ],
+    "header_kuk_bbox": [
+      310.0299987792969,
+      174.11598205566406,
+      473.739990234375,
+      188.09597778320312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "Celah antar kolom tidak jelas (celah terbesar 6.0 pt)",
+      "BATASAN VARIABEL: penomoran tidak berurutan di bawah root: ['2', '3', '4', '5'] (diharapkan ['1', '2', '3', '4'])",
+      "BATASAN VARIABEL: kelompok tidak dimulai dari nomor 1 (mulai 2)",
+      "PANDUAN PENILAIAN: heading tidak ditemukan",
+      "BATASAN VARIABEL: penomoran tidak dimulai dari 1 (mulai 2)"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

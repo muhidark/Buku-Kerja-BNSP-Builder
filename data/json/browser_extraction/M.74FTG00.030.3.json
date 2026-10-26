@@ -1,0 +1,526 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.030.3",
+    "rentang_halaman_pdf": [
+      77,
+      78
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.030.3",
+  "judul_unit": "Melaksanakan Prosedur Keselamatan dan Kesehatan Kerja (K3) di Tempat Kerja",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan untuk melaksanakan prosedur Keselamatan dan Kesehatan Kerja (K3) dalam pelaksanaan kerja pada bidang Fotografi.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Mempersiapkan prosedur dasar K3 di tempat kerja",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Keselamatan dan Kesehatan Kerja (K3) dijelaskan sesuai pedoman.",
+          "halaman_pdf": 77,
+          "teks_mentah": "Keselamatan dan Kesehatan Kerja (K3) dijelaskan sesuai pedoman."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Alat dan sarana Keselamatan dan Kesehatan Kerja (K3) dipersiapkan sesuai standar.",
+          "halaman_pdf": 77,
+          "teks_mentah": "Alat dan sarana Keselamatan dan Kesehatan Kerja (K3) dipersiapkan sesuai standar."
+        }
+      ],
+      "halaman_pdf": 77,
+      "teks_mentah": "1. Mempersiapkan\nprosedur dasar K3 di\ntempat kerja"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menerapkan K3 di tempat kerja",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Prosedur Keselamatan dan Kesehatan Kerja (K3) dilaksanakan berdasarkan pedoman di tempat kerja Fotografi.",
+          "halaman_pdf": 77,
+          "teks_mentah": "Prosedur Keselamatan dan Kesehatan Kerja (K3) dilaksanakan berdasarkan pedoman di tempat kerja Fotografi."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Kebersihan dan kesehatan tempat kerja dilakukan sesuai standar di tempat kerja Fotografi.",
+          "halaman_pdf": 77,
+          "teks_mentah": "Kebersihan dan kesehatan tempat kerja dilakukan sesuai standar di tempat kerja Fotografi."
+        }
+      ],
+      "halaman_pdf": 77,
+      "teks_mentah": "2. Menerapkan K3 di\ntempat kerja"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 77,
+    "halaman_akhir": 78,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 17,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1.3",
+        "1.4",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": null,
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": false,
+        "judul": "- 79 - dibutuhkan serta dilakukan pada tempat kerja atau Tempat Uji Kompetensi (TUK) yang aman.",
+        "teks": "- 79 - dibutuhkan serta dilakukan pada tempat kerja atau Tempat Uji Kompetensi (TUK) yang aman.",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          35.97596740722656,
+          325.989990234375,
+          63.79201126098633
+        ],
+        "teks_mentah": "- 79 -\ndibutuhkan serta dilakukan pada tempat kerja atau Tempat Uji\nKompetensi (TUK) yang aman.",
+        "items": []
+      },
+      {
+        "nomor": "1.3",
+        "level": 2,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Perencanaan dan proses asesmen ditetapkan dan disepakati bersama dengan mempertimbangkan aspek-aspek tujuan dan konteks asesmen, ruang lingkup, kompetensi, persyaratan peserta, sumber daya asesmen, tempat asesmen, dan jadwal asesmen.",
+        "teks": "Perencanaan dan proses asesmen ditetapkan dan disepakati bersama dengan mempertimbangkan aspek-aspek tujuan dan konteks asesmen, ruang lingkup, kompetensi, persyaratan peserta, sumber daya asesmen, tempat asesmen, dan jadwal asesmen.",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "1.3 Perencanaan dan proses asesmen ditetapkan dan disepakati bersama\ndengan\nmempertimbangkan\naspek-aspek\ntujuan\ndan\nkonteks\nasesmen, ruang lingkup, kompetensi, persyaratan peserta, sumber\ndaya asesmen, tempat asesmen, dan jadwal asesmen.",
+        "items": []
+      },
+      {
+        "nomor": "1.4",
+        "level": 2,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "teks": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes\nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi,\nverifikasi bukti/portofolio, dan wawancara serta metode lain yang\nrelevan.",
+        "items": []
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi (Tidak ada.)",
+        "teks": "Persyaratan kompetensi (Tidak ada.)",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi\n(Tidak ada.)",
+        "items": []
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 78,
+            "halaman_akhir": 78,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              592.0900268554688
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Dasar Keselamatan dan Kesehatan Kerja (K3)",
+                "teks": "Dasar Keselamatan dan Kesehatan Kerja (K3)",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.1.1 Dasar Keselamatan dan Kesehatan Kerja (K3)",
+                "items": []
+              },
+              {
+                "nomor": "3.1.2",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Potensi ancaman Keselamatan dan Kesehatan Kerja (K3) di tempat kerja Fotografi",
+                "teks": "Potensi ancaman Keselamatan dan Kesehatan Kerja (K3) di tempat kerja Fotografi",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.1.2 Potensi ancaman Keselamatan dan Kesehatan Kerja (K3) di\ntempat kerja Fotografi",
+                "items": []
+              },
+              {
+                "nomor": "3.1.3",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Penggunaan peralatan Keselamatan dan Kesehatan Kerja (K3)",
+                "teks": "Penggunaan peralatan Keselamatan dan Kesehatan Kerja (K3)",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.1.3 Penggunaan peralatan Keselamatan dan Kesehatan Kerja (K3)",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 78,
+            "halaman_akhir": 78,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              592.0900268554688
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Menghadapi situasi darurat",
+                "teks": "Menghadapi situasi darurat",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.2.1 Menghadapi situasi darurat",
+                "items": []
+              },
+              {
+                "nomor": "3.2.2",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Mengidentifikasi potensi ancaman Keselamatan dan Kesehatan Kerja (K3)",
+                "teks": "Mengidentifikasi potensi ancaman Keselamatan dan Kesehatan Kerja (K3)",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.2.2 Mengidentifikasi potensi ancaman Keselamatan dan Kesehatan\nKerja (K3)",
+                "items": []
+              },
+              {
+                "nomor": "3.2.3",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Melindungi dan menyingkirkan barang atau bahan yang berpotensi menimbulkan bahaya",
+                "teks": "Melindungi dan menyingkirkan barang atau bahan yang berpotensi menimbulkan bahaya",
+                "halaman_pdf": 78,
+                "halaman_akhir": 78,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1400146484375,
+                  592.0900268554688
+                ],
+                "teks_mentah": "3.2.3 Melindungi dan menyingkirkan barang atau bahan yang\nberpotensi menimbulkan bahaya",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "4. Sikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Cermat dalam memahami pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat bekerja",
+            "teks": "Cermat dalam memahami pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat bekerja",
+            "halaman_pdf": 78,
+            "halaman_akhir": 78,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              592.0900268554688
+            ],
+            "teks_mentah": "4.1 Cermat dalam memahami pedoman Keselamatan dan Kesehatan Kerja\n(K3) di tempat bekerja",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Patuh pada pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat bekerja",
+            "teks": "Patuh pada pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat bekerja",
+            "halaman_pdf": 78,
+            "halaman_akhir": 78,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              592.0900268554688
+            ],
+            "teks_mentah": "4.2 Patuh pada pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat\nbekerja",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 78,
+        "halaman_akhir": 78,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1400146484375,
+          592.0900268554688
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Kecermatan melaksanakan prosedur Keselamatan dan Kesehatan Kerja (K3) berdasarkan pedoman di tempat kerja Fotografi",
+            "teks": "Kecermatan melaksanakan prosedur Keselamatan dan Kesehatan Kerja (K3) berdasarkan pedoman di tempat kerja Fotografi",
+            "halaman_pdf": 78,
+            "halaman_akhir": 78,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1400146484375,
+              592.0900268554688
+            ],
+            "teks_mentah": "5.1 Kecermatan melaksanakan prosedur Keselamatan dan Kesehatan\nKerja (K3) berdasarkan pedoman di tempat kerja Fotografi",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [
+      "Nomor 1.3 (level 2) muncul tanpa induk",
+      "Nomor 1.4 (level 2) muncul tanpa induk"
+    ],
+    "teks_mentah": "- 79 -\ndibutuhkan serta dilakukan pada tempat kerja atau Tempat Uji \nKompetensi (TUK) yang aman. \n1.3 Perencanaan dan proses asesmen ditetapkan dan disepakati bersama \ndengan \nmempertimbangkan \naspek-aspek \ntujuan \ndan \nkonteks \nasesmen, ruang lingkup, kompetensi, persyaratan peserta, sumber \ndaya asesmen, tempat asesmen, dan jadwal asesmen. \n1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes \nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, \nverifikasi bukti/portofolio, dan wawancara serta metode lain yang \nrelevan. \n2. Persyaratan kompetensi \n(Tidak ada.) \n3. Pengetahuan dan keterampilan yang diperlukan \n3.1 Pengetahuan \n3.1.1 Dasar Keselamatan dan Kesehatan Kerja (K3) \n3.1.2 Potensi ancaman Keselamatan dan Kesehatan Kerja (K3) di \ntempat kerja Fotografi \n3.1.3 Penggunaan peralatan Keselamatan dan Kesehatan Kerja (K3) \n3.2 Keterampilan \n3.2.1 Menghadapi situasi darurat \n3.2.2 Mengidentifikasi potensi ancaman Keselamatan dan Kesehatan \nKerja (K3) \n3.2.3 Melindungi dan menyingkirkan barang atau bahan yang \nberpotensi menimbulkan bahaya \n4. Sikap kerja yang diperlukan \n4.1 Cermat dalam memahami pedoman Keselamatan dan Kesehatan Kerja \n(K3) di tempat bekerja \n4.2 Patuh pada pedoman Keselamatan dan Kesehatan Kerja (K3) di tempat \nbekerja \n5. Aspek kritis \n5.1 Kecermatan melaksanakan prosedur Keselamatan dan Kesehatan \nKerja (K3) berdasarkan pedoman di tempat kerja Fotografi"
+  },
+  "panduan_penilaian": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"PANDUAN PENILAIAN\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 17,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1.3",
+          "1.4",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 247.97,
+    "x1_maks_kolom_kiri": 240.52999877929688,
+    "x0_min_kolom_kanan": 315.7900085449219,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      92.90399932861328,
+      216.35597229003906,
+      240.52999877929688,
+      230.33596801757812
+    ],
+    "header_kuk_bbox": [
+      315.7900085449219,
+      216.35597229003906,
+      479.5,
+      230.33596801757812
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "Batas kolom (169.1) tidak melewati tepi kanan header ELEMEN (240.5)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: penomoran tidak berurutan di bawah root: ['1.3', '1.4', '2', '3', '4', '5'] (diharapkan ['1', '2', '3', '4', '5', '6'])",
+      "BATASAN VARIABEL: kelompok tidak dimulai dari nomor 1 (mulai 1.3)",
+      "PANDUAN PENILAIAN: heading tidak ditemukan",
+      "BATASAN VARIABEL: penomoran tidak dimulai dari 1 (mulai 1.3)"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

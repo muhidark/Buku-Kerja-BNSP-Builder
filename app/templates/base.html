@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ judul }} · Sistem Pembuatan Dokumen Buku Kerja Asessor V.2023</title>
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">BK</span>
+      <div class="brand-text">
+        <strong>Buku Kerja Asessor</strong>
+        <small>V.2023 (v{{ versi }})</small>
+      </div>
+    </div>
+    <nav class="nav">
+      {% for h in halaman %}
+      <a href="{{ h.path }}" class="nav-item{% if aktif == h.path %} is-active{% endif %}">
+        <span class="nav-icon" aria-hidden="true">{{ h.ikon }}</span>
+        <span>{{ h.label }}</span>
+      </a>
+      {% endfor %}
+    </nav>
+    <div class="sidebar-foot">
+      <span class="dot"></span> Berjalan lokal · 127.0.0.1
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div>
+        <h1>{{ judul }}</h1>
+        <p class="muted">{% block subjudul %}Pengelolaan ekstraksi unit kompetensi SKKNI{% endblock %}</p>
+      </div>
+      <div class="topbar-right">
+        <span class="badge badge-green">Lokal</span>
+      </div>
+    </header>
+
+    <main class="content">
+      {% block konten %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+      Sistem Pembuatan Dokumen Buku Kerja Asessor V.2023 v{{ versi }} · data dibaca langsung dari proyek · tanpa koneksi internet
+    </footer>
+  </div>
+</div>
+<script src="/static/js/app.js"></script>
+</body>
+</html>

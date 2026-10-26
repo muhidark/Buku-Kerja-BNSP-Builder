@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block subjudul %}Persiapan ekstraksi unit kompetensi{% endblock %}
+{% block konten %}
+<section class="cards cards-3">
+  <article class="card stat">
+    <span class="stat-label">Dokumen SKKNI tersedia</span>
+    <span class="stat-value">{{ skkni|length }}</span>
+    <span class="stat-note">data/pdf/</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Skema tersedia</span>
+    <span class="stat-value">{{ skema|length }}</span>
+    <span class="stat-note">data/skema/</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Mode ekstraksi</span>
+    <span class="stat-value stat-text">CLI</span>
+    <span class="stat-note">python -m app.schema_pipeline</span>
+  </article>
+</section>
+
+<article class="card">
+  <h2>Ekstraksi dari Browser</h2>
+  <p class="empty">Fitur akan tersedia pada fase berikutnya.</p>
+  <p class="muted">Saat ini ekstraksi dijalankan dari terminal agar proses panjang tidak memblokir antarmuka.</p>
+  <pre class="code">source .venv/bin/activate
+python -m app.schema_pipeline</pre>
+</article>
+{% endblock %}

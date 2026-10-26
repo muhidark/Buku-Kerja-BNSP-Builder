@@ -1,0 +1,149 @@
+{
+  "id": "ad086999cce24093ae152b7bb4f51240",
+  "nama_asli": "22 SPESIALIS MANAJEMEN MEDIA SOSIAL.docx",
+  "nama_internal": "data/schema_library/docx/ad086999cce24093ae152b7bb4f51240.docx",
+  "sha256": "81088860f00cfd3482468ac3673a8f8c6d9f3536222e09b42c31863057552d9e",
+  "ukuran_byte": 769332,
+  "nama_skema": "SOCIAL MEDIA MARKETING",
+  "judul_dokumen": "SKEMA SERTIFIKASI KLASTER SOCIAL MEDIA MARKETING",
+  "jenis_skema": "KKNI / OKUPASI / KLASTER",
+  "nomor_dokumen": null,
+  "tanggal_ditambah": "2026-10-25T06:40:04",
+  "status_identifikasi": "lengkap",
+  "pesan_identifikasi": null,
+  "jumlah_unit": 4,
+  "units": [
+    {
+      "nomor_urut": 1,
+      "kode_unit": "J.63OPR00.004.2",
+      "judul_skema": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "ad086999cce24093ae152b7bb4f51240.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 2
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 2,
+      "kode_unit": "J.63OPR00.005.2",
+      "judul_skema": "Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "ad086999cce24093ae152b7bb4f51240.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 3
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 3,
+      "kode_unit": "J.63OPR00.013.2",
+      "judul_skema": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "ad086999cce24093ae152b7bb4f51240.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 4
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 4,
+      "kode_unit": "M.70MKT00.012.1",
+      "judul_skema": "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "ad086999cce24093ae152b7bb4f51240.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 5
+      },
+      "catatan": []
+    }
+  ],
+  "peringatan": [],
+  "hasil_pencocokan": {
+    "status": "lengkap",
+    "diperiksa_pada": "2026-10-25T06:40:04",
+    "ringkasan": {
+      "jumlah_skema": 4,
+      "ditemukan": 4,
+      "tidak_ditemukan": 0,
+      "konflik": 0,
+      "dokumen": {
+        "7dc1610c0d844733b48f0bf52806cea1.pdf": 46,
+        "a9a2800ec7f64bb8899817ed7a22e023.pdf": 17
+      },
+      "galat_pdf": [],
+      "judul_berbeda": 0
+    },
+    "pdf_diperiksa": {
+      "7dc1610c0d844733b48f0bf52806cea1.pdf": 46,
+      "a9a2800ec7f64bb8899817ed7a22e023.pdf": 17
+    },
+    "units": {
+      "J.63OPR00.004.2": {
+        "nomor_urut": 1,
+        "kode_unit": "J.63OPR00.004.2",
+        "judul_skema": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+        "jumlah_kandidat": 1,
+        "status": "ditemukan",
+        "pdf": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+        "start_page": 21,
+        "end_page": 24,
+        "judul_pdf": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+        "catatan": [],
+        "judul_berbeda": false
+      },
+      "J.63OPR00.005.2": {
+        "nomor_urut": 2,
+        "kode_unit": "J.63OPR00.005.2",
+        "judul_skema": "Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar",
+        "jumlah_kandidat": 1,
+        "status": "ditemukan",
+        "pdf": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+        "start_page": 25,
+        "end_page": 28,
+        "judul_pdf": "Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar",
+        "catatan": [],
+        "judul_berbeda": false
+      },
+      "J.63OPR00.013.2": {
+        "nomor_urut": 3,
+        "kode_unit": "J.63OPR00.013.2",
+        "judul_skema": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+        "jumlah_kandidat": 1,
+        "status": "ditemukan",
+        "pdf": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+        "start_page": 54,
+        "end_page": 57,
+        "judul_pdf": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+        "catatan": [],
+        "judul_berbeda": false
+      },
+      "M.70MKT00.012.1": {
+        "nomor_urut": 4,
+        "kode_unit": "M.70MKT00.012.1",
+        "judul_skema": "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)",
+        "jumlah_kandidat": 1,
+        "status": "ditemukan",
+        "pdf": "7dc1610c0d844733b48f0bf52806cea1.pdf",
+        "start_page": 62,
+        "end_page": 65,
+        "judul_pdf": "Menggunakan Media Sosial dan Aplikasi Daring (Online Tools)",
+        "catatan": [],
+        "judul_berbeda": false
+      }
+    },
+    "tidak_ditemukan": [],
+    "konflik": [],
+    "judul_berbeda": []
+  },
+  "verifikasi_manual": {},
+  "diperbarui": "2026-10-25T06:40:04"
+}

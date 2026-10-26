@@ -1,0 +1,176 @@
+{
+  "id": "a9a2800ec7f64bb8899817ed7a22e023",
+  "nama_asli": "SKKNI 2018-056.pdf.pdf",
+  "nama_internal": "data/library/pdf/a9a2800ec7f64bb8899817ed7a22e023.pdf",
+  "sumber": "unggahan",
+  "sha256": "a64404bdd5a75d88a13b321869236e856f219a8278f96c774cf561e4e3f0dc65",
+  "ukuran_byte": 1278762,
+  "nomor": "56",
+  "tahun": "2018",
+  "judul": "INFORMASI DAN KOMUNIKASI",
+  "halaman": 75,
+  "tanggal_ditambah": "2026-10-25T06:37:58",
+  "status_identifikasi": "lengkap",
+  "units": [
+    {
+      "nomor": 1,
+      "kode_unit": "J.63OPR00.001.2",
+      "judul_unit": "Menggunakan Perangkat Komputer",
+      "halaman_pdf_0based": 11,
+      "halaman_akhir_0based": 14,
+      "halaman_tampil": 12,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 2,
+      "kode_unit": "J.63OPR00.002.2",
+      "judul_unit": "Menggunakan Sistem Operasi",
+      "halaman_pdf_0based": 15,
+      "halaman_akhir_0based": 17,
+      "halaman_tampil": 16,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 3,
+      "kode_unit": "J.63OPR00.003.2",
+      "judul_unit": "Menggunakan Peralatan Peripheral",
+      "halaman_pdf_0based": 18,
+      "halaman_akhir_0based": 20,
+      "halaman_tampil": 19,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 4,
+      "kode_unit": "J.63OPR00.004.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+      "halaman_pdf_0based": 21,
+      "halaman_akhir_0based": 24,
+      "halaman_tampil": 22,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 5,
+      "kode_unit": "J.63OPR00.005.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar",
+      "halaman_pdf_0based": 25,
+      "halaman_akhir_0based": 28,
+      "halaman_tampil": 26,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 6,
+      "kode_unit": "J.63OPR00.006.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Presentasi – Tingkat Dasar",
+      "halaman_pdf_0based": 29,
+      "halaman_akhir_0based": 32,
+      "halaman_tampil": 30,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 7,
+      "kode_unit": "J.63OPR00.007.2",
+      "judul_unit": "Menggunakan Penelusur Situs Web (Web Browser)",
+      "halaman_pdf_0based": 33,
+      "halaman_akhir_0based": 35,
+      "halaman_tampil": 34,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 8,
+      "kode_unit": "J.63OPR00.008.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Pengakses Surat Elektronik (e-Mail Client)",
+      "halaman_pdf_0based": 36,
+      "halaman_akhir_0based": 38,
+      "halaman_tampil": 37,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 9,
+      "kode_unit": "J.63OPR00.009.2",
+      "judul_unit": "Menggunakan Aplikasi Berbasis Internet (Internet Based Applications Literacy)",
+      "halaman_pdf_0based": 39,
+      "halaman_akhir_0based": 41,
+      "halaman_tampil": 40,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 10,
+      "kode_unit": "J.63OPR00.010.2",
+      "judul_unit": "Menggunakan Aplikasi Media Sosial",
+      "halaman_pdf_0based": 42,
+      "halaman_akhir_0based": 45,
+      "halaman_tampil": 43,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 11,
+      "kode_unit": "J.63OPR00.011.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Lanjut",
+      "halaman_pdf_0based": 46,
+      "halaman_akhir_0based": 49,
+      "halaman_tampil": 47,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 12,
+      "kode_unit": "J.63OPR00.012.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Lembar Kerja Tingkat Lanjut",
+      "halaman_pdf_0based": 50,
+      "halaman_akhir_0based": 53,
+      "halaman_tampil": 51,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 13,
+      "kode_unit": "J.63OPR00.013.2",
+      "judul_unit": "Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut",
+      "halaman_pdf_0based": 54,
+      "halaman_akhir_0based": 57,
+      "halaman_tampil": 55,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 14,
+      "kode_unit": "J.63OPR00.014.2",
+      "judul_unit": "Melakukan Pemasukan Data",
+      "halaman_pdf_0based": 58,
+      "halaman_akhir_0based": 60,
+      "halaman_tampil": 59,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 15,
+      "kode_unit": "J.63OPR00.015.2",
+      "judul_unit": "Memastikan Validitas Data",
+      "halaman_pdf_0based": 61,
+      "halaman_akhir_0based": 63,
+      "halaman_tampil": 62,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 16,
+      "kode_unit": "J.63OPR00.016.2",
+      "judul_unit": "Mengidentifikasi Aspek Keamanan Informasi Pengguna",
+      "halaman_pdf_0based": 64,
+      "halaman_akhir_0based": 69,
+      "halaman_tampil": 65,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 17,
+      "kode_unit": "J.63OPR00.017.1",
+      "judul_unit": "Memastikan Keamanan Informasi Pengguna",
+      "halaman_pdf_0based": 70,
+      "halaman_akhir_0based": 74,
+      "halaman_tampil": 71,
+      "status": "teridentifikasi"
+    }
+  ],
+  "jumlah_unit": 17,
+  "jumlah_unit_teridentifikasi": 17,
+  "jumlah_unit_perlu_verifikasi": 0,
+  "validasi_kelengkapan": null,
+  "diperbarui": "2026-10-25T06:37:58",
+  "pesan_identifikasi": null,
+  "identifikasi_pada": "2026-10-25T06:37:58"
+}

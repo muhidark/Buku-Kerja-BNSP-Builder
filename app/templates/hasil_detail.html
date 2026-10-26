@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block subjudul %}Metadata dokumen dan daftar unit yang tercakup{% endblock %}
+{% block konten %}
+<p class="breadcrumb"><a href="/hasil">← Kembali ke riwayat dokumen</a></p>
+
+{% if pesan %}<div class="alert alert-{{ tipe or 'info' }}">{{ pesan }}</div>{% endif %}
+
+<article class="card">
+  <div class="card-head">
+    <h2>{{ dok.nama_skema or 'Dokumen' }}</h2>
+    <span class="badge {% if dok.status == 'siap_ditinjau' %}badge-green{% elif dok.status == 'gagal' %}badge-red{% else %}badge-amber{% endif %}">
+      {{ (dok.status or '-').replace('_', ' ') }}
+    </span>
+  </div>
+  <dl class="info-grid">
+    <div><dt>Jumlah unit</dt><dd>{{ dok.jumlah_unit }}</dd></div>
+    <div><dt>Elemen / KUK</dt><dd>{{ dok.total_elemen or 0 }} / {{ dok.total_kuk or 0 }}</dd></div>
+    <div><dt>Dibuat</dt><dd>{{ (dok.dibuat or '')[:16] }}</dd></div>
+    <div><dt>Ukuran berkas</dt><dd>{{ ((dok.ukuran_byte or 0) / 1024)|round|int }} KB</dd></div>
+    <div><dt>Status draft disetujui</dt><dd>{{ 'ya' if dok.persetujuan_draft else 'tidak' }}</dd></div>
+    <div><dt>ID dokumen</dt><dd><code>{{ dok.id }}</code></dd></div>
+  </dl>
+  {% if dok.berkas_docx %}
+  <p><a class="btn" href="/api/documents/{{ dok.id }}/download">Unduh DOCX</a></p>
+  {% endif %}
+</article>
+
+{% if dok.masalah %}
+<article class="card">
+  <h2>Catatan Validasi</h2>
+  <p class="muted small">Dokumen ini dibuat sebagai draft karena hal berikut:</p>
+  <ul class="masalah-list">
+    {% for m in dok.masalah %}
+    <li><code>{{ m.kode }}</code> — {{ m.pesan }}</li>
+    {% endfor %}
+  </ul>
+</article>
+{% endif %}
+
+<article class="card">
+  <h2>Unit dalam Dokumen</h2>
+  <table class="table">
+    <thead><tr><th>No</th><th>Kode Unit</th><th>Judul</th><th>Sumber SKKNI</th><th>Halaman</th><th>Validasi</th></tr></thead>
+    <tbody>
+      {% for u in dok.units %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td><code>{{ u.kode_unit }}</code></td>
+        <td>{{ u.judul_unit or '—' }}</td>
+        <td>{{ u.sumber_skkni or '—' }}</td>
+        <td class="num">{% if u.halaman_pdf_0based is not none %}{{ u.halaman_pdf_0based + 1 }} <span class="muted small">(1-based)</span>{% else %}—{% endif %}</td>
+        <td>
+          <span class="badge {% if u.validasi_struktur == 'valid_struktur' %}badge-green{% else %}badge-amber{% endif %}">
+            {{ (u.validasi_struktur or '-').replace('_', ' ') }}
+          </span>
+          <span class="badge {% if u.validasi_kelengkapan == 'valid_kelengkapan' %}badge-green{% else %}badge-amber{% endif %}">
+            {{ (u.validasi_kelengkapan or '-').replace('_', ' ') }}
+          </span>
+          {% if u.terverifikasi_manual %}
+          <span class="badge badge-blue" title="Manual: {{ u.waktu_verifikasi_manual or '-' }}">terverifikasi manual</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</article>
+{% endblock %}

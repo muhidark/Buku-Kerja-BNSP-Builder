@@ -1,0 +1,192 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.013.3",
+    "rentang_halaman_pdf": [
+      38,
+      39
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.013.3",
+  "judul_unit": "Menentukan Pengaturan Pencahayaan",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam menentukan elemen pencahayaan di perangkat kamera.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Menerapkan pengoperasian masing- masing komponen pencahayaan di perangkat kamera",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Pilihan ISO ditetapkan sesuai dengan kondisi pencahayaan.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Pilihan ISO ditetapkan sesuai dengan kondisi pencahayaan."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Bukaan diafragma ditetapkan sesuai kondisi pencahayaan.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Bukaan diafragma ditetapkan sesuai kondisi pencahayaan."
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Kecepatan rana ditetapkan sesuai kondisi pencahayaan.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Kecepatan rana ditetapkan sesuai kondisi pencahayaan."
+        }
+      ],
+      "halaman_pdf": 38,
+      "teks_mentah": "1. Menerapkan\npengoperasian masing-\nmasing komponen\npencahayaan di\nperangkat kamera"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menerapkan pengaturan pencahayaan yang sesuai dengan kebutuhan",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Pilihan ISO ditetapkan sesuai kebutuhan kualitas gambar.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Pilihan ISO ditetapkan sesuai kebutuhan kualitas gambar."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Pilihan bukaan diafragma ditetapkan untuk mendapatkan ruang tajam yang sesuai dengan tujuan pemotretan.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Pilihan bukaan diafragma ditetapkan untuk mendapatkan ruang tajam yang sesuai dengan tujuan pemotretan."
+        },
+        {
+          "nomor_kuk": "2.3",
+          "uraian_kuk": "Pilihan kecepatan rana ditetapkan untuk menghasilkan kesan gerak atau beku/diam sesuai dengan tujuan pemotretan.",
+          "halaman_pdf": 38,
+          "teks_mentah": "Pilihan kecepatan rana ditetapkan untuk menghasilkan kesan gerak atau beku/diam sesuai dengan tujuan pemotretan."
+        }
+      ],
+      "halaman_pdf": 38,
+      "teks_mentah": "2. Menerapkan\npengaturan\npencahayaan yang\nsesuai dengan\nkebutuhan"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"BATASAN VARIABEL\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "panduan_penilaian": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"PANDUAN PENILAIAN\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 246.71,
+    "x1_maks_kolom_kiri": 239.69000244140625,
+    "x0_min_kolom_kanan": 318.07000732421875,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      92.06400299072266,
+      174.11598205566406,
+      239.69000244140625,
+      188.09597778320312
+    ],
+    "header_kuk_bbox": [
+      318.07000732421875,
+      174.11598205566406,
+      481.7799987792969,
+      188.09597778320312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "BATASAN VARIABEL tidak ditemukan; tabel diambil sampai akhir halaman",
+      "Batas kolom (76.8) tidak melewati tepi kanan header ELEMEN (239.7)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: heading tidak ditemukan",
+      "PANDUAN PENILAIAN: heading tidak ditemukan"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

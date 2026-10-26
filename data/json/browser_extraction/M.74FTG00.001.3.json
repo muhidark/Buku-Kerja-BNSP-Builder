@@ -1,0 +1,186 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.001.3",
+    "rentang_halaman_pdf": [
+      13,
+      14
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.001.3",
+  "judul_unit": "Mengelola Gagasan Konsumen",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengidentifikasi dan mengevaluasi tanggapan konsumen.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Mengidentifikasi permintaan konsumen",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Gagasan dikembangkan berdasarkan ide dasar konsumen.",
+          "halaman_pdf": 13,
+          "teks_mentah": "Gagasan dikembangkan berdasarkan ide dasar konsumen."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Data, materi atau bahan informasi yang mendukung dan relevan dengan rancangan pemotretan dikumpulkan sesuai dengan rencana kerja.",
+          "halaman_pdf": 13,
+          "teks_mentah": "Data, materi atau bahan informasi yang mendukung dan relevan dengan rancangan pemotretan dikumpulkan sesuai dengan rencana kerja."
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Data, materi atau bahan informasi yang mendukung dan relevan dengan rancangan pemotretan diidentifikasi sesuai dengan rencana kerja.",
+          "halaman_pdf": 13,
+          "teks_mentah": "Data, materi atau bahan informasi yang mendukung dan relevan dengan rancangan pemotretan diidentifikasi sesuai dengan rencana kerja."
+        }
+      ],
+      "halaman_pdf": 13,
+      "teks_mentah": "1. Mengidentifikasi\npermintaan konsumen"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Mengevaluasi tanggapan konsumen terhadap rencana kerja",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Rancangan pemotretan dikomunikasikan kepada konsumen berdasarkan hasil identifikasi.",
+          "halaman_pdf": 13,
+          "teks_mentah": "Rancangan pemotretan dikomunikasikan kepada konsumen berdasarkan hasil identifikasi."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Feedback dari konsumen dikaji ulang berdasarkan ide dasar konsumen sebelum masuk proses kerja.",
+          "halaman_pdf": 13,
+          "teks_mentah": "Feedback dari konsumen dikaji ulang berdasarkan ide dasar konsumen sebelum masuk proses kerja."
+        }
+      ],
+      "halaman_pdf": 13,
+      "teks_mentah": "2. Mengevaluasi\ntanggapan konsumen\nterhadap rencana kerja"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"BATASAN VARIABEL\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "panduan_penilaian": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"PANDUAN PENILAIAN\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 248.81,
+    "x1_maks_kolom_kiri": 241.00999450683594,
+    "x0_min_kolom_kanan": 319.510009765625,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      93.38400268554688,
+      188.15602111816406,
+      241.00999450683594,
+      202.13601684570312
+    ],
+    "header_kuk_bbox": [
+      319.510009765625,
+      188.15602111816406,
+      483.2200012207031,
+      202.13601684570312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "BATASAN VARIABEL tidak ditemukan; tabel diambil sampai akhir halaman",
+      "Batas kolom (76.8) tidak melewati tepi kanan header ELEMEN (241.0)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: heading tidak ditemukan",
+      "PANDUAN PENILAIAN: heading tidak ditemukan"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

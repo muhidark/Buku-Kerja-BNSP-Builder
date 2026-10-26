@@ -1,0 +1,440 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2024-171 Fotografi.pdf",
+    "kode_unit": "M.74FTG00.014.3",
+    "rentang_halaman_pdf": [
+      40,
+      41
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.12
+  },
+  "kode_unit": "M.74FTG00.014.3",
+  "judul_unit": "Mengatur Ketajaman Gambar",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam mengatur ketajaman objek pada gambar.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Menentukan ketajaman foto",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Titik fokus pada benda diam ditetapkan sesuai standar teknis.",
+          "halaman_pdf": 40,
+          "teks_mentah": "Titik fokus pada benda diam ditetapkan sesuai standar teknis."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Titik fokus pada benda bergerak ditetapkan sesuai standar teknis.",
+          "halaman_pdf": 40,
+          "teks_mentah": "Titik fokus pada benda bergerak ditetapkan sesuai standar teknis."
+        }
+      ],
+      "halaman_pdf": 40,
+      "teks_mentah": "1. Menentukan\nketajaman foto"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menentukan sistem titik fokus yang tepat",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Sistem penajaman gambar dipilih dengan tepat sesuai standar teknis.",
+          "halaman_pdf": 40,
+          "teks_mentah": "Sistem penajaman gambar dipilih dengan tepat sesuai standar teknis."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Jarak fokus pada lensa disesuaikan agar mendapat ketajaman gambar yang tepat sesuai standar teknis.",
+          "halaman_pdf": 40,
+          "teks_mentah": "Jarak fokus pada lensa disesuaikan agar mendapat ketajaman gambar yang tepat sesuai standar teknis."
+        },
+        {
+          "nomor_kuk": "2.3",
+          "uraian_kuk": "Hasil pemotretan diperiksa ulang sesuai standar teknis.",
+          "halaman_pdf": 40,
+          "teks_mentah": "Hasil pemotretan diperiksa ulang sesuai standar teknis."
+        }
+      ],
+      "halaman_pdf": 40,
+      "teks_mentah": "2. Menentukan sistem\ntitik fokus yang tepat"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": false,
+    "halaman_awal": null,
+    "halaman_akhir": null,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 0,
+      "jumlah_node_bernomor": 0,
+      "jumlah_paragraf_tanpa_nomor": 0,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [],
+    "catatan": [
+      "Heading \"BATASAN VARIABEL\" tidak ditemukan"
+    ],
+    "teks_mentah": ""
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 40,
+    "halaman_akhir": 41,
+    "status_validasi": "perlu_verifikasi",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 12,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1.4",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": false,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": null,
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": false,
+        "judul": "- 42 -",
+        "teks": "- 42 -",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          35.97596740722656,
+          325.989990234375,
+          63.79201126098633
+        ],
+        "teks_mentah": "- 42 -",
+        "items": []
+      },
+      {
+        "nomor": "1.4",
+        "level": 2,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "teks": "Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes lisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, verifikasi bukti/portofolio, dan wawancara serta metode lain yang relevan.",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1039428710938,
+          380.75
+        ],
+        "teks_mentah": "1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes\nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi,\nverifikasi bukti/portofolio, dan wawancara serta metode lain yang\nrelevan.",
+        "items": []
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi (Tidak ada.)",
+        "teks": "Persyaratan kompetensi (Tidak ada.)",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1039428710938,
+          380.75
+        ],
+        "teks_mentah": "2. Persyaratan kompetensi\n(Tidak ada.)",
+        "items": []
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1039428710938,
+          380.75
+        ],
+        "teks_mentah": "3. Pengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1039428710938,
+              380.75
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Sistem dan cara penajaman gambar",
+                "teks": "Sistem dan cara penajaman gambar",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1039428710938,
+                  380.75
+                ],
+                "teks_mentah": "3.1.1 Sistem dan cara penajaman gambar",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1039428710938,
+              380.75
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Mengatur ketajaman pada benda diam atau bergerak",
+                "teks": "Mengatur ketajaman pada benda diam atau bergerak",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1039428710938,
+                  380.75
+                ],
+                "teks_mentah": "3.2.1 Mengatur ketajaman pada benda diam atau bergerak",
+                "items": []
+              },
+              {
+                "nomor": "3.2.2",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Mengukur titik ketajaman",
+                "teks": "Mengukur titik ketajaman",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  70.94400024414062,
+                  85.07600402832031,
+                  545.1039428710938,
+                  380.75
+                ],
+                "teks_mentah": "3.2.2 Mengukur titik ketajaman",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1039428710938,
+          380.75
+        ],
+        "teks_mentah": "4. Sikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Teliti dan cermat dalam mengukur dan menentukan titik ketajaman",
+            "teks": "Teliti dan cermat dalam mengukur dan menentukan titik ketajaman",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1039428710938,
+              380.75
+            ],
+            "teks_mentah": "4.1 Teliti dan cermat dalam mengukur dan menentukan titik ketajaman",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          70.94400024414062,
+          85.07600402832031,
+          545.1039428710938,
+          380.75
+        ],
+        "teks_mentah": "5. Aspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Ketepatan memilih sistem penajaman gambar dengan tepat sesuai standar teknis",
+            "teks": "Ketepatan memilih sistem penajaman gambar dengan tepat sesuai standar teknis",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              70.94400024414062,
+              85.07600402832031,
+              545.1039428710938,
+              380.75
+            ],
+            "teks_mentah": "5.1 Ketepatan memilih sistem penajaman gambar dengan tepat sesuai\nstandar teknis",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [
+      "Nomor 1.4 (level 2) muncul tanpa induk"
+    ],
+    "teks_mentah": "- 42 -\n1.4 Metode asesmen yang dapat diterapkan meliputi kombinasi metode tes \nlisan, tes tertulis, observasi – tempat kerja/demonstrasi/simulasi, \nverifikasi bukti/portofolio, dan wawancara serta metode lain yang \nrelevan. \n2. Persyaratan kompetensi \n(Tidak ada.) \n3. Pengetahuan dan keterampilan yang diperlukan \n3.1 Pengetahuan \n3.1.1 Sistem dan cara penajaman gambar \n3.2 Keterampilan \n3.2.1 Mengatur ketajaman pada benda diam atau bergerak  \n3.2.2 Mengukur titik ketajaman \n4. Sikap kerja yang diperlukan \n4.1 Teliti dan cermat dalam mengukur dan menentukan titik ketajaman \n5. Aspek kritis \n5.1 Ketepatan memilih sistem penajaman gambar dengan tepat sesuai \nstandar teknis"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 0,
+        "jumlah_node_bernomor": 0,
+        "jumlah_paragraf_tanpa_nomor": 0,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 12,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1.4",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": false,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 246.71,
+    "x1_maks_kolom_kiri": 239.69000244140625,
+    "x0_min_kolom_kanan": 318.07000732421875,
+    "keyakinan": "medium",
+    "metode": "per_kata",
+    "header_elemen_bbox": [
+      92.06400299072266,
+      174.11598205566406,
+      239.69000244140625,
+      188.09597778320312
+    ],
+    "header_kuk_bbox": [
+      318.07000732421875,
+      174.11598205566406,
+      481.7799987792969,
+      188.09597778320312
+    ],
+    "catatan": [
+      "Tabel dibaca dengan metode per-kata: dua kolom tergabung dalam satu block teks"
+    ]
+  },
+  "validasi": {
+    "status": "perlu_verifikasi",
+    "catatan": [
+      "BATASAN VARIABEL tidak ditemukan; tabel diambil sampai akhir halaman",
+      "Batas kolom (76.8) tidak melewati tepi kanan header ELEMEN (239.7)",
+      "Banyak block kolom kanan tidak diawali nomor; periksa batas kolom",
+      "BATASAN VARIABEL: heading tidak ditemukan",
+      "PANDUAN PENILAIAN: penomoran tidak berurutan di bawah root: ['1.4', '2', '3', '4', '5'] (diharapkan ['1', '2', '3', '4', '5'])",
+      "PANDUAN PENILAIAN: kelompok tidak dimulai dari nomor 1 (mulai 1.4)",
+      "PANDUAN PENILAIAN: penomoran tidak dimulai dari 1 (mulai 1.4)"
+    ],
+    "peringatan_format_sumber": []
+  }
+}

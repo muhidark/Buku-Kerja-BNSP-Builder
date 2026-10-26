@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block subjudul %}Elemen Kompetensi, KUK, Batasan Variabel, dan Panduan Penilaian{% endblock %}
+{% block konten %}
+<p class="breadcrumb"><a href="/skema/{{ dok.id }}">← Kembali ke detail skema</a></p>
+
+{% if not data %}
+<article class="card">
+  <h2>{{ kode }}</h2>
+  <p class="empty">Unit ini belum diekstrak dari browser. Jalankan ekstraksi dari halaman detail skema.</p>
+  <p><a class="btn" href="/skema/{{ dok.id }}">Buka detail skema</a></p>
+</article>
+{% else %}
+
+<article class="card">
+  <div class="card-head">
+    <h2>{{ data.kode_unit }}</h2>
+    <span class="badge {% if (data.validasi or {}).status == 'valid_struktur' %}badge-green{% else %}badge-amber{% endif %}">
+      struktur: {{ ((data.validasi or {}).status or '-').replace('_', ' ') }}
+    </span>
+  </div>
+  <p class="judul-unit">{{ data.judul_unit or '—' }}</p>
+  <dl class="info-grid">
+    <div><dt>Sumber PDF</dt><dd>{{ (data.metadata_sumber or {}).nama_dokumen }}</dd></div>
+    <div><dt>Rentang halaman (0-based)</dt><dd>{{ (data.metadata_sumber or {}).rentang_halaman_pdf }}</dd></div>
+    <div><dt>Halaman tampil (1-based)</dt><dd>{{ ((data.metadata_sumber or {}).rentang_halaman_pdf or [0])[0] + 1 }}</dd></div>
+    <div><dt>Elemen</dt><dd>{{ data.elemen_kompetensi|length }}</dd></div>
+    <div><dt>KUK</dt><dd>{{ data.elemen_kompetensi|map(attribute='kuk')|map('length')|sum }}</dd></div>
+    <div><dt>Berkas JSON</dt><dd><code>{{ berkas }}</code></dd></div>
+  </dl>
+</article>
+
+<article class="card" style="border-left: 4px solid #2563eb;">
+  <div class="card-head">
+    <h2>⚡ Ekspor ke Plugin LSP WordPress</h2>
+    <span class="badge badge-green">Siap Impor</span>
+  </div>
+  <p class="muted small" style="margin-bottom: 12px;">
+    Gunakan salah satu tombol di bawah untuk menyalin data unit ini ke modal <strong>⚡ Quick Import / Paste Teks SKKNI</strong> pada plugin <code>lsp-core-management</code> WordPress.
+  </p>
+  <div class="aksi-group" style="gap: 8px; flex-wrap: wrap;">
+    <button type="button" class="btn btn-small" onclick="salinKeClipboard('unit-smart-text-hidden', 'Teks Smart Paste berhasil disalin ke clipboard! Buka modal Smart Paste di WordPress dan tekan Paste (Ctrl+V).')">
+      📋 Salin Teks Smart Paste
+    </button>
+    <button type="button" class="btn btn-small btn-ghost" onclick="salinKeClipboard('unit-lsp-json-hidden', 'JSON LSP berhasil disalin ke clipboard! Buka modal Smart Paste di WordPress dan tekan Paste (Ctrl+V).')">
+      📋 Salin JSON LSP
+    </button>
+    <a class="btn btn-small btn-ghost" href="/api/skema/{{ dok.id }}/unit/{{ data.kode_unit }}/export-lsp?download=true">
+      ⬇️ Unduh Berkas JSON
+    </a>
+  </div>
+  <textarea id="unit-smart-text-hidden" style="display:none;">{{ unit_smart_text }}</textarea>
+  <textarea id="unit-lsp-json-hidden" style="display:none;">{{ unit_lsp_json }}</textarea>
+</article>
+
+{% set vk = data.validasi_kelengkapan or {} %}
+<article class="card">
+  <div class="card-head">
+    <h2>Validasi Kelengkapan KUK</h2>
+    <span class="badge {% if vk.status == 'valid_kelengkapan' %}badge-green{% else %}badge-amber{% endif %}">
+      {{ (vk.status or '-').replace('_', ' ') }}
+    </span>
+  </div>
+  <p class="muted small">
+    Diperiksa {{ vk.diperiksa_pada or '-' }} · {{ vk.kuk_pdf|length if vk.kuk_pdf else 0 }} nomor KUK di PDF ·
+    {{ vk.kuk_hilang|length if vk.kuk_hilang else 0 }} hilang ·
+    {{ vk.kuk_ekstra|length if vk.kuk_ekstra else 0 }} tanpa bukti ·
+    {{ vk.duplikat|length if vk.duplikat else 0 }} duplikat
+  </p>
+  {% if vk.kuk_hilang %}
+  <div class="alert alert-galat">Nomor KUK ada di PDF tetapi tidak ada di JSON: {{ vk.kuk_hilang|join(', ') }}</div>
+  {% endif %}
+  {% if vk.catatan %}<p class="note">{{ vk.catatan|join(' ') }}</p>{% endif %}
+  <p class="note">Validasi memeriksa <strong>nomor</strong> KUK, bukan kebenaran uraian teks.</p>
+</article>
+
+<article class="card">
+  <h2>Elemen Kompetensi dan Kriteria Unjuk Kerja</h2>
+  <table class="table">
+    <thead><tr><th style="width:32%">Elemen Kompetensi</th><th>Kriteria Unjuk Kerja</th></tr></thead>
+    <tbody>
+      {% for e in data.elemen_kompetensi %}
+      <tr>
+        <td><strong>{{ e.nomor_elemen }}</strong> {{ e.nama_elemen }}</td>
+        <td>
+          {% for k in e.kuk %}
+          <div class="kuk"><span class="kuk-no">{{ k.nomor_kuk }}</span> {{ k.uraian_kuk }}</div>
+          {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</article>
+
+<article class="card">
+  <h2>Batasan Variabel</h2>
+  {% if bv %}
+  <ul class="daftar-nomor">
+    {% for n in bv %}
+    <li class="lvl-{{ n.level }}">
+      <span class="nomor">{{ n.nomor }}</span>
+      <span>{{ n.teks }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="empty">Tidak ada Batasan Variabel yang terbaca.</p>{% endif %}
+</article>
+
+<article class="card">
+  <h2>Panduan Penilaian</h2>
+  {% if pp %}
+  <ul class="daftar-nomor">
+    {% for n in pp %}
+    <li class="lvl-{{ n.level }}">
+      <span class="nomor">{{ n.nomor }}</span>
+      <span>{{ n.teks }}</span>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<p class="empty">Tidak ada Panduan Penilaian yang terbaca.</p>{% endif %}
+</article>
+
+<article class="card">
+  <h2>Deskripsi Unit</h2>
+  <p>{{ data.deskripsi_unit or '—' }}</p>
+</article>
+{% endif %}
+
+<script>
+function salinKeClipboard(elementId, pesanSukses) {
+  var el = document.getElementById(elementId);
+  if (!el) return;
+  navigator.clipboard.writeText(el.value).then(function() {
+    alert(pesanSukses);
+  }).catch(function(err) {
+    el.style.display = 'block';
+    el.select();
+    document.execCommand('copy');
+    el.style.display = 'none';
+    alert(pesanSukses);
+  });
+}
+</script>
+{% endblock %}

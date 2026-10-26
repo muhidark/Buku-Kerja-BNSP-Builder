@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block subjudul %}Unit kompetensi hasil ekstraksi yang tersimpan sebagai JSON{% endblock %}
+{% block konten %}
+<article class="card">
+  <div class="card-head">
+    <h2>Daftar Unit Kompetensi</h2>
+    <input type="search" class="filter" data-filter="tabel-unit" placeholder="Cari kode atau judul…">
+  </div>
+  {% if daftar %}
+  <table class="table" data-table="tabel-unit">
+    <thead><tr><th>Kode Unit</th><th>Judul</th><th>Sumber</th><th>Elemen</th><th>KUK</th><th>Validasi</th></tr></thead>
+    <tbody>
+      {% for u in daftar %}
+      <tr>
+        <td><code>{{ u.kode_unit }}</code></td>
+        <td>{{ u.judul_unit }}</td>
+        <td>{{ u.sumber }}</td>
+        <td class="num">{{ u.elemen }}</td>
+        <td class="num">{{ u.kuk }}</td>
+        <td><span class="badge {% if u.validasi == 'valid_struktur' %}badge-green{% elif u.validasi == 'gagal_ekstraksi' %}badge-red{% else %}badge-amber{% endif %}"
+                  {% if u.catatan %}title="{{ u.catatan|join('; ') }}"{% endif %}>{{ u.validasi.replace('_', ' ') }}</span></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">Belum ada JSON unit kompetensi. Jalankan pipeline ekstraksi terlebih dahulu.</p>
+  {% endif %}
+</article>
+{% endblock %}

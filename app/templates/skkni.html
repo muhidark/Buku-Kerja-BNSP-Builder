@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block subjudul %}Perpustakaan PDF SKKNI dan identifikasi unit kompetensi{% endblock %}
+{% block konten %}
+
+{% if pesan %}
+<div class="alert alert-{{ tipe or 'info' }}">
+  <span>{{ pesan }}</span>
+  {% if doc_sorot %}<a href="/skkni/{{ doc_sorot }}">Buka dokumen</a>{% endif %}
+</div>
+{% endif %}
+
+<section class="cards cards-3">
+  <article class="card stat">
+    <span class="stat-label">Dokumen perpustakaan</span>
+    <span class="stat-value">{{ total_semua }}</span>
+    <span class="stat-note">Total PDF yang dikelola</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Hasil pencarian</span>
+    <span class="stat-value">{{ daftar|length }}</span>
+    <span class="stat-note">{% if q %}kata kunci: "{{ q }}"{% else %}tanpa filter{% endif %}</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Batas unggah</span>
+    <span class="stat-value stat-text">{{ batas_mb }} MB</span>
+    <span class="stat-note">PDF, divalidasi signature &amp; struktur</span>
+  </article>
+</section>
+
+<article class="card">
+  <h2>Unggah PDF SKKNI</h2>
+  <form class="upload" method="post" action="/skkni/upload" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="file" name="berkas" accept="application/pdf,.pdf" required>
+    <button type="submit" class="btn">Unggah &amp; identifikasi</button>
+  </form>
+  <p class="note">
+    Hanya berkas PDF yang sah (signature dan struktur diperiksa). Berkas duplikat
+    (SHA-256 sama) ditolak. Nama asli disimpan sebagai metadata; berkas disimpan
+    dengan nama internal acak.
+  </p>
+</article>
+
+<article class="card">
+  <div class="card-head">
+    <h2>Daftar Dokumen</h2>
+    <form class="cari" method="get" action="/skkni">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama, nomor, tahun, judul...">
+      <button type="submit" class="btn btn-ghost">Cari</button>
+      {% if q %}<a class="btn btn-ghost" href="/skkni">Reset</a>{% endif %}
+    </form>
+  </div>
+
+  {% if daftar %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>No</th><th>Nama Dokumen</th><th>Nomor / Tahun</th><th>Halaman</th>
+        <th>Unit</th><th>Status Identifikasi</th><th>Ditambahkan</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for d in daftar %}
+      <tr{% if d.id == doc_sorot %} class="is-sorot"{% endif %}>
+        <td>{{ loop.index }}</td>
+        <td>
+          {{ d.nama_asli }}
+          {% if d.sumber == 'proyek' %}<span class="tag">proyek</span>{% endif %}
+        </td>
+        <td>{% if d.nomor %}{{ d.nomor }} / {{ d.tahun }}{% else %}<span class="muted">belum teridentifikasi</span>{% endif %}</td>
+        <td class="num">{{ d.halaman }}</td>
+        <td class="num">{{ d.jumlah_unit or 0 }}</td>
+        <td>
+          {% set st = d.status_identifikasi %}
+          <span class="badge {% if st == 'lengkap' %}badge-green{% elif st == 'belum_diproses' %}badge-neutral{% else %}badge-amber{% endif %}">
+            {{ (st or '-').replace('_', ' ') }}
+          </span>
+        </td>
+        <td class="nowrap">{{ (d.tanggal_ditambah or '')[:16] }}</td>
+        <td><a class="btn btn-small" href="/skkni/{{ d.id }}">Detail</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">
+    {% if q %}Tidak ada dokumen yang cocok dengan "{{ q }}".{% else %}
+    Belum ada dokumen. Unggah PDF SKKNI untuk memulai.{% endif %}
+  </p>
+  {% endif %}
+</article>
+{% endblock %}

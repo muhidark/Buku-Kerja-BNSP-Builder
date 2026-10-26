@@ -1,0 +1,1127 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "SKKNI 2018-056.pdf.pdf",
+    "kode_unit": "J.63OPR00.009.2",
+    "rentang_halaman_pdf": [
+      39,
+      41
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.0
+  },
+  "kode_unit": "J.63OPR00.009.2",
+  "judul_unit": "Menggunakan Aplikasi Berbasis Internet (Internet Based Applications Literacy)",
+  "deskripsi_unit": "Unit kompetensi ini berkaitan dengan pengetahuan keterampilan dan sikap kerja yang dibutuhkan untuk menggunakan aplikasi berbasis Internet.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Mengidentifikasi koneksi Internet telah tersambung",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Alternatif jaringan Internet yang tersedia diidentifikasi secara lengkap sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 39,
+          "bbox": [
+            255.2899932861328,
+            274.1299743652344,
+            533.218505859375,
+            376.97021484375
+          ],
+          "teks_mentah": "1.1 Alternatif jaringan Internet yang tersedia \ndiidentifikasi \nsecara \nlengkap \nsesuai \ndengan kebutuhan pengguna. \n1.2 Koneksi \nInternet \ndisambung \nsesuai \ndengan jaringan yang tersedia. \n1.3 Perangkat komputer dipastikan dapat \nterhubung ke Internet."
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Koneksi Internet disambung sesuai dengan jaringan yang tersedia.",
+          "halaman_pdf": 39,
+          "bbox": [
+            255.2899932861328,
+            274.1299743652344,
+            533.218505859375,
+            376.97021484375
+          ],
+          "teks_mentah": "1.1 Alternatif jaringan Internet yang tersedia \ndiidentifikasi \nsecara \nlengkap \nsesuai \ndengan kebutuhan pengguna. \n1.2 Koneksi \nInternet \ndisambung \nsesuai \ndengan jaringan yang tersedia. \n1.3 Perangkat komputer dipastikan dapat \nterhubung ke Internet."
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Perangkat komputer dipastikan dapat terhubung ke Internet.",
+          "halaman_pdf": 39,
+          "bbox": [
+            255.2899932861328,
+            274.1299743652344,
+            533.218505859375,
+            376.97021484375
+          ],
+          "teks_mentah": "1.1 Alternatif jaringan Internet yang tersedia \ndiidentifikasi \nsecara \nlengkap \nsesuai \ndengan kebutuhan pengguna. \n1.2 Koneksi \nInternet \ndisambung \nsesuai \ndengan jaringan yang tersedia. \n1.3 Perangkat komputer dipastikan dapat \nterhubung ke Internet."
+        }
+      ],
+      "halaman_pdf": 39,
+      "bbox": [
+        93.50389862060547,
+        274.1299743652344,
+        250.07591247558594,
+        314.57000732421875
+      ],
+      "teks_mentah": "1. Mengidentifikasi \nkoneksi \nInternet \ntelah tersambung"
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Mengidentifikasi aplikasi berbasis Internet",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Aplikasi berbasis Internet diketahui sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            385.3699645996094,
+            533.2593994140625,
+            443.1101989746094
+          ],
+          "teks_mentah": "2.1 Aplikasi berbasis Internet diketahui \nsesuai dengan kebutuhan pengguna. \n2.2 Fungsi dari aplikasi berbasis Internet \ndijelaskan."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Fungsi dari aplikasi berbasis Internet dijelaskan.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            385.3699645996094,
+            533.2593994140625,
+            443.1101989746094
+          ],
+          "teks_mentah": "2.1 Aplikasi berbasis Internet diketahui \nsesuai dengan kebutuhan pengguna. \n2.2 Fungsi dari aplikasi berbasis Internet \ndijelaskan."
+        }
+      ],
+      "halaman_pdf": 39,
+      "bbox": [
+        93.50389862060547,
+        385.3699645996094,
+        250.08782958984375,
+        425.95001220703125
+      ],
+      "teks_mentah": "2. Mengidentifikasi \naplikasi \nberbasis \nInternet"
+    },
+    {
+      "nomor_elemen": "3",
+      "nama_elemen": "Menjalankan aplikasi berbasis Internet",
+      "kuk": [
+        {
+          "nomor_kuk": "3.1",
+          "uraian_kuk": "Panduan pemakaian aplikasi dikuasai.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            451.5099792480469,
+            533.1698608398438,
+            557.47021484375
+          ],
+          "teks_mentah": "3.1 Panduan pemakaian aplikasi dikuasai. \n3.2 Menu \nyang \nada \npada \naplikasi \ndiidentifikasi sesuai dengan fungsinya. \n3.3 Menu dipilih sesuai dengan kebutuhan \npengguna. \n3.4 Form-form yang ada diisi secara lengkap \nsesuai batasan pengisian."
+        },
+        {
+          "nomor_kuk": "3.2",
+          "uraian_kuk": "Menu yang ada pada aplikasi diidentifikasi sesuai dengan fungsinya.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            451.5099792480469,
+            533.1698608398438,
+            557.47021484375
+          ],
+          "teks_mentah": "3.1 Panduan pemakaian aplikasi dikuasai. \n3.2 Menu \nyang \nada \npada \naplikasi \ndiidentifikasi sesuai dengan fungsinya. \n3.3 Menu dipilih sesuai dengan kebutuhan \npengguna. \n3.4 Form-form yang ada diisi secara lengkap \nsesuai batasan pengisian."
+        },
+        {
+          "nomor_kuk": "3.3",
+          "uraian_kuk": "Menu dipilih sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            451.5099792480469,
+            533.1698608398438,
+            557.47021484375
+          ],
+          "teks_mentah": "3.1 Panduan pemakaian aplikasi dikuasai. \n3.2 Menu \nyang \nada \npada \naplikasi \ndiidentifikasi sesuai dengan fungsinya. \n3.3 Menu dipilih sesuai dengan kebutuhan \npengguna. \n3.4 Form-form yang ada diisi secara lengkap \nsesuai batasan pengisian."
+        },
+        {
+          "nomor_kuk": "3.4",
+          "uraian_kuk": "Form-form yang ada diisi secara lengkap sesuai batasan pengisian.",
+          "halaman_pdf": 39,
+          "bbox": [
+            256.6099853515625,
+            451.5099792480469,
+            533.1698608398438,
+            557.47021484375
+          ],
+          "teks_mentah": "3.1 Panduan pemakaian aplikasi dikuasai. \n3.2 Menu \nyang \nada \npada \naplikasi \ndiidentifikasi sesuai dengan fungsinya. \n3.3 Menu dipilih sesuai dengan kebutuhan \npengguna. \n3.4 Form-form yang ada diisi secara lengkap \nsesuai batasan pengisian."
+        }
+      ],
+      "halaman_pdf": 39,
+      "bbox": [
+        93.50389862060547,
+        451.5099792480469,
+        250.08786010742188,
+        478.0304870605469
+      ],
+      "teks_mentah": "3. Menjalankan aplikasi \nberbasis Internet"
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 39,
+    "halaman_akhir": 40,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 22,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks variabel",
+        "teks": "Konteks variabel",
+        "halaman_pdf": 39,
+        "halaman_akhir": 39,
+        "bbox": [
+          86.42379760742188,
+          605.97998046875,
+          217.84999084472656,
+          618.3399658203125
+        ],
+        "teks_mentah": "1.\nKonteks variabel",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Koneksi internet adalah hubungan yang terjadi antara seperangkat komputer dengan internet.",
+            "teks": "Koneksi internet adalah hubungan yang terjadi antara seperangkat komputer dengan internet.",
+            "halaman_pdf": 39,
+            "halaman_akhir": 39,
+            "bbox": [
+              114.73999786376953,
+              627.1000366210938,
+              543.9281005859375,
+              639.4600219726562
+            ],
+            "teks_mentah": "1.1 Koneksi internet adalah hubungan yang terjadi antara seperangkat\nkomputer dengan internet.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Jaringan adalah jaringan komunikasi data yang memungkinkan antar komputer untuk saling berkomunikasi.",
+            "teks": "Jaringan adalah jaringan komunikasi data yang memungkinkan antar komputer untuk saling berkomunikasi.",
+            "halaman_pdf": 39,
+            "halaman_akhir": 39,
+            "bbox": [
+              114.74000549316406,
+              669.33984375,
+              543.8984375,
+              681.6998291015625
+            ],
+            "teks_mentah": "1.2 Jaringan adalah jaringan komunikasi data yang memungkinkan\nantar komputer untuk saling berkomunikasi.",
+            "items": []
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Perangkat komputer adalah komputer personal, laptop/notebook, tablet, smartphone yang terhubungkan internet (jaringan komputer).",
+            "teks": "Perangkat komputer adalah komputer personal, laptop/notebook, tablet, smartphone yang terhubungkan internet (jaringan komputer).",
+            "halaman_pdf": 39,
+            "halaman_akhir": 39,
+            "bbox": [
+              114.74000549316406,
+              711.580078125,
+              543.9405517578125,
+              723.9520263671875
+            ],
+            "teks_mentah": "1.3 Perangkat komputer adalah komputer personal, laptop/notebook,\ntablet,\nsmartphone\nyang\nterhubungkan\ninternet\n(jaringan\nkomputer).",
+            "items": []
+          },
+          {
+            "nomor": "1.4",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Aplikasi berbasis internet adalah sebuah program aplikasi yang dapat dijalankan di internet diantaranya mobile applications & web applications.",
+            "teks": "Aplikasi berbasis internet adalah sebuah program aplikasi yang dapat dijalankan di internet diantaranya mobile applications & web applications.",
+            "halaman_pdf": 39,
+            "halaman_akhir": 40,
+            "bbox": [
+              114.74082946777344,
+              774.9600830078125,
+              543.7409057617188,
+              787.320068359375
+            ],
+            "teks_mentah": "1.4 Aplikasi berbasis internet adalah sebuah program aplikasi yang\ndapat dijalankan di internet diantaranya mobile applications & web\napplications.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peralatan dan perlengkapan",
+        "teks": "Peralatan dan perlengkapan",
+        "halaman_pdf": 40,
+        "halaman_akhir": 40,
+        "bbox": [
+          86.42379760742188,
+          137.05996704101562,
+          289.60986328125,
+          149.4199676513672
+        ],
+        "teks_mentah": "2.\nPeralatan dan perlengkapan",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Peralatan",
+            "teks": "Peralatan",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              116.17991638183594,
+              158.18026733398438,
+              201.52967834472656,
+              170.54026794433594
+            ],
+            "teks_mentah": "2.1 Peralatan",
+            "items": [
+              {
+                "nomor": "2.1.1",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Perangkat keras komputer atau mesin sejenis yang digunakan terkoneksi internet dengan dan tanpa kabel",
+                "teks": "Perangkat keras komputer atau mesin sejenis yang digunakan terkoneksi internet dengan dan tanpa kabel",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.1798858642578,
+                  179.42007446289062,
+                  543.9400024414062,
+                  191.7800750732422
+                ],
+                "teks_mentah": "2.1.1 Perangkat keras komputer atau mesin sejenis yang\ndigunakan terkoneksi internet dengan dan tanpa kabel",
+                "items": []
+              },
+              {
+                "nomor": "2.1.2",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Perangkat lunak web browser yang dipilih untuk digunakan",
+                "teks": "Perangkat lunak web browser yang dipilih untuk digunakan",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17999267578125,
+                  221.66030883789062,
+                  543.699951171875,
+                  234.03201293945312
+                ],
+                "teks_mentah": "2.1.2 Perangkat lunak web browser yang dipilih untuk digunakan",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "2.2",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Perlengkapan",
+            "teks": "Perlengkapan",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              116.18000030517578,
+              242.80996704101562,
+              225.52975463867188,
+              255.1699676513672
+            ],
+            "teks_mentah": "2.2 Perlengkapan",
+            "items": [
+              {
+                "nomor": "2.2.1",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Software web browser sudah tersedia",
+                "teks": "Software web browser sudah tersedia",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17999267578125,
+                  263.9300231933594,
+                  409.510009765625,
+                  276.3020324707031
+                ],
+                "teks_mentah": "2.2.1 Software web browser sudah tersedia",
+                "items": []
+              },
+              {
+                "nomor": "2.2.2",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Perlengkapan sesuai kebutuhan dan lingkungan yaitu koneksi internet dengan dan tanpa kabel",
+                "teks": "Perlengkapan sesuai kebutuhan dan lingkungan yaitu koneksi internet dengan dan tanpa kabel",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17999267578125,
+                  285.0500183105469,
+                  543.9400024414062,
+                  297.4100341796875
+                ],
+                "teks_mentah": "2.2.2 Perlengkapan sesuai kebutuhan dan lingkungan yaitu\nkoneksi internet dengan dan tanpa kabel",
+                "items": []
+              },
+              {
+                "nomor": "2.2.3",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Perlengkapan untuk peserta yang berkebutuhan khusus",
+                "teks": "Perlengkapan untuk peserta yang berkebutuhan khusus",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17987060546875,
+                  327.2897644042969,
+                  522.5796508789062,
+                  339.6497802734375
+                ],
+                "teks_mentah": "2.2.3 Perlengkapan untuk peserta yang berkebutuhan khusus",
+                "items": []
+              },
+              {
+                "nomor": "2.2.4",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Alat tulis",
+                "teks": "Alat tulis",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17987060546875,
+                  348.4100646972656,
+                  241.72988891601562,
+                  360.77008056640625
+                ],
+                "teks_mentah": "2.2.4 Alat tulis",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peraturan yang diperlukan",
+        "teks": "Peraturan yang diperlukan",
+        "halaman_pdf": 40,
+        "halaman_akhir": 40,
+        "bbox": [
+          86.4235610961914,
+          390.7694396972656,
+          278.3296203613281,
+          403.12945556640625
+        ],
+        "teks_mentah": "3.\nPeraturan yang diperlukan",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": false,
+            "judul": "(Tidak ada.)",
+            "teks": "(Tidak ada.)",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              116.17977905273438,
+              412.8973083496094,
+              185.53970336914062,
+              424.24932861328125
+            ],
+            "teks_mentah": "(Tidak ada.)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Norma dan standar",
+        "teks": "Norma dan standar",
+        "halaman_pdf": 40,
+        "halaman_akhir": 40,
+        "bbox": [
+          86.42350006103516,
+          454.1490173339844,
+          238.25,
+          466.510009765625
+        ],
+        "teks_mentah": "4.\nNorma dan standar",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Norma",
+            "teks": "Norma",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              116.05999755859375,
+              475.2698974609375,
+              185.65982055664062,
+              487.6299133300781
+            ],
+            "teks_mentah": "4.1 Norma",
+            "items": [
+              {
+                "nomor": "4.1.1",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika tidak menggunakan login orang lain",
+                "teks": "Etika tidak menggunakan login orang lain",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17999267578125,
+                  496.3899841308594,
+                  435.4295349121094,
+                  508.7619934082031
+                ],
+                "teks_mentah": "4.1.1 Etika tidak menggunakan login orang lain",
+                "items": []
+              },
+              {
+                "nomor": "4.1.2",
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": true,
+                "judul": "Etika tidak menggunakan software bajakan",
+                "teks": "Etika tidak menggunakan software bajakan",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.17953491210938,
+                  517.5103149414062,
+                  446.46893310546875,
+                  529.8822631835938
+                ],
+                "teks_mentah": "4.1.2 Etika tidak menggunakan software bajakan",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Standar",
+            "teks": "Standar",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              116.05999755859375,
+              538.6300048828125,
+              193.57981872558594,
+              550.989990234375
+            ],
+            "teks_mentah": "4.2 Standar",
+            "items": [
+              {
+                "nomor": "4.2.1",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "SOP dari aplikasi berbasis internet",
+                "teks": "SOP dari aplikasi berbasis internet",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.1798858642578,
+                  559.7499389648438,
+                  393.66998291015625,
+                  572.1099243164062
+                ],
+                "teks_mentah": "4.2.1 SOP dari aplikasi berbasis internet",
+                "items": []
+              },
+              {
+                "nomor": "4.2.2",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "Manual book dari aplikasi berbasis internet",
+                "teks": "Manual book dari aplikasi berbasis internet",
+                "halaman_pdf": 40,
+                "halaman_akhir": 40,
+                "bbox": [
+                  143.1790771484375,
+                  580.869873046875,
+                  445.5090026855469,
+                  593.2298583984375
+                ],
+                "teks_mentah": "4.2.2 Manual book dari aplikasi berbasis internet",
+                "items": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. \nKonteks variabel\n1.1 Koneksi internet adalah hubungan yang terjadi antara seperangkat\nkomputer dengan internet.\n1.2 Jaringan adalah jaringan komunikasi data yang memungkinkan\nantar komputer untuk saling berkomunikasi.\n1.3 Perangkat komputer adalah komputer personal, laptop/notebook,\ntablet, \nsmartphone \nyang \nterhubungkan \ninternet \n(jaringan\nkomputer).\n1.4 Aplikasi berbasis internet adalah sebuah program aplikasi yang\ndapat dijalankan di internet diantaranya mobile applications & web\napplications.\n2. \nPeralatan dan perlengkapan\n2.1 Peralatan\n2.1.1 Perangkat keras komputer atau mesin sejenis yang\ndigunakan terkoneksi internet dengan dan tanpa kabel\n2.1.2 Perangkat lunak web browser yang dipilih untuk digunakan\n2.2 Perlengkapan\n2.2.1 Software web browser sudah tersedia\n2.2.2 Perlengkapan sesuai kebutuhan dan lingkungan yaitu\nkoneksi internet dengan dan tanpa kabel\n2.2.3 Perlengkapan untuk peserta yang berkebutuhan khusus\n2.2.4 Alat tulis\n3. \nPeraturan yang diperlukan\n(Tidak ada.)\n4. \nNorma dan standar\n4.1 Norma\n4.1.1 Etika tidak menggunakan login orang lain\n4.1.2 Etika tidak menggunakan software bajakan\n4.2 Standar\n4.2.1 SOP dari aplikasi berbasis internet\n4.2.2 Manual book dari aplikasi berbasis internet"
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 40,
+    "halaman_akhir": 41,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 20,
+      "jumlah_paragraf_tanpa_nomor": 2,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks penilaian",
+        "teks": "Konteks penilaian",
+        "halaman_pdf": 40,
+        "halaman_akhir": 40,
+        "bbox": [
+          86.42379760742188,
+          644.3800048828125,
+          224.4499969482422,
+          656.739990234375
+        ],
+        "teks_mentah": "1.\nKonteks penilaian",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": false,
+            "judul": "Unit kompetensi ini dinilai dari tingkat kemampuan dalam mendeskripsikan spesifikasi perangkat komputer yang dibutuhkan dalam suatu lembaga/perusahaan. Adapun penilaian dilakukan dengan menggabungkan serangkaian metode untuk menilai kemampuan dan penerapan pengetahuan pendukung penting.",
+            "teks": "Unit kompetensi ini dinilai dari tingkat kemampuan dalam mendeskripsikan spesifikasi perangkat komputer yang dibutuhkan dalam suatu lembaga/perusahaan. Adapun penilaian dilakukan dengan menggabungkan serangkaian metode untuk menilai kemampuan dan penerapan pengetahuan pendukung penting.",
+            "halaman_pdf": 40,
+            "halaman_akhir": 40,
+            "bbox": [
+              114.73999786376953,
+              666.5079345703125,
+              543.7764892578125,
+              677.8599243164062
+            ],
+            "teks_mentah": "Unit\nkompetensi\nini\ndinilai\ndari\ntingkat\nkemampuan\ndalam\nmendeskripsikan spesifikasi perangkat komputer yang dibutuhkan\ndalam suatu lembaga/perusahaan. Adapun penilaian dilakukan\ndengan\nmenggabungkan\nserangkaian\nmetode\nuntuk\nmenilai\nkemampuan\ndan\npenerapan\npengetahuan\npendukung\npenting.",
+            "items": []
+          },
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": false,
+            "judul": "Penilaian dilakukan dengan mengacu kepada Kriteria Unjuk Kerja (KUK) dan dilaksanakan di Tempat Uji Kompetensi (TUK), ruang simulasi atau workshop dengan cara:",
+            "teks": "Penilaian dilakukan dengan mengacu kepada Kriteria Unjuk Kerja (KUK) dan dilaksanakan di Tempat Uji Kompetensi (TUK), ruang simulasi atau workshop dengan cara:",
+            "halaman_pdf": 40,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.73999786376953,
+              772.1270141601562,
+              543.7642211914062,
+              783.47900390625
+            ],
+            "teks_mentah": "Penilaian dilakukan dengan mengacu kepada Kriteria Unjuk Kerja\n(KUK) dan dilaksanakan di Tempat Uji Kompetensi (TUK), ruang\nsimulasi atau workshop dengan cara:",
+            "items": []
+          },
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Lisan;",
+            "teks": "Lisan;",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.74028015136719,
+              115.93973541259766,
+              178.2202606201172,
+              128.2997283935547
+            ],
+            "teks_mentah": "1.1 Lisan;",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Wawancara;",
+            "teks": "Wawancara;",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.74026489257812,
+              137.05960083007812,
+              214.49044799804688,
+              149.4196014404297
+            ],
+            "teks_mentah": "1.2 Wawancara;",
+            "items": []
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Tes tertulis;",
+            "teks": "Tes tertulis;",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.74024963378906,
+              158.17910766601562,
+              212.3302764892578,
+              170.5391082763672
+            ],
+            "teks_mentah": "1.3 Tes tertulis;",
+            "items": []
+          },
+          {
+            "nomor": "1.4",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Metoda lain yang relevan.",
+            "teks": "Metoda lain yang relevan.",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.740234375,
+              179.29898071289062,
+              293.2103271484375,
+              191.6589813232422
+            ],
+            "teks_mentah": "1.4 Metoda lain yang relevan.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi",
+        "teks": "Persyaratan kompetensi",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          86.42379760742188,
+          221.66000366210938,
+          260.4503479003906,
+          234.02000427246094
+        ],
+        "teks_mentah": "2.\nPersyaratan kompetensi",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "J.63OPR00.007.2 Menggunakan Penelusur Situs Web (Web Browser)",
+            "teks": "J.63OPR00.007.2 Menggunakan Penelusur Situs Web (Web Browser)",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.73999786376953,
+              243.81797790527344,
+              543.9398193359375,
+              255.18197631835938
+            ],
+            "teks_mentah": "2.1 J.63OPR00.007.2  Menggunakan\nPenelusur\nSitus\nWeb\n(Web\nBrowser)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          86.42379760742188,
+          306.1700134277344,
+          402.5501708984375,
+          318.530029296875
+        ],
+        "teks_mentah": "3.\nPengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.73999786376953,
+              327.2898864746094,
+              221.57022094726562,
+              339.64990234375
+            ],
+            "teks_mentah": "3.1 Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Jenis-jenis komputer",
+                "teks": "Jenis-jenis komputer",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  140.90013122558594,
+                  348.4097595214844,
+                  313.0108337402344,
+                  360.769775390625
+                ],
+                "teks_mentah": "3.1.1\nJenis-jenis komputer",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.7408447265625,
+              369.5296325683594,
+              223.49098205566406,
+              381.8896484375
+            ],
+            "teks_mentah": "3.2 Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Mengoperasikan perangkat komputer",
+                "teks": "Mengoperasikan perangkat komputer",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  140.90098571777344,
+                  390.6495056152344,
+                  409.0308837890625,
+                  403.009521484375
+                ],
+                "teks_mentah": "3.2.1\nMengoperasikan perangkat komputer",
+                "items": []
+              },
+              {
+                "nomor": "3.2.2",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Menggunakan software",
+                "teks": "Menggunakan software",
+                "halaman_pdf": 41,
+                "halaman_akhir": 41,
+                "bbox": [
+                  140.90098571777344,
+                  411.7693786621094,
+                  326.23077392578125,
+                  424.1413879394531
+                ],
+                "teks_mentah": "3.2.2\nMenggunakan software",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          86.42379760742188,
+          454.1499938964844,
+          284.9300231933594,
+          466.510009765625
+        ],
+        "teks_mentah": "4.\nSikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Teliti",
+            "teks": "Teliti",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.73999786376953,
+              475.2698974609375,
+              174.6202392578125,
+              487.6299133300781
+            ],
+            "teks_mentah": "4.1 Teliti",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Cermat",
+            "teks": "Cermat",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.739990234375,
+              496.3898010253906,
+              188.77999877929688,
+              508.74981689453125
+            ],
+            "teks_mentah": "4.2 Cermat",
+            "items": []
+          },
+          {
+            "nomor": "4.3",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Disiplin",
+            "teks": "Disiplin",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.739990234375,
+              517.5101318359375,
+              191.18002319335938,
+              529.8701171875
+            ],
+            "teks_mentah": "4.3 Disiplin",
+            "items": []
+          },
+          {
+            "nomor": "4.4",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Tanggung jawab",
+            "teks": "Tanggung jawab",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.739990234375,
+              538.6300048828125,
+              241.6100616455078,
+              550.989990234375
+            ],
+            "teks_mentah": "4.4 Tanggung jawab",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 41,
+        "halaman_akhir": 41,
+        "bbox": [
+          86.42379760742188,
+          580.8699951171875,
+          188.66001892089844,
+          593.22998046875
+        ],
+        "teks_mentah": "5.\nAspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Ketepatan mengidentifikasi alternatif jaringan internet yang tersedia secara lengkap sesuai dengan kebutuhan pengguna",
+            "teks": "Ketepatan mengidentifikasi alternatif jaringan internet yang tersedia secara lengkap sesuai dengan kebutuhan pengguna",
+            "halaman_pdf": 41,
+            "halaman_akhir": 41,
+            "bbox": [
+              114.73999786376953,
+              602.02001953125,
+              543.9400024414062,
+              614.3800048828125
+            ],
+            "teks_mentah": "5.1 Ketepatan mengidentifikasi alternatif jaringan internet yang\ntersedia secara lengkap sesuai dengan kebutuhan pengguna",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. \nKonteks penilaian\nUnit \nkompetensi \nini \ndinilai \ndari \ntingkat \nkemampuan \ndalam\nmendeskripsikan spesifikasi perangkat komputer yang dibutuhkan\ndalam suatu lembaga/perusahaan. Adapun penilaian dilakukan\ndengan \nmenggabungkan \nserangkaian \nmetode \nuntuk \nmenilai\nkemampuan \ndan \npenerapan \npengetahuan \npendukung \npenting.\nPenilaian dilakukan dengan mengacu kepada Kriteria Unjuk Kerja\n(KUK) dan dilaksanakan di Tempat Uji Kompetensi (TUK), ruang\nsimulasi atau workshop dengan cara:\n1.1 Lisan;\n1.2 Wawancara;\n1.3 Tes tertulis;\n1.4 Metoda lain yang relevan.\n2. \nPersyaratan kompetensi\n2.1 J.63OPR00.007.2  Menggunakan \nPenelusur \nSitus \nWeb \n(Web\nBrowser)\n3. \nPengetahuan dan keterampilan yang diperlukan\n3.1 Pengetahuan\n3.1.1 \nJenis-jenis komputer\n3.2 Keterampilan\n3.2.1 \nMengoperasikan perangkat komputer\n3.2.2 \nMenggunakan software\n4. \nSikap kerja yang diperlukan\n4.1 Teliti\n4.2 Cermat\n4.3 Disiplin\n4.4 Tanggung jawab\n5. \nAspek kritis\n5.1 Ketepatan mengidentifikasi alternatif jaringan internet yang\ntersedia secara lengkap sesuai dengan kebutuhan pengguna"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 22,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 20,
+        "jumlah_paragraf_tanpa_nomor": 2,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 252.69,
+    "x1_maks_kolom_kiri": 250.09,
+    "x0_min_kolom_kanan": 255.3,
+    "keyakinan": "high",
+    "metode": "block",
+    "header_elemen_bbox": [
+      94.58399963378906,
+      250.49000549316406,
+      242.21009826660156,
+      261.8900146484375
+    ],
+    "header_kuk_bbox": [
+      313.489990234375,
+      250.49000549316406,
+      477.220458984375,
+      261.8900146484375
+    ],
+    "catatan": []
+  },
+  "validasi": {
+    "status": "valid_struktur",
+    "catatan": [],
+    "peringatan_format_sumber": []
+  }
+}

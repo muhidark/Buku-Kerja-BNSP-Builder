@@ -1,0 +1,147 @@
+{
+  "dibuat": "2026-10-26T10:37:24",
+  "tabel": [
+    {
+      "SKKNI": "SKKNI 2018-056",
+      "kode_unit": "J.63OPR00.009.2",
+      "elemen": 3,
+      "kuk": 9,
+      "validasi": "valid_struktur",
+      "docx": "output/cross_skkni/J.63OPR00.009.2.docx",
+      "pdf_render": "output/cross_skkni/J.63OPR00.009.2.pdf",
+      "halaman_pdf_sumber": 3,
+      "halaman_render": 3,
+      "paragraf_bernomor": 42,
+      "paragraf_tanpa_nomor": 3,
+      "tabel": 1,
+      "perlu_verifikasi": 0,
+      "catatan": []
+    },
+    {
+      "SKKNI": "SKKNI 2018-107",
+      "kode_unit": "J.59MTM00.011.1",
+      "elemen": 2,
+      "kuk": 6,
+      "validasi": "valid_struktur",
+      "docx": "output/cross_skkni/J.59MTM00.011.1.docx",
+      "pdf_render": "output/cross_skkni/J.59MTM00.011.1.pdf",
+      "halaman_pdf_sumber": 4,
+      "halaman_render": 3,
+      "paragraf_bernomor": 55,
+      "paragraf_tanpa_nomor": 1,
+      "tabel": 1,
+      "perlu_verifikasi": 0,
+      "catatan": []
+    },
+    {
+      "SKKNI": "SKKNI 2022-124",
+      "kode_unit": "M.70MKT00.014.1",
+      "elemen": 4,
+      "kuk": 25,
+      "validasi": "valid_struktur",
+      "docx": "output/cross_skkni/M.70MKT00.014.1.docx",
+      "pdf_render": "output/cross_skkni/M.70MKT00.014.1.pdf",
+      "halaman_pdf_sumber": 4,
+      "halaman_render": 5,
+      "paragraf_bernomor": 38,
+      "paragraf_tanpa_nomor": 3,
+      "tabel": 1,
+      "perlu_verifikasi": 0,
+      "catatan": []
+    },
+    {
+      "SKKNI": "SKKNI 2023-101",
+      "kode_unit": "M.73ADV00.001.1",
+      "elemen": 4,
+      "kuk": 8,
+      "validasi": "valid_struktur",
+      "docx": "output/cross_skkni/M.73ADV00.001.1.docx",
+      "pdf_render": "output/cross_skkni/M.73ADV00.001.1.pdf",
+      "halaman_pdf_sumber": 4,
+      "halaman_render": 3,
+      "paragraf_bernomor": 51,
+      "paragraf_tanpa_nomor": 3,
+      "tabel": 1,
+      "perlu_verifikasi": 0,
+      "catatan": []
+    }
+  ],
+  "ringkasan": {
+    "unit_diproses": 4,
+    "pemeriksaan_berhasil": 180,
+    "pemeriksaan_gagal": 0,
+    "bagian_perlu_verifikasi": 0,
+    "peringatan_format_sumber": 5
+  },
+  "gagal": [],
+  "perbedaan_teks": [],
+  "peringatan_format_sumber": [
+    {
+      "kode_unit": "M.70MKT00.014.1",
+      "kategori": "peringatan_format_sumber",
+      "nomor_kuk": "3.1",
+      "halaman_pdf": 72,
+      "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+    },
+    {
+      "kode_unit": "M.70MKT00.014.1",
+      "kategori": "peringatan_format_sumber",
+      "nomor_kuk": "3.2",
+      "halaman_pdf": 72,
+      "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+    },
+    {
+      "kode_unit": "M.70MKT00.014.1",
+      "kategori": "peringatan_format_sumber",
+      "nomor_kuk": "4.4",
+      "halaman_pdf": 72,
+      "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+    },
+    {
+      "kode_unit": "M.70MKT00.014.1",
+      "kategori": "peringatan_format_sumber",
+      "nomor_kuk": "4.5",
+      "halaman_pdf": 72,
+      "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+    },
+    {
+      "kode_unit": "M.70MKT00.014.1",
+      "kategori": "peringatan_format_sumber",
+      "nomor_kuk": "4.6",
+      "halaman_pdf": 72,
+      "pesan": "KUK tidak diakhiri tanda baca pada PDF sumber; teks dibiarkan apa adanya"
+    }
+  ],
+  "masalah_format_word": [],
+  "perbaikan_parser": [
+    "Nomor halaman tidak lagi terbaca sebagai nomor bagian (angka telanjang ditolak).",
+    "Deteksi nomor halaman diperlebar (sampai 110 pt dari tepi bawah).",
+    "Batas tabel ditentukan dari posisi header & BATASAN VARIABEL, bukan urutan blok.",
+    "Blok yang menyeberangi dua kolom dipecah per baris (KUK tidak lagi hilang).",
+    "Nomor yang berdiri sendiri di satu baris dipasangkan dengan teks baris berikutnya.",
+    "Kode unit lain di dalam bagian tidak lagi dianggap kebocoran (hanya label KODE UNIT).",
+    "Generator DOCX mendukung level penomoran >3 tanpa memotongnya."
+  ],
+  "regresi": {
+    "test_extractor.py": {
+      "exit": 0,
+      "ringkas": ""
+    },
+    "test_unit_parser.py": {
+      "exit": 0,
+      "ringkas": ""
+    },
+    "test_unit_complete.py": {
+      "exit": 0,
+      "ringkas": "HASIL: 61 lulus, 0 gagal"
+    },
+    "test_unit_numbering.py": {
+      "exit": 0,
+      "ringkas": "HASIL: 36 lulus, 0 gagal"
+    },
+    "test_docx_generator.py": {
+      "exit": 0,
+      "ringkas": "HASIL: 61 lulus, 0 gagal"
+    }
+  }
+}

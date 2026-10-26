@@ -1,0 +1,172 @@
+{% extends "base.html" %}
+{% block subjudul %}Informasi dokumen, daftar unit, dan hasil validasi kelengkapan{% endblock %}
+{% block konten %}
+
+<p class="breadcrumb"><a href="/skkni">← Kembali ke perpustakaan</a></p>
+
+{% if pesan %}
+<div class="alert alert-{{ tipe or 'info' }}">{{ pesan }}</div>
+{% endif %}
+
+<article class="card">
+  <div class="card-head">
+    <h2>{{ dok.nama_asli }}</h2>
+    <span class="badge {% if dok.status_identifikasi == 'lengkap' %}badge-green{% else %}badge-amber{% endif %}">
+      identifikasi: {{ (dok.status_identifikasi or '-').replace('_', ' ') }}
+    </span>
+  </div>
+
+  <dl class="info-grid">
+    <div><dt>Nomor / Tahun</dt><dd>{% if dok.nomor %}{{ dok.nomor }} / {{ dok.tahun }}{% else %}<span class="muted">belum teridentifikasi</span>{% endif %}</dd></div>
+    <div><dt>Judul / Bidang</dt><dd>{{ dok.judul or '—' }}</dd></div>
+    <div><dt>Jumlah halaman</dt><dd>{{ dok.halaman }}</dd></div>
+    <div><dt>Sumber</dt><dd>{{ dok.sumber }}</dd></div>
+    <div><dt>Ukuran</dt><dd>{{ (dok.ukuran_byte / 1024)|round|int }} KB</dd></div>
+    <div><dt>Ditambahkan</dt><dd>{{ (dok.tanggal_ditambah or '')[:16] }}</dd></div>
+    <div><dt>Nama internal</dt><dd><code>{{ dok.nama_internal }}</code></dd></div>
+    <div><dt>SHA-256</dt><dd><code title="{{ dok.sha256 }}">{{ dok.sha256[:16] }}…</code></dd></div>
+  </dl>
+
+  {% if dok.pesan_identifikasi %}
+  <p class="note">Catatan identifikasi: {{ dok.pesan_identifikasi }}</p>
+  {% endif %}
+</article>
+
+<section class="cards cards-3">
+  <article class="card stat">
+    <span class="stat-label">Unit kompetensi</span>
+    <span class="stat-value">{{ dok.jumlah_unit or 0 }}</span>
+    <span class="stat-note">hasil identifikasi mesin Fase 1</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Teridentifikasi</span>
+    <span class="stat-value">{{ dok.jumlah_unit_teridentifikasi or 0 }}</span>
+    <span class="stat-note">kode dan judul terbaca</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Perlu verifikasi</span>
+    <span class="stat-value">{{ dok.jumlah_unit_perlu_verifikasi or 0 }}</span>
+    <span class="stat-note">judul tidak terbaca</span>
+  </article>
+</section>
+
+{% if validasi %}
+<article class="card">
+  <div class="card-head">
+    <h2>Validasi Kelengkapan KUK</h2>
+    <span class="badge {% if validasi.status == 'valid_kelengkapan' %}badge-green{% else %}badge-amber{% endif %}">
+      {{ (validasi.status or '-').replace('_', ' ') }}
+    </span>
+  </div>
+  {% set rs = validasi.ringkasan or {} %}
+  <p class="muted">
+    Diperiksa {{ (validasi.diperiksa_pada or '-')[:16] }} ·
+    {{ rs.unit_terbandingkan or 0 }} unit dibandingkan ·
+    {{ rs.unit_tanpa_json or 0 }} unit belum punya JSON ·
+    {{ rs.nomor_hilang or 0 }} nomor hilang ·
+    {{ rs.nomor_ekstra or 0 }} nomor tanpa bukti PDF ·
+    {{ rs.nomor_duplikat or 0 }} duplikat
+  </p>
+  {% if rs.nomor_hilang %}
+  <div class="alert alert-galat">
+    Ada nomor KUK pada PDF yang tidak ditemukan di JSON. Periksa tabel unit di bawah.
+  </div>
+  {% endif %}
+  <p class="note">
+    Validator memakai deteksi tabel PyMuPDF (bukan pemisahan kolom parser utama) dan
+    memeriksa <strong>nomor</strong> KUK saja — bukan kebenaran uraian teks.
+  </p>
+</article>
+{% endif %}
+
+<article class="card">
+  <div class="card-head">
+    <h2>Daftar Unit Kompetensi</h2>
+    <form class="cari" method="get" action="/skkni/{{ dok.id }}">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari kode atau judul unit…">
+      <button type="submit" class="btn btn-ghost">Cari</button>
+      {% if q %}<a class="btn btn-ghost" href="/skkni/{{ dok.id }}">Reset</a>{% endif %}
+    </form>
+  </div>
+
+  {% if units %}
+  <table class="table">
+    <thead>
+      <tr><th>No</th><th>Kode Unit</th><th>Judul Unit</th><th>Halaman</th><th>Status</th><th>Validasi</th></tr>
+    </thead>
+    <tbody>
+      {% for u in units %}
+      {% set v = peta_validasi.get(u.kode_unit) %}
+      <tr>
+        <td>{{ (page - 1) * 10 + loop.index }}</td>
+        <td><code>{{ u.kode_unit }}</code></td>
+        <td>{{ u.judul_unit or '—' }}</td>
+        <td class="num" title="Indeks PDF 0-based: {{ u.halaman_pdf_0based }}">
+          {{ u.halaman_tampil }} <span class="muted small">(1-based)</span>
+        </td>
+        <td>
+          {% if u.kode_unit in manual %}
+            <span class="badge badge-blue">terverifikasi manual</span>
+          {% elif u.status == 'teridentifikasi' %}
+            <span class="badge badge-green">teridentifikasi</span>
+          {% else %}
+            <span class="badge badge-amber">perlu verifikasi</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if v %}
+            <span class="badge {% if v.status == 'valid_kelengkapan' %}badge-green{% elif v.status == 'tidak_dapat_dibandingkan' %}badge-neutral{% else %}badge-amber{% endif %}"
+                  {% if v.kuk_hilang %}title="Hilang: {{ v.kuk_hilang|join(', ') }}"{% endif %}>
+              {{ (v.status or '-').replace('_', ' ') }}
+            </span>
+            {% if v.kuk_hilang %}
+            <div class="small warn-text">Hilang: {{ v.kuk_hilang|join(', ') }}</div>
+            {% endif %}
+          {% else %}
+            <span class="muted small">belum diperiksa</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% if halaman_total > 1 %}
+  <nav class="pagination">
+    {% if page > 1 %}
+      <a class="btn btn-small" href="/skkni/{{ dok.id }}?q={{ q }}&page={{ page - 1 }}">← Sebelumnya</a>
+    {% endif %}
+    <span class="muted">Halaman {{ page }} dari {{ halaman_total }} · {{ total_unit }} unit</span>
+    {% if page < halaman_total %}
+      <a class="btn btn-small" href="/skkni/{{ dok.id }}?q={{ q }}&page={{ page + 1 }}">Berikutnya →</a>
+    {% endif %}
+  </nav>
+  {% else %}
+  <p class="muted small">{{ total_unit }} unit ditampilkan.</p>
+  {% endif %}
+  {% else %}
+  <p class="empty">{% if q %}Tidak ada unit yang cocok dengan “{{ q }}”.{% else %}Tidak ada unit yang teridentifikasi.{% endif %}</p>
+  {% endif %}
+</article>
+
+{% if units %}
+<article class="card">
+  <h2>Verifikasi Manual</h2>
+  <p class="muted small">
+    Status <strong>terverifikasi manual</strong> hanya diberikan bila Anda sudah membandingkan
+    isi unit dengan PDF sumber. Pilih kode unit pada formulir di bawah.
+  </p>
+  <form class="upload" method="post" action="/skkni/{{ dok.id }}/verifikasi">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <select name="kode_unit" required>
+      <option value="">— pilih kode unit —</option>
+      {% for u in units %}<option value="{{ u.kode_unit }}">{{ u.kode_unit }}</option>{% endfor %}
+    </select>
+    <button type="submit" class="btn btn-ghost">Tandai terverifikasi manual</button>
+  </form>
+  {% if manual %}
+  <p class="muted small">Sudah ditandai: {% for k, v in manual.items() %}{{ k }} ({{ v.waktu[:16] }}){% if not loop.last %}, {% endif %}{% endfor %}</p>
+  {% endif %}
+</article>
+{% endif %}
+{% endblock %}

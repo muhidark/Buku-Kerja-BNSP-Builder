@@ -1,0 +1,1224 @@
+{
+  "metadata_sumber": {
+    "nama_dokumen": "a9a2800ec7f64bb8899817ed7a22e023.pdf",
+    "kode_unit": "J.63OPR00.004.2",
+    "rentang_halaman_pdf": [
+      21,
+      24
+    ],
+    "indeks_halaman": "0-based (indeks halaman PDF)",
+    "tinggi_halaman_pt": 936.0
+  },
+  "kode_unit": "J.63OPR00.004.2",
+  "judul_unit": "Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam penggunaan perangkat lunak pengolah kata tingkat dasar untuk perangkat komputer pada kondisi normal sesuai dengan petunjuk penggunaan.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Membuat dokumen",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Aplikasi pengolah kata dibuka.",
+          "halaman_pdf": 21,
+          "bbox": [
+            255.16989135742188,
+            334.2499694824219,
+            543.9400024414062,
+            411.8900146484375
+          ],
+          "teks_mentah": "1.1 Aplikasi pengolah kata dibuka. \n1.2 Dokumen dibuat sesuai dengan kebutuhan \npengguna.  \n1.3 Dokumen disimpan ke direktori. \n1.4 Dokumen yang tersimpan dibuka. "
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Dokumen dibuat sesuai dengan kebutuhan pengguna.",
+          "halaman_pdf": 21,
+          "bbox": [
+            255.16989135742188,
+            334.2499694824219,
+            543.9400024414062,
+            411.8900146484375
+          ],
+          "teks_mentah": "1.1 Aplikasi pengolah kata dibuka. \n1.2 Dokumen dibuat sesuai dengan kebutuhan \npengguna.  \n1.3 Dokumen disimpan ke direktori. \n1.4 Dokumen yang tersimpan dibuka. "
+        },
+        {
+          "nomor_kuk": "1.3",
+          "uraian_kuk": "Dokumen disimpan ke direktori.",
+          "halaman_pdf": 21,
+          "bbox": [
+            255.16989135742188,
+            334.2499694824219,
+            543.9400024414062,
+            411.8900146484375
+          ],
+          "teks_mentah": "1.1 Aplikasi pengolah kata dibuka. \n1.2 Dokumen dibuat sesuai dengan kebutuhan \npengguna.  \n1.3 Dokumen disimpan ke direktori. \n1.4 Dokumen yang tersimpan dibuka. "
+        },
+        {
+          "nomor_kuk": "1.4",
+          "uraian_kuk": "Dokumen yang tersimpan dibuka.",
+          "halaman_pdf": 21,
+          "bbox": [
+            255.16989135742188,
+            334.2499694824219,
+            543.9400024414062,
+            411.8900146484375
+          ],
+          "teks_mentah": "1.1 Aplikasi pengolah kata dibuka. \n1.2 Dokumen dibuat sesuai dengan kebutuhan \npengguna.  \n1.3 Dokumen disimpan ke direktori. \n1.4 Dokumen yang tersimpan dibuka. "
+        }
+      ],
+      "halaman_pdf": 21,
+      "bbox": [
+        87.74410247802734,
+        334.2499694824219,
+        231.1701202392578,
+        346.6099853515625
+      ],
+      "teks_mentah": "1. \nMembuat dokumen "
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Menyesuaikan pengaturan dasar untuk memenuhi tata letak dokumen",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Tata letak halaman konvensi diatur untuk memenuhi kebutuhan.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            420.19000244140625,
+            543.9397583007812,
+            540.0701904296875
+          ],
+          "teks_mentah": "2.1 Tata letak halaman konvensi diatur untuk \nmemenuhi kebutuhan. \n2.2 Format Font disesuaikan dengan tujuan \ndokumen. \n2.3 Keselarasan dan jarak baris diubah sesuai \npersyaratan informasi dokumen. \n2.4 Margin \ndisesuaikan \ndengan \ntujuan \ndokumen."
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Format Font disesuaikan dengan tujuan dokumen.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            420.19000244140625,
+            543.9397583007812,
+            540.0701904296875
+          ],
+          "teks_mentah": "2.1 Tata letak halaman konvensi diatur untuk \nmemenuhi kebutuhan. \n2.2 Format Font disesuaikan dengan tujuan \ndokumen. \n2.3 Keselarasan dan jarak baris diubah sesuai \npersyaratan informasi dokumen. \n2.4 Margin \ndisesuaikan \ndengan \ntujuan \ndokumen."
+        },
+        {
+          "nomor_kuk": "2.3",
+          "uraian_kuk": "Keselarasan dan jarak baris diubah sesuai persyaratan informasi dokumen.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            420.19000244140625,
+            543.9397583007812,
+            540.0701904296875
+          ],
+          "teks_mentah": "2.1 Tata letak halaman konvensi diatur untuk \nmemenuhi kebutuhan. \n2.2 Format Font disesuaikan dengan tujuan \ndokumen. \n2.3 Keselarasan dan jarak baris diubah sesuai \npersyaratan informasi dokumen. \n2.4 Margin \ndisesuaikan \ndengan \ntujuan \ndokumen."
+        },
+        {
+          "nomor_kuk": "2.4",
+          "uraian_kuk": "Margin disesuaikan dengan tujuan dokumen.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            420.19000244140625,
+            543.9397583007812,
+            540.0701904296875
+          ],
+          "teks_mentah": "2.1 Tata letak halaman konvensi diatur untuk \nmemenuhi kebutuhan. \n2.2 Format Font disesuaikan dengan tujuan \ndokumen. \n2.3 Keselarasan dan jarak baris diubah sesuai \npersyaratan informasi dokumen. \n2.4 Margin \ndisesuaikan \ndengan \ntujuan \ndokumen."
+        }
+      ],
+      "halaman_pdf": 21,
+      "bbox": [
+        87.74410247802734,
+        420.19000244140625,
+        247.92823791503906,
+        474.7901916503906
+      ],
+      "teks_mentah": "2. \nMenyesuaikan \npengaturan \ndasar \nuntuk memenuhi tata \nletak dokumen"
+    },
+    {
+      "nomor_elemen": "3",
+      "nama_elemen": "Mengatur dokumen",
+      "kuk": [
+        {
+          "nomor_kuk": "3.1",
+          "uraian_kuk": "Fitur pemformatan dan gaya sesuai kebutuhan pengguna digunakan.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            548.3500366210938,
+            544.1799926757812,
+            713.6199951171875
+          ],
+          "teks_mentah": "3.1 Fitur \npemformatan \ndan \ngaya \nsesuai \nkebutuhan pengguna digunakan. \n3.2 Teks dari area lain disalin ke dalam \ndokumen atau dari dokumen lain yang \naktif. \n3.3 Halaman \ndokumen \ndisisipkan \nsesuai \nkebutuhan pengguna. \n3.4 Header dan footer dibuat sesuai kebutuhan \ndokumen. \n3.5 Dokumen disimpan dalam berbagai tipe \nberkas. "
+        },
+        {
+          "nomor_kuk": "3.2",
+          "uraian_kuk": "Teks dari area lain disalin ke dalam dokumen atau dari dokumen lain yang aktif.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            548.3500366210938,
+            544.1799926757812,
+            713.6199951171875
+          ],
+          "teks_mentah": "3.1 Fitur \npemformatan \ndan \ngaya \nsesuai \nkebutuhan pengguna digunakan. \n3.2 Teks dari area lain disalin ke dalam \ndokumen atau dari dokumen lain yang \naktif. \n3.3 Halaman \ndokumen \ndisisipkan \nsesuai \nkebutuhan pengguna. \n3.4 Header dan footer dibuat sesuai kebutuhan \ndokumen. \n3.5 Dokumen disimpan dalam berbagai tipe \nberkas. "
+        },
+        {
+          "nomor_kuk": "3.3",
+          "uraian_kuk": "Halaman dokumen disisipkan sesuai kebutuhan pengguna.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            548.3500366210938,
+            544.1799926757812,
+            713.6199951171875
+          ],
+          "teks_mentah": "3.1 Fitur \npemformatan \ndan \ngaya \nsesuai \nkebutuhan pengguna digunakan. \n3.2 Teks dari area lain disalin ke dalam \ndokumen atau dari dokumen lain yang \naktif. \n3.3 Halaman \ndokumen \ndisisipkan \nsesuai \nkebutuhan pengguna. \n3.4 Header dan footer dibuat sesuai kebutuhan \ndokumen. \n3.5 Dokumen disimpan dalam berbagai tipe \nberkas. "
+        },
+        {
+          "nomor_kuk": "3.4",
+          "uraian_kuk": "Header dan footer dibuat sesuai kebutuhan dokumen.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            548.3500366210938,
+            544.1799926757812,
+            713.6199951171875
+          ],
+          "teks_mentah": "3.1 Fitur \npemformatan \ndan \ngaya \nsesuai \nkebutuhan pengguna digunakan. \n3.2 Teks dari area lain disalin ke dalam \ndokumen atau dari dokumen lain yang \naktif. \n3.3 Halaman \ndokumen \ndisisipkan \nsesuai \nkebutuhan pengguna. \n3.4 Header dan footer dibuat sesuai kebutuhan \ndokumen. \n3.5 Dokumen disimpan dalam berbagai tipe \nberkas. "
+        },
+        {
+          "nomor_kuk": "3.5",
+          "uraian_kuk": "Dokumen disimpan dalam berbagai tipe berkas.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            548.3500366210938,
+            544.1799926757812,
+            713.6199951171875
+          ],
+          "teks_mentah": "3.1 Fitur \npemformatan \ndan \ngaya \nsesuai \nkebutuhan pengguna digunakan. \n3.2 Teks dari area lain disalin ke dalam \ndokumen atau dari dokumen lain yang \naktif. \n3.3 Halaman \ndokumen \ndisisipkan \nsesuai \nkebutuhan pengguna. \n3.4 Header dan footer dibuat sesuai kebutuhan \ndokumen. \n3.5 Dokumen disimpan dalam berbagai tipe \nberkas. "
+        }
+      ],
+      "halaman_pdf": 21,
+      "bbox": [
+        87.74410247802734,
+        548.3500366210938,
+        232.12989807128906,
+        560.7100219726562
+      ],
+      "teks_mentah": "3. \nMengatur dokumen "
+    },
+    {
+      "nomor_elemen": "4",
+      "nama_elemen": "Membuat tabel",
+      "kuk": [
+        {
+          "nomor_kuk": "4.1",
+          "uraian_kuk": "Tabel standar disisipkan ke dalam dokumen.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            721.780029296875,
+            543.93994140625,
+            779.5201416015625
+          ],
+          "teks_mentah": "4.1 Tabel \nstandar \ndisisipkan \nke \ndalam \ndokumen. \n4.2 Sel untuk memenuhi persyaratan informasi \ndiubah. "
+        },
+        {
+          "nomor_kuk": "4.2",
+          "uraian_kuk": "Sel untuk memenuhi persyaratan informasi diubah.",
+          "halaman_pdf": 21,
+          "bbox": [
+            256.6099853515625,
+            721.780029296875,
+            543.93994140625,
+            779.5201416015625
+          ],
+          "teks_mentah": "4.1 Tabel \nstandar \ndisisipkan \nke \ndalam \ndokumen. \n4.2 Sel untuk memenuhi persyaratan informasi \ndiubah. "
+        },
+        {
+          "nomor_kuk": "4.3",
+          "uraian_kuk": "Kolom dan baris dimodifikasi.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099853515625,
+            96.98001861572266,
+            543.9400024414062,
+            140.5402069091797
+          ],
+          "teks_mentah": "4.3 Kolom dan baris dimodifikasi. \n4.4 Menu \npemformatan \ndigunakan \nsesuai \ndengan persyaratan kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "4.4",
+          "uraian_kuk": "Menu pemformatan digunakan sesuai dengan persyaratan kebutuhan pengguna.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099853515625,
+            96.98001861572266,
+            543.9400024414062,
+            140.5402069091797
+          ],
+          "teks_mentah": "4.3 Kolom dan baris dimodifikasi. \n4.4 Menu \npemformatan \ndigunakan \nsesuai \ndengan persyaratan kebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 21,
+      "bbox": [
+        87.74410247802734,
+        721.780029296875,
+        204.77012634277344,
+        734.1400146484375
+      ],
+      "teks_mentah": "4. \nMembuat tabel "
+    },
+    {
+      "nomor_elemen": "5",
+      "nama_elemen": "Menambahkan gambar",
+      "kuk": [
+        {
+          "nomor_kuk": "5.1",
+          "uraian_kuk": "Gambar yang sesuai dimasukan ke dalam dokumen.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099853515625,
+            148.69998168945312,
+            543.9395751953125,
+            206.41978454589844
+          ],
+          "teks_mentah": "5.1 Gambar yang sesuai dimasukan ke dalam \ndokumen. \n5.2 Ukuran dan posisi gambar diubah untuk \nmemenuhi kebutuhan pengguna."
+        },
+        {
+          "nomor_kuk": "5.2",
+          "uraian_kuk": "Ukuran dan posisi gambar diubah untuk memenuhi kebutuhan pengguna.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099853515625,
+            148.69998168945312,
+            543.9395751953125,
+            206.41978454589844
+          ],
+          "teks_mentah": "5.1 Gambar yang sesuai dimasukan ke dalam \ndokumen. \n5.2 Ukuran dan posisi gambar diubah untuk \nmemenuhi kebutuhan pengguna."
+        }
+      ],
+      "halaman_pdf": 22,
+      "bbox": [
+        87.74410247802734,
+        148.69998168945312,
+        204.52989196777344,
+        175.22019958496094
+      ],
+      "teks_mentah": "5. \nMenambahkan \ngambar"
+    },
+    {
+      "nomor_elemen": "6",
+      "nama_elemen": "Mencetak dokumen",
+      "kuk": [
+        {
+          "nomor_kuk": "6.1",
+          "uraian_kuk": "Dokumen dalam modus pratinjau cetak ditampilkan.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099548339844,
+            214.57998657226562,
+            543.93896484375,
+            289.3819885253906
+          ],
+          "teks_mentah": "6.1 Dokumen dalam modus pratinjau cetak \nditampilkan. \n6.2 Pengaturan cetak dasar dipilih. \n6.3 Dokumen atau bagian dokumen di cetak \ndari printer. "
+        },
+        {
+          "nomor_kuk": "6.2",
+          "uraian_kuk": "Pengaturan cetak dasar dipilih.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099548339844,
+            214.57998657226562,
+            543.93896484375,
+            289.3819885253906
+          ],
+          "teks_mentah": "6.1 Dokumen dalam modus pratinjau cetak \nditampilkan. \n6.2 Pengaturan cetak dasar dipilih. \n6.3 Dokumen atau bagian dokumen di cetak \ndari printer. "
+        },
+        {
+          "nomor_kuk": "6.3",
+          "uraian_kuk": "Dokumen atau bagian dokumen di cetak dari printer.",
+          "halaman_pdf": 22,
+          "bbox": [
+            256.6099548339844,
+            214.57998657226562,
+            543.93896484375,
+            289.3819885253906
+          ],
+          "teks_mentah": "6.1 Dokumen dalam modus pratinjau cetak \nditampilkan. \n6.2 Pengaturan cetak dasar dipilih. \n6.3 Dokumen atau bagian dokumen di cetak \ndari printer. "
+        }
+      ],
+      "halaman_pdf": 22,
+      "bbox": [
+        87.74410247802734,
+        214.57998657226562,
+        232.12991333007812,
+        226.9399871826172
+      ],
+      "teks_mentah": "6. \nMencetak dokumen "
+    }
+  ],
+  "batasan_variabel": {
+    "ditemukan": true,
+    "halaman_awal": 22,
+    "halaman_akhir": 23,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "batasan_variabel",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 15,
+      "jumlah_paragraf_tanpa_nomor": 2,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks variabel",
+        "teks": "Konteks variabel",
+        "halaman_pdf": 22,
+        "halaman_akhir": 22,
+        "bbox": [
+          86.42379760742188,
+          337.8498840332031,
+          216.52978515625,
+          350.20989990234375
+        ],
+        "teks_mentah": "1.\nKonteks variabel",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Aplikasi pengolah kata adalah suatu aplikasi komputer yang digunakan untuk produksi (termasuk penyusunan, penyuntingan, pemformatan, dan kadang pencetakan) segala jenis bahan yang dapat dicetak. Contoh perangkat lunak pengolah kata adalah google doc, Microsoft Word, Libre Office dan Open Office.",
+            "teks": "Aplikasi pengolah kata adalah suatu aplikasi komputer yang digunakan untuk produksi (termasuk penyusunan, penyuntingan, pemformatan, dan kadang pencetakan) segala jenis bahan yang dapat dicetak. Contoh perangkat lunak pengolah kata adalah google doc, Microsoft Word, Libre Office dan Open Office.",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              114.73979187011719,
+              358.9697570800781,
+              543.9400634765625,
+              371.33001708984375
+            ],
+            "teks_mentah": "1.1  Aplikasi pengolah kata adalah suatu aplikasi komputer yang\ndigunakan untuk produksi (termasuk penyusunan, penyuntingan,\npemformatan, dan kadang pencetakan) segala jenis bahan yang\ndapat dicetak. Contoh perangkat lunak pengolah kata adalah\ngoogle doc, Microsoft Word, Libre Office dan Open Office.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Format font/format huruf komputer yang digunakan pada lembar kerja.",
+            "teks": "Format font/format huruf komputer yang digunakan pada lembar kerja.",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              114.74002075195312,
+              464.58990478515625,
+              543.79345703125,
+              476.9619140625
+            ],
+            "teks_mentah": "1.2 Format font/format huruf komputer yang digunakan pada lembar\nkerja.",
+            "items": []
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Tipe berkas seperti doc, pdf.",
+            "teks": "Tipe berkas seperti doc, pdf.",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              114.73969268798828,
+              506.9499206542969,
+              313.010009765625,
+              519.3099975585938
+            ],
+            "teks_mentah": "1.3 Tipe berkas seperti doc, pdf.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peralatan dan perlengkapan",
+        "teks": "Peralatan dan perlengkapan",
+        "halaman_pdf": 22,
+        "halaman_akhir": 22,
+        "bbox": [
+          86.42379760742188,
+          549.1900634765625,
+          284.45001220703125,
+          561.550048828125
+        ],
+        "teks_mentah": "2.\nPeralatan dan perlengkapan",
+        "items": [
+          {
+            "nomor": "2.1",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Peralatan",
+            "teks": "Peralatan",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              114.73979187011719,
+              570.310302734375,
+              202.85012817382812,
+              582.6702880859375
+            ],
+            "teks_mentah": "2.1 Peralatan",
+            "items": [
+              {
+                "nomor": "2.1.1",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Satu set perangkat keras komputer",
+                "teks": "Satu set perangkat keras komputer",
+                "halaman_pdf": 22,
+                "halaman_akhir": 22,
+                "bbox": [
+                  143.0601043701172,
+                  591.4603271484375,
+                  394.02984619140625,
+                  603.8203125
+                ],
+                "teks_mentah": "2.1.1 Satu set perangkat keras komputer",
+                "items": []
+              },
+              {
+                "nomor": "2.1.2",
+                "level": 3,
+                "parent_nomor": "2.1",
+                "is_numbered": true,
+                "judul": "Perangkat lunak pengolah kata",
+                "teks": "Perangkat lunak pengolah kata",
+                "halaman_pdf": 22,
+                "halaman_akhir": 22,
+                "bbox": [
+                  143.06008911132812,
+                  612.5802001953125,
+                  365.70947265625,
+                  624.940185546875
+                ],
+                "teks_mentah": "2.1.2 Perangkat lunak pengolah kata",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "2.2",
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": true,
+            "judul": "Perlengkapan",
+            "teks": "Perlengkapan",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              114.73977661132812,
+              633.7001342773438,
+              226.85009765625,
+              646.0601196289062
+            ],
+            "teks_mentah": "2.2 Perlengkapan",
+            "items": [
+              {
+                "nomor": "2.2.1",
+                "level": 3,
+                "parent_nomor": "2.2",
+                "is_numbered": true,
+                "judul": "Dokumen untuk ujicoba",
+                "teks": "Dokumen untuk ujicoba",
+                "halaman_pdf": 22,
+                "halaman_akhir": 22,
+                "bbox": [
+                  143.06008911132812,
+                  654.820068359375,
+                  325.62982177734375,
+                  667.1800537109375
+                ],
+                "teks_mentah": "2.2.1 Dokumen untuk ujicoba",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Peraturan yang diperlukan",
+        "teks": "Peraturan yang diperlukan",
+        "halaman_pdf": 22,
+        "halaman_akhir": 22,
+        "bbox": [
+          86.42379760742188,
+          697.0602416992188,
+          277.0099182128906,
+          709.4202270507812
+        ],
+        "teks_mentah": "3.\nPeraturan yang diperlukan",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": false,
+            "judul": "(Tidak ada.)",
+            "teks": "(Tidak ada.)",
+            "halaman_pdf": 22,
+            "halaman_akhir": 22,
+            "bbox": [
+              115.699951171875,
+              719.1881713867188,
+              188.65989685058594,
+              730.5401611328125
+            ],
+            "teks_mentah": "(Tidak ada.)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Norma dan standar",
+        "teks": "Norma dan standar",
+        "halaman_pdf": 23,
+        "halaman_akhir": 23,
+        "bbox": [
+          86.42379760742188,
+          73.69998931884766,
+          233.08995056152344,
+          86.05998992919922
+        ],
+        "teks_mentah": "4.\nNorma dan standar",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Norma",
+            "teks": "Norma",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.73979187011719,
+              94.81986236572266,
+              187.94000244140625,
+              107.17986297607422
+            ],
+            "teks_mentah": "4.1 Norma",
+            "items": [
+              {
+                "nomor": null,
+                "level": 3,
+                "parent_nomor": "4.1",
+                "is_numbered": false,
+                "judul": "(Tidak ada.)",
+                "teks": "(Tidak ada.)",
+                "halaman_pdf": 23,
+                "halaman_akhir": 23,
+                "bbox": [
+                  143.06007385253906,
+                  116.9477310180664,
+                  216.0500946044922,
+                  128.2997283935547
+                ],
+                "teks_mentah": "(Tidak ada.)",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Standar",
+            "teks": "Standar",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.73977661132812,
+              137.05960083007812,
+              195.88992309570312,
+              149.4196014404297
+            ],
+            "teks_mentah": "4.2 Standar",
+            "items": [
+              {
+                "nomor": "4.2.1",
+                "level": 3,
+                "parent_nomor": "4.2",
+                "is_numbered": true,
+                "judul": "SNI open dokumen format nomor ISO/IEC 26300:2011",
+                "teks": "SNI open dokumen format nomor ISO/IEC 26300:2011",
+                "halaman_pdf": 23,
+                "halaman_akhir": 23,
+                "bbox": [
+                  145.33975219726562,
+                  159.18711853027344,
+                  507.5801086425781,
+                  170.55111694335938
+                ],
+                "teks_mentah": "4.2.1 SNI open dokumen format nomor ISO/IEC 26300:2011",
+                "items": []
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. \nKonteks variabel\n1.1  Aplikasi pengolah kata adalah suatu aplikasi komputer yang\ndigunakan untuk produksi (termasuk penyusunan, penyuntingan,\npemformatan, dan kadang pencetakan) segala jenis bahan yang\ndapat dicetak. Contoh perangkat lunak pengolah kata adalah\ngoogle doc, Microsoft Word, Libre Office dan Open Office.\n1.2 Format font/format huruf komputer yang digunakan pada lembar\nkerja.\n1.3 Tipe berkas seperti doc, pdf.\n2. \nPeralatan dan perlengkapan\n2.1 Peralatan\n2.1.1 Satu set perangkat keras komputer\n2.1.2 Perangkat lunak pengolah kata\n2.2 Perlengkapan\n2.2.1 Dokumen untuk ujicoba\n3. \nPeraturan yang diperlukan\n(Tidak ada.)\n4. \nNorma dan standar\n4.1 Norma\n(Tidak ada.)\n4.2 Standar\n4.2.1 SNI open dokumen format nomor ISO/IEC 26300:2011"
+  },
+  "panduan_penilaian": {
+    "ditemukan": true,
+    "halaman_awal": 23,
+    "halaman_akhir": 24,
+    "status_validasi": "ok",
+    "penomoran": {
+      "grup": "panduan_penilaian",
+      "mulai_dari": 1,
+      "jumlah_level_maks": 3,
+      "jumlah_node_bernomor": 18,
+      "jumlah_paragraf_tanpa_nomor": 1,
+      "level_melebihi_tiga": [],
+      "nomor_akar": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+      ],
+      "mulai_dari_satu": true,
+      "restart_per_unit": true
+    },
+    "sections": [
+      {
+        "nomor": "1",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Konteks penilaian",
+        "teks": "Konteks penilaian",
+        "halaman_pdf": 23,
+        "halaman_akhir": 23,
+        "bbox": [
+          86.42379760742188,
+          221.66012573242188,
+          224.44979858398438,
+          234.02012634277344
+        ],
+        "teks_mentah": "1.\nKonteks penilaian",
+        "items": [
+          {
+            "nomor": "1.1",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Kompetensi ini diujikan secara praktik di tempat kerja atau laboratorium komputer atau tempat lain yang memungkinkan untuk dilakukan penilaian.",
+            "teks": "Kompetensi ini diujikan secara praktik di tempat kerja atau laboratorium komputer atau tempat lain yang memungkinkan untuk dilakukan penilaian.",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.73979949951172,
+              242.80972290039062,
+              543.7642822265625,
+              255.1697235107422
+            ],
+            "teks_mentah": "1.1 Kompetensi ini diujikan secara praktik di tempat kerja atau\nlaboratorium komputer atau tempat lain yang memungkinkan\nuntuk dilakukan penilaian.",
+            "items": []
+          },
+          {
+            "nomor": "1.2",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Penilaian secara holistic dengan unit lain yang relevan dengan peran sektor industri, tempat kerja dan pekerjaan yang sesuai dianjurkan.",
+            "teks": "Penilaian secara holistic dengan unit lain yang relevan dengan peran sektor industri, tempat kerja dan pekerjaan yang sesuai dianjurkan.",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.74008178710938,
+              306.1697692871094,
+              543.9406127929688,
+              318.5417785644531
+            ],
+            "teks_mentah": "1.2 Penilaian secara holistic dengan unit lain yang relevan dengan\nperan sektor industri, tempat kerja dan pekerjaan yang sesuai\ndianjurkan.",
+            "items": []
+          },
+          {
+            "nomor": "1.3",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Proses penilaian dan teknik harus sesuai dengan budaya dan sesuai dengan tingkat keterampilan komunikasi, dan bahasa, kapasitas calon dan pekerjaan yang dilakukan.",
+            "teks": "Proses penilaian dan teknik harus sesuai dengan budaya dan sesuai dengan tingkat keterampilan komunikasi, dan bahasa, kapasitas calon dan pekerjaan yang dilakukan.",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.74018859863281,
+              369.5290222167969,
+              543.9401245117188,
+              381.8890380859375
+            ],
+            "teks_mentah": "1.3 Proses penilaian dan teknik harus sesuai dengan budaya dan\nsesuai dengan tingkat keterampilan komunikasi, dan bahasa,\nkapasitas calon dan pekerjaan yang dilakukan.",
+            "items": []
+          },
+          {
+            "nomor": "1.4",
+            "level": 2,
+            "parent_nomor": "1",
+            "is_numbered": true,
+            "judul": "Dalam kasus di mana penilaian praktis digunakan, harus dikombinasikan dengan pertanyaan yang ditargetkan untuk menilai pengetahuan yang diperlukan.",
+            "teks": "Dalam kasus di mana penilaian praktis digunakan, harus dikombinasikan dengan pertanyaan yang ditargetkan untuk menilai pengetahuan yang diperlukan.",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.74018859863281,
+              432.9098205566406,
+              543.9401245117188,
+              445.26983642578125
+            ],
+            "teks_mentah": "1.4 Dalam kasus di mana penilaian praktis digunakan, harus\ndikombinasikan dengan pertanyaan yang ditargetkan untuk\nmenilai pengetahuan yang diperlukan.",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "2",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Persyaratan kompetensi",
+        "teks": "Persyaratan kompetensi",
+        "halaman_pdf": 23,
+        "halaman_akhir": 23,
+        "bbox": [
+          86.4241943359375,
+          517.5093994140625,
+          260.4505615234375,
+          529.869384765625
+        ],
+        "teks_mentah": "2.\nPersyaratan kompetensi",
+        "items": [
+          {
+            "nomor": null,
+            "level": 2,
+            "parent_nomor": "2",
+            "is_numbered": false,
+            "judul": "(Tidak ada.)",
+            "teks": "(Tidak ada.)",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              114.74018859863281,
+              539.6372680664062,
+              187.70053100585938,
+              550.9892578125
+            ],
+            "teks_mentah": "(Tidak ada.)",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "3",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Pengetahuan dan keterampilan yang diperlukan",
+        "teks": "Pengetahuan dan keterampilan yang diperlukan",
+        "halaman_pdf": 23,
+        "halaman_akhir": 23,
+        "bbox": [
+          86.42418670654297,
+          580.8690795898438,
+          402.5502624511719,
+          593.2290649414062
+        ],
+        "teks_mentah": "3.\nPengetahuan dan keterampilan yang diperlukan",
+        "items": [
+          {
+            "nomor": "3.1",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Pengetahuan",
+            "teks": "Pengetahuan",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              115.34027099609375,
+              602.01904296875,
+              229.85018920898438,
+              614.3790283203125
+            ],
+            "teks_mentah": "3.1  Pengetahuan",
+            "items": [
+              {
+                "nomor": "3.1.1",
+                "level": 3,
+                "parent_nomor": "3.1",
+                "is_numbered": true,
+                "judul": "Memahami pengolah kata",
+                "teks": "Memahami pengolah kata",
+                "halaman_pdf": 23,
+                "halaman_akhir": 23,
+                "bbox": [
+                  149.9004364013672,
+                  623.1389770507812,
+                  351.7904357910156,
+                  635.4989624023438
+                ],
+                "teks_mentah": "3.1.1\nMemahami pengolah kata",
+                "items": []
+              }
+            ]
+          },
+          {
+            "nomor": "3.2",
+            "level": 2,
+            "parent_nomor": "3",
+            "is_numbered": true,
+            "judul": "Keterampilan",
+            "teks": "Keterampilan",
+            "halaman_pdf": 23,
+            "halaman_akhir": 23,
+            "bbox": [
+              115.34024047851562,
+              644.25927734375,
+              235.61058044433594,
+              656.6192626953125
+            ],
+            "teks_mentah": "3.2  Keterampilan",
+            "items": [
+              {
+                "nomor": "3.2.1",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Menyiapkan korespondensi sederhana yang menggabungkan informasi penting dalam format dan gaya yang sesuai dengan",
+                "teks": "Menyiapkan korespondensi sederhana yang menggabungkan informasi penting dalam format dan gaya yang sesuai dengan",
+                "halaman_pdf": 23,
+                "halaman_akhir": 23,
+                "bbox": [
+                  149.89999389648438,
+                  665.3800048828125,
+                  543.8301391601562,
+                  677.739990234375
+                ],
+                "teks_mentah": "3.2.1\nMenyiapkan\nkorespondensi\nsederhana\nyang\nmenggabungkan informasi penting dalam format dan\ngaya yang sesuai dengan",
+                "items": []
+              },
+              {
+                "nomor": "3.2.2",
+                "level": 3,
+                "parent_nomor": "3.2",
+                "is_numbered": true,
+                "judul": "Dapat mengoperasikan komputer",
+                "teks": "Dapat mengoperasikan komputer",
+                "halaman_pdf": 23,
+                "halaman_akhir": 23,
+                "bbox": [
+                  149.89999389648438,
+                  728.739990234375,
+                  400.510009765625,
+                  741.0999755859375
+                ],
+                "teks_mentah": "3.2.2\nDapat mengoperasikan komputer",
+                "items": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "nomor": "4",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Sikap kerja yang diperlukan",
+        "teks": "Sikap kerja yang diperlukan",
+        "halaman_pdf": 24,
+        "halaman_akhir": 24,
+        "bbox": [
+          86.42379760742188,
+          73.69998931884766,
+          284.9298095703125,
+          86.05998992919922
+        ],
+        "teks_mentah": "4.\nSikap kerja yang diperlukan",
+        "items": [
+          {
+            "nomor": "4.1",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Problem solving",
+            "teks": "Problem solving",
+            "halaman_pdf": 24,
+            "halaman_akhir": 24,
+            "bbox": [
+              114.73979187011719,
+              94.81986236572266,
+              238.85009765625,
+              107.19186401367188
+            ],
+            "teks_mentah": "4.1 Problem solving",
+            "items": []
+          },
+          {
+            "nomor": "4.2",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Dokumentation skills",
+            "teks": "Dokumentation skills",
+            "halaman_pdf": 24,
+            "halaman_akhir": 24,
+            "bbox": [
+              114.74010467529297,
+              115.93973541259766,
+              270.05029296875,
+              128.31173706054688
+            ],
+            "teks_mentah": "4.2 Dokumentation skills",
+            "items": []
+          },
+          {
+            "nomor": "4.3",
+            "level": 2,
+            "parent_nomor": "4",
+            "is_numbered": true,
+            "judul": "Verbal communication",
+            "teks": "Verbal communication",
+            "halaman_pdf": 24,
+            "halaman_akhir": 24,
+            "bbox": [
+              114.74029541015625,
+              137.05960083007812,
+              276.0505065917969,
+              149.43161010742188
+            ],
+            "teks_mentah": "4.3 Verbal communication",
+            "items": []
+          }
+        ]
+      },
+      {
+        "nomor": "5",
+        "level": 1,
+        "parent_nomor": null,
+        "is_numbered": true,
+        "judul": "Aspek kritis",
+        "teks": "Aspek kritis",
+        "halaman_pdf": 24,
+        "halaman_akhir": 24,
+        "bbox": [
+          86.42451477050781,
+          179.41897583007812,
+          188.66053771972656,
+          191.7789764404297
+        ],
+        "teks_mentah": "5.\nAspek kritis",
+        "items": [
+          {
+            "nomor": "5.1",
+            "level": 2,
+            "parent_nomor": "5",
+            "is_numbered": true,
+            "judul": "Ketepatan membuat dokumen sesuai dengan kebutuhan",
+            "teks": "Ketepatan membuat dokumen sesuai dengan kebutuhan",
+            "halaman_pdf": 24,
+            "halaman_akhir": 24,
+            "bbox": [
+              113.90066528320312,
+              201.54685974121094,
+              483.94000244140625,
+              212.90000915527344
+            ],
+            "teks_mentah": "5.1  Ketepatan membuat dokumen sesuai dengan kebutuhan",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "catatan": [],
+    "teks_mentah": "1. \nKonteks penilaian\n1.1 Kompetensi ini diujikan secara praktik di tempat kerja atau\nlaboratorium komputer atau tempat lain yang memungkinkan\nuntuk dilakukan penilaian.\n1.2 Penilaian secara holistic dengan unit lain yang relevan dengan\nperan sektor industri, tempat kerja dan pekerjaan yang sesuai\ndianjurkan.\n1.3 Proses penilaian dan teknik harus sesuai dengan budaya dan\nsesuai dengan tingkat keterampilan komunikasi, dan bahasa,\nkapasitas calon dan pekerjaan yang dilakukan.\n1.4 Dalam kasus di mana penilaian praktis digunakan, harus\ndikombinasikan dengan pertanyaan yang ditargetkan untuk\nmenilai pengetahuan yang diperlukan.\n2. \nPersyaratan kompetensi\n(Tidak ada.)\n3. \nPengetahuan dan keterampilan yang diperlukan\n3.1  Pengetahuan\n3.1.1 \nMemahami pengolah kata\n3.2  Keterampilan\n3.2.1 \nMenyiapkan \nkorespondensi \nsederhana \nyang\nmenggabungkan informasi penting dalam format dan\ngaya yang sesuai dengan\n3.2.2 \nDapat mengoperasikan komputer\n4. \nSikap kerja yang diperlukan\n4.1 Problem solving\n4.2 Dokumentation skills\n4.3 Verbal communication\n5. \nAspek kritis\n5.1  Ketepatan membuat dokumen sesuai dengan kebutuhan"
+  },
+  "penomoran": {
+    "kelompok": {
+      "batasan_variabel": {
+        "grup": "batasan_variabel",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 15,
+        "jumlah_paragraf_tanpa_nomor": 2,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      },
+      "panduan_penilaian": {
+        "grup": "panduan_penilaian",
+        "mulai_dari": 1,
+        "jumlah_level_maks": 3,
+        "jumlah_node_bernomor": 18,
+        "jumlah_paragraf_tanpa_nomor": 1,
+        "level_melebihi_tiga": [],
+        "nomor_akar": [
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ],
+        "mulai_dari_satu": true,
+        "restart_per_unit": true
+      }
+    },
+    "kelompok_terpisah": true,
+    "restart_per_unit": true,
+    "nomor_dipisah_dari_teks": true,
+    "rencana_word_multilevel": {
+      "level_1": {
+        "format": "1.",
+        "left_indent_cm": 0.75,
+        "hanging_cm": -0.75
+      },
+      "level_2": {
+        "format": "1.1.",
+        "left_indent_cm": 1.49,
+        "hanging_cm": -0.75
+      },
+      "level_3": {
+        "format": "1.1.1.",
+        "left_indent_cm": 2.23,
+        "hanging_cm": -0.75
+      }
+    }
+  },
+  "geometri_tabel": {
+    "batas_kolom_pt": 252.26,
+    "x1_maks_kolom_kiri": 247.93,
+    "x0_min_kolom_kanan": 256.6,
+    "keyakinan": "high",
+    "header_elemen_bbox": [
+      93.50389862060547,
+      313.3699951171875,
+      241.12998962402344,
+      324.77001953125
+    ],
+    "header_kuk_bbox": [
+      317.69000244140625,
+      313.3699951171875,
+      481.4200744628906,
+      324.77001953125
+    ],
+    "catatan": []
+  },
+  "validasi": {
+    "status": "valid_struktur",
+    "catatan": [],
+    "peringatan_format_sumber": []
+  },
+  "validasi_kelengkapan": {
+    "status": "valid_kelengkapan",
+    "kuk_pdf": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "2.1",
+      "2.2",
+      "2.3",
+      "2.4",
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4",
+      "3.5",
+      "4.1",
+      "4.2",
+      "4.3",
+      "4.4",
+      "5.1",
+      "5.2",
+      "6.1",
+      "6.2",
+      "6.3"
+    ],
+    "kuk_json": [
+      "1.1",
+      "1.2",
+      "1.3",
+      "1.4",
+      "2.1",
+      "2.2",
+      "2.3",
+      "2.4",
+      "3.1",
+      "3.2",
+      "3.3",
+      "3.4",
+      "3.5",
+      "4.1",
+      "4.2",
+      "4.3",
+      "4.4",
+      "5.1",
+      "5.2",
+      "6.1",
+      "6.2",
+      "6.3"
+    ],
+    "kuk_hilang": [],
+    "kuk_ekstra": [],
+    "duplikat": [],
+    "catatan": [],
+    "diperiksa_pada": "2026-10-25T21:08:44",
+    "metode": "validator independen (find_tables + kata)"
+  },
+  "sumber_ekstraksi": {
+    "aplikasi": "SKKNI Extractor",
+    "jalur": "browser (job manager)",
+    "waktu": "2026-10-25T21:08:44"
+  }
+}

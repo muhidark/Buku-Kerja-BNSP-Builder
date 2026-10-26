@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block subjudul %}Dokumen Word yang dibuat dari hasil ekstraksi{% endblock %}
+{% block konten %}
+
+{% if pesan %}
+<div class="alert alert-{{ tipe or 'info' }}">{{ pesan }}</div>
+{% endif %}
+
+{% set siap = daftar|selectattr('status', 'equalto', 'siap_ditinjau')|list|length %}
+{% set draft = daftar|selectattr('status', 'equalto', 'draft_perlu_verifikasi')|list|length %}
+{% set gagal_n = daftar|selectattr('status', 'equalto', 'gagal')|list|length %}
+
+<section class="cards cards-3">
+  <article class="card stat">
+    <span class="stat-label">Dokumen dibuat</span>
+    <span class="stat-value">{{ daftar|length }}</span>
+    <span class="stat-note">tersimpan di riwayat</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Siap ditinjau</span>
+    <span class="stat-value">{{ siap }}</span>
+    <span class="stat-note">semua unit lolos validasi</span>
+  </article>
+  <article class="card stat">
+    <span class="stat-label">Draft / gagal</span>
+    <span class="stat-value">{{ draft }}{% if gagal_n %} · {{ gagal_n }}{% endif %}</span>
+    <span class="stat-note">perlu pemeriksaan manual</span>
+  </article>
+</section>
+
+<article class="card">
+  <div class="card-head">
+    <h2>Riwayat Dokumen Word</h2>
+    <a class="btn btn-ghost btn-small" href="/skema">Buat dari skema</a>
+  </div>
+
+  {% if daftar %}
+  <table class="table">
+    <thead>
+      <tr><th>No</th><th>Nama Skema</th><th>Unit</th><th>Elemen / KUK</th>
+          <th>Dibuat</th><th>Status</th><th>Aksi</th></tr>
+    </thead>
+    <tbody>
+      {% for d in daftar %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ d.nama_skema or '-' }}</td>
+        <td class="num">{{ d.jumlah_unit }}</td>
+        <td class="num">{{ d.total_elemen or 0 }} / {{ d.total_kuk or 0 }}</td>
+        <td class="nowrap">{{ (d.dibuat or '')[:16] }}</td>
+        <td>
+          <span class="badge {% if d.status == 'siap_ditinjau' %}badge-green{% elif d.status == 'gagal' %}badge-red{% else %}badge-amber{% endif %}">
+            {{ (d.status or '-').replace('_', ' ') }}
+          </span>
+        </td>
+        <td class="nowrap">
+          {% if d.berkas_docx %}
+          <a class="btn btn-small" href="/api/documents/{{ d.id }}/download">Unduh DOCX</a>
+          {% endif %}
+          <a class="btn btn-ghost btn-small" href="/hasil/{{ d.id }}">Detail</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="empty">
+    Belum ada dokumen Word. Buka detail skema, jalankan ekstraksi, lalu tekan
+    <strong>Buat Dokumen Word</strong>.
+  </p>
+  {% endif %}
+</article>
+{% endblock %}

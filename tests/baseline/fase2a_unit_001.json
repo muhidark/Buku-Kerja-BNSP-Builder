@@ -1,0 +1,75 @@
+{
+  "kode_unit": "M.73ADV00.001.1",
+  "judul_unit": "Menyusun Rencana Pengembangan Usaha Perusahaan Periklanan",
+  "deskripsi_unit": "Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam merumuskan rencana pengembangan usaha melalui tahapan pembaharuan portofolio, identifikasi data calon klien, dan pengumpulan data karakteristik calon klien perusahaan periklanan.",
+  "elemen_kompetensi": [
+    {
+      "nomor_elemen": "1",
+      "nama_elemen": "Melakukan pembaharuan portofolio perusahaan periklanan",
+      "kuk": [
+        {
+          "nomor_kuk": "1.1",
+          "uraian_kuk": "Studi kasus kampanye periklanan klien perusahaan periklanan dikumpulkan dalam portofolio sesuai dengan kebutuhan.",
+          "halaman_pdf": 21
+        },
+        {
+          "nomor_kuk": "1.2",
+          "uraian_kuk": "Portofolio perusahaan periklanan diperbaharui sesuai dengan perkembangan.",
+          "halaman_pdf": 21
+        }
+      ]
+    },
+    {
+      "nomor_elemen": "2",
+      "nama_elemen": "Mengidentifikasi data calon klien perusahaan periklanan",
+      "kuk": [
+        {
+          "nomor_kuk": "2.1",
+          "uraian_kuk": "Data calon klien dipetakan sesuai rencana strategi pengembangan usaha perusahaan periklanan.",
+          "halaman_pdf": 21
+        },
+        {
+          "nomor_kuk": "2.2",
+          "uraian_kuk": "Metode pengumpulan data calon klien ditentukan sesuai rencana strategi pengembangan usaha perusahaan periklanan.",
+          "halaman_pdf": 21
+        }
+      ]
+    },
+    {
+      "nomor_elemen": "3",
+      "nama_elemen": "Mengumpulkan data karakteristik calon klien perusahaan periklanan",
+      "kuk": [
+        {
+          "nomor_kuk": "3.1",
+          "uraian_kuk": "Data karakteristik calon klien perusahaan periklanan diriset sesuai rencana strategi pengembangan usaha perusahaan periklanan.",
+          "halaman_pdf": 21
+        },
+        {
+          "nomor_kuk": "3.2",
+          "uraian_kuk": "Laporan hasil riset disusun sesuai rencana strategi pengembangan usaha perusahaan periklanan.",
+          "halaman_pdf": 21
+        }
+      ]
+    },
+    {
+      "nomor_elemen": "4",
+      "nama_elemen": "Merumuskan rencana pengembangan usaha perusahaan periklanan",
+      "kuk": [
+        {
+          "nomor_kuk": "4.1",
+          "uraian_kuk": "Hasil pengumpulan data karakteristik calon klien perusahaan periklanan diidentifikasi sesuai rencana strategi pengembangan usaha perusahaan periklanan.",
+          "halaman_pdf": 22
+        },
+        {
+          "nomor_kuk": "4.2",
+          "uraian_kuk": "Rencana pengembangan usaha perusahaan periklanan dilaporkan dalam bentuk dokumen sesuai rencana strategi pengembangan usaha periklanan.",
+          "halaman_pdf": 22
+        }
+      ]
+    }
+  ],
+  "validasi": {
+    "status": "valid_struktur",
+    "catatan": []
+  }
+}

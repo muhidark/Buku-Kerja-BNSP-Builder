@@ -1,0 +1,21 @@
+# Lingkungan virtual & cache Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Log & berkas sementara
+logs/
+*.log
+tmp/
+data/*/tmp/
+data/*/_uji*
+output/*/_uji*
+
+# Berkas sistem operasi & editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
