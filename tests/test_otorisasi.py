@@ -50,6 +50,8 @@ def cek(nama: str, kondisi: bool, detail: str = '') -> None:
 ENDPOINT = [
     ('POST', '/skkni/upload', 'admin', 'Unggah PDF SKKNI'),
     ('POST', '/skkni/{doc}/regulasi', 'admin', 'Kurasi status regulasi Kemnaker'),
+    ('POST', '/skkni/{doc}/sinkron-kemnaker', 'login', 'Sinkronkan status dokumen ke Kemnaker'),
+    ('POST', '/skkni/sinkron-kemnaker', 'admin', 'Sinkronkan seluruh katalog Kemnaker'),
     ('POST', '/skkni/{doc}/verifikasi', 'login', 'Verifikasi manual unit SKKNI'),
     ('POST', '/skema/upload', 'admin', 'Unggah dokumen skema'),
     ('POST', '/skema/{sid}/periksa-ulang', 'login', 'Pencocokan ulang unit skema'),

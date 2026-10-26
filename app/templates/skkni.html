@@ -42,13 +42,21 @@
 </article>
 
 <article class="card">
-  <div class="card-head">
+  <div class="card-head" style="flex-wrap: wrap; gap: 10px;">
     <h2>Daftar Dokumen</h2>
-    <form class="cari" method="get" action="/skkni">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama, nomor, tahun, judul..." aria-label="Cari dokumen SKKNI">
-      <button type="submit" class="btn btn-ghost">Cari</button>
-      {% if q %}<a class="btn btn-ghost" href="/skkni">Reset</a>{% endif %}
-    </form>
+    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+      {% if pengguna_aktif and pengguna_aktif.peran == 'admin' %}
+      <form method="post" action="/skkni/sinkron-kemnaker" style="margin: 0;">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button type="submit" class="btn btn-secondary btn-small" title="Sinkronkan status regulasi seluruh SKKNI dari server resmi Kemnaker RI">🔄 Sinkronkan Regulasi Kemnaker</button>
+      </form>
+      {% endif %}
+      <form class="cari" method="get" action="/skkni">
+        <input type="search" name="q" value="{{ q }}" placeholder="Cari nama, nomor, tahun, judul..." aria-label="Cari dokumen SKKNI">
+        <button type="submit" class="btn btn-ghost">Cari</button>
+        {% if q %}<a class="btn btn-ghost" href="/skkni">Reset</a>{% endif %}
+      </form>
+    </div>
   </div>
 
   {% if daftar %}

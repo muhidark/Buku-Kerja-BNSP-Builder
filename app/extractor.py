@@ -19,9 +19,10 @@ except ImportError:
     import fitz
 
 
-# Pola kode unit SKKNI: huruf.2-digit-huruf(2-3).2-digit.3-digit.1-digit
-# Contoh: J.63OPR00.009.2, M.70MKT00.014.1, M.73ADV00.001.1
-UNIT_CODE_PATTERN = re.compile(r'[A-Z]\.\d{2}[A-Z]{2,3}\d{2}\.\d{3}\.\d')
+# Pola kode unit SKKNI:
+# 1. Format modern: huruf.2-digit-huruf(2-3).2-digit.3-digit.1-digit (e.g. J.63OPR00.009.2)
+# 2. Format lama (2004-2010): 3-huruf.2-huruf.2-digit.3-digit.2-digit (e.g. TIK.MM01.001.01)
+UNIT_CODE_PATTERN = re.compile(r'(?:[A-Z]\.\d{2}[A-Z]{2,3}\d{2}\.\d{3}\.\d|[A-Z]{3}\.[A-Z]{2}\d{2}\.\d{3}\.\d{2})')
 
 
 def is_unit_description_page(text: str) -> tuple[bool, Optional[str]]:

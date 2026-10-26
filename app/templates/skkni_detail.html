@@ -56,8 +56,9 @@
         <label style="display:block; font-size: 12px; font-weight:600; margin-bottom:3px;">Kepmenaker Pengganti (Bila Dicabut):</label>
         <input aria-label="Kepmenaker Pengganti (Bila Dicabut):" type="text" name="kepmen_pengganti" value="{{ kepmen_pengganti }}" placeholder="Contoh: Kepmenaker No. 124 Tahun 2022" style="width:100%; box-sizing:border-box; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
       </div>
-      <div>
+      <div style="display: flex; gap: 8px;">
         <button type="submit" class="btn btn-small" style="background:#0369A1; border-color:#0369A1; color:#fff; padding: 7px 14px;">Simpan Regulasi</button>
+        <button type="submit" formaction="/skkni/{{ dok.id }}/sinkron-kemnaker" class="btn btn-secondary btn-small" style="padding: 7px 14px;" title="Cek otomatis status dokumen ini ke server resmi Kemnaker RI">🔄 Cek Kemnaker Online</button>
       </div>
     </form>
   </div>

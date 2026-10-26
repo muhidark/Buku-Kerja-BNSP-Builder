@@ -16,6 +16,7 @@ from starlette.concurrency import run_in_threadpool
 
 from app import db, library, status_units
 from app.api import auth_guard, security
+from app.services import kemnaker_sync
 
 from app.logging_config import ambil_logger
 from app.web_common import ke_skkni, render
@@ -109,6 +110,40 @@ def perbarui_regulasi_skkni(request: Request, doc_id: str,
     )
 
 
+@router.post('/skkni/{doc_id}/sinkron-kemnaker')
+def sinkron_kemnaker_dokumen(request: Request, doc_id: str,
+                             csrf_token: str = Form(''),
+                             pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
+    """Cek dan sinkronkan status regulasi SKKNI ke API resmi Kemnaker RI."""
+    security.periksa_token(request, csrf_token)
+    hasil = kemnaker_sync.sinkronkan_dokumen_tunggal(doc_id)
+    tipe = 'sukses' if hasil.get('sukses') else 'peringatan'
+    pesan = hasil.get('pesan', 'Pengecekan selesai.')
+    return RedirectResponse(
+        url=f'/skkni/{doc_id}?tipe={tipe}&pesan=' + quote(pesan),
+        status_code=303,
+    )
+
+
+@router.post('/skkni/sinkron-kemnaker')
+def sinkron_semua_kemnaker(request: Request,
+                           csrf_token: str = Form(''),
+                           pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
+    """Sinkronkan seluruh katalog regulasi Kemnaker RI — khusus Admin."""
+    security.periksa_token(request, csrf_token)
+    hasil = kemnaker_sync.sinkronkan_seluruh_perpustakaan()
+    tipe = 'sukses' if hasil.get('sukses') else 'peringatan'
+    if hasil.get('sukses'):
+        pesan = (f"Sinkronisasi Kemnaker berhasil: {hasil.get('terupdate', 0)} dokumen lokal "
+                 f"diperbarui dari {hasil.get('total_katalog_kemnaker', 0)} regulasi Kemnaker.")
+    else:
+        pesan = hasil.get('pesan', 'Gagal menyinkronkan katalog Kemnaker.')
+    return RedirectResponse(
+        url='/skkni?tipe=' + tipe + '&pesan=' + quote(pesan),
+        status_code=303,
+    )
+
+
 @router.post('/skkni/upload')
 async def unggah_skkni(request: Request,
                        berkas: UploadFile = File(...),
@@ -121,6 +156,15 @@ async def unggah_skkni(request: Request,
             raise library.GalatUpload('Berkas tidak memiliki nama.')
         doc, duplikat = await run_in_threadpool(
             library.unggah, berkas.filename, berkas.file, berkas.size)
+        if not duplikat:
+            try:
+                kemnaker_sync.sinkronkan_dokumen_tunggal(doc['id'])
+                # Muat ulang metadata terbaru yang sudah diperbarui sinkronisasi
+                dok_baru = library.ambil_dokumen(doc['id'])
+                if dok_baru:
+                    doc = dok_baru
+            except Exception as e:
+                logger.warning(f"Gagal auto-sync Kemnaker saat upload: {e}")
     except library.GalatUpload as e:
         await berkas.close()
         return ke_skkni(e.pesan, 'galat')

@@ -122,12 +122,35 @@ def baca_identitas(path: Path) -> dict:
     m = NOMOR_TAHUN.search(teks_rapi)
     if m:
         hasil['nomor'], hasil['tahun'] = m.group(1), m.group(2)
+    else:
+        # Format Kepmenaker lama: KEP. 115/MEN/III/2007 atau KEP.115/MEN/2007
+        m_lama = re.search(r'KEP\.?\s*(\d+)/[A-Z0-9_\-]+/(?:[IVXLCDM]+/)?(\d{4})', teks_rapi)
+        if m_lama:
+            hasil['nomor'], hasil['tahun'] = m_lama.group(1), m_lama.group(2)
+        else:
+            # Fallback dari nama berkas bila ada di path
+            m_fn = re.search(r'(\d{4})[-_](\d+)', path.name)
+            if m_fn:
+                hasil['tahun'], hasil['nomor'] = m_fn.group(1), str(int(m_fn.group(2)))
+            else:
+                m_fn2 = re.search(r'(\d+)[-_](\d{4})', path.name)
+                if m_fn2:
+                    hasil['nomor'], hasil['tahun'] = str(int(m_fn2.group(1))), m_fn2.group(2)
 
     j = JUDUL_SKKNI.search(teks)
     if j:
         judul = re.sub(r'\s+', ' ', j.group(1)).strip(' .-')
         if 3 <= len(judul) <= 120:
             hasil['judul'] = judul
+    else:
+        j_lama = re.search(
+            r'PENETAPAN\s+STANDAR\s+KOMPETENSI\s+KERJA\s+NASIONAL\s+INDONESIA\s+SEKTOR\s+(.+?)(?:\s+BAB|\s+LAMPIRAN|\s+Menimbang|\s+DENGAN|\s+Pasal)',
+            teks_rapi, re.I
+        )
+        if j_lama:
+            judul = re.sub(r'\s+', ' ', j_lama.group(1)).strip(' .-')
+            if 3 <= len(judul) <= 120:
+                hasil['judul'] = judul
     return hasil
 
 

@@ -1,0 +1,878 @@
+{
+  "id": "966c970af6c646779eadb22d09354da3",
+  "nama_asli": "SKKNI 2007-115.pdf.pdf",
+  "nama_internal": "data/library/pdf/966c970af6c646779eadb22d09354da3.pdf",
+  "sumber": "unggahan",
+  "sha256": "bdf34fc57239e271275f0f5ec56f9852af59444bca1ac9f40e6ab9cc662a0ae8",
+  "ukuran_byte": 4628239,
+  "nomor": "115",
+  "tahun": "2007",
+  "judul": "Multimedia",
+  "halaman": 478,
+  "tanggal_ditambah": "2026-10-27T04:31:48",
+  "status_identifikasi": "lengkap",
+  "units": [
+    {
+      "nomor": 1,
+      "kode_unit": "TIK.MM01.001.01",
+      "judul_unit": "Menyiapkan Suatu Proposal",
+      "halaman_pdf_0based": 21,
+      "halaman_akhir_0based": 24,
+      "halaman_tampil": 22,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 2,
+      "kode_unit": "TIK.MM01.002.01",
+      "judul_unit": "Mengajukan Copyright",
+      "halaman_pdf_0based": 25,
+      "halaman_akhir_0based": 28,
+      "halaman_tampil": 26,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 3,
+      "kode_unit": "TIK.MM01.003.01",
+      "judul_unit": "Memeriksa, Merawat dan Memperbaiki Peralatan",
+      "halaman_pdf_0based": 29,
+      "halaman_akhir_0based": 32,
+      "halaman_tampil": 30,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 4,
+      "kode_unit": "TIK.MM01.004.01",
+      "judul_unit": "Memperagakan Pengetahuan dan Syarat – Syarat Multimedia",
+      "halaman_pdf_0based": 33,
+      "halaman_akhir_0based": 36,
+      "halaman_tampil": 34,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 5,
+      "kode_unit": "TIK.MM01.005.01",
+      "judul_unit": "Mengidentifikasi Komponen Multimedia",
+      "halaman_pdf_0based": 37,
+      "halaman_akhir_0based": 39,
+      "halaman_tampil": 38,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 6,
+      "kode_unit": "TIK.MM01.006.01",
+      "judul_unit": "Menyiapkan Multimedia untuk Platform yang Berbeda",
+      "halaman_pdf_0based": 40,
+      "halaman_akhir_0based": 41,
+      "halaman_tampil": 41,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 7,
+      "kode_unit": "TIK.MM01.007.01",
+      "judul_unit": "Memilih dan Memakai Software dan Hardware untuk Multimedia",
+      "halaman_pdf_0based": 42,
+      "halaman_akhir_0based": 46,
+      "halaman_tampil": 43,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 8,
+      "kode_unit": "TIK.MM01.008.01",
+      "judul_unit": "Menerapkan Prinsip - Prinsip Rancangan Visual",
+      "halaman_pdf_0based": 47,
+      "halaman_akhir_0based": 51,
+      "halaman_tampil": 48,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 9,
+      "kode_unit": "TIK.MM01.009.01",
+      "judul_unit": "Menerapkan Prinsip - Prinsip Rancangan Instruksional",
+      "halaman_pdf_0based": 52,
+      "halaman_akhir_0based": 56,
+      "halaman_tampil": 53,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 10,
+      "kode_unit": "TIK.MM01.010.01",
+      "judul_unit": "Mengkoordinir Pemindahan dan Perakitan Peralatan Efek Khusus",
+      "halaman_pdf_0based": 57,
+      "halaman_akhir_0based": 64,
+      "halaman_tampil": 58,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 11,
+      "kode_unit": "TIK.MM01.011.01",
+      "judul_unit": "Menjual Produk dan Jasa",
+      "halaman_pdf_0based": 65,
+      "halaman_akhir_0based": 68,
+      "halaman_tampil": 66,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 12,
+      "kode_unit": "TIK.MM01.012.01",
+      "judul_unit": "Mengikuti Prosedur Kesehatan, Keselamatan dan Keamanan Kerja",
+      "halaman_pdf_0based": 69,
+      "halaman_akhir_0based": 73,
+      "halaman_tampil": 70,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 13,
+      "kode_unit": "TIK.MM02.001.01",
+      "judul_unit": "Menulis Sebuah Sekuen Interaktif untuk Multimedia",
+      "halaman_pdf_0based": 74,
+      "halaman_akhir_0based": 77,
+      "halaman_tampil": 75,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 14,
+      "kode_unit": "TIK.MM02.002.01",
+      "judul_unit": "Memadukan dan Menggunakan Bahasa Naskah dalam Menulis Multimedia",
+      "halaman_pdf_0based": 78,
+      "halaman_akhir_0based": 81,
+      "halaman_tampil": 79,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 15,
+      "kode_unit": "TIK.MM02.003.01",
+      "judul_unit": "Merancang Sebuah Produk Multimedia",
+      "halaman_pdf_0based": 82,
+      "halaman_akhir_0based": 86,
+      "halaman_tampil": 83,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 16,
+      "kode_unit": "TIK.MM02.004.01",
+      "judul_unit": "Membaca dan Menafsirkan Naskah",
+      "halaman_pdf_0based": 87,
+      "halaman_akhir_0based": 91,
+      "halaman_tampil": 88,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 17,
+      "kode_unit": "TIK.MM02.005.01",
+      "judul_unit": "Melakukan Pemilihan Pemain",
+      "halaman_pdf_0based": 92,
+      "halaman_akhir_0based": 95,
+      "halaman_tampil": 93,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 18,
+      "kode_unit": "TIK.MM02.006.01",
+      "judul_unit": "Merancang dan Membuat Rencana Kerja Kamera",
+      "halaman_pdf_0based": 96,
+      "halaman_akhir_0based": 101,
+      "halaman_tampil": 97,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 19,
+      "kode_unit": "TIK.MM02.007.01",
+      "judul_unit": "Merawat Daya Battery dan Stok Video untuk Sebuah Shooting",
+      "halaman_pdf_0based": 102,
+      "halaman_akhir_0based": 106,
+      "halaman_tampil": 103,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 20,
+      "kode_unit": "TIK.MM02.008.01",
+      "judul_unit": "Mengkoordinir dan Mengisi Stok Film",
+      "halaman_pdf_0based": 107,
+      "halaman_akhir_0based": 112,
+      "halaman_tampil": 108,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 21,
+      "kode_unit": "TIK.MM02.009.01",
+      "judul_unit": "Melakukan Pemeriksaan Kamera Sebelum Shooting",
+      "halaman_pdf_0based": 113,
+      "halaman_akhir_0based": 116,
+      "halaman_tampil": 114,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 22,
+      "kode_unit": "TIK.MM02.010.01",
+      "judul_unit": "Men-set-up Sebuah Kamera",
+      "halaman_pdf_0based": 117,
+      "halaman_akhir_0based": 123,
+      "halaman_tampil": 118,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 23,
+      "kode_unit": "TIK.MM02.011.01",
+      "judul_unit": "Membuat Storyboard untuk Animasi",
+      "halaman_pdf_0based": 124,
+      "halaman_akhir_0based": 127,
+      "halaman_tampil": 125,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 24,
+      "kode_unit": "TIK.MM02.012.01",
+      "judul_unit": "Membuat Tata- Letak Gambar untuk Animasi",
+      "halaman_pdf_0based": 128,
+      "halaman_akhir_0based": 130,
+      "halaman_tampil": 129,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 25,
+      "kode_unit": "TIK.MM02.013.01",
+      "judul_unit": "Membuat Artwork dengan Acuan Nyata / Hidup",
+      "halaman_pdf_0based": 131,
+      "halaman_akhir_0based": 134,
+      "halaman_tampil": 132,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 26,
+      "kode_unit": "TIK.MM02.014.01",
+      "judul_unit": "Menyiapkan Animasi Camera – Ready",
+      "halaman_pdf_0based": 135,
+      "halaman_akhir_0based": 138,
+      "halaman_tampil": 136,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 27,
+      "kode_unit": "TIK.MM02.015.01",
+      "judul_unit": "Merancang dan Membuat Efek – Efek Visual",
+      "halaman_pdf_0based": 139,
+      "halaman_akhir_0based": 145,
+      "halaman_tampil": 140,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 28,
+      "kode_unit": "TIK.MM02.016.01",
+      "judul_unit": "Mengembangkan dan Membuat Rancangan Pencahayaan",
+      "halaman_pdf_0based": 146,
+      "halaman_akhir_0based": 151,
+      "halaman_tampil": 147,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 29,
+      "kode_unit": "TIK.MM02.017.01",
+      "judul_unit": "Membuat dan Merealisasikan Rancangan Pencahayaan",
+      "halaman_pdf_0based": 152,
+      "halaman_akhir_0based": 157,
+      "halaman_tampil": 153,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 30,
+      "kode_unit": "TIK.MM02.018.01",
+      "judul_unit": "Menyiapkan, Memasang, dan Memantau Peralatan Pencahayaan",
+      "halaman_pdf_0based": 158,
+      "halaman_akhir_0based": 166,
+      "halaman_tampil": 159,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 31,
+      "kode_unit": "TIK.MM02.019.01",
+      "judul_unit": "Menentukan Persyaratan Pencahayaan dan Menjalankan Pencahayaan",
+      "halaman_pdf_0based": 167,
+      "halaman_akhir_0based": 172,
+      "halaman_tampil": 168,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 32,
+      "kode_unit": "TIK.MM02.020.01",
+      "judul_unit": "Merawat, Memperbaiki, dan Memodifikasi Peralatan Pencahayaan",
+      "halaman_pdf_0based": 173,
+      "halaman_akhir_0based": 181,
+      "halaman_tampil": 174,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 33,
+      "kode_unit": "TIK.MM02.021.01",
+      "judul_unit": "Membangun Sebuah Narasi",
+      "halaman_pdf_0based": 182,
+      "halaman_akhir_0based": 185,
+      "halaman_tampil": 183,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 34,
+      "kode_unit": "TIK.MM02.022.01",
+      "judul_unit": "Menulis Naskah",
+      "halaman_pdf_0based": 186,
+      "halaman_akhir_0based": 190,
+      "halaman_tampil": 187,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 35,
+      "kode_unit": "TIK.MM02.023.01",
+      "judul_unit": "Menyunting Naskah",
+      "halaman_pdf_0based": 191,
+      "halaman_akhir_0based": 195,
+      "halaman_tampil": 192,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 36,
+      "kode_unit": "TIK.MM02.024.01",
+      "judul_unit": "Menulis Bahan-Bahan Presentasi",
+      "halaman_pdf_0based": 196,
+      "halaman_akhir_0based": 198,
+      "halaman_tampil": 197,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 37,
+      "kode_unit": "TIK.MM02.025.01",
+      "judul_unit": "Menulis Atau Menyalin Isi Naskah",
+      "halaman_pdf_0based": 199,
+      "halaman_akhir_0based": 201,
+      "halaman_tampil": 200,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 38,
+      "kode_unit": "TIK.MM02.026.01",
+      "judul_unit": "Menggunakan Peralatan Yang Sesuai Untuk Membuat Sekuen Interaktif",
+      "halaman_pdf_0based": 202,
+      "halaman_akhir_0based": 204,
+      "halaman_tampil": 203,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 39,
+      "kode_unit": "TIK.MM02.027.01",
+      "judul_unit": "Membuat Sebuah Produk Multimedia",
+      "halaman_pdf_0based": 205,
+      "halaman_akhir_0based": 208,
+      "halaman_tampil": 206,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 40,
+      "kode_unit": "TIK.MM02.028.01",
+      "judul_unit": "Menerapkan Rancangan Permainan (Game) Pada Sebuah Produk Multimedia",
+      "halaman_pdf_0based": 209,
+      "halaman_akhir_0based": 212,
+      "halaman_tampil": 210,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 41,
+      "kode_unit": "TIK.MM02.029.01",
+      "judul_unit": "Merancang dan Membuat Interface Multimedia",
+      "halaman_pdf_0based": 213,
+      "halaman_akhir_0based": 216,
+      "halaman_tampil": 214,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 42,
+      "kode_unit": "TIK.MM02.030.01",
+      "judul_unit": "Merancang Navigasi pada Sebuah Produk Multimedia",
+      "halaman_pdf_0based": 217,
+      "halaman_akhir_0based": 220,
+      "halaman_tampil": 218,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 43,
+      "kode_unit": "TIK.MM02.031.01",
+      "judul_unit": "Menggabung, Merancang dan Menyunting Video Digital",
+      "halaman_pdf_0based": 221,
+      "halaman_akhir_0based": 224,
+      "halaman_tampil": 222,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 44,
+      "kode_unit": "TIK.MM02.032.01",
+      "judul_unit": "Membuat, Memanipulasi dan Menggabung Gambar 2D",
+      "halaman_pdf_0based": 225,
+      "halaman_akhir_0based": 228,
+      "halaman_tampil": 226,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 45,
+      "kode_unit": "TIK.MM02.033.01",
+      "judul_unit": "Membuat Sebuah Sekuen Multimedia",
+      "halaman_pdf_0based": 229,
+      "halaman_akhir_0based": 232,
+      "halaman_tampil": 230,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 46,
+      "kode_unit": "TIK.MM02.034.01",
+      "judul_unit": "Mengembangkan Sebuah Naskah Multimedia",
+      "halaman_pdf_0based": 233,
+      "halaman_akhir_0based": 235,
+      "halaman_tampil": 234,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 47,
+      "kode_unit": "TIK.MM02.035.01",
+      "judul_unit": "Melakukan Uji Coba Pemain",
+      "halaman_pdf_0based": 236,
+      "halaman_akhir_0based": 239,
+      "halaman_tampil": 237,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 48,
+      "kode_unit": "TIK.MM02.036.01",
+      "judul_unit": "Mengarahkan Para Pemain",
+      "halaman_pdf_0based": 240,
+      "halaman_akhir_0based": 243,
+      "halaman_tampil": 241,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 49,
+      "kode_unit": "TIK.MM02.037.01",
+      "judul_unit": "Mengarahkan Para Kru",
+      "halaman_pdf_0based": 244,
+      "halaman_akhir_0based": 247,
+      "halaman_tampil": 245,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 50,
+      "kode_unit": "TIK.MM02.038.01",
+      "judul_unit": "Menentukan Cakupan Kamera",
+      "halaman_pdf_0based": 248,
+      "halaman_akhir_0based": 251,
+      "halaman_tampil": 249,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 51,
+      "kode_unit": "TIK.MM02.039.01",
+      "judul_unit": "Mensetup dan Mengoperasikan Kamera Video Dasar",
+      "halaman_pdf_0based": 252,
+      "halaman_akhir_0based": 255,
+      "halaman_tampil": 253,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 52,
+      "kode_unit": "TIK.MM02.040.01",
+      "judul_unit": "Menggabung Bidikan Kamera dan Mengoperasikan Sebuah Kamera",
+      "halaman_pdf_0based": 256,
+      "halaman_akhir_0based": 260,
+      "halaman_tampil": 257,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 53,
+      "kode_unit": "TIK.MM02.041.01",
+      "judul_unit": "Mengoperasikan Kamera Dalam Keadaan Khusus",
+      "halaman_pdf_0based": 261,
+      "halaman_akhir_0based": 266,
+      "halaman_tampil": 262,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 54,
+      "kode_unit": "TIK.MM02.042.01",
+      "judul_unit": "Membidik Obyek Dalam Suasana Kamera Jamak",
+      "halaman_pdf_0based": 267,
+      "halaman_akhir_0based": 272,
+      "halaman_tampil": 268,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 55,
+      "kode_unit": "TIK.MM02.043.01",
+      "judul_unit": "Mengoperasikan Clapperboard",
+      "halaman_pdf_0based": 273,
+      "halaman_akhir_0based": 276,
+      "halaman_tampil": 274,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 56,
+      "kode_unit": "TIK.MM02.044.01",
+      "judul_unit": "Menata Kabel – Kabel Kamera",
+      "halaman_pdf_0based": 277,
+      "halaman_akhir_0based": 281,
+      "halaman_tampil": 278,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 57,
+      "kode_unit": "TIK.MM02.045.01",
+      "judul_unit": "Merancang dan Membuat Animasi",
+      "halaman_pdf_0based": 282,
+      "halaman_akhir_0based": 287,
+      "halaman_tampil": 283,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 58,
+      "kode_unit": "TIK.MM02.046.01",
+      "judul_unit": "Mengkoordinir Produksi Animasi",
+      "halaman_pdf_0based": 288,
+      "halaman_akhir_0based": 292,
+      "halaman_tampil": 289,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 59,
+      "kode_unit": "TIK.MM02.047.01",
+      "judul_unit": "Membuat Gambar Kunci Untuk Animasi",
+      "halaman_pdf_0based": 293,
+      "halaman_akhir_0based": 296,
+      "halaman_tampil": 294,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 60,
+      "kode_unit": "TIK.MM02.048.01",
+      "judul_unit": "Membuat Frame / Cel dari Fotokopi atau Scan",
+      "halaman_pdf_0based": 297,
+      "halaman_akhir_0based": 300,
+      "halaman_tampil": 298,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 61,
+      "kode_unit": "TIK.MM02.049.01",
+      "judul_unit": "Menyiapkan dan Membuat Frame / Cel Berwarna",
+      "halaman_pdf_0based": 301,
+      "halaman_akhir_0based": 305,
+      "halaman_tampil": 302,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 62,
+      "kode_unit": "TIK.MM02.050.01",
+      "judul_unit": "Membuat Animasi Stop – Motion (Bidang Datar)",
+      "halaman_pdf_0based": 306,
+      "halaman_akhir_0based": 309,
+      "halaman_tampil": 307,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 63,
+      "kode_unit": "TIK.MM02.051.01",
+      "judul_unit": "Membuat Animasi Stop – Motion (Modeling)",
+      "halaman_pdf_0based": 310,
+      "halaman_akhir_0based": 313,
+      "halaman_tampil": 311,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 64,
+      "kode_unit": "TIK.MM02.052.01",
+      "judul_unit": "Membuat Rekaman Gambar Berurutan Untuk Animasi",
+      "halaman_pdf_0based": 314,
+      "halaman_akhir_0based": 317,
+      "halaman_tampil": 315,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 65,
+      "kode_unit": "TIK.MM02.053.01",
+      "judul_unit": "Membuat Dan Memanipulasi Gambar-Gambar Digital",
+      "halaman_pdf_0based": 318,
+      "halaman_akhir_0based": 322,
+      "halaman_tampil": 319,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 66,
+      "kode_unit": "TIK.MM02.054.01",
+      "judul_unit": "Membuat Animasi Digital 2D",
+      "halaman_pdf_0based": 323,
+      "halaman_akhir_0based": 329,
+      "halaman_tampil": 324,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 67,
+      "kode_unit": "TIK.MM02.055.01",
+      "judul_unit": "Membuat Animasi Digital 3D",
+      "halaman_pdf_0based": 330,
+      "halaman_akhir_0based": 334,
+      "halaman_tampil": 331,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 68,
+      "kode_unit": "TIK.MM02.056.01",
+      "judul_unit": "Membuat Gambar dan Model 3D",
+      "halaman_pdf_0based": 335,
+      "halaman_akhir_0based": 339,
+      "halaman_tampil": 336,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 69,
+      "kode_unit": "TIK.MM02.057.01",
+      "judul_unit": "Menjalankan Konsol – Konsol Pencahayaan",
+      "halaman_pdf_0based": 340,
+      "halaman_akhir_0based": 348,
+      "halaman_tampil": 341,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 70,
+      "kode_unit": "TIK.MM02.058.01",
+      "judul_unit": "Mengelola Aset Multimedia",
+      "halaman_pdf_0based": 349,
+      "halaman_akhir_0based": 351,
+      "halaman_tampil": 350,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 71,
+      "kode_unit": "TIK.MM02.059.01",
+      "judul_unit": "Memperbarui Isi Halaman Web",
+      "halaman_pdf_0based": 352,
+      "halaman_akhir_0based": 354,
+      "halaman_tampil": 353,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 72,
+      "kode_unit": "TIK.MM02.060.01",
+      "judul_unit": "Bekerjasama dengan Editor untuk Finalisasi Produksi",
+      "halaman_pdf_0based": 355,
+      "halaman_akhir_0based": 358,
+      "halaman_tampil": 356,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 73,
+      "kode_unit": "TIK.MM02.061.01",
+      "judul_unit": "Membuat Keputusan Teknis dan Kreatif untuk Editing (Penyuntingan)",
+      "halaman_pdf_0based": 359,
+      "halaman_akhir_0based": 364,
+      "halaman_tampil": 360,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 74,
+      "kode_unit": "TIK.MM02.062.01",
+      "judul_unit": "Menyiapkan Bahan dan Dokumen untuk Editing",
+      "halaman_pdf_0based": 365,
+      "halaman_akhir_0based": 369,
+      "halaman_tampil": 366,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 75,
+      "kode_unit": "TIK.MM02.063.01",
+      "judul_unit": "Mengoperasikan Peralatan Editing Video",
+      "halaman_pdf_0based": 370,
+      "halaman_akhir_0based": 376,
+      "halaman_tampil": 371,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 76,
+      "kode_unit": "TIK.MM02.064.01",
+      "judul_unit": "Menjalankan Sistem Editing Non-Linear",
+      "halaman_pdf_0based": 377,
+      "halaman_akhir_0based": 383,
+      "halaman_tampil": 378,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 77,
+      "kode_unit": "TIK.MM02.065.01",
+      "judul_unit": "Menyiapkan Daftar Keputusan Edit",
+      "halaman_pdf_0based": 384,
+      "halaman_akhir_0based": 388,
+      "halaman_tampil": 385,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 78,
+      "kode_unit": "TIK.MM02.066.01",
+      "judul_unit": "Menyunting Suara dan Bunyi",
+      "halaman_pdf_0based": 389,
+      "halaman_akhir_0based": 395,
+      "halaman_tampil": 390,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 79,
+      "kode_unit": "TIK.MM02.067.01",
+      "judul_unit": "Membuat Gambar Clean-Up dan Sisip",
+      "halaman_pdf_0based": 396,
+      "halaman_akhir_0based": 399,
+      "halaman_tampil": 397,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 80,
+      "kode_unit": "TIK.MM02.068.01",
+      "judul_unit": "Membuat Judul untuk Produksi Layar",
+      "halaman_pdf_0based": 400,
+      "halaman_akhir_0based": 404,
+      "halaman_tampil": 401,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 81,
+      "kode_unit": "TIK.MM02.069.01",
+      "judul_unit": "Menggabungkan Teks ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 405,
+      "halaman_akhir_0based": 406,
+      "halaman_tampil": 406,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 82,
+      "kode_unit": "TIK.MM02.070.01",
+      "judul_unit": "Menggabungkan Gambar 2D ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 407,
+      "halaman_akhir_0based": 409,
+      "halaman_tampil": 408,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 83,
+      "kode_unit": "TIK.MM02.071.01",
+      "judul_unit": "Menggabungkan Fotografi Digital ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 410,
+      "halaman_akhir_0based": 411,
+      "halaman_tampil": 411,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 84,
+      "kode_unit": "TIK.MM02.072.01",
+      "judul_unit": "Menggabungkan Audio ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 412,
+      "halaman_akhir_0based": 414,
+      "halaman_tampil": 413,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 85,
+      "kode_unit": "TIK.MM02.073.01",
+      "judul_unit": "Menggabungkan Animasi ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 415,
+      "halaman_akhir_0based": 417,
+      "halaman_tampil": 416,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 86,
+      "kode_unit": "TIK.MM02.074.01",
+      "judul_unit": "Menggabungkan Video ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 418,
+      "halaman_akhir_0based": 420,
+      "halaman_tampil": 419,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 87,
+      "kode_unit": "TIK.MM02.075.01",
+      "judul_unit": "Menggabungkan Model 3D ke Dalam Sajian Multimedia",
+      "halaman_pdf_0based": 421,
+      "halaman_akhir_0based": 423,
+      "halaman_tampil": 422,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 88,
+      "kode_unit": "TIK.MM02.076.01",
+      "judul_unit": "Menguji Produk Multimedia",
+      "halaman_pdf_0based": 424,
+      "halaman_akhir_0based": 427,
+      "halaman_tampil": 425,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 89,
+      "kode_unit": "TIK.MM03.001.01",
+      "judul_unit": "Mengkoordinir Pembuatan Efek Khusus",
+      "halaman_pdf_0based": 428,
+      "halaman_akhir_0based": 435,
+      "halaman_tampil": 429,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 90,
+      "kode_unit": "TIK.MM03.002.01",
+      "judul_unit": "Membuat Efek Khusus untuk Layar",
+      "halaman_pdf_0based": 436,
+      "halaman_akhir_0based": 442,
+      "halaman_tampil": 437,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 91,
+      "kode_unit": "TIK.MM03.003.01",
+      "judul_unit": "Merakit dan Merawat Item – Item Efek Khusus Selama Produksi",
+      "halaman_pdf_0based": 443,
+      "halaman_akhir_0based": 449,
+      "halaman_tampil": 444,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 92,
+      "kode_unit": "TIK.MM03.004.01",
+      "judul_unit": "Melakukan Efek Khusus dengan Aman",
+      "halaman_pdf_0based": 450,
+      "halaman_akhir_0based": 456,
+      "halaman_tampil": 451,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 93,
+      "kode_unit": "TIK.MM03.005.01",
+      "judul_unit": "Merancang dan Membuat Efek Khusus untuk Layar",
+      "halaman_pdf_0based": 457,
+      "halaman_akhir_0based": 465,
+      "halaman_tampil": 458,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 94,
+      "kode_unit": "TIK.MM03.006.01",
+      "judul_unit": "Memperbaiki, Merawat, dan Mengubah Efek Khusus",
+      "halaman_pdf_0based": 466,
+      "halaman_akhir_0based": 471,
+      "halaman_tampil": 467,
+      "status": "teridentifikasi"
+    },
+    {
+      "nomor": 95,
+      "kode_unit": "TIK.MM03.007.01",
+      "judul_unit": "Melakukan Sulih Suara pada Video untuk Transmisi TV",
+      "halaman_pdf_0based": 472,
+      "halaman_akhir_0based": 477,
+      "halaman_tampil": 473,
+      "status": "teridentifikasi"
+    }
+  ],
+  "jumlah_unit": 95,
+  "jumlah_unit_teridentifikasi": 95,
+  "jumlah_unit_perlu_verifikasi": 0,
+  "validasi_kelengkapan": null,
+  "pesan_identifikasi": null,
+  "diperbarui": "2026-10-27T04:50:17",
+  "identifikasi_pada": "2026-10-27T04:50:17"
+}
