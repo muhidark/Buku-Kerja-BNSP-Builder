@@ -10,17 +10,36 @@ from app.main import app
 
 
 class TestApiV1(unittest.TestCase):
+    #: Kunci uji dibuat dengan nilai tetap (kunci_khusus) supaya setiap kali test
+    #: dijalankan tidak menambah baris baru di data/app.db (temuan T-14).
+    KUNCI_KLIEN = 'skkni_test_klien_kunci_999'
+    KUNCI_ADMIN = 'skkni_test_admin_key_999'
+    KUNCI_BARU = 'skkni_test_simlsp_999'
+    NAMA_KLIEN = 'WordPress LSP Plugin / Client Test'
+
     @classmethod
     def setUpClass(cls):
         db.inisialisasi_db()
         cls.client = TestClient(app)
-        cls.valid_key = "skkni_live_secret_key_bnsp2023"
-        # Buat key admin khusus untuk tes endpoint /keys
-        cls.admin_key = db.buat_kunci_api(
-            nama_klien="Admin Test Suite",
-            peran="admin",
-            kunci_khusus="skkni_test_admin_key_999",
+        # Kunci klien biasa (bukan admin)
+        cls.valid_key = db.buat_kunci_api(
+            nama_klien=cls.NAMA_KLIEN,
+            peran='klien',
+            kunci_khusus=cls.KUNCI_KLIEN,
         )
+        # Kunci admin khusus untuk tes endpoint /keys
+        cls.admin_key = db.buat_kunci_api(
+            nama_klien='Admin Test Suite',
+            peran='admin',
+            kunci_khusus=cls.KUNCI_ADMIN,
+        )
+
+    def test_00_kunci_bawaan_publik_dicabut(self):
+        """Kunci API yang dulu tercantum di panduan publik tidak boleh berlaku."""
+        for kunci_lama in db.KUNCI_API_BAWAAN_LAMA:
+            res = self.client.get('/api/v1/status', headers={'X-API-Key': kunci_lama})
+            self.assertEqual(res.status_code, 401,
+                             f'kunci bawaan {kunci_lama!r} masih diterima')
 
     def test_01_tolak_tanpa_kunci_api(self):
         """Memastikan permintaan tanpa API Key ditolak dengan status 401."""
@@ -46,7 +65,7 @@ class TestApiV1(unittest.TestCase):
         data = res.json()
         self.assertEqual(data["status"], "online")
         self.assertIn("versi", data)
-        self.assertEqual(data["klien"]["nama_klien"], "WordPress LSP Plugin / Client Default")
+        self.assertEqual(data['klien']['nama_klien'], self.NAMA_KLIEN)
         self.assertIn("muk_sync_v2023", data["fitur"])
 
     def test_04_status_dengan_bearer_token(self):
@@ -168,14 +187,16 @@ class TestApiV1(unittest.TestCase):
         self.assertEqual(data["status"], "sukses")
         self.assertTrue(len(data["data"]) >= 2)
 
-        # Admin membuat kunci baru
+        # Admin membuat kunci baru (nilai tetap agar tidak menumpuk tiap run)
         res_buat = self.client.post(
             "/api/v1/keys",
-            json={"nama_klien": "SIMLSP Integration", "peran": "klien"},
+            json={"nama_klien": "SIMLSP Integration", "peran": "klien",
+                  "kunci_khusus": self.KUNCI_BARU},
             headers={"X-API-Key": self.admin_key},
         )
         self.assertEqual(res_buat.status_code, 200)
         kunci_baru = res_buat.json()["kunci"]
+        self.assertEqual(kunci_baru, self.KUNCI_BARU)
 
         # Gunakan kunci baru untuk ping
         res_ping = self.client.get(

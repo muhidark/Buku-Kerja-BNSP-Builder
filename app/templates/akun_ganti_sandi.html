@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block subjudul %}Ganti kata sandi akun Anda{% endblock %}
+{% block konten %}
+
+<div class="kartu-form-sempit">
+  <h2 class="kartu-judul">Ganti Kata Sandi</h2>
+
+  {% if wajib %}
+  <div class="alert alert-amber" style="margin-bottom: 16px;">
+    Akun Anda masih memakai kata sandi bawaan yang pernah dicetak di halaman login.
+    Demi keamanan, ganti kata sandi sekarang. Selama belum diganti, tindakan lain
+    (unggah, simpan MUK, ekstrak, cetak) ditahan oleh sistem.
+  </div>
+  {% endif %}
+
+  {% if pesan %}
+  <div class="alert alert-{{ tipe or 'info' }}" style="margin-bottom: 16px;">{{ pesan }}</div>
+  {% endif %}
+
+  <form method="post" action="/akun/ganti-sandi">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+    <div class="baris-form">
+      <label for="kata_sandi_lama">Kata sandi saat ini</label>
+      <input type="password" id="kata_sandi_lama" name="kata_sandi_lama" class="input"
+             autocomplete="current-password" required autofocus>
+    </div>
+
+    <div class="baris-form">
+      <label for="kata_sandi_baru">Kata sandi baru (minimal 8 karakter)</label>
+      <input type="password" id="kata_sandi_baru" name="kata_sandi_baru" class="input"
+             autocomplete="new-password" minlength="8" required>
+    </div>
+
+    <div class="baris-form">
+      <label for="ulangi_kata_sandi">Ulangi kata sandi baru</label>
+      <input type="password" id="ulangi_kata_sandi" name="ulangi_kata_sandi" class="input"
+             autocomplete="new-password" minlength="8" required>
+    </div>
+
+    <div class="aksi-form">
+      <button type="submit" class="btn btn-primary">Simpan Kata Sandi Baru</button>
+      <a href="/" class="btn btn-ghost">Batal</a>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

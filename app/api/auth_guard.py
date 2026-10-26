@@ -33,6 +33,9 @@ NAMA_COOKIE_SESI = 'skkni_session'
 PERAN_ADMIN = 'admin'
 PERAN_ASESOR = 'asesor'
 
+#: Halaman yang tetap boleh dibuka meski pengguna masih wajib ganti kata sandi.
+JALUR_GANTI_SANDI = '/akun/ganti-sandi'
+
 
 class PerluLogin(Exception):
     """Permintaan halaman HTML datang tanpa sesi yang sah."""
@@ -40,6 +43,14 @@ class PerluLogin(Exception):
     def __init__(self, path: str = '/') -> None:
         self.path = path
         super().__init__(f'Sesi tidak ditemukan untuk {path}.')
+
+
+class PerluGantiSandi(Exception):
+    """Pengguna masih wajib mengganti kata sandi sebelum boleh bertindak."""
+
+    def __init__(self, path: str = '/') -> None:
+        self.path = path
+        super().__init__(f'Kata sandi wajib diganti sebelum mengakses {path}.')
 
 
 def pengguna_dari_request(request: Request) -> Optional[Dict[str, Any]]:
@@ -72,6 +83,15 @@ def wajib_login(peran: Optional[str] = None) -> Callable[..., Dict[str, Any]]:
         pengguna = pengguna_dari_request(request)
         if not pengguna:
             _tolak(request, 'Sesi tidak ditemukan atau sudah berakhir. Silakan masuk.')
+        # Penanda wajib ganti sandi harus BENAR-BENAR mengikat, bukan sekadar
+        # kolom di basis data: selama penanda menyala, semua aksi ditahan.
+        if pengguna.get('must_change_password') and request.url.path != JALUR_GANTI_SANDI:
+            if request.url.path.startswith('/api/'):
+                raise HTTPException(
+                    status_code=403,
+                    detail='Ganti kata sandi terlebih dahulu sebelum memakai API.',
+                )
+            raise PerluGantiSandi(request.url.path)
         if peran and pengguna.get('peran') != peran:
             if request.url.path.startswith('/api/'):
                 raise HTTPException(
@@ -118,3 +138,12 @@ def pasang_penanganan_galat(app: Any) -> None:
             )
         tujuan = quote(str(exc.path or request.url.path), safe='/')
         return RedirectResponse(url=f'/login?next={tujuan}', status_code=303)
+
+    @app.exception_handler(PerluGantiSandi)
+    async def _perlu_ganti_sandi(request: Request, exc: PerluGantiSandi):  # noqa: ANN202
+        if request.url.path.startswith('/api/'):
+            return JSONResponse(
+                {'detail': 'Ganti kata sandi terlebih dahulu sebelum memakai API.'},
+                status_code=403,
+            )
+        return RedirectResponse(url=JALUR_GANTI_SANDI, status_code=303)

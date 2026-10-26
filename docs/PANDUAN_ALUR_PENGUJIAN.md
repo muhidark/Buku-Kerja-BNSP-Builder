@@ -24,11 +24,22 @@ flowchart TD
 
 ## 2. Matriks Akun Uji Coba
 
-| Peran | Username | Password | Deskripsi Tugas |
+> **Kata sandi tidak lagi dicetak di aplikasi maupun di dokumen ini.**
+> Sejak perbaikan keamanan, akun tidak dibuat dengan kata sandi publik. Saat
+> basis data masih kosong, aplikasi membuat satu akun `admin` dengan kata sandi
+> acak yang **ditampilkan sekali di konsol server** ketika `./run.sh` dijalankan.
+> Setelah masuk pertama kali, aplikasi memaksa Anda menggantinya lewat halaman
+> **Ganti Kata Sandi**. Akun asesor dibuat oleh admin (lihat `docs/KEAMANAN.md`).
+
+| Peran | Username | Kata sandi | Deskripsi Tugas |
 | :--- | :--- | :--- | :--- |
-| **Kurator Master (Admin)** | `admin` | `admin123` | Mengelola dokumen SKKNI, kurasi status regulasi Kemnaker, manajemen API Key. |
-| **Penyusun Skema / Asesor** | `asesor` | `asesor123` | Mengelola skema sertifikasi, kelompok pekerjaan, instrumen MUK, cetak & ekspor dokumen. |
-| **API Client Eksternal** | *API Key* | `skkni_live_secret_key_bnsp2023` | Sinkronisasi MUK ke plugin WordPress LSP atau SIMLSP. |
+| **Kurator Master (Admin)** | `admin` | acak, tampil sekali di konsol saat instalasi | Mengelola dokumen SKKNI, kurasi status regulasi Kemnaker, unggah skema, koreksi unit, manajemen API Key. |
+| **Penyusun Skema / Asesor** | dibuat admin | dibuat admin | Menyusun MUK & kelompok pekerjaan, ekstraksi, verifikasi manual, cetak & ekspor dokumen. |
+| **API Client Eksternal** | *API Key* | dibuat lewat `python -m tools.kunci_api buat --nama "..."` | Sinkronisasi MUK ke plugin WordPress LSP atau SIMLSP. |
+
+Kunci API yang dulu tercantum di panduan ini (`skkni_live_secret_key_...`) sudah
+**dicabut** dan akan dibalas `401`. Buat kunci baru dengan perintah di atas; nilai
+kuncinya hanya ditampilkan sekali.
 
 ---
 
@@ -38,15 +49,19 @@ flowchart TD
 1. **Buka Aplikasi**: Akses [http://127.0.0.1:8000/](http://127.0.0.1:8000/).
 2. **Uji Login Asesor**:
    - Klik tombol **"Masuk"** di pojok kanan atas (atau buka `/login`).
-   - Masukkan `asesor` / `asesor123`.
-   - **Hasil yang Diharapkan**: Berhasil masuk, di pojok kanan atas muncul nama *"Asesor Kompetensi"* dengan badge hijau `ASESOR` dan tombol *"Keluar"*.
-3. **Uji Pembatasan Hak Asesor**:
-   - Buka salah satu dokumen SKKNI di `/skkni/skkni_2019_109_broadcasting`.
-   - **Hasil yang Diharapkan**: Form kurasi regulasi tidak muncul (hanya dapat melihat data).
+   - Masukkan username dan kata sandi akun asesor Anda (dibuat oleh admin).
+   - **Hasil yang Diharapkan**: Berhasil masuk, di pojok kanan atas muncul nama akun dengan badge hijau `ASESOR` dan tombol *"Keluar"*.
+3. **Uji Penolakan Tanpa Sesi**:
+   - Keluar dulu, lalu buka `/skema` di jendela penyamaran (tanpa sesi).
+   - Klik salah satu tombol tindakan, misalnya **Ekstrak**.
+   - **Hasil yang Diharapkan**: Dialihkan ke halaman login dengan pesan bahwa tindakan tersebut memerlukan akun. Setelah masuk, Anda dikembalikan ke halaman sebelumnya.
 4. **Uji Ganti Akun Admin**:
    - Klik tombol *"Keluar"* (Logout).
-   - Masuk kembali menggunakan `admin` / `admin123`.
-   - **Hasil yang Diharapkan**: Header menampilkan badge kuning `ADMIN`.
+   - Masuk kembali menggunakan akun admin.
+   - **Hasil yang Diharapkan**: Header menampilkan badge kuning `ADMIN`. Bila akun admin masih memakai kata sandi bawaan lama, aplikasi langsung membuka halaman **Ganti Kata Sandi** dan menahan tindakan lain sampai kata sandi diganti.
+5. **Uji Pembatasan Peran**:
+   - Masuk sebagai asesor, lalu coba `POST /skkni/upload` (unggah SKKNI) dari halaman.
+   - **Hasil yang Diharapkan**: Ditolak dengan pesan bahwa tindakan hanya untuk peran admin.
 
 ---
 
@@ -117,12 +132,14 @@ flowchart TD
 ### Tahap 6: Pengujian REST API v1 Terintegrasi (Swagger UI)
 1. **Buka Swagger UI**: Akses [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs).
 2. **Otentikasi Kunci API**:
-   - Klik tombol **"Authorize"** di pojok kanan atas Swagger UI.
-   - Pada field `ApiKeyAuth (apiKey)` atau `BearerAuth (http)`, masukkan kunci default:
-     ```text
-     skkni_live_secret_key_bnsp2023
+   - Buat kunci lebih dulu di terminal:
+     ```bash
+     .venv/bin/python -m tools.kunci_api buat --nama "Uji Swagger" --peran klien
      ```
-   - Klik **Authorize** lalu **Close**.
+   - Salin nilai kunci yang tampil sekali tersebut.
+   - Klik tombol **"Authorize"** di pojok kanan atas Swagger UI.
+   - Pada field `X-API-Key`, tempelkan nilai kunci tadi, lalu **Authorize** → **Close**.
+   - **Catatan**: kunci bawaan lama (`skkni_live_secret_key_...`) sudah dicabut dan dibalas `401`.
 3. **Uji Coba Endpoint**:
    - **`GET /api/v1/status`**: Klik *Try it out* -> *Execute*. Response mengembalikan status `200 OK` dengan informasi klien *"WordPress LSP Plugin"*.
    - **`GET /api/v1/skkni`**: Response mengembalikan daftar dokumen SKKNI beserta status regulasi Kemnaker.
@@ -152,8 +169,8 @@ cd /home/muhadi/Projects/skkni-extractor
 
 | No | Modul / Fitur | Status Uji | Catatan / Hasil |
 | :---: | :--- | :---: | :--- |
-| 1 | Login Asesor (`asesor` / `asesor123`) | [ ] Lulus | Hak akses terbatas ke skema & MUK |
-| 2 | Login Admin (`admin` / `admin123`) | [ ] Lulus | Akses penuh termasuk kurasi regulasi SKKNI |
+| 1 | Login asesor (akun buatan admin) | [ ] Lulus | Hak akses terbatas; unggah SKKNI/skema ditolak | 
+| 2 | Login admin | [ ] Lulus | Akses penuh termasuk kurasi regulasi SKKNI |
 | 3 | Perubahan status regulasi SKKNI Kemnaker | [ ] Lulus | Badge Berlaku / Dicabut terupdate |
 | 4 | Pemetaan unit ke Kelompok Pekerjaan | [ ] Lulus | Indikator cakupan unit 100% |
 | 5 | Asisten BV & PP generator 1-klik | [ ] Lulus | Alat, bahan, dan pertanyaan terisi otomatis |

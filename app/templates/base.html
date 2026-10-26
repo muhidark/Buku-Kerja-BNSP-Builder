@@ -55,6 +55,15 @@
     </header>
 
     <main class="content">
+      {% if pengguna_aktif and pengguna_aktif.must_change_password %}
+      <div class="notice notice-galat" role="alert">
+        <span>
+          <strong>Kata sandi Anda masih bawaan.</strong>
+          Tindakan pengubahan data ditahan sampai kata sandi diganti.
+        </span>
+        <a href="/akun/ganti-sandi" class="btn btn-small">Ganti sekarang</a>
+      </div>
+      {% endif %}
       {% block konten %}{% endblock %}
     </main>
 

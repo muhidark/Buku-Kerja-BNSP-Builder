@@ -153,6 +153,11 @@ async def proses_login(request: Request):
         )
 
     token_sesi = db.buat_sesi(pengguna['id'])
+    if pengguna.get('must_change_password'):
+        resp = RedirectResponse(url='/akun/ganti-sandi', status_code=303)
+        resp.set_cookie('skkni_session', token_sesi, httponly=True, samesite='lax', path='/', max_age=60 * 60 * 24 * 7)
+        return resp
+
     sudah_kembali = tujuan != '/'
     pesan = (f'Selamat datang, {pengguna["nama_lengkap"]}!'
              if not sudah_kembali
@@ -160,6 +165,57 @@ async def proses_login(request: Request):
     tujuan_akhir = f'{tujuan}{"&" if "?" in tujuan else "?"}tipe=sukses&pesan={quote(pesan)}' if sudah_kembali else f'/?tipe=sukses&pesan={quote(pesan)}'
     resp = RedirectResponse(url=tujuan_akhir, status_code=303)
     resp.set_cookie('skkni_session', token_sesi, httponly=True, samesite='lax', path='/', max_age=60 * 60 * 24 * 7)
+    return resp
+
+
+@app.get('/akun/ganti-sandi', response_class=HTMLResponse)
+def halaman_ganti_sandi(request: Request, pesan: str = '', tipe: str = '',
+                        pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
+    token = security.token_dari_cookie(request)
+    resp = _render(
+        request, 'akun_ganti_sandi.html', judul='Ganti Kata Sandi',
+        pesan=pesan, tipe=tipe,
+        wajib=bool(pengguna.get('must_change_password')),
+        csrf_token=token,
+    )
+    security.set_cookie_token(resp, token)
+    return resp
+
+
+@app.post('/akun/ganti-sandi')
+def proses_ganti_sandi(request: Request,
+                       kata_sandi_lama: str = Form(''),
+                       kata_sandi_baru: str = Form(''),
+                       ulangi_kata_sandi: str = Form(''),
+                       csrf_token: str = Form(''),
+                       pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
+    security.periksa_token(request, csrf_token)
+
+    def _gagal(pesan: str) -> RedirectResponse:
+        return _redirect_daftar('/akun/ganti-sandi', pesan, 'galat')
+
+    if not db.autentikasi(pengguna['username'], kata_sandi_lama):
+        return _gagal('Kata sandi saat ini salah.')
+    if len(kata_sandi_baru or '') < 8:
+        return _gagal('Kata sandi baru minimal 8 karakter.')
+    if kata_sandi_baru != ulangi_kata_sandi:
+        return _gagal('Ulangi kata sandi baru tidak sama.')
+    if kata_sandi_baru == kata_sandi_lama:
+        return _gagal('Kata sandi baru harus berbeda dari kata sandi saat ini.')
+
+    try:
+        db.ubah_kata_sandi(pengguna['id'], kata_sandi_baru)
+    except ValueError as e:
+        return _gagal(str(e))
+
+    # Seluruh sesi lama dihapus agar sesi yang mungkin bocor tidak ikut hidup.
+    db.hapus_semua_sesi_pengguna(pengguna['id'])
+    token_baru = db.buat_sesi(pengguna['id'])
+    resp = RedirectResponse(
+        url='/?tipe=sukses&pesan=' + quote('Kata sandi berhasil diganti.'),
+        status_code=303,
+    )
+    resp.set_cookie('skkni_session', token_baru, httponly=True, samesite='lax', path='/', max_age=60 * 60 * 24 * 7)
     return resp
 
 

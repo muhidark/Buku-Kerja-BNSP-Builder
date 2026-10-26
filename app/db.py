@@ -21,9 +21,51 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, Generator, List, Optional, Tuple
 
+from app.logging_config import ambil_logger
+
 ROOT = Path(__file__).resolve().parent.parent
 DB_DIR = ROOT / "data"
 DB_PATH = DB_DIR / "app.db"
+
+#: Nama akun admin yang dibuat otomatis pada basis data kosong.
+ADMIN_PERTAMA = "admin"
+
+#: Kredensial yang PERNAH dicetak di halaman login versi 1.0.0.
+#: Konstanta ini hanya dipakai untuk MENDETEKSI akun lama yang masih memakai
+#: kata sandi publik tersebut, lalu memaksanya mengganti sandi. Tidak dipakai
+#: untuk membuat akun. Hapus entri di sini setelah semua pemasangan
+#: dimigrasikan (lihat docs/KEAMANAN.md).
+KREDENSIAL_BAWAAN_LAMA: Tuple[Tuple[str, str], ...] = (
+    ("admin", "admin123"),
+    ("asesor", "asesor123"),
+)
+
+#: Kunci API yang pernah dibuat otomatis dan tercantum di panduan publik.
+#: Kunci ini dicabut saat migrasi; pembuatan kunci baru hanya lewat
+#: tools/kunci_api.py atau endpoint admin.
+KUNCI_API_BAWAAN_LAMA: Tuple[str, ...] = ("skkni_live_secret_key_bnsp2023",)
+
+
+def _log_aman():
+    """Logger aplikasi untuk peristiwa keamanan (tanpa isi rahasia)."""
+    return ambil_logger("db")
+
+
+def _kolom_tabel(conn: sqlite3.Connection, tabel: str) -> set:
+    """Nama kolom yang ada pada sebuah tabel (PRAGMA table_info).
+
+    `tabel` hanya boleh berasal dari konstanta di modul ini; nilainya tidak
+    dapat diparameterkan pada PRAGMA, jadi jangan pernah diisi dari input pengguna.
+    """
+    return {baris["name"] for baris in conn.execute(f"PRAGMA table_info({tabel})")}
+
+
+def _tambah_kolom(conn: sqlite3.Connection, tabel: str, kolom: str, definisi: str) -> bool:
+    """Menambahkan kolom bila belum ada (idempoten, aman dijalankan berulang)."""
+    if kolom in _kolom_tabel(conn, tabel):
+        return False
+    conn.execute(f"ALTER TABLE {tabel} ADD COLUMN {kolom} {definisi}")
+    return True
 
 
 @contextmanager
@@ -124,36 +166,74 @@ def inisialisasi_db() -> None:
 
         sekarang = datetime.now(timezone.utc).isoformat()
 
-        # Buat akun admin dan asesor default bila tabel pengguna masih kosong
+        # ---------------------------------------------------------- migrasi kolom
+        # Idempoten: aman dijalankan setiap start, tidak mengubah apa pun bila
+        # kolom sudah ada. Kerangka migrasi bernomor (PRAGMA user_version)
+        # menyusul pada langkah 4.3.
+        _tambah_kolom(conn, "pengguna", "must_change_password", "INTEGER NOT NULL DEFAULT 0")
+        _tambah_kolom(conn, "kunci_api", "kunci_hash", "TEXT")
+        _tambah_kolom(conn, "kunci_api", "prefix", "TEXT")
+        _tambah_kolom(conn, "kunci_api", "kedaluwarsa", "TEXT")
+
+        # ------------------------------------------- akun pertama (sandi acak)
         cur = conn.execute("SELECT COUNT(*) AS total FROM pengguna")
         if cur.fetchone()["total"] == 0:
-            # Akun Admin Master: admin / admin123
-            h_admin, s_admin = hash_kata_sandi("admin123")
+            sandi_awal = secrets.token_urlsafe(12)
+            h_admin, s_admin = hash_kata_sandi(sandi_awal)
             conn.execute(
                 """INSERT INTO pengguna
-                   (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, dibuat_pada)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                ("admin", "Administrator Kurator Master", "admin@lsp.local", "admin", h_admin, s_admin, "", sekarang),
-            )
-            # Akun Asesor Bawaan: asesor / asesor123
-            h_asesor, s_asesor = hash_kata_sandi("asesor123")
-            conn.execute(
-                """INSERT INTO pengguna
-                   (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, dibuat_pada)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                ("asesor", "Asesor Kompetensi", "asesor@lsp.local", "asesor", h_asesor, s_asesor, "MET.000.032423 2019", sekarang),
+                   (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, dibuat_pada, must_change_password)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1)""",
+                (ADMIN_PERTAMA, "Administrator Kurator Master", "admin@lsp.local", "admin",
+                 h_admin, s_admin, "", sekarang),
             )
             conn.commit()
+            # Kata sandi hanya ditampilkan di konsol, TIDAK ditulis ke berkas log
+            # (berkas log bertahan lama dan mudah tersalin).
+            print(
+                "\n" + "=" * 74 + "\n"
+                "AKUN ADMIN PERTAMA DIBUAT (basis data masih kosong)\n"
+                f"  username : {ADMIN_PERTAMA}\n"
+                f"  sandi    : {sandi_awal}\n"
+                "Kata sandi ini hanya ditampilkan sekarang. Setelah masuk, Anda wajib\n"
+                "menggantinya lewat halaman Ganti Kata Sandi.\n"
+                + "=" * 74 + "\n",
+                flush=True,
+            )
+            _log_aman().warning(
+                "Akun '%s' dibuat dengan kata sandi acak (ditampilkan sekali di konsol).",
+                ADMIN_PERTAMA,
+            )
 
-        # Buat kunci API bawaan bila tabel kunci_api masih kosong
-        cur_kunci = conn.execute("SELECT COUNT(*) AS total FROM kunci_api")
-        if cur_kunci.fetchone()["total"] == 0:
-            conn.execute(
-                """INSERT INTO kunci_api (kunci, nama_klien, peran, aktif, dibuat_pada)
-                   VALUES (?, ?, ?, 1, ?)""",
-                ("skkni_live_secret_key_bnsp2023", "WordPress LSP Plugin / Client Default", "klien", sekarang),
+        # ------------------------------- akun lama yang masih memakai sandi publik
+        for username, sandi_publik in KREDENSIAL_BAWAAN_LAMA:
+            baris = conn.execute(
+                "SELECT id, hash_kata_sandi, garam, must_change_password FROM pengguna WHERE username = ?",
+                (username,),
+            ).fetchone()
+            if not baris or baris["must_change_password"]:
+                continue
+            if verifikasi_kata_sandi(sandi_publik, baris["hash_kata_sandi"], baris["garam"]):
+                conn.execute(
+                    "UPDATE pengguna SET must_change_password = 1 WHERE id = ?", (baris["id"],)
+                )
+                conn.commit()
+                _log_aman().warning(
+                    "Akun '%s' masih memakai kata sandi bawaan yang dulu dicetak di halaman "
+                    "login; akun ditandai wajib ganti sandi.", username,
+                )
+
+        # -------------------------------------- cabut kunci API bawaan yang publik
+        for kunci_lama in KUNCI_API_BAWAAN_LAMA:
+            cur_cabut = conn.execute(
+                "UPDATE kunci_api SET aktif = 0 WHERE kunci = ? AND aktif = 1", (kunci_lama,)
             )
-            conn.commit()
+            if cur_cabut.rowcount:
+                conn.commit()
+                _log_aman().warning(
+                    "Kunci API bawaan yang pernah tercantum di panduan publik telah dicabut. "
+                    "Buat kunci baru lewat: python -m tools.kunci_api buat --nama <klien>"
+                )
 
 
 # ==============================================================================
@@ -174,8 +254,24 @@ def autentikasi(username: str, kata_sandi: str) -> Optional[Dict[str, Any]]:
                 "email": row["email"],
                 "peran": row["peran"],
                 "no_met": row["no_met"],
+                "must_change_password": bool(row["must_change_password"]),
             }
         return None
+
+
+def ubah_kata_sandi(pengguna_id: int, kata_sandi_baru: str) -> None:
+    """Mengganti kata sandi pengguna dan melepas penanda wajib ganti sandi."""
+    if len(kata_sandi_baru or "") < 8:
+        raise ValueError("Kata sandi baru minimal 8 karakter.")
+    h, s = hash_kata_sandi(kata_sandi_baru)
+    with _ambil_koneksi() as conn:
+        cur = conn.execute(
+            "UPDATE pengguna SET hash_kata_sandi = ?, garam = ?, must_change_password = 0 WHERE id = ?",
+            (h, s, pengguna_id),
+        )
+        conn.commit()
+        if not cur.rowcount:
+            raise ValueError("Pengguna tidak ditemukan.")
 
 
 def buat_sesi(pengguna_id: int, durasi_detik: int = 60 * 60 * 24 * 7) -> str:
@@ -198,7 +294,8 @@ def ambil_pengguna_dari_sesi(token: str) -> Optional[Dict[str, Any]]:
         return None
     with _ambil_koneksi() as conn:
         row = conn.execute(
-            """SELECT p.id, p.username, p.nama_lengkap, p.email, p.peran, p.no_met, s.kedaluwarsa_pada
+            """SELECT p.id, p.username, p.nama_lengkap, p.email, p.peran, p.no_met,
+                      p.must_change_password, s.kedaluwarsa_pada
                FROM sesi s
                JOIN pengguna p ON s.pengguna_id = p.id
                WHERE s.token = ?""",
@@ -221,6 +318,7 @@ def ambil_pengguna_dari_sesi(token: str) -> Optional[Dict[str, Any]]:
             "email": row["email"],
             "peran": row["peran"],
             "no_met": row["no_met"],
+            "must_change_password": bool(row["must_change_password"]),
         }
 
 
@@ -396,11 +494,26 @@ def daftar_kunci_api() -> List[Dict[str, Any]]:
 
 
 def ubah_status_kunci_api(kunci: str, aktif: bool) -> bool:
-    """Mengaktifkan atau menonaktifkan kunci API."""
+    """Mengaktifkan atau menonaktifkan kunci API (berdasarkan nilai kunci)."""
     with _ambil_koneksi() as conn:
         cur = conn.execute(
             "UPDATE kunci_api SET aktif = ? WHERE kunci = ?",
             (1 if aktif else 0, kunci.strip()),
+        )
+        conn.commit()
+        return cur.rowcount > 0
+
+
+def ubah_status_kunci_api_id(kunci_id: int, aktif: bool) -> bool:
+    """Mengaktifkan atau menonaktifkan kunci API berdasarkan id baris.
+
+    Dipakai setelah kunci disimpan sebagai hash: nilai aslinya tidak lagi
+    tersedia, sehingga pencabutan harus memakai id.
+    """
+    with _ambil_koneksi() as conn:
+        cur = conn.execute(
+            "UPDATE kunci_api SET aktif = ? WHERE id = ?",
+            (1 if aktif else 0, int(kunci_id)),
         )
         conn.commit()
         return cur.rowcount > 0
