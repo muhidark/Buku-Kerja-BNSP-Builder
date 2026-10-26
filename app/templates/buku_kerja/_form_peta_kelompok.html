@@ -1,0 +1,28 @@
+<!-- ========================================== -->
+<!-- 5c. PETA KELOMPOK PEKERJAAN                -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-peta_kelompok">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        PETA KELOMPOK PEKERJAAN SKEMA SERTIFIKASI
+    </div>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 12px;">
+        <tr>
+            <td width="30%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})</strong></td>
+            <td width="12%"><strong>Judul</strong></td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Nomor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+    </table>
+
+    <div style="font-weight: bold; font-size: 12px; margin-bottom: 6px; text-transform: uppercase;">
+        Pemetaan Unit Kompetensi Berdasarkan Kelompok Pekerjaan
+    </div>
+
+    {% include "buku_kerja/_tabel_kelompok_unit.html" %}
+</div>

@@ -1,0 +1,527 @@
+{% extends "base.html" %}
+{% block subjudul %}Konfigurasi Kelompok Pekerjaan, Personel Asesmen, dan Instrumen Materi Uji Kompetensi (FR.IA.02 s/d FR.IA.05){% endblock %}
+{% block konten %}
+
+<p class="breadcrumb">
+  <a href="/skema">Daftar Skema</a> &rsaquo;
+  <a href="/skema/{{ dok.id }}">{{ dok.nama_skema }}</a> &rsaquo;
+  <strong>Pengaturan MUK &amp; Kelompok Pekerjaan</strong>
+</p>
+
+{% if pesan %}
+<div class="alert alert-{{ tipe or 'info' }}">{{ pesan }}</div>
+{% endif %}
+
+<article class="card">
+  <div class="card-head">
+    <div>
+      <h2 style="margin-bottom: 4px;">⚙️ Paket Materi Uji Kompetensi (MUK) — {{ dok.nama_skema }}</h2>
+      <p class="muted small" style="margin: 0;">
+        Konfigurasi ini otomatis digunakan saat mencetak seluruh <strong>18 Dokumen Buku Kerja Asesor V.2023</strong>.
+      </p>
+    </div>
+    <div class="aksi-group">
+      <a class="btn btn-ghost btn-small" href="/skema/{{ dok.id }}">&larr; Kembali ke Skema</a>
+      <a class="btn btn-small" style="background:#16a34a; border-color:#16a34a; color:#fff;" href="/skema/{{ dok.id }}/cetak-apl?doc=all" target="_blank">
+        🖨️ Pratinjau &amp; Cetak Buku Kerja
+      </a>
+    </div>
+  </div>
+</article>
+
+{% set kp_info = data.kelompok_pekerjaan %}
+{% set personel = data.muk_raw.personel %}
+{% set ia02 = data.muk_raw.ia02 %}
+{% set ia03 = data.muk_raw.ia03 %}
+{% set ia04 = data.muk_raw.ia04 %}
+{% set ia05 = data.muk_raw.ia05 %}
+
+<form method="post" action="/skema/{{ dok.id }}/muk" id="form-muk" onsubmit="siapkanPayloadMuk()">
+  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+  <input type="hidden" name="muk_json" id="muk-json-input" value="">
+
+  <!-- Navigasi Tab MUK -->
+  <article class="card" style="padding: 0; overflow: hidden;">
+    <div style="display: flex; background: #f8fafc; border-bottom: 1px solid var(--border); overflow-x: auto;">
+      <button type="button" class="muk-tab-btn active" id="btn-muk-personel" onclick="pindahTabMuk('muk-personel')" style="padding: 12px 16px; border: none; background: #fff; font-weight: 600; font-size: 13.5px; color: var(--navy); border-bottom: 3px solid var(--navy-2); cursor: pointer; white-space: nowrap;">
+        👤 1. Personel &amp; MAPA
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-kelompok" onclick="pindahTabMuk('muk-kelompok')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        🗂️ 2. Kelompok Pekerjaan
+        <span class="badge {% if kp_info.is_complete %}badge-green{% else %}badge-amber{% endif %}" style="font-size: 11px; margin-left: 4px;">
+          {{ kp_info.coverage_percent }}%
+        </span>
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia02" onclick="pindahTabMuk('muk-ia02')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        🛠️ 3. FR.IA.02 (TPD)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia03" onclick="pindahTabMuk('muk-ia03')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        💬 4. FR.IA.03 (PMO)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia04" onclick="pindahTabMuk('muk-ia04')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        📐 5. FR.IA.04A &amp; 04B (DIT)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia05" onclick="pindahTabMuk('muk-ia05')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        📝 6. FR.IA.05A/B/C (Soal PG)
+      </button>
+    </div>
+
+    <div style="padding: 22px;">
+
+      <!-- TAB 1: PERSONEL & PENGATURAN MAPA -->
+      <div id="muk-personel" class="muk-panel" style="display: block;">
+        <h3 style="margin-top: 0;">👤 Identitas Skema, Personel Asesmen &amp; Pendekatan MAPA</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 16px;">
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nomor Skema Sertifikasi</label>
+            <input type="text" id="p-nomor-skema" value="{{ personel.nomor_skema }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Metode Utama FR.MAPA.01 &amp; 02</label>
+            <select id="p-metode-mapa" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+              <option value="observasi" {% if personel.metode_mapa == 'observasi' %}selected{% endif %}>Observasi Langsung (CLO + TPD + PMO + DPT)</option>
+              <option value="dit" {% if personel.metode_mapa == 'dit' %}selected{% endif %}>Kegiatan Terstruktur / Proyek Singkat (DIT + DPT)</option>
+              <option value="portofolio" {% if personel.metode_mapa == 'portofolio' %}selected{% endif %}>Verifikasi Portofolio (CVP + PW + DPT)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Kategori Potensi Asesi (1 s/d 5)</label>
+            <select id="p-kategori-asesi" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+              <option value="1" {% if personel.kategori_asesi == 1 %}selected{% endif %}>1 — Pelatihan/Pendidikan berbasis kompetensi</option>
+              <option value="2" {% if personel.kategori_asesi == 2 %}selected{% endif %}>2 — Pelatihan/Pendidikan belum berbasis kompetensi</option>
+              <option value="3" {% if personel.kategori_asesi == 3 %}selected{% endif %}>3 — Pekerja berpengalaman (industri telusur SKKNI)</option>
+              <option value="4" {% if personel.kategori_asesi == 4 %}selected{% endif %}>4 — Pekerja berpengalaman (belum berbasis kompetensi)</option>
+              <option value="5" {% if personel.kategori_asesi == 5 %}selected{% endif %}>5 — Pelatihan / belajar mandiri (otodidak)</option>
+            </select>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nama Asesor Penguji</label>
+            <input type="text" id="p-nama-asesor" value="{{ personel.nama_asesor }}" placeholder="Contoh: Muhadi, S.Kom." style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">No. Reg. MET Asesor</label>
+            <input type="text" id="p-no-met" value="{{ personel.no_met }}" placeholder="Contoh: MET.000.001234 2023" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nama TUK &amp; Jenis TUK</label>
+            <div style="display:flex; gap:6px;">
+              <input type="text" id="p-nama-tuk" value="{{ personel.nama_tuk }}" style="flex:1; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+              <select id="p-jenis-tuk" style="padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+                <option value="sewaktu" {% if personel.jenis_tuk == 'sewaktu' %}selected{% endif %}>Sewaktu</option>
+                <option value="tempat_kerja" {% if personel.jenis_tuk == 'tempat_kerja' %}selected{% endif %}>Tempat Kerja</option>
+                <option value="mandiri" {% if personel.jenis_tuk == 'mandiri' %}selected{% endif %}>Mandiri</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nama Penyusun MUK</label>
+            <input type="text" id="p-nama-penyusun" value="{{ personel.nama_penyusun }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nomor MET Penyusun</label>
+            <input type="text" id="p-met-penyusun" value="{{ personel.met_penyusun }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nama Validator MUK</label>
+            <input type="text" id="p-nama-validator" value="{{ personel.nama_validator }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nomor MET Validator</label>
+            <input type="text" id="p-met-validator" value="{{ personel.met_validator }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Nama Manajer Sertifikasi LSP</label>
+            <input type="text" id="p-nama-manajer" value="{{ personel.nama_manajer_sertifikasi }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Tanggal Pelaksanaan (Opsional)</label>
+            <input type="text" id="p-tanggal-pelaksanaan" value="{{ personel.tanggal_pelaksanaan }}" placeholder="Kosongkan jika diisi tulis tangan" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 2: KELOMPOK PEKERJAAN -->
+      <div id="muk-kelompok" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">🗂️ Pengelompokan Unit Kompetensi Berdasarkan Kelompok Pekerjaan</h3>
+          <button type="button" class="btn btn-small btn-ghost" onclick="tambahKelompokPekerjaan()">+ Tambah Kelompok Pekerjaan</button>
+        </div>
+        <p class="muted small" style="margin-bottom: 14px;">
+          Digunakan pada <strong>Peta Kelompok Pekerjaan (5c)</strong>, <strong>FR.MAPA.02 (6)</strong>, <strong>FR.IA.01 (10)</strong>, <strong>FR.IA.02 (11)</strong>, dan <strong>FR.IA.03 (12)</strong>. Pastikan seluruh unit tercentang minimal pada satu kelompok pekerjaan.
+        </p>
+
+        <div id="wadah-kelompok-pekerjaan">
+          {% for grp in data.muk_raw.kelompok_pekerjaan %}
+          <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
+              <input type="text" class="kp-nama" value="{{ grp.nama }}" placeholder="Nama Kelompok Pekerjaan (misal: Kelompok Pekerjaan 1)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
+              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.kp-item')" style="color: #b91c1c;">Hapus Kelompok</button>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px;">
+              {% for u in data.daftar_unit %}
+              <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; background: #fff; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
+                <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" {% if u.kode_unit in (grp.units or []) %}checked{% endif %}>
+                <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TAB 3: FR.IA.02 (TPD) -->
+      <div id="muk-ia02" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">🛠️ FR.IA.02 — Tugas Praktik Demonstrasi (TPD)</h3>
+          <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia02" target="_blank">🖨️ Pratinjau FR.IA.02</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">A. Skenario Tugas Praktik Demonstrasi</label>
+            <textarea id="ia02-skenario" rows="3" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.skenario }}</textarea>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">B. Langkah-langkah Kerja (Satu langkah per baris)</label>
+            <textarea id="ia02-langkah" rows="5" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.langkah_kerja }}</textarea>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">C. Hasil Pekerjaan</label>
+            <textarea id="ia02-hasil" rows="2" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.hasil_kerja }}</textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">D1. Perlengkapan (Satu item per baris)</label>
+              <textarea id="ia02-perlengkapan" rows="4" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.perlengkapan }}</textarea>
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">D2. Peralatan (Satu item per baris)</label>
+              <textarea id="ia02-peralatan" rows="4" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.peralatan }}</textarea>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">E. Durasi Waktu Praktik</label>
+            <input type="text" id="ia02-durasi" value="{{ ia02.durasi_waktu }}" style="width:240px; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: FR.IA.03 (PMO) -->
+      <div id="muk-ia03" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">💬 FR.IA.03 — Pertanyaan Untuk Mendukung Observasi (PMO)</h3>
+          <div class="aksi-group">
+            <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa03()">+ Tambah Pertanyaan PMO</button>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia03" target="_blank">🖨️ Pratinjau FR.IA.03</a>
+          </div>
+        </div>
+        <div id="wadah-ia03-questions">
+          {% for q in ia03.questions %}
+          <div class="ia03-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px;">
+              <select class="ia03-dimensi" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
+                {% for d_code, d_lbl in data.dimensi_labels.items() %}
+                <option value="{{ d_code }}" {% if q.dimensi == d_code %}selected{% endif %}>{{ d_lbl }}</option>
+                {% endfor %}
+              </select>
+              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.ia03-q-item')" style="color: #b91c1c;">Hapus</button>
+            </div>
+            <textarea class="ia03-pertanyaan" rows="2" placeholder="Tulis pertanyaan pendukung observasi..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;">{{ q.pertanyaan }}</textarea>
+            <input type="text" class="ia03-kunci" value="{{ q.kunci_jawaban }}" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)" style="width:100%; padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-size:12px;">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TAB 5: FR.IA.04A & 04B (DIT) -->
+      <div id="muk-ia04" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">📐 FR.IA.04A &amp; 04B — Daftar Instruksi Terstruktur (DIT Proyek Singkat)</h3>
+          <div class="aksi-group">
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia04a" target="_blank">🖨️ Pratinjau IA.04A</a>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia04b" target="_blank">🖨️ Pratinjau IA.04B</a>
+          </div>
+        </div>
+
+        <h4 style="margin: 8px 0;">Bagian A — Penjelasan Proyek Singkat (FR.IA.04A - Metode STAR)</h4>
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Judul Kegiatan Terstruktur / Proyek Singkat</label>
+            <input type="text" id="ia04-judul" value="{{ ia04.judul_kegiatan }}" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">S – Situation (Situasi Studi Kasus)</label>
+              <textarea id="ia04-situasi" rows="3" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.situasi }}</textarea>
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">T – Task (Tugas Proyek)</label>
+              <textarea id="ia04-tugas" rows="3" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.tugas }}</textarea>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">A – Action (Tindakan / Instruksi Kerja untuk Asesi)</label>
+            <textarea id="ia04-tindakan" rows="4" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.tindakan }}</textarea>
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Data / Informasi yang Disediakan</label>
+              <textarea id="ia04-data" rows="2" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.data_informasi }}</textarea>
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">R – Result (Hasil / Keluaran yang Diharapkan)</label>
+              <textarea id="ia04-hasil" rows="2" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.hasil }}</textarea>
+            </div>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Hal yang Perlu Didemonstrasikan / Dipresentasikan</label>
+            <textarea id="ia04-demonstrasi" rows="3" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia04.hal_demonstrasi }}</textarea>
+          </div>
+          <div style="display: flex; gap: 12px;">
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Waktu Pengerjaan Proyek</label>
+              <input type="text" id="ia04-waktu-proyek" value="{{ ia04.waktu_proyek }}" style="padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
+            </div>
+            <div>
+              <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Waktu Presentasi</label>
+              <input type="text" id="ia04-waktu-presentasi" value="{{ ia04.waktu_presentasi }}" style="padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
+            </div>
+          </div>
+        </div>
+
+        <div class="card-head" style="margin-bottom: 8px;">
+          <h4 style="margin: 0;">Bagian B — Daftar Pertanyaan Penilaian Proyek Singkat (FR.IA.04B)</h4>
+          <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa04b()">+ Tambah Aspek Penilaian</button>
+        </div>
+        <div id="wadah-ia04b-questions">
+          {% for q in ia04.questions %}
+          <div class="ia04b-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px;">
+              <input type="text" class="ia04b-lingkup" value="{{ q.lingkup }}" placeholder="Lingkup penyajian proyek" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-weight:600;">
+              <input type="text" class="ia04b-kuk" value="{{ q.elemen_kuk }}" placeholder="Kode Unit / KUK" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">
+              <input type="text" class="ia04b-dimensi" value="{{ q.dimensi }}" placeholder="Dimensi, mis: (TS, TMS)" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">
+              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.ia04b-q-item')" style="color:#b91c1c;">Hapus</button>
+            </div>
+            <textarea class="ia04b-pertanyaan" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">{{ q.pertanyaan }}</textarea>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TAB 6: FR.IA.05A/B/C (SOAL & KUNCI PILIHAN GANDA) -->
+      <div id="muk-ia05" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">📝 FR.IA.05A, 05B, &amp; 05C — Pertanyaan Tertulis Pilihan Ganda</h3>
+          <div class="aksi-group">
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia05a" target="_blank">🖨️ IA.05A (Soal)</a>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia05b" target="_blank">🖨️ IA.05B (Kunci)</a>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia05c" target="_blank">🖨️ IA.05C (LJK)</a>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Jumlah Soal Pilihan Ganda (Menentukan jumlah baris di Lembar Jawaban IA.05C &amp; Kunci IA.05B)</label>
+          <input type="number" id="ia05-jumlah" min="1" max="100" value="{{ ia05.jumlah_soal or 10 }}" style="width:140px; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
+        </div>
+
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Naskah Soal Pilihan Ganda (FR.IA.05A)</label>
+            <textarea id="ia05-pertanyaan" rows="14" placeholder="1. Pertanyaan pertama...&#10;a. Pilihan A&#10;b. Pilihan B&#10;c. Pilihan C&#10;d. Pilihan D" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px; font-family:inherit;">{{ ia05.pertanyaan }}</textarea>
+          </div>
+          <div>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Kunci Jawaban (FR.IA.05B — Satu nomor per baris, misal: 1. B)</label>
+            <textarea id="ia05-kunci" rows="14" placeholder="1. B&#10;2. A&#10;3. D&#10;4. C" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px; font-family:monospace;">{{ ia05.kunci }}</textarea>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer Tombol Simpan -->
+    <div style="padding: 14px 22px; background: #f8fafc; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+      <span class="muted small">Perubahan akan langsung diterapkan pada seluruh formulir Buku Kerja skema ini.</span>
+      <button type="submit" class="btn" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 9px 22px; font-weight: 600;">
+        💾 Simpan Seluruh Pengaturan MUK
+      </button>
+    </div>
+  </article>
+</form>
+
+<!-- Template tersembunyi untuk tambah Kelompok Pekerjaan -->
+<template id="tpl-kelompok-baru">
+  <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
+    <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
+      <input type="text" class="kp-nama" value="Kelompok Pekerjaan Baru" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
+      <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.kp-item')" style="color: #b91c1c;">Hapus Kelompok</button>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px;">
+      {% for u in data.daftar_unit %}
+      <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; background: #fff; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
+        <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}">
+        <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
+      </label>
+      {% endfor %}
+    </div>
+  </div>
+</template>
+
+<script>
+function pindahTabMuk(panelId) {
+  document.querySelectorAll('.muk-panel').forEach(function(p) { p.style.display = 'none'; });
+  document.querySelectorAll('.muk-tab-btn').forEach(function(b) {
+    b.style.background = 'transparent';
+    b.style.color = 'var(--muted)';
+    b.style.borderBottomColor = 'transparent';
+  });
+  var panel = document.getElementById(panelId);
+  if (panel) panel.style.display = 'block';
+  var btn = document.getElementById('btn-' + panelId);
+  if (btn) {
+    btn.style.background = '#fff';
+    btn.style.color = 'var(--navy)';
+    btn.style.borderBottomColor = 'var(--navy-2)';
+  }
+}
+
+function hapusElemenDom(btn, selector) {
+  var item = btn.closest(selector);
+  if (item) item.remove();
+}
+
+function tambahKelompokPekerjaan() {
+  var tpl = document.getElementById('tpl-kelompok-baru');
+  var wadah = document.getElementById('wadah-kelompok-pekerjaan');
+  wadah.appendChild(tpl.content.cloneNode(true));
+}
+
+function tambahPertanyaanIa03() {
+  var wadah = document.getElementById('wadah-ia03-questions');
+  var div = document.createElement('div');
+  div.className = 'ia03-q-item';
+  div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+  div.innerHTML = ''
+    + '<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px;">'
+    + '  <select class="ia03-dimensi" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">'
+    + '    <option value="TS">TS - Task Skills</option>'
+    + '    <option value="TMS">TMS - Task Management Skills</option>'
+    + '    <option value="CMS">CMS - Contingency Management Skills</option>'
+    + '    <option value="JRES">JRES - Job/Role Environment Skills</option>'
+    + '    <option value="TRS">TRS - Transfer Skills</option>'
+    + '  </select>'
+    + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia03-q-item\')" style="color: #b91c1c;">Hapus</button>'
+    + '</div>'
+    + '<textarea class="ia03-pertanyaan" rows="2" placeholder="Tulis pertanyaan pendukung observasi..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+    + '<input type="text" class="ia03-kunci" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)" style="width:100%; padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-size:12px;">';
+  wadah.appendChild(div);
+}
+
+function tambahPertanyaanIa04b() {
+  var wadah = document.getElementById('wadah-ia04b-questions');
+  var div = document.createElement('div');
+  div.className = 'ia04b-q-item';
+  div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+  div.innerHTML = ''
+    + '<div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px;">'
+    + '  <input type="text" class="ia04b-lingkup" placeholder="Lingkup penyajian proyek" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-weight:600;">'
+    + '  <input type="text" class="ia04b-kuk" placeholder="Kode Unit / KUK" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">'
+    + '  <input type="text" class="ia04b-dimensi" placeholder="Dimensi, mis: (TS, TMS)" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">'
+    + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia04b-q-item\')" style="color:#b91c1c;">Hapus</button>'
+    + '</div>'
+    + '<textarea class="ia04b-pertanyaan" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;"></textarea>';
+  wadah.appendChild(div);
+}
+
+function siapkanPayloadMuk() {
+  var kelompok = [];
+  document.querySelectorAll('.kp-item').forEach(function(el, idx) {
+    var nama = (el.querySelector('.kp-nama').value || '').trim();
+    var units = [];
+    el.querySelectorAll('.kp-unit-cb:checked').forEach(function(cb) {
+      units.push(cb.value);
+    });
+    if (nama) {
+      kelompok.push({ id: 'kp_' + (idx + 1), nama: nama, urutan: idx + 1, units: units });
+    }
+  });
+
+  var qIa03 = [];
+  document.querySelectorAll('.ia03-q-item').forEach(function(el, idx) {
+    var pert = (el.querySelector('.ia03-pertanyaan').value || '').trim();
+    if (pert) {
+      qIa03.push({
+        order: idx + 1,
+        dimensi: el.querySelector('.ia03-dimensi').value,
+        pertanyaan: pert,
+        kunci_jawaban: (el.querySelector('.ia03-kunci').value || '').trim()
+      });
+    }
+  });
+
+  var qIa04b = [];
+  document.querySelectorAll('.ia04b-q-item').forEach(function(el, idx) {
+    var lingkup = (el.querySelector('.ia04b-lingkup').value || '').trim();
+    var pert = (el.querySelector('.ia04b-pertanyaan').value || '').trim();
+    if (lingkup || pert) {
+      qIa04b.push({
+        order: idx + 1,
+        lingkup: lingkup,
+        pertanyaan: pert,
+        elemen_kuk: (el.querySelector('.ia04b-kuk').value || '').trim(),
+        dimensi: (el.querySelector('.ia04b-dimensi').value || '').trim()
+      });
+    }
+  });
+
+  var payload = {
+    personel: {
+      nomor_skema: document.getElementById('p-nomor-skema').value,
+      metode_mapa: document.getElementById('p-metode-mapa').value,
+      kategori_asesi: parseInt(document.getElementById('p-kategori-asesi').value || '1', 10),
+      nama_asesor: document.getElementById('p-nama-asesor').value,
+      no_met: document.getElementById('p-no-met').value,
+      nama_tuk: document.getElementById('p-nama-tuk').value,
+      jenis_tuk: document.getElementById('p-jenis-tuk').value,
+      nama_penyusun: document.getElementById('p-nama-penyusun').value,
+      met_penyusun: document.getElementById('p-met-penyusun').value,
+      nama_validator: document.getElementById('p-nama-validator').value,
+      met_validator: document.getElementById('p-met-validator').value,
+      nama_manajer_sertifikasi: document.getElementById('p-nama-manajer').value,
+      tanggal_pelaksanaan: document.getElementById('p-tanggal-pelaksanaan').value
+    },
+    kelompok_pekerjaan: kelompok,
+    ia02: {
+      skenario: document.getElementById('ia02-skenario').value,
+      langkah_kerja: document.getElementById('ia02-langkah').value,
+      hasil_kerja: document.getElementById('ia02-hasil').value,
+      perlengkapan: document.getElementById('ia02-perlengkapan').value,
+      peralatan: document.getElementById('ia02-peralatan').value,
+      durasi_waktu: document.getElementById('ia02-durasi').value
+    },
+    ia03: {
+      questions: qIa03
+    },
+    ia04: {
+      judul_kegiatan: document.getElementById('ia04-judul').value,
+      situasi: document.getElementById('ia04-situasi').value,
+      tugas: document.getElementById('ia04-tugas').value,
+      tindakan: document.getElementById('ia04-tindakan').value,
+      data_informasi: document.getElementById('ia04-data').value,
+      hasil: document.getElementById('ia04-hasil').value,
+      hal_demonstrasi: document.getElementById('ia04-demonstrasi').value,
+      waktu_proyek: document.getElementById('ia04-waktu-proyek').value,
+      waktu_presentasi: document.getElementById('ia04-waktu-presentasi').value,
+      questions: qIa04b
+    },
+    ia05: {
+      jumlah_soal: parseInt(document.getElementById('ia05-jumlah').value || '10', 10),
+      pertanyaan: document.getElementById('ia05-pertanyaan').value,
+      kunci: document.getElementById('ia05-kunci').value
+    }
+  };
+
+  document.getElementById('muk-json-input').value = JSON.stringify(payload);
+}
+</script>
+
+{% endblock %}

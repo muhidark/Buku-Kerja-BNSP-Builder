@@ -1,0 +1,112 @@
+<!-- ========================================== -->
+<!-- 6. FR.MAPA.02 : PETA INSTRUMEN ASESMEN     -->
+<!-- ========================================== -->
+{% set metode = data.metode_mapa %}
+{% set kat = data.kategori_asesi %}
+<div class="lsp-page-sheet" id="section-mapa02">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        FR.MAPA.02.&nbsp;&nbsp;&nbsp;&nbsp;PETA INSTRUMEN ASESMEN HASIL PENDEKATAN ASESMEN DAN PERENCANAAN ASESMEN
+    </div>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 10px;">
+        <tr>
+            <td width="30%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})*</strong></td>
+            <td width="12%"><strong>Judul</strong></td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Nomor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+    </table>
+
+    <!-- Kelompok Pekerjaan & Daftar Unit -->
+    {% include "buku_kerja/_tabel_kelompok_unit.html" %}
+
+    <!-- Tabel 11 Instrumen Asesmen dengan Potensi Asesi 1..5 -->
+    {% set instrumen_list = [
+        {"no": 1, "kode": "FR.IA.01. CL - Ceklis Observasi", "aktif": (metode == 'observasi')},
+        {"no": 2, "kode": "FR.IA.02. TPD - Tugas Praktik Demonstrasi", "aktif": (metode == 'observasi')},
+        {"no": 3, "kode": "FR.IA.03. PMO - Pertanyaan untuk mendukung observasi", "aktif": (metode == 'observasi')},
+        {"no": 4, "kode": "FR.IA.04A. DIT - Daftar Instruksi Terstruktur (Penjelasan Proyek Singkat/ Kegiatan Terstruktur Lainnya*)", "aktif": (metode == 'dit')},
+        {"no": 5, "kode": "FR.IA.04B. DIT - Daftar Instruksi Terstruktur (Penilaian Proyek Singkat/ Kegiatan Terstruktur Lainnya*)", "aktif": (metode == 'dit')},
+        {"no": 6, "kode": "FR.IA.05. DPT - Daftar Pertanyaan Tertulis Pilihan Ganda", "aktif": True},
+        {"no": 7, "kode": "FR.IA.06. DPT - Daftar Pertanyaan Tertulis Esai", "aktif": False},
+        {"no": 8, "kode": "FR.IA.07. DPL - Daftar Pertanyaan Lisan", "aktif": False},
+        {"no": 9, "kode": "FR.IA.08. CVP - Ceklis Verifikasi Portofolio", "aktif": (metode == 'portofolio')},
+        {"no": 10, "kode": "FR.IA.09. PW - Pertanyaan Wawancara", "aktif": (metode == 'portofolio')},
+        {"no": 11, "kode": "FR.IA.10. VPK - Verifikasi Pihak Ketiga", "aktif": False},
+        {"no": 12, "kode": "FR.IA.11. CRP - Ceklis Reviu Produk", "aktif": False}
+    ] %}
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 8px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th rowspan="2" width="6%">No.</th>
+                <th rowspan="2" width="54%" style="text-align: left;">MUK (INSTRUMEN ASESMEN)</th>
+                <th colspan="5" width="40%">Potensi Asesi **</th>
+            </tr>
+            <tr style="background: #f8fafc;">
+                <th width="8%">1</th>
+                <th width="8%">2</th>
+                <th width="8%">3</th>
+                <th width="8%">4</th>
+                <th width="8%">5</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ins in instrumen_list %}
+            <tr>
+                <td style="text-align: center;">{{ ins.no }}.</td>
+                <td>{{ ins.kode }}</td>
+                {% for k_idx in [1, 2, 3, 4, 5] %}
+                <td style="text-align: center;">
+                    <span class="box-check">{{ '✓' if (ins.aktif and k_idx == kat) else '' }}</span>
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="font-size: 10px; line-height: 1.5; color: #334155; margin-bottom: 12px;">
+        <strong>*)</strong> diisi berdasarkan hasil penentuan pendekatan asesmen dan perencanaan asesmen<br>
+        <strong>**) Keterangan Potensi Asesi:</strong><br>
+        1. Hasil pelatihan dan / atau pendidikan, dimana Kurikulum dan fasilitas praktek mampu telusur terhadap standar kompetensi.<br>
+        2. Hasil pelatihan dan / atau pendidikan, dimana kurikulum belum berbasis kompetensi.<br>
+        3. Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya mampu telusur dengan standar kompetensi.<br>
+        4. Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya belum berbasis kompetensi.<br>
+        5. Pelatihan / belajar mandiri atau otodidak.
+    </div>
+
+    <!-- Tabel Penyusun & Validator -->
+    <table class="lsp-doc-table lsp-table-bordered avoid-break">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th width="20%">STATUS</th>
+                <th width="6%">NO</th>
+                <th width="30%">NAMA</th>
+                <th width="24%">NOMOR MET</th>
+                <th width="20%">TANDA TANGAN &amp; TANGGAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">PENYUSUN</td>
+                <td style="text-align: center;">1</td>
+                <td><strong>{{ data.nama_penyusun }}</strong></td>
+                <td style="font-family: monospace; text-align: center;">{{ data.met_penyusun }}</td>
+                <td style="text-align: center;">{{ data.tanggal_penyusunan or '........................' }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">VALIDATOR</td>
+                <td style="text-align: center;">1</td>
+                <td><strong>{{ data.nama_validator }}</strong></td>
+                <td style="font-family: monospace; text-align: center;">{{ data.met_validator }}</td>
+                <td style="text-align: center;">{{ data.tanggal_penyusunan or '........................' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

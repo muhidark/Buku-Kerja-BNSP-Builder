@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ judul_halaman }} &bull; Sistem Pembuatan Dokumen Buku Kerja Asessor V.2023</title>
+    <title>{{ judul_halaman }} &bull; Sistem Pembuatan Dokumen Buku Kerja Asesor V.2023</title>
     <style>
         /* Base Screen Styling */
         * { box-sizing: border-box; }
@@ -21,10 +21,12 @@
         .lsp-print-topbar {
             background: #1e293b;
             color: #ffffff;
-            padding: 12px 24px;
+            padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
             position: sticky;
             top: 0;
             z-index: 99999;
@@ -32,32 +34,34 @@
             border-bottom: 2px solid #0284c7;
         }
         .lsp-print-topbar-title {
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .lsp-badge-doc {
             background: #0284c7;
             color: #fff;
             padding: 3px 8px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11.5px;
         }
         .lsp-print-topbar-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .lsp-btn-print {
             background: #16a34a;
             color: #ffffff;
             border: none;
-            padding: 8px 18px;
+            padding: 7px 14px;
             border-radius: 4px;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 12.5px;
             cursor: pointer;
             display: flex;
             align-items: center;
@@ -65,24 +69,36 @@
             text-decoration: none;
         }
         .lsp-btn-print:hover { background: #15803d; }
+        .lsp-btn-muk {
+            background: #0284c7;
+            color: #ffffff;
+            border: none;
+            padding: 7px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12.5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .lsp-btn-muk:hover { background: #0369a1; }
         .lsp-btn-back {
             background: #475569;
             color: #ffffff;
             border: none;
-            padding: 8px 14px;
+            padding: 7px 12px;
             border-radius: 4px;
-            font-size: 13px;
+            font-size: 12.5px;
             cursor: pointer;
             text-decoration: none;
         }
         .lsp-btn-back:hover { background: #334155; }
         .lsp-doc-switcher select {
-            padding: 6px 10px;
+            padding: 6px 9px;
             border-radius: 4px;
             border: 1px solid #475569;
             background: #334155;
             color: #fff;
-            font-size: 13px;
+            font-size: 12.5px;
             cursor: pointer;
         }
 
@@ -93,25 +109,29 @@
             display: flex;
             flex-direction: column;
             gap: 25px;
+            align-items: center;
         }
         .lsp-page-sheet {
             width: 210mm;
             box-sizing: border-box;
             background: #ffffff;
-            padding: 15mm 15mm;
+            padding: 14mm 14mm;
             box-shadow: 0 4px 18px rgba(0,0,0,0.35);
             border-radius: 2px;
             position: relative;
+        }
+        .lsp-page-sheet.lsp-page-landscape {
+            width: 285mm;
         }
 
         /* Tables & Typography */
         .lsp-doc-title {
             text-align: center;
-            font-size: 14.5px;
+            font-size: 14px;
             font-weight: bold;
-            margin: 0 0 16px 0;
+            margin: 0 0 14px 0;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.4px;
         }
         .lsp-section-title {
             font-size: 12.5px;
@@ -175,8 +195,9 @@
             margin-right: 4px;
             vertical-align: middle;
             text-align: center;
-            line-height: 13px;
+            line-height: 12px;
             font-size: 10px;
+            font-weight: bold;
         }
 
         /* Page break helper */
@@ -193,7 +214,7 @@
         /* Print Media Styles (Standar Kertas A4: 21 x 29.7 cm) */
         @media print {
             html, body {
-                width: 210mm !important;
+                width: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 background: #ffffff !important;
@@ -210,7 +231,8 @@
                 gap: 0 !important;
                 display: block !important;
             }
-            .lsp-page-sheet {
+            .lsp-page-sheet,
+            .lsp-page-sheet.lsp-page-landscape {
                 width: 100% !important;
                 margin: 0 !important;
                 padding: 10mm 12mm !important;
@@ -246,6 +268,13 @@
             }
         }
     </style>
+    {% if doc_mode == 'mapa01' %}
+    <style>
+        @media print {
+            @page { size: A4 landscape; margin: 8mm; }
+        }
+    </style>
+    {% endif %}
 </head>
 <body>
 
@@ -253,22 +282,45 @@
     <div class="lsp-print-topbar lsp-no-print">
         <div class="lsp-print-topbar-title">
             <span>📋 Buku Kerja Asesor V.2023</span>
-            <span class="lsp-badge-doc">{{ "Semua Dokumen" if doc_mode == "all" else ("FR.APL.01" if doc_mode == "apl01" else "FR.APL.02") }}</span>
+            <span class="lsp-badge-doc">{{ doc_mode|upper }} ({{ dokumen_aktif|length }} Dokumen)</span>
             <span style="font-size:12px; font-weight:normal; color:#94a3b8;">&bull; {{ data.nama_skema }}</span>
         </div>
         <div class="lsp-print-topbar-actions">
+            <!-- Pemilih Dokumen (18 Dokumen + Mode Paket) -->
             <div class="lsp-doc-switcher">
-                <select id="docSwitcher" onchange="gantiDokumen(this.value)">
-                    <option value="all" {% if doc_mode == "all" %}selected{% endif %}>📄 Semua Dokumen (Paket Lengkap)</option>
-                    <option value="apl01" {% if doc_mode == "apl01" %}selected{% endif %}>FR.APL.01 Permohonan Sertifikasi</option>
-                    <option value="apl02" {% if doc_mode == "apl02" %}selected{% endif %}>FR.APL.02 Asesmen Mandiri</option>
+                <select id="docSwitcher" onchange="gantiParameter('doc', this.value)" title="Pilih dokumen atau paket buku kerja">
+                    {% for d in data.daftar_dokumen %}
+                    <option value="{{ d.kode }}" {% if doc_mode == d.kode %}selected{% endif %}>{{ d.label }}</option>
+                    {% endfor %}
                 </select>
             </div>
+
+            <!-- Pemilih Metode MAPA (Observasi / DIT / Portofolio) -->
+            <div class="lsp-doc-switcher">
+                <select id="metodeSwitcher" onchange="gantiParameter('metode_mapa', this.value)" title="Metode Asesmen pada FR.MAPA.01 & FR.MAPA.02">
+                    <option value="observasi" {% if data.metode_mapa == 'observasi' %}selected{% endif %}>Metode: Observasi (CLO+TPD+PMO)</option>
+                    <option value="dit" {% if data.metode_mapa == 'dit' %}selected{% endif %}>Metode: Proyek Singkat (DIT)</option>
+                    <option value="portofolio" {% if data.metode_mapa == 'portofolio' %}selected{% endif %}>Metode: Portofolio (CVP)</option>
+                </select>
+            </div>
+
+            <!-- Pemilih Kategori Potensi Asesi (1..5) -->
+            <div class="lsp-doc-switcher">
+                <select id="katSwitcher" onchange="gantiParameter('kategori_asesi', this.value)" title="Kategori Potensi Asesi (1 s/d 5)">
+                    {% for k_no in [1, 2, 3, 4, 5] %}
+                    <option value="{{ k_no }}" {% if data.kategori_asesi == k_no %}selected{% endif %}>Potensi Asesi #{{ k_no }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <a href="/skema/{{ data.schema_id }}/muk" class="lsp-btn-muk">
+                ⚙️ Atur MUK &amp; Kelompok
+            </a>
             <button type="button" class="lsp-btn-print" onclick="window.print()">
-                🖨️ Cetak Dokumen (Ctrl + P)
+                🖨️ Cetak (Ctrl + P)
             </button>
             <a href="/skema/{{ data.schema_id }}" class="lsp-btn-back">
-                &larr; Kembali ke Skema
+                &larr; Kembali
             </a>
         </div>
     </div>
@@ -276,14 +328,13 @@
     <!-- Printable Paper Container -->
     <div class="lsp-paper-container">
 
-        {% if doc_mode in ['all', 'apl01'] %}
         <!-- ========================================== -->
-        <!-- FR.APL.01 : PERMOHONAN SERTIFIKASI KOMPETENSI -->
+        <!-- 1. FR.APL.01 : PERMOHONAN SERTIFIKASI KOMPETENSI -->
         <!-- ========================================== -->
+        {% if 'apl01' in dokumen_aktif %}
         <div class="lsp-page-sheet" id="section-apl01">
             <div class="lsp-doc-title">FR.APL.01. PERMOHONAN SERTIFIKASI KOMPETENSI</div>
 
-            <!-- Bagian 1 : Rincian Data Pemohon Sertifikasi -->
             <div class="lsp-section-title">Bagian 1 : Rincian Data Pemohon Sertifikasi</div>
             <div class="lsp-doc-desc">Pada bagian ini, cantumkan data pribadi, data pendidikan formal serta data pekerjaan anda pada saat ini.</div>
 
@@ -401,7 +452,7 @@
                 <tr>
                     <td colspan="2" rowspan="4" valign="top"><strong>Tujuan Asesmen</strong></td>
                     <td>:</td>
-                    <td width="5%" style="text-align: center;"><span class="box-check"></span></td>
+                    <td width="5%" style="text-align: center;"><span class="box-check">✓</span></td>
                     <td>Sertifikasi</td>
                 </tr>
                 <tr>
@@ -541,18 +592,13 @@
         </div>
         {% endif %}
 
-        {% if doc_mode == 'all' %}
-        <div class="lsp-page-break"></div>
-        {% endif %}
-
-        {% if doc_mode in ['all', 'apl02'] %}
         <!-- ========================================== -->
-        <!-- FR.APL.02 : ASESMEN MANDIRI                -->
+        <!-- 2. FR.APL.02 : ASESMEN MANDIRI             -->
         <!-- ========================================== -->
+        {% if 'apl02' in dokumen_aktif %}
         <div class="lsp-page-sheet" id="section-apl02">
             <div class="lsp-doc-title">FR.APL.02. ASESMEN MANDIRI</div>
 
-            <!-- Header Skema Sertifikasi -->
             <table class="lsp-doc-table lsp-table-bordered">
                 <tr>
                     <td width="28%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})</strong></td>
@@ -568,7 +614,11 @@
                 <tr>
                     <td colspan="2"><strong>TUK</strong></td>
                     <td>:</td>
-                    <td><span class="box-check"></span> Sewaktu &nbsp;&nbsp;&nbsp; <span class="box-check"></span> Tempat Kerja &nbsp;&nbsp;&nbsp; <span class="box-check"></span> Mandiri</td>
+                    <td>
+                        <span class="box-check">{{ '✓' if data.jenis_tuk == 'sewaktu' else '' }}</span> Sewaktu &nbsp;&nbsp;&nbsp;
+                        <span class="box-check">{{ '✓' if data.jenis_tuk == 'tempat_kerja' else '' }}</span> Tempat Kerja &nbsp;&nbsp;&nbsp;
+                        <span class="box-check">{{ '✓' if data.jenis_tuk == 'mandiri' else '' }}</span> Mandiri
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2"><strong>Nama Asesor</strong></td>
@@ -583,7 +633,7 @@
                 <tr>
                     <td colspan="2"><strong>Tanggal</strong></td>
                     <td>:</td>
-                    <td>....................................................................................</td>
+                    <td>{{ data.tanggal_pelaksanaan or '....................................................................................' }}</td>
                 </tr>
             </table>
 
@@ -626,7 +676,8 @@
                     {% for el in u.elemen %}
                     <tr>
                         <td colspan="3" valign="top" style="padding: 6px 8px; font-size: 11px; line-height: 1.4;">
-                            <strong>Elemen {{ el.nomor }}: {{ el.nama }}</strong><br>
+                            <strong>Elemen {{ el.nomor }}: {{ el.nama }}</strong>
+                            <div style="font-style: italic; color: #334155; margin-top: 1px;">({{ el.pertanyaan_apl02 }})</div>
                             <span style="font-weight: 600; color: #1e293b; display: inline-block; margin-top: 3px;">Kriteria Unjuk Kerja:</span>
                             {% if el.kuk %}
                             <div style="padding-left: 4px; margin-top: 2px;">
@@ -692,12 +743,102 @@
         </div>
         {% endif %}
 
+        <!-- 4. FR.MAPA.01 -->
+        {% if 'mapa01' in dokumen_aktif %}
+            {% include "buku_kerja/_form_mapa01.html" %}
+        {% endif %}
+
+        <!-- 5c. Peta Kelompok Pekerjaan -->
+        {% if 'peta_kelompok' in dokumen_aktif %}
+            {% include "buku_kerja/_form_peta_kelompok.html" %}
+        {% endif %}
+
+        <!-- 6. FR.MAPA.02 -->
+        {% if 'mapa02' in dokumen_aktif %}
+            {% include "buku_kerja/_form_mapa02.html" %}
+        {% endif %}
+
+        <!-- 7. FR.AK.07 -->
+        {% if 'ak07' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak07.html" %}
+        {% endif %}
+
+        <!-- 8. FR.AK.04 -->
+        {% if 'ak04' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak04.html" %}
+        {% endif %}
+
+        <!-- 9. FR.AK.01 -->
+        {% if 'ak01' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak01.html" %}
+        {% endif %}
+
+        <!-- 10. FR.IA.01 -->
+        {% if 'ia01' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia01.html" %}
+        {% endif %}
+
+        <!-- 11. FR.IA.02 -->
+        {% if 'ia02' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia02.html" %}
+        {% endif %}
+
+        <!-- 12. FR.IA.03 -->
+        {% if 'ia03' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia03.html" %}
+        {% endif %}
+
+        <!-- 13a. FR.IA.04A -->
+        {% if 'ia04a' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia04a.html" %}
+        {% endif %}
+
+        <!-- 13b. FR.IA.04B -->
+        {% if 'ia04b' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia04b.html" %}
+        {% endif %}
+
+        <!-- 14a. FR.IA.05A -->
+        {% if 'ia05a' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia05a.html" %}
+        {% endif %}
+
+        <!-- 14b. FR.IA.05B -->
+        {% if 'ia05b' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia05b.html" %}
+        {% endif %}
+
+        <!-- 14c. FR.IA.05C -->
+        {% if 'ia05c' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia05c.html" %}
+        {% endif %}
+
+        <!-- 21. FR.AK.02 -->
+        {% if 'ak02' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak02.html" %}
+        {% endif %}
+
+        <!-- 22. FR.AK.03 -->
+        {% if 'ak03' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak03.html" %}
+        {% endif %}
+
+        <!-- 23. FR.AK.05 -->
+        {% if 'ak05' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak05.html" %}
+        {% endif %}
+
+        <!-- 24. FR.AK.06 -->
+        {% if 'ak06' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ak06.html" %}
+        {% endif %}
+
     </div>
 
     <script>
-        function gantiDokumen(mode) {
+        function gantiParameter(key, val) {
             var url = new URL(window.location.href);
-            url.searchParams.set('doc', mode);
+            url.searchParams.set(key, val);
             window.location.href = url.toString();
         }
     </script>

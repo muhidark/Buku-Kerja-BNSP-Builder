@@ -1,0 +1,35 @@
+<!-- Tabel Unit Kompetensi Berbasis Kelompok Pekerjaan (Digunakan oleh Peta Kelompok, FR.IA.01, FR.IA.02, FR.IA.03) -->
+{% set kp_info = data.kelompok_pekerjaan %}
+{% if not kp_info.is_complete and kp_info.total_unassigned > 0 %}
+<div class="lsp-no-print" style="background: #fffbeb; border: 1px solid #f59e0b; color: #b45309; padding: 8px 12px; border-radius: 4px; margin-bottom: 10px; font-size: 11px;">
+    <strong>⚠️ Peringatan Cakupan Kelompok Pekerjaan:</strong> Masih terdapat <strong>{{ kp_info.total_unassigned }}</strong> unit kompetensi yang belum dimasukkan ke dalam kelompok pekerjaan (Cakupan: {{ kp_info.coverage_percent }}%).
+    <a href="/skema/{{ data.schema_id }}/muk#tab-kelompok" style="color: #92400e; font-weight: bold; text-decoration: underline;">Atur Kelompok Pekerjaan &rarr;</a>
+</div>
+{% endif %}
+
+<table class="lsp-doc-table lsp-table-bordered" style="width: 100%; border-collapse: collapse; margin-bottom: 14px;">
+    <thead>
+        <tr style="background-color: #f1f5f9; text-align: center;">
+            <th style="width: 30%; padding: 6px 8px;">Kelompok Pekerjaan</th>
+            <th style="width: 6%; padding: 6px 4px;">No.</th>
+            <th style="width: 24%; padding: 6px 8px;">Kode Unit</th>
+            <th style="width: 40%; padding: 6px 10px; text-align: left;">Judul Unit</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for grp in kp_info.groups %}
+            {% for u in grp.units %}
+            <tr>
+                {% if loop.first %}
+                <td rowspan="{{ grp.rowspan }}" style="vertical-align: middle; padding: 8px 10px; font-weight: bold; background: #fafafa;">
+                    {{ grp.nama }}
+                </td>
+                {% endif %}
+                <td style="text-align: center; vertical-align: middle; padding: 5px 4px;">{{ u.no }}</td>
+                <td style="font-family: monospace; font-weight: bold; padding: 5px 8px; vertical-align: middle; text-align: center;">{{ u.kode_unit }}</td>
+                <td style="padding: 5px 10px; vertical-align: middle;">{{ u.judul_unit }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>

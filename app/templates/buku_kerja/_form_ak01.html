@@ -1,0 +1,123 @@
+<!-- ========================================== -->
+<!-- 9. FR.AK.01 : PERSETUJUAN ASESMEN DAN KERAHASIAAN -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-ak01">
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 0;">
+        <tr>
+            <td colspan="2" style="font-size: 13px; font-weight: bold; padding: 7px 10px; background: #f8fafc; text-transform: uppercase;">
+                FR.AK.01.&nbsp;&nbsp;&nbsp;&nbsp;PERSETUJUAN ASESMEN DAN KERAHASIAAN
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding: 6px 10px; font-size: 11px; font-style: italic;">
+                Persetujuan Asesmen ini untuk menjamin bahwa Asesi telah diberi arahan secara rinci tentang perencanaan dan proses asesmen
+            </td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 0;">
+        <tr>
+            <td width="30%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})*</strong></td>
+            <td width="12%">Judul</td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td>Nomor</td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>TUK</strong></td>
+            <td style="text-align: center;">:</td>
+            <td>
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'sewaktu' else '' }}</span> Sewaktu &nbsp;&nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'tempat_kerja' else '' }}</span> Tempat Kerja &nbsp;&nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'mandiri' else '' }}</span> Mandiri*
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_asesor or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesi</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><span class="dots-line"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2" rowspan="4" valign="top"><strong>Bukti yang dikumpulkan</strong></td>
+            <td rowspan="4" valign="top" style="text-align: center;">:</td>
+            <td>
+                <span class="box-check">{{ '✓' if data.metode_mapa == 'portofolio' else '' }}</span> Hasil Verifikasi Portofolio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="box-check"></span> Hasil Reviu Produk
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="box-check">{{ '✓' if data.metode_mapa == 'observasi' else '' }}</span> Hasil Observasi Langsung &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.metode_mapa == 'dit' else '' }}</span> Hasil Kegiatan Terstruktur
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <span class="box-check">✓</span> Hasil Tanya Jawab: &nbsp;&nbsp;
+                <span class="box-check">✓</span> Daftar Pertanyaan Tertulis &nbsp;&nbsp;
+                <span class="box-check"></span> Daftar Pertanyaan Lisan &nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.metode_mapa == 'portofolio' else '' }}</span> Wawancara
+            </td>
+        </tr>
+        <tr>
+            <td><span class="box-check"></span> Lainnya: ....................................................................................</td>
+        </tr>
+        <tr>
+            <td colspan="2" rowspan="3" valign="top"><strong>Pelaksanaan asesmen disepakati pada:</strong></td>
+            <td colspan="2"><strong>Hari / Tanggal :</strong> &nbsp; {{ data.tanggal_pelaksanaan or '........................................................' }}</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Waktu :</strong> &nbsp; 08.00 WIB - Selesai</td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>TUK :</strong> &nbsp; <strong>{{ data.nama_tuk }}</strong></td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 0;">
+        <tr>
+            <td style="padding: 8px 10px; line-height: 1.5;">
+                <strong>Asesi :</strong><br>
+                Bahwa saya telah mendapatkan penjelasan terkait hak dan prosedur banding asesmen dari asesor.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 10px; line-height: 1.5;">
+                <strong>Asesor :</strong><br>
+                Menyatakan tidak akan membuka hasil pekerjaan yang saya peroleh karena penugasan saya sebagai Asesor dalam pekerjaan Asesmen kepada siapapun atau organisasi apapun selain kepada pihak yang berwenang sehubungan dengan kewajiban saya sebagai Asesor yang ditugaskan oleh LSP.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 10px; line-height: 1.5;">
+                <strong>Asesi :</strong><br>
+                Saya setuju mengikuti asesmen dengan pemahaman bahwa informasi yang dikumpulkan hanya digunakan untuk pengembangan profesional dan hanya dapat diakses oleh orang tertentu saja.
+            </td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered avoid-break" style="margin-top: -1px;">
+        <tr style="background: #f8fafc;">
+            <th width="50%">Tanda Tangan Asesor</th>
+            <th width="50%">Tanda Tangan Asesi</th>
+        </tr>
+        <tr>
+            <td style="padding: 10px 14px; height: 95px; vertical-align: bottom;">
+                <div><strong>{{ data.nama_asesor or '..................................................' }}</strong></div>
+                <div style="font-size: 10.5px; margin-top: 4px;">Tanggal : ........................................</div>
+            </td>
+            <td style="padding: 10px 14px; height: 95px; vertical-align: bottom;">
+                <div>......................................................................</div>
+                <div style="font-size: 10.5px; margin-top: 4px;">Tanggal : ........................................</div>
+            </td>
+        </tr>
+    </table>
+</div>

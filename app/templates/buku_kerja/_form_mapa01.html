@@ -1,0 +1,396 @@
+<!-- ========================================== -->
+<!-- 4. FR.MAPA.01 : MERENCANAKAN AKTIVITAS DAN PROSES ASESMEN -->
+<!-- ========================================== -->
+{% set metode = data.metode_mapa %}
+{% set kat = data.kategori_asesi %}
+<div class="lsp-page-sheet lsp-page-landscape" id="section-mapa01">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        FR.MAPA.01.&nbsp;&nbsp;&nbsp;&nbsp;MERENCANAKAN AKTIVITAS DAN PROSES ASESMEN
+    </div>
+
+    <!-- Header Skema Sertifikasi -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 10px;">
+        <tr>
+            <td rowspan="2" width="30%" style="vertical-align: middle; font-weight: bold;">
+                Skema Sertifikasi<br>({{ data.jenis_skema }})*
+            </td>
+            <td width="12%"><strong>Judul</strong></td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Nomor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+    </table>
+
+    <!-- Bagian 1: Menentukan Pendekatan Asesmen -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 12px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th colspan="5" style="text-align: left; padding: 6px 10px; font-size: 11.5px;">
+                    1. Menentukan Pendekatan Asesmen
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 1.1 Kandidat -->
+            <tr>
+                <td rowspan="5" width="4%" style="text-align: center; font-weight: bold; vertical-align: top;">1.1</td>
+                <td rowspan="5" width="16%" style="font-weight: bold; vertical-align: top;">Kandidat</td>
+                <td colspan="3">
+                    <span class="box-check">{{ '✓' if kat == 1 else '' }}</span>
+                    Hasil pelatihan dan / atau pendidikan, dimana Kurikulum dan fasilitas praktek mampu telusur terhadap standar kompetensi.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span class="box-check">{{ '✓' if kat == 2 else '' }}</span>
+                    Hasil pelatihan dan / atau pendidikan, dimana kurikulum belum berbasis kompetensi.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span class="box-check">{{ '✓' if kat == 3 else '' }}</span>
+                    Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya mampu telusur dengan standar kompetensi.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span class="box-check">{{ '✓' if kat == 4 else '' }}</span>
+                    Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya belum berbasis kompetensi.
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <span class="box-check">{{ '✓' if kat == 5 else '' }}</span>
+                    Pelatihan / belajar mandiri atau otodidak.
+                </td>
+            </tr>
+
+            <!-- Tujuan Asesmen -->
+            <tr>
+                <td style="border-top: 1px solid #000;"></td>
+                <td style="font-weight: bold; vertical-align: top;">Tujuan Asesmen</td>
+                <td colspan="3">
+                    <div><span class="box-check">✓</span> Sertifikasi</div>
+                    <div><span class="box-check"></span> Pengakuan Kompetensi Terkini (PKT)</div>
+                    <div><span class="box-check"></span> Rekognisi Pembelajaran Lampau (RPL)</div>
+                    <div><span class="box-check"></span> Lainnya</div>
+                </td>
+            </tr>
+
+            <!-- Konteks Asesmen -->
+            <tr>
+                <td rowspan="4" style="vertical-align: top;"></td>
+                <td rowspan="4" style="font-weight: bold; vertical-align: top;">Konteks Asesmen:</td>
+                <td width="22%"><strong>Lingkungan</strong></td>
+                <td width="29%"><span class="box-check"></span> Tempat kerja nyata</td>
+                <td width="29%"><span class="box-check">✓</span> Tempat kerja simulasi</td>
+            </tr>
+            <tr>
+                <td><strong>Peluang untuk mengumpulkan bukti dalam sejumlah situasi</strong></td>
+                <td><span class="box-check"></span> Tersedia</td>
+                <td><span class="box-check">✓</span> Terbatas</td>
+            </tr>
+            <tr>
+                <td><strong>Hubungan antara standar kompetensi dan:</strong></td>
+                <td colspan="2">
+                    <div><span class="box-check">{{ '✓' if metode in ['observasi', 'dit'] else '' }}</span> Bukti untuk mendukung asesmen / RPL &nbsp; 😊 &nbsp; 😐 &nbsp; ☹️</div>
+                    <div><span class="box-check">{{ '✓' if metode == 'portofolio' else '' }}</span> Aktivitas kerja di tempat kerja Asesi &nbsp;&nbsp;&nbsp; 😊 &nbsp; 😐 &nbsp; ☹️</div>
+                    <div><span class="box-check"></span> Kegiatan Pembelajaran &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 😊 &nbsp; 😐 &nbsp; ☹️</div>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Siapa yang melakukan asesmen / RPL</strong></td>
+                <td colspan="2">
+                    <div><span class="box-check">✓</span> Lembaga Sertifikasi</div>
+                    <div><span class="box-check"></span> Organisasi Pelatihan</div>
+                    <div><span class="box-check"></span> Asesor Perusahaan</div>
+                </td>
+            </tr>
+
+            <!-- Konfirmasi dengan orang yang relevan -->
+            <tr>
+                <td></td>
+                <td style="font-weight: bold; vertical-align: top;">Konfirmasi dengan orang yang relevan</td>
+                <td colspan="3">
+                    <div><span class="box-check">✓</span> Manajer sertifikasi LSP</div>
+                    <div><span class="box-check"></span> Master Asesor / Master Trainer / Asesor Utama Kompetensi</div>
+                    <div><span class="box-check"></span> Manajer Pelatihan Lembaga Training terakreditasi / Lembaga Training terdaftar</div>
+                    <div><span class="box-check"></span> Lainnya: ................................................................</div>
+                </td>
+            </tr>
+
+            <!-- 1.2 Tolok Ukur Asesmen -->
+            <tr>
+                <td style="text-align: center; font-weight: bold; vertical-align: top;">1.2</td>
+                <td style="font-weight: bold; vertical-align: top;">Tolok Ukur Asesmen</td>
+                <td colspan="3">
+                    <div><span class="box-check">✓</span> Standar Kompetensi: <strong>{{ data.daftar_unit[0].standar_acuan if data.daftar_unit else 'SKKNI' }}</strong></div>
+                    <div><span class="box-check"></span> Kriteria asesmen dari kurikulum pelatihan</div>
+                    <div><span class="box-check"></span> Spesifikasi kinerja suatu perusahaan atau industri</div>
+                    <div><span class="box-check"></span> Spesifikasi Produk</div>
+                    <div><span class="box-check"></span> Pedoman khusus</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Bagian 2: Mempersiapkan Rencana Asesmen -->
+    <div style="font-weight: bold; font-size: 12px; margin: 12px 0 6px 0;">
+        2. Mempersiapkan Rencana Asesmen
+    </div>
+
+    <!-- Kelompok Pekerjaan & Daftar Unit -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 8px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th width="25%" rowspan="{{ (data.daftar_unit|length) + 1 }}" style="vertical-align: middle;">
+                    Kelompok Pekerjaan<br><span style="font-weight: normal; font-size: 10px;">({{ data.nama_skema }})</span>
+                </th>
+                <th width="6%">No.</th>
+                <th width="22%">Kode Unit</th>
+                <th width="47%" style="text-align: left;">Judul Unit</th>
+            </tr>
+            {% for u in data.daftar_unit %}
+            <tr>
+                <td style="text-align: center;">{{ u.nomor_urut }}.</td>
+                <td style="font-family: monospace; font-weight: bold; text-align: center;">{{ u.kode_unit }}</td>
+                <td>{{ u.judul_unit }}</td>
+            </tr>
+            {% endfor %}
+        </thead>
+    </table>
+
+    <!-- Matriks Metode dan Perangkat Asesmen -->
+    <table class="lsp-doc-table lsp-table-bordered" style="font-size: 9.5px; margin-bottom: 10px;">
+        <thead>
+            <tr style="background: #f1f5f9; text-align: center;">
+                <th rowspan="3" width="18%">Unit Kompetensi</th>
+                <th rowspan="3" width="22%">
+                    Bukti-Bukti<br>
+                    <span style="font-weight: normal; font-size: 8.5px;">(Kinerja, Produk, Portofolio, dan / atau Hafalan) diidentifikasi berdasarkan Kriteria Unjuk Kerja dan Pendekatan Asesmen.</span>
+                </th>
+                <th colspan="3" width="10%">Jenis Bukti</th>
+                <th colspan="6" width="50%">
+                    Metode dan Perangkat Asesmen<br>
+                    <span style="font-weight: normal; font-size: 8px;">
+                        CL (Ceklis Observasi), DIT (Daftar Instruksi Terstruktur), DPL (Pertanyaan Lisan), DPT (Pertanyaan Tertulis), VPK (Verifikasi Pihak Ketiga), CVP (Verifikasi Portofolio),aly/PW (Wawancara)
+                    </span>
+                </th>
+            </tr>
+            <tr style="background: #f8fafc; text-align: center;">
+                <th rowspan="2" width="3.3%">L</th>
+                <th rowspan="2" width="3.3%">TL</th>
+                <th rowspan="2" width="3.4%">T</th>
+                <th width="8.3%">Observasi langsung</th>
+                <th width="8.3%">Kegiatan Terstruktur</th>
+                <th width="8.3%">Tanya Jawab</th>
+                <th width="8.3%">Verifikasi Portfolio</th>
+                <th width="8.3%">Reviu Produk</th>
+                <th width="8.5%">Lainnya</th>
+            </tr>
+            <tr style="background: #f8fafc; text-align: center; font-size: 8px;">
+                <th>(kerja nyata/aktivitas waktu nyata di tempat kerja/simulasi)</th>
+                <th>(latihan simulasi dan bermain peran, proyek, presentasi, lembar kegiatan)</th>
+                <th>(pertanyaan tertulis, wawancara, asesmen diri, kuesioner, lisan)</th>
+                <th>(sampel pekerjaan yang disusun oleh Asesi, dokumentasi)</th>
+                <th>(testimoni dan laporan dari atasan, bukti pelatihan)</th>
+                <th>......</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in data.daftar_unit %}
+                {% if metode == 'observasi' %}
+                <tr>
+                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
+                    <td>Hasil observasi langsung tentang {{ u.judul_unit }}</td>
+                    <td style="text-align: center; font-weight: bold;">L</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">CLO / TPD</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Hasil tanya jawab tertulis tentang {{ u.judul_unit }}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">T</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">DPT / PMO</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% elif metode == 'dit' %}
+                <tr>
+                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
+                    <td>Hasil kegiatan terstruktur / proyek singkat tentang {{ u.judul_unit }}</td>
+                    <td style="text-align: center; font-weight: bold;">L</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">DIT</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Hasil tanya jawab tertulis pilihan ganda tentang {{ u.judul_unit }}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">T</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">DPT</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
+                    <td>Hasil verifikasi portofolio tentang {{ u.judul_unit }}</td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">TL</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">CVP</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Hasil tanya jawab / wawancara tentang {{ u.judul_unit }}</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">T</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: center; font-weight: bold;">DPT / PW</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Bagian 3: Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi -->
+    <table class="lsp-doc-table lsp-table-bordered avoid-break" style="margin-bottom: 12px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th colspan="3" style="text-align: left; padding: 6px 10px; font-size: 11.5px;">
+                    3. Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi:
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td width="4%" style="text-align: center; font-weight: bold;">3.1</td>
+                <td width="42%">
+                    <strong>a. Karakteristik Kandidat:</strong><br>
+                    Ada / tidak ada* karakteristik khusus Kandidat
+                </td>
+                <td>Jika Ada tuliskan: Tidak ada</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <strong>b. Kebutuhan kontekstualisasi terkait tempat kerja:</strong><br>
+                    Ada / tidak ada* kebutuhan kontekstualisasi
+                </td>
+                <td>Jika Ada, tuliskan: Tidak ada</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">3.2</td>
+                <td>Saran yang diberikan oleh paket pelatihan atau pengembang pelatihan</td>
+                <td>Sesuai pedoman pelatihan dan standar kompetensi</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">3.3</td>
+                <td>Penyesuaian perangkat asesmen terkait kebutuhan kontekstualisasi</td>
+                <td>Tidak ada</td>
+            </tr>
+            <tr>
+                <td style="text-align: center; font-weight: bold;">3.4</td>
+                <td>Peluang untuk kegiatan asesmen terintegrasi dan mencatat setiap perubahan yang diperlukan untuk alat asesmen</td>
+                <td>Ada pada unit-unit dalam kelompok pekerjaan yang relevan</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Konfirmasi dengan Orang yang Relevan & Pengesahan Penyusun/Validator -->
+    <div class="avoid-break">
+        <div style="font-weight: bold; font-size: 11px; margin-bottom: 4px;">Konfirmasi dengan orang yang relevan:</div>
+        <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 12px;">
+            <thead>
+                <tr style="background: #f1f5f9;">
+                    <th width="42%">Orang yang relevan</th>
+                    <th width="33%">Nama</th>
+                    <th width="25%">Tandatangan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><span class="box-check">✓</span> Manajer sertifikasi LSP</td>
+                    <td><strong>{{ data.nama_manajer }}</strong></td>
+                    <td style="height: 28px;"></td>
+                </tr>
+                <tr>
+                    <td><span class="box-check"></span> Master Asesor / Master Trainer / Lead Asesor</td>
+                    <td></td>
+                    <td style="height: 28px;"></td>
+                </tr>
+                <tr>
+                    <td><span class="box-check"></span> Manajer pelatihan Lembaga Training terakreditasi</td>
+                    <td></td>
+                    <td style="height: 28px;"></td>
+                </tr>
+                <tr>
+                    <td><span class="box-check"></span> Lainnya:</td>
+                    <td></td>
+                    <td style="height: 28px;"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="lsp-doc-table lsp-table-bordered">
+            <thead>
+                <tr style="background: #f1f5f9;">
+                    <th width="20%">Status</th>
+                    <th width="6%">No</th>
+                    <th width="30%">Nama</th>
+                    <th width="24%">Nomor MET</th>
+                    <th width="20%">Tanda Tangan dan Tanggal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: center; font-weight: bold;">PENYUSUN</td>
+                    <td style="text-align: center;">1</td>
+                    <td><strong>{{ data.nama_penyusun }}</strong></td>
+                    <td style="font-family: monospace; text-align: center;">{{ data.met_penyusun }}</td>
+                    <td style="text-align: center;">{{ data.tanggal_penyusunan or '........................' }}</td>
+                </tr>
+                <tr>
+                    <td style="text-align: center; font-weight: bold;">VALIDATOR</td>
+                    <td style="text-align: center;">1</td>
+                    <td><strong>{{ data.nama_validator }}</strong></td>
+                    <td style="font-family: monospace; text-align: center;">{{ data.met_validator }}</td>
+                    <td style="text-align: center;">{{ data.tanggal_penyusunan or '........................' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

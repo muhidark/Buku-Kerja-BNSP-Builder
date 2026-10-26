@@ -1,16 +1,74 @@
 """
-SKKNI Extractor - Modul Generator Buku Kerja Asesor & Dokumen Cetak BNSP (FR.APL.01 & FR.APL.02).
+SKKNI Extractor - Modul Generator Buku Kerja Asesor & Manajemen Materi Uji Kompetensi (MUK) V.2023.
 
-Menyediakan penyusunan data terstruktur untuk template dokumen cetak fisik:
-- FR.APL.01: Permohonan Sertifikasi Kompetensi (Murni Template / Blank Asesi)
-- FR.APL.02: Asesmen Mandiri (Terisi Unit, Elemen, dan KUK lengkap dari SKKNI)
-- Buku Kerja Asesor V.2023 Foundation
+Menyediakan penyusunan data terstruktur & penyimpanan konfigurasi per skema untuk:
+- 01. FR.APL.01: Permohonan Sertifikasi Kompetensi (Murni Template / Blank Asesi)
+- 02. FR.APL.02: Asesmen Mandiri (Terisi Unit, Elemen [Dapatkah Saya...?], dan KUK lengkap dari SKKNI)
+- 04. FR.MAPA.01: Merencanakan Aktivitas dan Proses Asesmen (Observasi / DIT / Portofolio)
+- 05c. Peta Kelompok Pekerjaan
+- 06. FR.MAPA.02: Peta Instrumen Asesmen
+- 07. FR.AK.07: Ceklis Penyesuaian yang Wajar dan Beralasan
+- 08. FR.AK.04: Banding Asesmen
+- 09. FR.AK.01: Persetujuan Asesmen dan Kerahasiaan
+- 10. FR.IA.01: CL - Ceklis Observasi Aktivitas di Tempat Kerja / Simulasi
+- 11. FR.IA.02: TPD - Tugas Praktik Demonstrasi
+- 12. FR.IA.03: PMO - Pertanyaan Untuk Mendukung Observasi
+- 13a. FR.IA.04A: DIT - Penjelasan Proyek Singkat / Kegiatan Terstruktur
+- 13b. FR.IA.04B: DIT - Penilaian Proyek Singkat / Kegiatan Terstruktur
+- 14a/b/c. FR.IA.05A, FR.IA.05B, FR.IA.05C: Soal, Kunci, & Lembar Jawaban Pilihan Ganda
+- 21. FR.AK.02: Rekaman Asesmen Kompetensi
+- 22. FR.AK.03: Umpan Balik dan Catatan Asesmen
+- 23. FR.AK.05: Laporan Asesmen
+- 24. FR.AK.06: Meninjau Proses Asesmen
 """
 
+import json
 import re
+from datetime import datetime
+from pathlib import Path
 from typing import Any, Dict, List, Optional
+
 from app import schema_library, status_units
 from app.lsp_exporter import ambil_json_unit
+
+ROOT = Path(__file__).resolve().parent.parent
+MUK_DIR = ROOT / "data" / "schema_library" / "muk"
+
+# Daftar dokumen yang didukung beserta label resminya
+DAFTAR_DOKUMEN_BUKU_KERJA = [
+    {"kode": "all", "label": "📚 Semua Dokumen (Paket Lengkap Urutan 1–24)"},
+    {"kode": "paket_observasi", "label": "📦 Paket Metode Observasi Langsung (CLO + TPD + PMO + DPT)"},
+    {"kode": "paket_dit", "label": "📦 Paket Metode Proyek Singkat / Kegiatan Terstruktur (DIT + DPT)"},
+    {"kode": "paket_portofolio", "label": "📦 Paket Metode Verifikasi Portofolio (CVP + DPT)"},
+    {"kode": "apl01", "label": "1. FR.APL.01 — Permohonan Sertifikasi Kompetensi"},
+    {"kode": "apl02", "label": "2. FR.APL.02 — Asesmen Mandiri"},
+    {"kode": "mapa01", "label": "4. FR.MAPA.01 — Merencanakan Aktivitas dan Proses Asesmen"},
+    {"kode": "peta_kelompok", "label": "5c. Peta Kelompok Pekerjaan"},
+    {"kode": "mapa02", "label": "6. FR.MAPA.02 — Peta Instrumen Asesmen"},
+    {"kode": "ak07", "label": "7. FR.AK.07 — Ceklis Penyesuaian yang Wajar dan Beralasan"},
+    {"kode": "ak04", "label": "8. FR.AK.04 — Banding Asesmen"},
+    {"kode": "ak01", "label": "9. FR.AK.01 — Persetujuan Asesmen dan Kerahasiaan"},
+    {"kode": "ia01", "label": "10. FR.IA.01 — CL: Ceklis Observasi Aktivitas di Tempat Kerja"},
+    {"kode": "ia02", "label": "11. FR.IA.02 — TPD: Tugas Praktik Demonstrasi"},
+    {"kode": "ia03", "label": "12. FR.IA.03 — PMO: Pertanyaan Untuk Mendukung Observasi"},
+    {"kode": "ia04a", "label": "13a. FR.IA.04A — DIT: Penjelasan Proyek Singkat / Kegiatan Terstruktur"},
+    {"kode": "ia04b", "label": "13b. FR.IA.04B — DIT: Penilaian Proyek Singkat / Kegiatan Terstruktur"},
+    {"kode": "ia05a", "label": "14a. FR.IA.05A — DPT: Pertanyaan Tertulis Pilihan Ganda"},
+    {"kode": "ia05b", "label": "14b. FR.IA.05B — Lembar Kunci Jawaban Pilihan Ganda"},
+    {"kode": "ia05c", "label": "14c. FR.IA.05C — Lembar Jawaban Pilihan Ganda"},
+    {"kode": "ak02", "label": "21. FR.AK.02 — Rekaman Asesmen Kompetensi"},
+    {"kode": "ak03", "label": "22. FR.AK.03 — Umpan Balik dan Catatan Asesmen"},
+    {"kode": "ak05", "label": "23. FR.AK.05 — Laporan Asesmen"},
+    {"kode": "ak06", "label": "24. FR.AK.06 — Meninjau Proses Asesmen"},
+]
+
+DIMENSI_KOMPETENSI_LABELS = {
+    "TS": "TS - Task Skills",
+    "TMS": "TMS - Task Management Skills",
+    "CMS": "CMS - Contingency Management Skills",
+    "JRES": "JRES - Job/Role Environment Skills",
+    "TRS": "TRS - Transfer Skills",
+}
 
 
 def deteksi_standar_skkni(kode_unit: str, fallback_standar: str = "") -> str:
@@ -24,30 +82,521 @@ def deteksi_standar_skkni(kode_unit: str, fallback_standar: str = "") -> str:
         return "SKKNI 2018-107"
     elif "M.73ADV" in kode:
         return "SKKNI 2023-101"
+    elif "J.591" in kode or "J.59" in kode:
+        return "SKKNI 2024-171"
     elif fallback_standar:
         return fallback_standar
     return "Standar Khusus / SKKNI"
+
+
+def format_elemen_apl02(nama_elemen: str) -> str:
+    """
+    Mengubah kalimat judul elemen menjadi kalimat tanya 'Dapatkah Saya ...?'
+    sesuai standar pengisian FR.APL.02 BNSP.
+    """
+    teks = (nama_elemen or "").strip()
+    if not teks:
+        return "Dapatkah Saya melaksanakan elemen kompetensi ini?"
+    teks_bersih = teks.rstrip(".?!")
+    if teks_bersih.lower().startswith("dapatkah saya"):
+        return teks_bersih + "?"
+    huruf_awal = teks_bersih[0].lower() + teks_bersih[1:] if len(teks_bersih) > 1 else teks_bersih.lower()
+    return f"Dapatkah Saya {huruf_awal}?"
+
+
+def parse_kunci_jawaban_ia05(raw_kunci: str, jumlah_soal: int = 10) -> Dict[int, str]:
+    """
+    Mem-parse teks multiline kunci jawaban menjadi dictionary {nomor_soal: jawaban}.
+    Mendukung format:
+    - "1. B" / "1: B" / "1 - B" / "1 B"
+    - "B" per baris (otomatis diurutkan 1, 2, 3...)
+    """
+    if not raw_kunci or not raw_kunci.strip():
+        return {}
+    lines = re.split(r"\r\n|\r|\n", raw_kunci.strip())
+    parsed: Dict[int, str] = {}
+    auto_idx = 1
+    for line in lines:
+        line = line.strip()
+        if not line:
+            continue
+        m = re.match(r"^(\d+)[\.\:\-\s\)]+\s*([A-Za-z0-9]+)", line)
+        if m:
+            num = int(m.group(1))
+            ans = m.group(2).strip().upper()
+            parsed[num] = ans
+            auto_idx = max(auto_idx, num + 1)
+        elif re.match(r"^[A-Za-z0-9]+$", line):
+            parsed[auto_idx] = line.upper()
+            auto_idx += 1
+        else:
+            parsed[auto_idx] = line
+            auto_idx += 1
+    return parsed
+
+
+def _jalur_muk(schema_id: str) -> Path:
+    aman = re.sub(r"[^a-zA-Z0-9_-]", "", schema_id or "")
+    if not aman:
+        raise ValueError("ID skema tidak sah.")
+    MUK_DIR.mkdir(parents=True, exist_ok=True)
+    return MUK_DIR / f"{aman}.json"
+
+
+def default_konfigurasi_muk(nama_skema: str, daftar_unit: List[Dict[str, Any]], nomor_skema: str = "") -> Dict[str, Any]:
+    """Menyusun konfigurasi default MUK & Kelompok Pekerjaan untuk suatu skema."""
+    semua_kode = [u["kode_unit"] for u in daftar_unit if u.get("kode_unit")]
+
+    langkah_default = []
+    for idx, u in enumerate(daftar_unit, start=1):
+        langkah_default.append(
+            f"{idx}. Melaksanakan aktivitas: {u.get('judul_unit', '')} sesuai prosedur operasional standar."
+        )
+    if not langkah_default:
+        langkah_default = [
+            "1. Mempersiapkan seluruh peralatan dan perangkat kerja pendukung sesuai instruksi kerja.",
+            "2. Melaksanakan tahapan pekerjaan sesuai SOP dan standar keselamatan dan kesehatan kerja (K3).",
+            "3. Mendokumentasikan hasil pekerjaan dan melaporkan hasil kerja secara tertulis kepada asesor.",
+        ]
+
+    ia03_default_questions = [
+        {
+            "order": 1,
+            "dimensi": "CMS",
+            "pertanyaan": "Jika pada saat pelaksanaan tugas atau demonstrasi praktik terjadi kendala teknis tak terduga (misalnya peralatan utama mati mendadak, data rusak, atau koneksi terputus), tindakan darurat dan sistematis apa yang pertama kali Anda lakukan?",
+            "kunci_jawaban": "Asesi mampu menjelaskan prosedur darurat penanganan insiden, isolasi masalah, dan pelaporan kepada supervisor sesuai SOP keselamatan kerja.",
+        },
+        {
+            "order": 2,
+            "dimensi": "TRS",
+            "pertanyaan": "Jika lingkungan kerja atau perangkat/aplikasi yang Anda gunakan bermigrasi ke sistem atau versi baru yang belum pernah Anda operasikan sebelumnya, bagaimana strategi Anda untuk beradaptasi cepat agar hasil kerja tetap memenuhi standar?",
+            "kunci_jawaban": "Asesi mampu menerapkan prinsip transfer skills, mempelajari dokumentasi/manual sistem baru, serta melakukan pengujian fungsional secara mandiri.",
+        },
+        {
+            "order": 3,
+            "dimensi": "JRES",
+            "pertanyaan": "Sebutkan prosedur dasar Keselamatan dan Kesehatan Kerja (K3) serta standar komunikasi etis yang wajib Anda patuhi selama melaksanakan seluruh tahapan demonstrasi pekerjaan!",
+            "kunci_jawaban": "Asesi mematuhi regulasi K3 lingkungan kerja, penggunaan APD/ergonomi yang tepat, dan komunikasi profesional terhadap rekan kerja maupun asesor.",
+        },
+        {
+            "order": 4,
+            "dimensi": "TS",
+            "pertanyaan": "Jelaskan langkah-langkah kritis dalam memverifikasi ketepatan dan kualitas hasil kerja sebelum diserahkan kepada pihak manajemen atau pengguna akhir!",
+            "kunci_jawaban": "Asesi melakukan cek silang (quality control) terhadap spesifikasi output, memastikan kesesuaian format laporan, dan menandatangani bukti serah terima.",
+        },
+    ]
+
+    ia04b_default_questions = [
+        {
+            "order": 1,
+            "lingkup": f"Kesesuaian lingkup penyajian proyek skema {nama_skema}",
+            "pertanyaan": "Jelaskan tahapan perencanaan dan persiapan yang Anda lakukan dalam menyelesaikan proyek singkat ini!",
+            "elemen_kuk": semua_kode[0] if semua_kode else "Unit 1",
+            "dimensi": "(TS, TMS)",
+        },
+        {
+            "order": 2,
+            "lingkup": "Kesesuaian mutu hasil kerja terhadap standar industri / SOP",
+            "pertanyaan": "Bagaimana Anda memastikan hasil keluaran proyek telah memenuhi spesifikasi teknis dan standar kualitas yang ditetapkan?",
+            "elemen_kuk": semua_kode[1] if len(semua_kode) > 1 else (semua_kode[0] if semua_kode else "Unit 1"),
+            "dimensi": "(TS, JRES)",
+        },
+        {
+            "order": 3,
+            "lingkup": "Penanganan kendala teknis dan manajemen waktu pengerjaan",
+            "pertanyaan": "Jika terjadi perubahan kebutuhan mendadak atau kendala peralatan saat pengerjaan proyek, langkah antisipasi apa yang Anda terapkan?",
+            "elemen_kuk": semua_kode[-1] if semua_kode else "Unit 1",
+            "dimensi": "(CMS, TRS)",
+        },
+    ]
+
+    return {
+        "personel": {
+            "nomor_skema": nomor_skema,
+            "nama_asesor": "",
+            "no_met": "",
+            "nama_tuk": "TUK Sewaktu",
+            "jenis_tuk": "sewaktu",
+            "metode_mapa": "observasi",
+            "kategori_asesi": 1,
+            "nama_penyusun": "Masriah",
+            "met_penyusun": "MET.000.032423 2019",
+            "nama_validator": "Eko Prasyanto",
+            "met_validator": "MET.000.014249 2019",
+            "nama_manajer_sertifikasi": "Iqbal",
+            "tanggal_pelaksanaan": "",
+            "tanggal_penyusunan": "",
+        },
+        "kelompok_pekerjaan": [
+            {
+                "id": "kp_1",
+                "nama": f"Kelompok Pekerjaan 1 ({nama_skema})",
+                "urutan": 1,
+                "units": semua_kode,
+            }
+        ] if semua_kode else [],
+        "ia02": {
+            "skenario": (
+                f"Anda seorang asesi sedang mengajukan sertifikasi skema {nama_skema}. "
+                "Anda diharapkan mampu mendemonstrasikan seluruh tugas praktik sesuai dengan kelompok pekerjaan "
+                "di atas secara profesional, terstruktur, dan memenuhi standar keselamatan kerja yang berlaku di tempat kerja."
+            ),
+            "langkah_kerja": "\n".join(langkah_default),
+            "hasil_kerja": (
+                "Hasil pekerjaan berupa demonstrasi fisik/praktik langsung, bukti karya/dokumen pendukung, "
+                "dan lembar verifikasi hasil pekerjaan yang diserahkan kepada asesor."
+            ),
+            "perlengkapan": (
+                "Alat Keselamatan & Kesehatan Kerja (K3)\n"
+                "Perangkat media penyimpanan / flashdisk / cloud\n"
+                "Bahan penunjang demonstrasi / dokumen kerja\n"
+                "Formulir checklist laporan pekerjaan"
+            ),
+            "peralatan": (
+                "Komputer / laptop / gawai penunjang\n"
+                "Perangkat kerja spesifik bidang profesi\n"
+                "Aksesori / peripheral pendukung teknis\n"
+                "Alat Tulis Kantor (ATK)"
+            ),
+            "durasi_waktu": "120 Menit",
+        },
+        "ia03": {
+            "panduan": "",
+            "questions": ia03_default_questions,
+        },
+        "ia04": {
+            "judul_kegiatan": f"Proyek Terstruktur Skema {nama_skema}",
+            "situasi": (
+                f"Anda ditugaskan sebagai tenaga profesional pada bidang {nama_skema} untuk menyelesaikan "
+                "suatu proyek kerja sesuai brief/permintaan klien dan standar operasional prosedur (SOP) industri."
+            ),
+            "tugas": (
+                f"Menyusun perencanaan, menyiapkan perangkat/dokumen kerja, mengeksekusi tahapan kerja {nama_skema}, "
+                "serta mempresentasikan hasil akhir proyek di hadapan asesor."
+            ),
+            "tindakan": "\n".join(langkah_default),
+            "data_informasi": "Dokumen brief proyek, SOP tempat kerja, standar K3, dan perangkat kerja pendukung.",
+            "hasil": f"Dokumen perencanaan, produk/karya hasil kerja {nama_skema}, dan materi presentasi hasil proyek.",
+            "hal_demonstrasi": (
+                "1. Penjelasan alur perencanaan dan konsep kerja.\n"
+                "2. Demonstrasi hasil proyek singkat / produk kerja yang telah diselesaikan.\n"
+                "3. Tanya jawab terkait pemenuhan kriteria unjuk kerja dan pemecahan masalah (problem solving)."
+            ),
+            "waktu_proyek": "240 menit",
+            "waktu_presentasi": "30 menit",
+            "questions": ia04b_default_questions,
+        },
+        "ia05": {
+            "jumlah_soal": 10,
+            "pertanyaan": "",
+            "kunci": "",
+        },
+    }
+
+
+def muat_konfigurasi_muk(
+    schema_id: str,
+    nama_skema: str = "Skema Sertifikasi",
+    daftar_unit: Optional[List[Dict[str, Any]]] = None,
+    nomor_skema: str = "",
+) -> Dict[str, Any]:
+    """Memuat konfigurasi MUK per skema dari disk, digabung dengan nilai default."""
+    unit_list = daftar_unit or []
+    default_cfg = default_konfigurasi_muk(nama_skema, unit_list, nomor_skema=nomor_skema)
+    try:
+        jalur = _jalur_muk(schema_id)
+    except ValueError:
+        return default_cfg
+
+    if not jalur.exists():
+        return default_cfg
+
+    try:
+        saved = json.loads(jalur.read_text(encoding="utf-8"))
+    except Exception:
+        return default_cfg
+
+    if not isinstance(saved, dict):
+        return default_cfg
+
+    # Gabungkan sub-dictionary dengan aman
+    for key in ["personel", "ia02", "ia03", "ia04", "ia05"]:
+        if isinstance(saved.get(key), dict):
+            default_cfg[key].update({k: v for k, v in saved[key].items() if v is not None})
+
+    if isinstance(saved.get("kelompok_pekerjaan"), list) and len(saved["kelompok_pekerjaan"]) > 0:
+        default_cfg["kelompok_pekerjaan"] = saved["kelompok_pekerjaan"]
+
+    return default_cfg
+
+
+def simpan_konfigurasi_muk(schema_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+    """Menyimpan konfigurasi MUK & Kelompok Pekerjaan untuk suatu skema ke disk."""
+    doc = schema_library.ambil_skema(schema_id)
+    nama_skema = (doc or {}).get("nama_skema") or "Skema Sertifikasi"
+    nomor_skema = (doc or {}).get("nomor_dokumen") or ""
+    units_raw = (doc or {}).get("units") or []
+    daftar_unit = [
+        {"kode_unit": u.get("kode_unit", ""), "judul_unit": u.get("judul_skema", "")}
+        for u in units_raw
+    ]
+
+    cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema)
+
+    if isinstance(payload.get("personel"), dict):
+        for k, v in payload["personel"].items():
+            cfg["personel"][k] = str(v).strip() if not isinstance(v, int) else v
+        try:
+            kat = int(cfg["personel"].get("kategori_asesi", 1))
+            cfg["personel"]["kategori_asesi"] = kat if 1 <= kat <= 5 else 1
+        except (ValueError, TypeError):
+            cfg["personel"]["kategori_asesi"] = 1
+
+    if isinstance(payload.get("kelompok_pekerjaan"), list):
+        clean_kp = []
+        for idx, grp in enumerate(payload["kelompok_pekerjaan"], start=1):
+            if not isinstance(grp, dict):
+                continue
+            nama_grp = str(grp.get("nama") or "").strip()
+            if not nama_grp:
+                continue
+            units_grp = []
+            for uc in (grp.get("units") or []):
+                uc_str = str(uc).strip()
+                if uc_str and uc_str not in units_grp:
+                    units_grp.append(uc_str)
+            clean_kp.append({
+                "id": str(grp.get("id") or f"kp_{idx}"),
+                "nama": nama_grp,
+                "urutan": int(grp.get("urutan") or idx),
+                "units": units_grp,
+            })
+        clean_kp.sort(key=lambda x: x["urutan"])
+        cfg["kelompok_pekerjaan"] = clean_kp
+
+    if isinstance(payload.get("ia02"), dict):
+        for k in ["skenario", "langkah_kerja", "hasil_kerja", "perlengkapan", "peralatan", "durasi_waktu"]:
+            if k in payload["ia02"]:
+                cfg["ia02"][k] = str(payload["ia02"][k] or "").strip()
+
+    if isinstance(payload.get("ia03"), dict):
+        if "panduan" in payload["ia03"]:
+            cfg["ia03"]["panduan"] = str(payload["ia03"]["panduan"] or "").strip()
+        if isinstance(payload["ia03"].get("questions"), list):
+            clean_q3 = []
+            for idx, q in enumerate(payload["ia03"]["questions"], start=1):
+                if not isinstance(q, dict):
+                    continue
+                pert = str(q.get("pertanyaan") or "").strip()
+                if not pert:
+                    continue
+                clean_q3.append({
+                    "order": idx,
+                    "dimensi": str(q.get("dimensi") or "TS").strip().upper(),
+                    "pertanyaan": pert,
+                    "kunci_jawaban": str(q.get("kunci_jawaban") or "").strip(),
+                })
+            cfg["ia03"]["questions"] = clean_q3
+
+    if isinstance(payload.get("ia04"), dict):
+        for k in [
+            "judul_kegiatan", "situasi", "tugas", "tindakan",
+            "data_informasi", "hasil", "hal_demonstrasi",
+            "waktu_proyek", "waktu_presentasi",
+        ]:
+            if k in payload["ia04"]:
+                cfg["ia04"][k] = str(payload["ia04"][k] or "").strip()
+        if isinstance(payload["ia04"].get("questions"), list):
+            clean_q4 = []
+            for idx, q in enumerate(payload["ia04"]["questions"], start=1):
+                if not isinstance(q, dict):
+                    continue
+                pert = str(q.get("pertanyaan") or "").strip()
+                lingkup = str(q.get("lingkup") or "").strip()
+                if not pert and not lingkup:
+                    continue
+                clean_q4.append({
+                    "order": idx,
+                    "lingkup": lingkup or "-",
+                    "pertanyaan": pert,
+                    "elemen_kuk": str(q.get("elemen_kuk") or "").strip(),
+                    "dimensi": str(q.get("dimensi") or "").strip(),
+                })
+            cfg["ia04"]["questions"] = clean_q4
+
+    if isinstance(payload.get("ia05"), dict):
+        if "pertanyaan" in payload["ia05"]:
+            cfg["ia05"]["pertanyaan"] = str(payload["ia05"]["pertanyaan"] or "").strip()
+        if "kunci" in payload["ia05"]:
+            cfg["ia05"]["kunci"] = str(payload["ia05"]["kunci"] or "").strip()
+        if "jumlah_soal" in payload["ia05"]:
+            try:
+                jml = max(1, int(payload["ia05"]["jumlah_soal"]))
+            except (ValueError, TypeError):
+                jml = 10
+            cfg["ia05"]["jumlah_soal"] = jml
+
+    cfg["diperbarui_pada"] = datetime.now().isoformat(timespec="seconds")
+    jalur = _jalur_muk(schema_id)
+    jalur.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
+    return cfg
+
+
+def susun_kelompok_pekerjaan_cetak(
+    daftar_unit: List[Dict[str, Any]],
+    kelompok_pekerjaan_raw: List[Dict[str, Any]],
+    nama_skema: str = "Skema Sertifikasi",
+) -> Dict[str, Any]:
+    """
+    Menyusun struktur kelompok pekerjaan siap cetak (untuk FR.IA.01, IA.02, IA.03, dan Peta Kelompok)
+    beserta informasi validasi cakupan terhadap seluruh unit skema.
+    """
+    peta_unit = {u["kode_unit"]: u for u in daftar_unit if u.get("kode_unit")}
+    total_master = len(peta_unit)
+
+    assigned_codes: List[str] = []
+    groups_cetak: List[Dict[str, Any]] = []
+    global_no = 1
+
+    for idx, grp in enumerate(kelompok_pekerjaan_raw or [], start=1):
+        group_units = []
+        for u_code in (grp.get("units") or []):
+            if u_code in peta_unit:
+                u_detail = peta_unit[u_code]
+                assigned_codes.append(u_code)
+                group_units.append({
+                    "no": global_no,
+                    "kode_unit": u_code,
+                    "judul_unit": u_detail["judul_unit"],
+                    "standar_acuan": u_detail.get("standar_acuan", ""),
+                    "elemen": u_detail.get("elemen", []),
+                })
+                global_no += 1
+        if group_units:
+            groups_cetak.append({
+                "id": grp.get("id") or f"kp_{idx}",
+                "nama": grp.get("nama") or f"Kelompok Pekerjaan {idx}",
+                "urutan": grp.get("urutan") or idx,
+                "rowspan": len(group_units),
+                "units": group_units,
+            })
+
+    unique_assigned = list(dict.fromkeys(assigned_codes))
+    unassigned_units = [
+        {"kode_unit": k, "judul_unit": u["judul_unit"]}
+        for k, u in peta_unit.items()
+        if k not in unique_assigned
+    ]
+
+    # Jika sama sekali belum ada kelompok yang valid, buat 1 kelompok default berisi seluruh unit
+    if not groups_cetak and daftar_unit:
+        default_units = []
+        for idx_u, u in enumerate(daftar_unit, start=1):
+            default_units.append({
+                "no": idx_u,
+                "kode_unit": u["kode_unit"],
+                "judul_unit": u["judul_unit"],
+                "standar_acuan": u.get("standar_acuan", ""),
+                "elemen": u.get("elemen", []),
+            })
+        groups_cetak.append({
+            "id": "kp_1",
+            "nama": f"Kelompok Pekerjaan 1 ({nama_skema})",
+            "urutan": 1,
+            "rowspan": len(default_units),
+            "units": default_units,
+        })
+        unique_assigned = [u["kode_unit"] for u in daftar_unit]
+        unassigned_units = []
+
+    total_grouped_unique = len(unique_assigned)
+    total_unassigned = len(unassigned_units)
+    coverage_percent = round((total_grouped_unique / total_master) * 100, 1) if total_master > 0 else 100.0
+    is_complete = (total_master > 0 and total_unassigned == 0)
+
+    return {
+        "groups": groups_cetak,
+        "total_master": total_master,
+        "total_grouped_unique": total_grouped_unique,
+        "total_unassigned": total_unassigned,
+        "coverage_percent": coverage_percent,
+        "is_complete": is_complete,
+        "unassigned_units": unassigned_units,
+    }
+
+
+def tentukan_dokumen_aktif(doc_mode: str, metode_mapa: str = "observasi") -> List[str]:
+    """Menentukan daftar kode dokumen yang dirender berdasarkan doc_mode."""
+    mode = (doc_mode or "all").strip().lower()
+    if mode == "all":
+        return [
+            "apl01", "apl02", "mapa01", "peta_kelompok", "mapa02",
+            "ak07", "ak04", "ak01",
+            "ia01", "ia02", "ia03", "ia04a", "ia04b",
+            "ia05a", "ia05b", "ia05c",
+            "ak02", "ak03", "ak05", "ak06",
+        ]
+    elif mode == "paket_observasi":
+        return [
+            "apl01", "apl02", "mapa01", "peta_kelompok", "mapa02",
+            "ak07", "ak04", "ak01",
+            "ia01", "ia02", "ia03",
+            "ia05a", "ia05b", "ia05c",
+            "ak02", "ak03", "ak05", "ak06",
+        ]
+    elif mode == "paket_dit":
+        return [
+            "apl01", "apl02", "mapa01", "peta_kelompok", "mapa02",
+            "ak07", "ak04", "ak01",
+            "ia04a", "ia04b",
+            "ia05a", "ia05b", "ia05c",
+            "ak02", "ak03", "ak05", "ak06",
+        ]
+    elif mode == "paket_portofolio":
+        return [
+            "apl01", "apl02", "mapa01", "peta_kelompok", "mapa02",
+            "ak07", "ak04", "ak01",
+            "ia05a", "ia05b", "ia05c",
+            "ak02", "ak03", "ak05", "ak06",
+        ]
+    valid_single = {d["kode"] for d in DAFTAR_DOKUMEN_BUKU_KERJA}
+    if mode in valid_single:
+        return [mode]
+    return ["apl01", "apl02"]
 
 
 def susun_data_buku_kerja(
     schema_id: str,
     no_skema: str = "",
     nama_asesor: str = "",
-    no_met: str = ""
+    no_met: str = "",
+    metode_mapa: str = "",
+    kategori_asesi: int = 0,
+    nama_tuk: str = "",
+    jenis_tuk: str = "",
+    nama_penyusun: str = "",
+    met_penyusun: str = "",
+    nama_validator: str = "",
+    met_validator: str = "",
+    nama_manajer: str = "",
+    tanggal_pelaksanaan: str = "",
 ) -> Optional[Dict[str, Any]]:
     """
-    Menyusun data lengkap skema dan seluruh unit kompetensi (Elemen + KUK)
-    untuk dicetak sebagai dokumen template APL 01 dan APL 02.
+    Menyusun data lengkap skema, unit kompetensi (Elemen + KUK), kelompok pekerjaan,
+    dan seluruh instrumen MUK untuk dicetak pada Buku Kerja Asesor V.2023 (18 Dokumen).
     """
     doc = schema_library.ambil_skema(schema_id)
     if not doc:
         return None
 
-    nama_skema = (doc.get("judul_skema") or doc.get("nama_skema") or doc.get("nama_berkas") or doc.get("nama_asli") or "Skema Sertifikasi").strip()
+    nama_skema = (
+        doc.get("judul_skema")
+        or doc.get("nama_skema")
+        or doc.get("nama_berkas")
+        or doc.get("nama_asli")
+        or "Skema Sertifikasi"
+    ).strip()
     jenis_skema = (doc.get("jenis_skema") or "Okupasi").strip()
-    
-    # Ambil nomor skema dari argumen atau metadata
-    nomor_skema = no_skema.strip() or doc.get("kode_skema") or doc.get("nomor_skema") or ""
 
     units_raw = doc.get("unit_kompetensi") or doc.get("units") or []
     daftar_unit: List[Dict[str, Any]] = []
@@ -58,7 +607,6 @@ def susun_data_buku_kerja(
         kode = u.get("kode_unit") or ""
         judul = u.get("judul_unit") or u.get("judul_skema") or ""
 
-        # Ambil detail ekstraksi (termasuk koreksi manual bila ada)
         data_ekstraksi = ambil_json_unit(kode)
         if data_ekstraksi:
             judul = data_ekstraksi.get("judul_unit") or judul
@@ -72,19 +620,27 @@ def susun_data_buku_kerja(
         for e_idx, el in enumerate(raw_elemen):
             e_no = el.get("nomor_elemen") or (e_idx + 1)
             e_nama = (el.get("nama_elemen") or "").strip()
-            
+
             kuks = []
-            for k in el.get("kuk") or []:
-                k_no = str(k.get("nomor_kuk") or "").strip()
+            kuk_items = []
+            for k_idx, k in enumerate(el.get("kuk") or [], start=1):
+                k_no = str(k.get("nomor_kuk") or f"{e_no}.{k_idx}").strip()
                 k_ur = str(k.get("uraian_kuk") or "").strip()
                 teks_kuk = f"{k_no} {k_ur}".strip()
                 if teks_kuk:
                     kuks.append(teks_kuk)
+                    kuk_items.append({
+                        "nomor": k_no,
+                        "uraian": k_ur,
+                        "teks": teks_kuk,
+                    })
 
             elemen_list.append({
                 "nomor": e_no,
                 "nama": e_nama,
-                "kuk": kuks
+                "pertanyaan_apl02": format_elemen_apl02(e_nama),
+                "kuk": kuks,
+                "kuk_items": kuk_items,
             })
 
         standar_acuan = deteksi_standar_skkni(kode)
@@ -102,27 +658,163 @@ def susun_data_buku_kerja(
             "alasan_status": info_st.get("alasan", ""),
         })
 
+    # Muat konfigurasi MUK tersimpan untuk skema ini
+    nomor_skema_awal = doc.get("kode_skema") or doc.get("nomor_skema") or doc.get("nomor_dokumen") or ""
+    muk_cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema=nomor_skema_awal)
+    personel = muk_cfg.get("personel") or {}
+
+    nomor_skema_final = no_skema.strip() or personel.get("nomor_skema") or nomor_skema_awal
+    nama_asesor_final = nama_asesor.strip() or personel.get("nama_asesor") or ""
+    no_met_final = no_met.strip() or personel.get("no_met") or ""
+    metode_mapa_final = (metode_mapa.strip() or personel.get("metode_mapa") or "observasi").lower()
+    if metode_mapa_final not in ("observasi", "dit", "portofolio"):
+        metode_mapa_final = "observasi"
+
+    kat_asesi_final = kategori_asesi if 1 <= kategori_asesi <= 5 else int(personel.get("kategori_asesi") or 1)
+    nama_tuk_final = nama_tuk.strip() or personel.get("nama_tuk") or "TUK Sewaktu"
+    jenis_tuk_final = (jenis_tuk.strip() or personel.get("jenis_tuk") or "sewaktu").lower()
+
+    penyusun_nama = nama_penyusun.strip() or personel.get("nama_penyusun") or "Masriah"
+    penyusun_met = met_penyusun.strip() or personel.get("met_penyusun") or "MET.000.032423 2019"
+    validator_nama = nama_validator.strip() or personel.get("nama_validator") or "Eko Prasyanto"
+    validator_met = met_validator.strip() or personel.get("met_validator") or "MET.000.014249 2019"
+    manajer_nama = nama_manajer.strip() or personel.get("nama_manajer_sertifikasi") or "Iqbal"
+    tgl_pelaksanaan = tanggal_pelaksanaan.strip() or personel.get("tanggal_pelaksanaan") or ""
+    tgl_penyusunan = personel.get("tanggal_penyusunan") or tgl_pelaksanaan or ""
+
+    # Susun Kelompok Pekerjaan
+    info_kelompok = susun_kelompok_pekerjaan_cetak(
+        daftar_unit,
+        muk_cfg.get("kelompok_pekerjaan") or [],
+        nama_skema=nama_skema,
+    )
+
+    # Siapkan detail IA.02
+    ia02_cfg = muk_cfg.get("ia02") or {}
+    langkah_lines = [
+        re.sub(r"^[0-9]+[\.\)]\s*", "", ln.strip())
+        for ln in re.split(r"\r\n|\r|\n", ia02_cfg.get("langkah_kerja") or "")
+        if ln.strip()
+    ]
+    perlengkapan_lines = [
+        re.sub(r"^[-*•]\s*", "", ln.strip())
+        for ln in re.split(r"\r\n|\r|\n", ia02_cfg.get("perlengkapan") or "")
+        if ln.strip()
+    ]
+    peralatan_lines = [
+        re.sub(r"^[-*•]\s*", "", ln.strip())
+        for ln in re.split(r"\r\n|\r|\n", ia02_cfg.get("peralatan") or "")
+        if ln.strip()
+    ]
+    ia02_prepared = {
+        **ia02_cfg,
+        "langkah_lines": langkah_lines,
+        "perlengkapan_lines": perlengkapan_lines,
+        "peralatan_lines": peralatan_lines,
+    }
+
+    # Siapkan detail IA.03
+    ia03_cfg = muk_cfg.get("ia03") or {}
+    ia03_questions = []
+    for idx_q, q in enumerate(ia03_cfg.get("questions") or [], start=1):
+        dim_code = (q.get("dimensi") or "TS").upper()
+        ia03_questions.append({
+            "no": idx_q,
+            "dimensi": dim_code,
+            "dimensi_label": DIMENSI_KOMPETENSI_LABELS.get(dim_code, dim_code),
+            "pertanyaan": q.get("pertanyaan") or "",
+            "kunci_jawaban": q.get("kunci_jawaban") or "",
+        })
+    ia03_prepared = {
+        "panduan": ia03_cfg.get("panduan") or "",
+        "questions": ia03_questions,
+    }
+
+    # Siapkan detail IA.04A & IA.04B
+    ia04_cfg = muk_cfg.get("ia04") or {}
+    ia04_prepared = {
+        **ia04_cfg,
+        "questions": ia04_cfg.get("questions") or [],
+    }
+
+    # Siapkan detail IA.05A, 05B, 05C
+    ia05_cfg = muk_cfg.get("ia05") or {}
+    jumlah_soal = max(1, int(ia05_cfg.get("jumlah_soal") or 10))
+    parsed_kunci = parse_kunci_jawaban_ia05(ia05_cfg.get("kunci") or "", jumlah_soal)
+    total_soal_kunci = max(jumlah_soal, len(parsed_kunci))
+    half_soal = (total_soal_kunci + 1) // 2
+    baris_dua_kolom = []
+    for r in range(1, half_soal + 1):
+        right_no = r + half_soal
+        baris_dua_kolom.append({
+            "left_no": r,
+            "left_ans": parsed_kunci.get(r, ""),
+            "right_no": right_no if right_no <= total_soal_kunci else None,
+            "right_ans": parsed_kunci.get(right_no, "") if right_no <= total_soal_kunci else "",
+        })
+    ia05_prepared = {
+        "jumlah_soal": total_soal_kunci,
+        "pertanyaan": ia05_cfg.get("pertanyaan") or "",
+        "kunci_raw": ia05_cfg.get("kunci") or "",
+        "parsed_kunci": parsed_kunci,
+        "baris_dua_kolom": baris_dua_kolom,
+    }
+
     # Bukti persyaratan default untuk APL 01
     persyaratan_dasar = [
         "Fotokopi Ijazah Pendidikan Terakhir",
         "Surat Keterangan Pengalaman Kerja / Magang yang Relevan",
-        "Portofolio / Bukti Hasil Pekerjaan yang Relevan"
+        "Portofolio / Bukti Hasil Pekerjaan yang Relevan",
     ]
     persyaratan_admin = [
         "Fotokopi Kartu Tanda Penduduk (KTP / Identitas Diri)",
-        "Pas Foto Formal 3x4 (Background Merah/Biru)"
+        "Pas Foto Formal 3x4 (Background Merah/Biru)",
+    ]
+
+    # Pertanyaan standar umpan balik FR.AK.03
+    pertanyaan_ak03 = [
+        "Saya mendapatkan penjelasan yang cukup memadai mengenai proses asesmen/uji kompetensi",
+        "Saya diberikan kesempatan untuk mempelajari standar kompetensi yang akan diujikan dan menilai diri sendiri terhadap pencapaiannya",
+        "Asesor memberikan kesempatan untuk mendiskusikan/menegosiasikan metoda, instrumen dan sumber asesmen serta jadwal asesmen",
+        "Asesor berusaha menggali seluruh bukti pendukung yang sesuai dengan latar belakang pelatihan dan pengalaman yang saya miliki",
+        "Saya sepenuhnya diberikan kesempatan untuk mendemonstrasikan kompetensi yang saya miliki selama asesmen",
+        "Saya mendapatkan penjelasan yang memadai mengenai keputusan asesmen",
+        "Asesor memberikan umpan balik yang mendukung setelah asesmen serta tindak lanjutnya",
+        "Asesor bersama saya mempelajari semua dokumen asesmen serta menandatanganinya",
+        "Saya mendapatkan jaminan kerahasiaan hasil asesmen serta penjelasan penanganan dokumen asesmen",
+        "Asesor menggunakan keterampilan komunikasi yang efektif selama asesmen",
     ]
 
     return {
         "schema_id": schema_id,
         "nama_skema": nama_skema,
         "jenis_skema": jenis_skema,
-        "nomor_skema": nomor_skema,
-        "nama_asesor": nama_asesor.strip(),
-        "no_met": no_met.strip(),
+        "nomor_skema": nomor_skema_final,
+        "nama_asesor": nama_asesor_final,
+        "no_met": no_met_final,
+        "nama_tuk": nama_tuk_final,
+        "jenis_tuk": jenis_tuk_final,
+        "metode_mapa": metode_mapa_final,
+        "kategori_asesi": kat_asesi_final,
+        "nama_penyusun": penyusun_nama,
+        "met_penyusun": penyusun_met,
+        "nama_validator": validator_nama,
+        "met_validator": validator_met,
+        "nama_manajer": manajer_nama,
+        "tanggal_pelaksanaan": tgl_pelaksanaan,
+        "tanggal_penyusunan": tgl_penyusunan,
         "jumlah_unit": len(daftar_unit),
         "daftar_unit": daftar_unit,
+        "kelompok_pekerjaan": info_kelompok,
+        "ia02": ia02_prepared,
+        "ia03": ia03_prepared,
+        "ia04": ia04_prepared,
+        "ia05": ia05_prepared,
+        "muk_raw": muk_cfg,
         "persyaratan_dasar": persyaratan_dasar,
         "persyaratan_admin": persyaratan_admin,
+        "pertanyaan_ak03": pertanyaan_ak03,
+        "daftar_dokumen": DAFTAR_DOKUMEN_BUKU_KERJA,
+        "dimensi_labels": DIMENSI_KOMPETENSI_LABELS,
         "gerbang": gerbang,
     }

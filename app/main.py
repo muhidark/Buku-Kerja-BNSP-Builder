@@ -21,7 +21,12 @@ from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app import jobs, koreksi, library, schema_library, status_units, web_data
-from app.buku_kerja import susun_data_buku_kerja
+from app.buku_kerja import (
+    DAFTAR_DOKUMEN_BUKU_KERJA,
+    simpan_konfigurasi_muk,
+    susun_data_buku_kerja,
+    tentukan_dokumen_aktif,
+)
 from app.lsp_exporter import ambil_json_unit, skema_ke_lsp_data, unit_ke_lsp_dict, unit_ke_smart_paste_text
 from app.section_parser import flatten_nodes
 from app.services import document_service
@@ -415,13 +420,17 @@ def cetak_apl_skema(
     doc: str = 'all',
     no_skema: str = '',
     nama_asesor: str = '',
-    no_met: str = ''
+    no_met: str = '',
+    metode_mapa: str = '',
+    kategori_asesi: int = 0,
 ):
     data = susun_data_buku_kerja(
         schema_id=schema_id,
         no_skema=no_skema,
         nama_asesor=nama_asesor,
-        no_met=no_met
+        no_met=no_met,
+        metode_mapa=metode_mapa,
+        kategori_asesi=kategori_asesi,
     )
     if not data:
         html = _render(request, 'tidak_ditemukan.html', judul='Skema tidak ditemukan',
@@ -441,20 +450,80 @@ def cetak_apl_skema(
         html.status_code = 409
         return html
 
-    doc_mode = doc.lower() if doc.lower() in ['all', 'apl01', 'apl02'] else 'all'
-    judul_map = {
-        'all': f"FR.APL.01 & FR.APL.02 - {data['nama_skema']}",
-        'apl01': f"FR.APL.01 Permohonan - {data['nama_skema']}",
-        'apl02': f"FR.APL.02 Asesmen Mandiri - {data['nama_skema']}",
-    }
-    judul_halaman = judul_map.get(doc_mode, "Cetak Dokumen APL")
+    valid_modes = {d['kode'] for d in DAFTAR_DOKUMEN_BUKU_KERJA}
+    doc_mode = doc.lower().strip() if doc.lower().strip() in valid_modes else 'all'
+    dokumen_aktif = tentukan_dokumen_aktif(doc_mode, data.get('metode_mapa', 'observasi'))
+
+    label_map = {d['kode']: d['label'] for d in DAFTAR_DOKUMEN_BUKU_KERJA}
+    judul_halaman = f"{label_map.get(doc_mode, 'Buku Kerja Asesor')} - {data['nama_skema']}"
 
     return _render(
         request, 'cetak_apl.html',
         judul=judul_halaman,
         judul_halaman=judul_halaman,
         data=data,
-        doc_mode=doc_mode
+        doc_mode=doc_mode,
+        dokumen_aktif=dokumen_aktif,
+    )
+
+
+@app.get('/skema/{schema_id}/muk', response_class=HTMLResponse)
+def halaman_muk_skema(
+    request: Request,
+    schema_id: str,
+    pesan: str = '',
+    tipe: str = '',
+):
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        html = _render(request, 'tidak_ditemukan.html', judul='Skema tidak ditemukan',
+                       pesan='Dokumen skema tidak ditemukan.')
+        html.status_code = 404
+        return html
+
+    data = susun_data_buku_kerja(schema_id=schema_id)
+    token = security.token_dari_cookie(request)
+    resp = _render(
+        request, 'skema_muk.html',
+        judul=f"Pengaturan MUK - {dok.get('nama_skema', '')}",
+        dok=dok,
+        data=data,
+        pesan=pesan,
+        tipe=tipe,
+        csrf_token=token,
+    )
+    security.set_cookie_token(resp, token)
+    return resp
+
+
+@app.post('/skema/{schema_id}/muk')
+async def simpan_muk_skema(request: Request, schema_id: str):
+    form = await request.form()
+    csrf_token = str(form.get('csrf_token') or '')
+    security.periksa_token(request, csrf_token)
+
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        return _ke_skema('Skema tidak ditemukan.', 'galat')
+
+    muk_json_raw = form.get('muk_json')
+    if not muk_json_raw:
+        return RedirectResponse(
+            url=f'/skema/{schema_id}/muk?tipe=galat&pesan=' + quote('Data konfigurasi MUK kosong.'),
+            status_code=303,
+        )
+    try:
+        payload = json.loads(str(muk_json_raw))
+        simpan_konfigurasi_muk(schema_id, payload)
+    except Exception as e:
+        return RedirectResponse(
+            url=f'/skema/{schema_id}/muk?tipe=galat&pesan=' + quote(f'Gagal menyimpan MUK: {e}'),
+            status_code=303,
+        )
+
+    return RedirectResponse(
+        url=f'/skema/{schema_id}/muk?tipe=sukses&pesan=' + quote('Seluruh pengaturan MUK & Kelompok Pekerjaan berhasil disimpan.'),
+        status_code=303,
     )
 
 

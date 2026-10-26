@@ -222,32 +222,69 @@
     <!-- TAB 3: Cetak Buku Kerja -->
     <div id="tab-buku-kerja" class="tab-panel" style="display: none;">
       <div class="card-head" style="margin-bottom: 8px;">
-        <h3 style="margin: 0; font-size: 16px;">🖨️ Cetak Buku Kerja Asesor V.2023 (FR.APL.01 & FR.APL.02)</h3>
-        <span class="badge badge-green">Template BNSP Siap Cetak</span>
+        <h3 style="margin: 0; font-size: 16px;">🖨️ Cetak Buku Kerja Asesor V.2023 (18 Dokumen BNSP &amp; Paket MUK)</h3>
+        <div class="aksi-group">
+          <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/muk">⚙️ Pengaturan MUK &amp; Kelompok Pekerjaan</a>
+          <span class="badge badge-green">Template BNSP Siap Cetak</span>
+        </div>
       </div>
-      <p class="muted small" style="margin-bottom: 16px;">
-        Cetak dokumen fisik standar BNSP: <strong>FR.APL.01</strong> (Permohonan Sertifikasi) dan <strong>FR.APL.02</strong> (Asesmen Mandiri lengkap per Unit, Elemen, dan KUK). Murni template tanpa isian data asesi, siap print (Ctrl+P) atau simpan ke PDF.
+      <p class="muted small" style="margin-bottom: 14px;">
+        Cetak paket lengkap maupun satuan formulir Buku Kerja Asesor V.2023 sesuai urutan Daftar Periksa Upgrading-RCC:
+        <strong>FR.APL.01, FR.APL.02, FR.MAPA.01 (Observasi/DIT/Portofolio), Peta Kelompok Pekerjaan, FR.MAPA.02, FR.AK.01–07, FR.IA.01–05C</strong>.
       </p>
       {% if gerbang and gerbang.ada_gagal %}
       <div class="alert alert-galat" style="margin-bottom: 14px;">
         Cetak Buku Kerja ditahan karena masih ada unit berstatus <strong>Gagal</strong> (0 elemen/KUK). Silakan lakukan <strong>Koreksi</strong> pada unit terkait terlebih dahulu.
       </div>
       {% endif %}
-      <div class="aksi-group" style="gap: 10px; flex-wrap: wrap;">
-        <button
-          type="button"
-          class="btn btn-small"
-          style="background:#16a34a; border-color:#16a34a; color:#fff;"
-          {% if gerbang and gerbang.ada_gagal %}disabled title="Ada unit Gagal"{% else %}onclick="bukaModalCetakApl('all')"{% endif %}
-        >
-          🖨️ Cetak Semua Dokumen (Paket Lengkap)
-        </button>
-        <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl01')"{% endif %}>
-          📄 Cetak FR.APL.01
-        </button>
-        <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl02')"{% endif %}>
-          📝 Cetak FR.APL.02
-        </button>
+
+      <div style="margin-bottom: 12px;">
+        <div style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; text-transform: uppercase;">Paket Buku Kerja Siap Cetak:</div>
+        <div class="aksi-group" style="gap: 8px; flex-wrap: wrap;">
+          <button
+            type="button"
+            class="btn btn-small"
+            style="background:#16a34a; border-color:#16a34a; color:#fff;"
+            {% if gerbang and gerbang.ada_gagal %}disabled title="Ada unit Gagal"{% else %}onclick="bukaModalCetakApl('all')"{% endif %}
+          >
+            🖨️ Cetak Semua Dokumen (Paket Lengkap)
+          </button>
+          <button type="button" class="btn btn-small" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('paket_observasi')"{% endif %}>
+            📦 Paket Metode Observasi (CLO+TPD+PMO)
+          </button>
+          <button type="button" class="btn btn-small" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('paket_dit')"{% endif %}>
+            📦 Paket Metode Proyek Singkat (DIT)
+          </button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('paket_portofolio')"{% endif %}>
+            📦 Paket Metode Portofolio (CVP)
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">Cetak Dokumen Satuan:</div>
+        <div class="aksi-group" style="gap: 6px; flex-wrap: wrap;">
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl01')"{% endif %}>1. FR.APL.01</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl02')"{% endif %}>2. FR.APL.02</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('mapa01')"{% endif %}>4. FR.MAPA.01</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('peta_kelompok')"{% endif %}>5c. Peta Kelompok</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('mapa02')"{% endif %}>6. FR.MAPA.02</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak07')"{% endif %}>7. FR.AK.07</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak04')"{% endif %}>8. FR.AK.04</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak01')"{% endif %}>9. FR.AK.01</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia01')"{% endif %}>10. FR.IA.01</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia02')"{% endif %}>11. FR.IA.02</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia03')"{% endif %}>12. FR.IA.03</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia04a')"{% endif %}>13a. FR.IA.04A</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia04b')"{% endif %}>13b. FR.IA.04B</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05a')"{% endif %}>14a. FR.IA.05A</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05b')"{% endif %}>14b. FR.IA.05B</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05c')"{% endif %}>14c. FR.IA.05C</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak02')"{% endif %}>21. FR.AK.02</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak03')"{% endif %}>22. FR.AK.03</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak05')"{% endif %}>23. FR.AK.05</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak06')"{% endif %}>24. FR.AK.06</button>
+        </div>
       </div>
     </div>
 
@@ -451,13 +488,36 @@
         <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Nama Asesor</label>
         <input type="text" id="cetak-nama-asesor" class="input" style="width:100%; box-sizing:border-box; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;" placeholder="Contoh: Muhadi, S.Kom., M.T.">
       </div>
-      <div style="margin-bottom:20px;">
+      <div style="margin-bottom:12px;">
         <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">No. Registrasi MET Asesor</label>
         <input type="text" id="cetak-no-met" class="input" style="width:100%; box-sizing:border-box; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;" placeholder="Contoh: MET.000.001234.2023">
       </div>
-      <div style="display:flex; justify-content:flex-end; gap:8px;">
-        <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 14px;">Batal</button>
-        <button type="submit" class="btn" style="background:#16a34a; border-color:#16a34a; color:#fff; padding:6px 16px;">Buka Halaman Cetak &rarr;</button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
+        <div>
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Metode MAPA.01 &amp; 02</label>
+          <select id="cetak-metode-mapa" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
+            <option value="observasi">Observasi (CLO+TPD+PMO)</option>
+            <option value="dit">Proyek Singkat (DIT)</option>
+            <option value="portofolio">Portofolio (CVP)</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Potensi Asesi (1–5)</label>
+          <select id="cetak-kategori-asesi" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
+            <option value="1">Kategori 1 (Pelatihan Telusur)</option>
+            <option value="2">Kategori 2 (Pelatihan Non-SKKNI)</option>
+            <option value="3">Kategori 3 (Pekerja Telusur)</option>
+            <option value="4">Kategori 4 (Pekerja Non-SKKNI)</option>
+            <option value="5">Kategori 5 (Otodidak)</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+        <a href="/skema/{{ dok.id }}/muk" style="font-size:12px; color:#0284c7; font-weight:600; text-decoration:underline;">⚙️ Atur Soal &amp; Kelompok MUK</a>
+        <div style="display:flex; gap:8px;">
+          <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 14px;">Batal</button>
+          <button type="submit" class="btn" style="background:#16a34a; border-color:#16a34a; color:#fff; padding:6px 16px;">Buka Halaman Cetak &rarr;</button>
+        </div>
       </div>
     </form>
   </div>
@@ -516,10 +576,20 @@ function bukaModalCetakApl(docType) {
   var savedAsesor = localStorage.getItem('lsp_asesor_nama') || '';
   var savedMet = localStorage.getItem('lsp_asesor_met') || '';
   var savedNoSkema = localStorage.getItem('lsp_no_skema_{{ dok.id }}') || '{{ dok.nomor_dokumen or "" }}';
+  var savedMetode = localStorage.getItem('lsp_metode_mapa_{{ dok.id }}') || '';
 
   if (savedAsesor) document.getElementById('cetak-nama-asesor').value = savedAsesor;
   if (savedMet) document.getElementById('cetak-no-met').value = savedMet;
   if (savedNoSkema) document.getElementById('cetak-no-skema').value = savedNoSkema;
+  if (docType === 'paket_dit') {
+    document.getElementById('cetak-metode-mapa').value = 'dit';
+  } else if (docType === 'paket_portofolio') {
+    document.getElementById('cetak-metode-mapa').value = 'portofolio';
+  } else if (docType === 'paket_observasi') {
+    document.getElementById('cetak-metode-mapa').value = 'observasi';
+  } else if (savedMetode) {
+    document.getElementById('cetak-metode-mapa').value = savedMetode;
+  }
 
   var modal = document.getElementById('modal-cetak-apl');
   modal.style.display = 'flex';
@@ -545,17 +615,22 @@ function prosesCetakApl(e) {
   var noSkema = document.getElementById('cetak-no-skema').value.trim();
   var namaAsesor = document.getElementById('cetak-nama-asesor').value.trim();
   var noMet = document.getElementById('cetak-no-met').value.trim();
+  var metodeMapa = document.getElementById('cetak-metode-mapa').value;
+  var katAsesi = document.getElementById('cetak-kategori-asesi').value;
 
   if (namaAsesor) localStorage.setItem('lsp_asesor_nama', namaAsesor);
   if (noMet) localStorage.setItem('lsp_asesor_met', noMet);
   if (noSkema) localStorage.setItem('lsp_no_skema_{{ dok.id }}', noSkema);
+  if (metodeMapa) localStorage.setItem('lsp_metode_mapa_{{ dok.id }}', metodeMapa);
 
   tutupModalCetakApl();
 
   var url = '/skema/{{ dok.id }}/cetak-apl?doc=' + encodeURIComponent(docType)
     + '&no_skema=' + encodeURIComponent(noSkema)
     + '&nama_asesor=' + encodeURIComponent(namaAsesor)
-    + '&no_met=' + encodeURIComponent(noMet);
+    + '&no_met=' + encodeURIComponent(noMet)
+    + '&metode_mapa=' + encodeURIComponent(metodeMapa)
+    + '&kategori_asesi=' + encodeURIComponent(katAsesi);
 
   window.open(url, '_blank');
 }

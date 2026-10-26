@@ -1,0 +1,75 @@
+<!-- ========================================== -->
+<!-- 8. FR.AK.04 : BANDING ASESMEN              -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-ak04">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        FR.AK.04.&nbsp;&nbsp;&nbsp;&nbsp;BANDING ASESMEN
+    </div>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 12px;">
+        <tr>
+            <td width="25%"><strong>Nama Asesi:</strong></td>
+            <td colspan="2"><span class="dots-line"></span></td>
+        </tr>
+        <tr>
+            <td><strong>Nama Asesor:</strong></td>
+            <td colspan="2"><strong>{{ data.nama_asesor or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Tanggal Asesmen:</strong></td>
+            <td colspan="2">{{ data.tanggal_pelaksanaan or '..................................................' }}</td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 12px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th width="76%" style="text-align: left;">Jawablah dengan Ya atau Tidak pertanyaan-pertanyaan berikut ini :</th>
+                <th width="12%">YA</th>
+                <th width="12%">TIDAK</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Apakah Proses Banding telah dijelaskan kepada Anda?</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+            </tr>
+            <tr>
+                <td>Apakah Anda telah mendiskusikan Banding dengan Asesor?</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+            </tr>
+            <tr>
+                <td>Apakah Anda mau melibatkan “orang lain” membantu Anda dalam Proses Banding?</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered">
+        <tr>
+            <td style="padding: 10px 12px; line-height: 1.8;">
+                Banding ini diajukan atas Keputusan Asesmen yang dibuat terhadap Skema Sertifikasi ({{ data.jenis_skema }}) berikut :<br><br>
+                <strong>Skema Sertifikasi :</strong> <strong>{{ data.nama_skema }}</strong><br>
+                <strong>No. Skema Sertifikasi :</strong> <strong>{{ data.nomor_skema or '..................................................' }}</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 12px; height: 140px; vertical-align: top;">
+                <strong>Banding ini diajukan atas alasan sebagai berikut :</strong>
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 8px 12px; font-size: 11px; font-style: italic; background: #f8fafc;">
+                Anda mempunyai hak mengajukan banding jika Anda menilai Proses Asesmen tidak sesuai SOP dan tidak memenuhi Prinsip Asesmen.
+            </td>
+        </tr>
+        <tr>
+            <td style="padding: 20px 12px 15px 12px; height: 70px; vertical-align: bottom;">
+                Tanda tangan Asesi : ........................................................................ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tanggal : ........................................
+            </td>
+        </tr>
+    </table>
+</div>

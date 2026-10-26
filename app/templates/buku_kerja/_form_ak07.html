@@ -1,0 +1,191 @@
+<!-- ========================================== -->
+<!-- 7. FR.AK.07 : CEKLIS PENYESUAIAN YANG WAJAR DAN BERALASAN -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-ak07">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        FR.AK.07.&nbsp;&nbsp;&nbsp;&nbsp;CEKLIS PENYESUAIAN YANG WAJAR DAN BERALASAN
+    </div>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 8px;">
+        <tr>
+            <td width="28%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})</strong></td>
+            <td width="12%">Judul</td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td>Nomor</td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>TUK</strong></td>
+            <td style="text-align: center;">:</td>
+            <td>
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'sewaktu' else '' }}</span> Sewaktu &nbsp;&nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'tempat_kerja' else '' }}</span> Tempat Kerja &nbsp;&nbsp;&nbsp;
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'mandiri' else '' }}</span> Mandiri*
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_asesor or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesi</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><span class="dots-line"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Tanggal</strong></td>
+            <td style="text-align: center;">:</td>
+            <td>{{ data.tanggal_pelaksanaan or '..................................................' }}</td>
+        </tr>
+    </table>
+
+    <!-- Panduan Bagi Asesor -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 8px;">
+        <tr style="background: #f1f5f9;">
+            <td><strong>PANDUAN BAGI ASESOR</strong></td>
+        </tr>
+        <tr>
+            <td style="font-size: 10px; line-height: 1.45;">
+                • Formulir ini dapat digunakan jika ada asesi yang mempunyai keterbatasan sesuai karakteristik yang dimilikinya sehingga diperlukan penyesuaian yang wajar dan beralasan.<br>
+                • Berilah tanda ✓ pada kotak '☐' pada kolom potensi asesi.<br>
+                • Berilah tanda ✓ Ya atau Tidak pada tanda ** sesuai pilihan; jika jawaban Ya selanjutnya pada kolom keterangan berilah tanda ✓ di kotak '☐' yang tersedia.
+            </td>
+        </tr>
+    </table>
+
+    <!-- Potensi Asesi -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 8px; font-size: 10px;">
+        <tr>
+            <td width="20%" style="background: #f8fafc; font-weight: bold; vertical-align: middle;">Potensi Asesi</td>
+            <td style="line-height: 1.65;">
+                <div><span class="box-check">{{ '✓' if data.kategori_asesi == 1 else '' }}</span> Hasil pelatihan dan / atau pendidikan, dimana Kurikulum dan fasilitas praktek mampu telusur terhadap standar kompetensi</div>
+                <div><span class="box-check">{{ '✓' if data.kategori_asesi == 2 else '' }}</span> Hasil pelatihan dan / atau pendidikan, dimana kurikulum belum berbasis kompetensi.</div>
+                <div><span class="box-check">{{ '✓' if data.kategori_asesi == 3 else '' }}</span> Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya mampu telusur dengan standar kompetensi</div>
+                <div><span class="box-check">{{ '✓' if data.kategori_asesi == 4 else '' }}</span> Pekerja berpengalaman, dimana berasal dari industri/tempat kerja yang dalam operasionalnya belum berbasis kompetensi.</div>
+                <div><span class="box-check">{{ '✓' if data.kategori_asesi == 5 else '' }}</span> Pelatihan / belajar mandiri atau otodidak.</div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Tabel 8 Poin Identifikasi Karakteristik & Penyesuaian -->
+    <table class="lsp-doc-table lsp-table-bordered" style="font-size: 9.5px; margin-bottom: 8px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th rowspan="2" width="5%">No</th>
+                <th rowspan="2" width="38%" style="text-align: left;">Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi (karakteristik asesi):</th>
+                <th colspan="2" width="14%">Diperlukan penyesuaian**</th>
+                <th rowspan="2" width="43%" style="text-align: left;">Keterangan</th>
+            </tr>
+            <tr style="background: #f8fafc;">
+                <th width="7%">Ya</th>
+                <th width="7%">Tidak</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="text-align: center;">1</td>
+                <td>Keterbatasan asesi terhadap persyaratan bahasa, literasi, numerasi.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Dukungan pembaca, penerjemah, pelayan, penulis</div>
+                    <div><span class="box-check"></span> Asesmen verbal dilengkapi gambar/diagram</div>
+                    <div><span class="box-check"></span> Menggunakan Ceklis observasi / Daftar instruksi terstruktur</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">2</td>
+                <td>Penyediaan dukungan pembaca, penerjemah, pelayan, penulis.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Menggunakan pertanyaan lisan / wawancara dilengkapi visual</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">3</td>
+                <td>Penggunaan teknologi adaptif atau peralatan khusus.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Ceklis observasi / Pertanyaan lisan / Tertulis / Wawancara</div>
+                    <div><span class="box-check"></span> Menggunakan dukungan operator komputer</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">4</td>
+                <td>Pelaksanaan asesmen secara fleksibel karena alasan keletihan atau keperluan pengobatan.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Menggunakan juru tulis / kameramen perekam</div>
+                    <div><span class="box-check"></span> Memperbolehkan periode waktu yang lebih panjang / pendek</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">5</td>
+                <td>Penyediaan peralatan asesmen berupa braille, audio/video-tape.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Menggunakan pertanyaan lisan / pertanyaan wawancara</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">6</td>
+                <td>Penyesuaian tempat fisik/lingkungan asesmen.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Pertanyaan lisan / tulis / wawancara / verifikasi portofolio</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">7</td>
+                <td>Pertimbangan umur/usia lanjut/gender asesi.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Menggunakan studi kasus / huruf normal / instrumen yang sama</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">8</td>
+                <td>Pertimbangan budaya/tradisi/agama.</td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td style="text-align: center;"><span class="box-check"></span></td>
+                <td>
+                    <div><span class="box-check"></span> Menggunakan studi kasus / instrumen yang sama</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Kesepakatan Hasil Penyesuaian & Tanda Tangan -->
+    <table class="lsp-doc-table lsp-table-bordered avoid-break" style="font-size: 10px; margin-bottom: 8px;">
+        <tr>
+            <td style="line-height: 1.7;">
+                <strong>Hasil Penyesuaian yang wajar dan beralasan disepakati menggunakan:</strong><br>
+                1) Acuan Pembanding Asesmen: ........................................................................................................................<br>
+                2) Metode Asesmen: ........................................................................................................................................<br>
+                3) Instrumen Asesmen: ....................................................................................................................................
+            </td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered avoid-break" style="font-size: 10.5px;">
+        <tr style="background: #f8fafc;">
+            <td width="50%"><strong>Nama Asesor:</strong> {{ data.nama_asesor or '........................................' }}<br><span style="font-size: 9.5px;">No. Reg MET: {{ data.no_met or '........................' }}</span></td>
+            <td width="50%" style="height: 48px; vertical-align: bottom;">Tanda Tangan &amp; Tanggal: ........................................</td>
+        </tr>
+        <tr>
+            <td><strong>Nama Asesi:</strong> ........................................................</td>
+            <td style="height: 48px; vertical-align: bottom;">Tanda Tangan &amp; Tanggal: ........................................</td>
+        </tr>
+    </table>
+</div>
