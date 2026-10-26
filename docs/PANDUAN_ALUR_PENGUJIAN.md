@@ -11,13 +11,12 @@ Dokumen ini memuat skenario dan langkah kerja terstruktur untuk menguji seluruh 
 flowchart TD
     Start(["Mulai Pengujian"]) --> Step1["Tahap 1: Pengujian Otentikasi & RBAC<br/>(Login Asesor vs Admin)"]
     Step1 --> Step2["Tahap 2: Katalog SKKNI & Kurasi Regulasi<br/>(Status Berlaku / Dicabut)"]
-    Step2 --> Step3["Tahap 3: Kelola Skema & Kelompok Pekerjaan<br/>(Pemetaan Unit ke Kelompok)"]
-    Step3 --> Step4["Tahap 4: Asisten MUK & Multi-Versi<br/>(Tarik BV/PP ke IA.02, IA.03, IA.06)"]
-    Step4 --> Step5["Tahap 5: Pracetak A4 Buku Kerja<br/>(Verifikasi Portrait vs Landscape)"]
-    Step5 --> Step6["Tahap 6: Ekspor Dokumen Word (.docx) & .ZIP<br/>(01_FR.APL.01 s/d 25_FR.VA)"]
-    Step6 --> Step7["Tahap 7: Uji REST API v1 (Swagger UI)<br/>(Endpoint /api/v1/... dengan API Key)"]
-    Step7 --> Step8["Tahap 8: Otomasi Unit Tests<br/>(python -m unittest discover tests)"]
-    Step8 --> Finish(["Pengujian Selesai (100% Lulus)"])
+    Step2 --> Step3["Tahap 3: Kelola Skema & Multi-Versi MUK<br/>(Kelompok Pekerjaan & Asisten BV/PP)"]
+    Step3 --> Step4["Tahap 4: Pracetak A4 Buku Kerja<br/>(Verifikasi Portrait vs Landscape)"]
+    Step4 --> Step5["Tahap 5: Ekspor Dokumen Word (.docx) & .ZIP<br/>(01_FR.APL.01 s/d 25_FR.VA)"]
+    Step5 --> Step6["Tahap 6: Uji REST API v1 (Swagger UI)<br/>(Endpoint /api/v1/... dengan Tombol Authorize)"]
+    Step6 --> Step7["Tahap 7: Otomasi Pengujian Sistem (Terminal)<br/>(pytest / jalankan_semua.py)"]
+    Step7 --> Finish(["Pengujian Selesai (100% Lulus)"])
 ```
 
 ---
@@ -149,19 +148,19 @@ kuncinya hanya ditampilkan sekali.
 ---
 
 ### Tahap 7: Otomasi Pengujian Sistem (Unit Testing di Terminal)
-Jalankan perintah berikut di terminal proyek:
+Jalankan pengujian terpadu langsung dari terminal proyek menggunakan `pytest` atau script runner terpadu:
 
 ```bash
 cd /home/muhadi/Projects/skkni-extractor
-.venv/bin/python -m unittest discover tests
+# Menggunakan pytest:
+.venv/bin/pytest
+
+# Atau menggunakan runner pengujian terpadu (mode isolasi subprocess):
+.venv/bin/python tests/jalankan_semua.py
 ```
 
 **Kriteria Keberhasilan**:
-- Seluruh 26 unit test (mencakup auth, SQLite, multi-versi MUK, REST API v1, template cetak, dan generator docx) lulus 100%:
-  ```text
-  Ran 26 tests in ~5.6s
-  OK
-  ```
+- Seluruh rangkaian test otomatis (mencakup proteksi otorisasi POST, SQLite WAL, isolasi basis data, multi-versi MUK, REST API v1, template pracetak A4, generator docx, hingga validasi hash) berjalan dan berstatus **LULUS / PASS** tanpa error.
 
 ---
 
@@ -169,7 +168,7 @@ cd /home/muhadi/Projects/skkni-extractor
 
 | No | Modul / Fitur | Status Uji | Catatan / Hasil |
 | :---: | :--- | :---: | :--- |
-| 1 | Login asesor (akun buatan admin) | [ ] Lulus | Hak akses terbatas; unggah SKKNI/skema ditolak | 
+| 1 | Login asesor (akun buatan admin) | [ ] Lulus | Hak akses terbatas; aksi kurasi admin ditolak | 
 | 2 | Login admin | [ ] Lulus | Akses penuh termasuk kurasi regulasi SKKNI |
 | 3 | Perubahan status regulasi SKKNI Kemnaker | [ ] Lulus | Badge Berlaku / Dicabut terupdate |
 | 4 | Pemetaan unit ke Kelompok Pekerjaan | [ ] Lulus | Indikator cakupan unit 100% |
@@ -179,5 +178,8 @@ cd /home/muhadi/Projects/skkni-extractor
 | 8 | Tampilan layar A4 Landscape (297mm) | [ ] Lulus | MAPA.01, Peta Kelompok, MAPA.02, IA.01 |
 | 9 | Cetak Browser (`Ctrl + P`) A4 Otomatis | [ ] Lulus | Halaman tabel tidak terpotong |
 | 10 | Unduh berkas Word (.docx) & .ZIP urut | [ ] Lulus | Berkas 01 s/d 25 tersusun rapi |
-| 11 | REST API v1 & Swagger UI di `/docs` | [ ] Lulus | Autentikasi `X-API-Key` terverifikasi |
-| 12 | Seluruh 26 Unit Tests di Terminal | [ ] Lulus | `OK` tanpa error |
+| 11 | REST API v1 & Swagger UI di `/docs` | [ ] Lulus | Autentikasi `X-API-Key` & tombol Authorize bekerja |
+| 12 | Seluruh Rangkaian Tests di Terminal | [ ] Lulus | `pytest` / `jalankan_semua.py` berjalan serempak |
+| 13 | Proteksi Endpoint POST Tanpa Sesi | [ ] Lulus | Seluruh POST ditolak/303 ke login; asesor ditolak 403 pada admin-only |
+| 14 | Konsistensi Multi-Versi MUK Aktif | [ ] Lulus | Tepat satu versi berstatus [Aktif] pada dropdown & basis data |
+| 15 | Proteksi Integritas Data saat Test | [ ] Lulus | Checksum `data/app.db` tetap utuh sebelum dan sesudah pengujian |

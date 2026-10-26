@@ -8,6 +8,8 @@
 
 ## 0. Ringkasan Status Pelaksanaan (Update Terbaru)
 
+> **Catatan Status Tunggal**: Rujukan resmi seluruh status fitur, commit, dan penutupan temuan audit dicatat di **[docs/STATUS.md](file:///home/muhadi/Projects/skkni-extractor/docs/STATUS.md)**.
+
 | Tahap / Modul | Status | Catatan Implementasi |
 | :--- | :---: | :--- |
 | **Pra-Fase (Fase 4F): Kualitas Data & Gerbang Dokumen** | **SELESAI (100%)** | Hapus KUK palsu, status 3-tingkat (`Siap dipakai`, `Perlu diperiksa`, `Gagal`), Gerbang Dokumen HTTP 409, Editor Koreksi Per-Unit berdampingan PDF + Deteksi Konflik SHA-256 (`docs/CATATAN_PERBAIKAN_FASE_4F.md`). |
@@ -16,7 +18,7 @@
 | **Fase 3B: Instrumen Lanjutan (`IA.06–08` & `FR.VA`)** | **SELESAI (100%)** | `FR.IA.06A/B/C` (Esai), `IA.07` (Lisan), `IA.08` (Ceklis Verifikasi Portofolio), dan `FR.VA` (Form Kosongan Validasi Asesmen). `IA.09` & `IA.10` dilewati sesuai arahan. |
 | **Fase 3C: Asisten Referensi BV/PP & Ekspor `.docx`/`.zip` Buku Kerja** | **SELESAI (100%)** | Ekstraksi & panel referensi otomatis Batasan Variabel (Peralatan/Perlengkapan) & Panduan Penilaian (Aspek Kritis/Pengetahuan/Sikap Kerja) di `/skema/{schema_id}/muk` dengan tombol tarik 1-klik ke `IA.02`, `IA.03`, `IA.06`, `IA.07` + Generator unduh `.docx` & bundel `.zip` bernomor urut (`app/buku_kerja_docx.py`). |
 | **Fase 1: Multi-User (Login/RBAC SQLite) & Katalog SKKNI Terpusat** | **SELESAI (100%)** | Basis data SQLite `data/app.db` (`app/db.py`), otentikasi & manajemen sesi PBKDF2/SHA-256 (`admin` vs `asesor`), status regulasi Kemnaker (`Berlaku`/`Dicabut` + Kepmenaker pengganti), dan multi-versi paket MUK per skema. |
-| **Fase 4: REST API Eksternal (`/api/v1/...`) dengan API Key** | **BELUM** | Endpoint sinkronisasi otomatis ke plugin WordPress / LMS eksternal menggunakan `X-API-Key`. |
+| **Fase 4: REST API Eksternal (`/api/v1/...`) dengan API Key** | **SELESAI (100%)** | Endpoint sinkronisasi otomatis ke plugin WordPress / LMS eksternal menggunakan `X-API-Key` ter-hash SHA-256 dan OpenAPI/Swagger UI lengkap dengan tombol Authorize. |
 
 ---
 

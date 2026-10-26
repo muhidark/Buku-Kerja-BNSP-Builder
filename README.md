@@ -2,24 +2,18 @@
 
 Aplikasi untuk mengekstrak unit kompetensi dari dokumen PDF SKKNI (Standar Kompetensi Kerja Nasional Indonesia) menjadi JSON terstruktur.
 
-## Status pengembangan
+## Status Pengembangan
 
-| Fase | Isi | Status |
-|---|---|---|
-| 1 | Identifikasi unit kompetensi (kode, judul, halaman) | selesai |
-| 2A | Identitas unit, Elemen Kompetensi, KUK | selesai |
-| 2B | Kolom dinamis, Batasan Variabel, Panduan Penilaian, metadata | selesai |
-| 2C | Metadata penomoran (level, parent, kelompok, restart) | selesai |
-| 3A | Generator DOCX satu unit (tabel + Word Multilevel Numbering) | selesai |
-| 3B | Uji lintas 4 SKKNI (PDF → JSON → DOCX) + laporan | selesai |
-| 3C | Generator multi-unit + spasi numbering | selesai |
-| 3D | Skema sertifikasi → 10 unit → satu DOCX | selesai |
-| 4A | Backend FastAPI + antarmuka web dasar | selesai |
-| 4B | Perpustakaan PDF SKKNI + validator kelengkapan KUK | selesai |
-| 4C | Perpustakaan skema sertifikasi + pencocokan unit | selesai |
-| 4D | Ekstraksi dari browser (job manager + preview) | selesai |
-| 4E | Generator DOCX + unduhan dari browser | selesai |
-| 4F | Database / editor koreksi | belum |
+Status lengkap, matriks fase, commit rujukan, dan riwayat temuan audit tercatat resmi di **[docs/STATUS.md](file:///home/muhadi/Projects/skkni-extractor/docs/STATUS.md)**. Indeks dokumentasi lengkap dapat dilihat di **[docs/README.md](file:///home/muhadi/Projects/skkni-extractor/docs/README.md)**.
+
+| Fase | Isi Fitur Utama | Status |
+| :--- | :--- | :---: |
+| 1 s/d 2C | Identifikasi unit, parser elemen/KUK, Batasan Variabel & Panduan Penilaian | Selesai |
+| 3A s/d 3D | Generator DOCX multi-unit & integrasi skema sertifikasi | Selesai |
+| 4A s/d 4E | Backend FastAPI, perpustakaan PDF & skema, job background, unduh DOCX | Selesai |
+| 4F | Database SQLite, editor koreksi manual unit, deteksi konflik, gerbang dokumen | Selesai |
+| Buku Kerja | 25 Formulir BNSP V.2023, pracetak A4 (Portrait/Landscape), ekspor ZIP/DOCX | Selesai |
+| Audit Fixes | Pengerasan RBAC/keamanan, fix multi-versi MUK, penyempurnaan UI/UX, refaktor router, runner test pytest & CI | Selesai |
 
 ## Teknologi
 
