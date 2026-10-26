@@ -28,9 +28,17 @@ DB_PATH = DB_DIR / "app.db"
 
 @contextmanager
 def _ambil_koneksi() -> Generator[sqlite3.Connection, None, None]:
+    """Membuka koneksi SQLite dengan pengaturan aman untuk akses bersamaan.
+
+    WAL + busy_timeout mencegah galat "database is locked" ketika job ekstraksi
+    (2 worker) menulis sementara halaman web membaca basis data. timeout=5 juga
+    membuat sqlite3 menunggu kunci alih-alih langsung menyerah.
+    """
     DB_DIR.mkdir(parents=True, exist_ok=True)
-    conn = sqlite3.connect(str(DB_PATH))
+    conn = sqlite3.connect(str(DB_PATH), timeout=5.0)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode = WAL")
+    conn.execute("PRAGMA busy_timeout = 5000")
     conn.execute("PRAGMA foreign_keys = ON")
     try:
         yield conn
