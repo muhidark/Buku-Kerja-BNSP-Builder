@@ -27,6 +27,7 @@ from app import koreksi, schema_library as sl, status_units
 from app.buku_kerja import susun_data_buku_kerja
 from app.lsp_exporter import ambil_json_unit, unit_ke_lsp_dict, unit_ke_smart_paste_text
 from app.main import app
+from tests.dukungan import klien
 from app.services import document_service as ds
 
 DOC_UJI = project_root / 'output' / 'web_documents' / '_uji_koreksi'
@@ -68,7 +69,7 @@ def main() -> int:
     ds.DOC_DIR = DOC_UJI
     ds.META_DIR = META_UJI
 
-    client = TestClient(app)
+    client = klien(app, 'admin')
 
     try:
         koreksi.hapus_koreksi(kode)

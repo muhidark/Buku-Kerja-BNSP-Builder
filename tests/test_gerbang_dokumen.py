@@ -21,6 +21,7 @@ sys.path.insert(0, str(project_root))
 from fastapi.testclient import TestClient
 from app import koreksi, library, schema_library as sl, status_units
 from app.main import app
+from tests.dukungan import klien
 from app.services import document_service as ds
 
 DOC_UJI = project_root / 'output' / 'web_documents' / '_uji_gerbang'
@@ -58,7 +59,7 @@ def main() -> int:
     ds.DOC_DIR = DOC_UJI
     ds.META_DIR = META_UJI
 
-    client = TestClient(app)
+    client = klien(app, 'admin')
     token = ambil_csrf(client)
 
     skema_asli = sl.ambil_skema(sid)

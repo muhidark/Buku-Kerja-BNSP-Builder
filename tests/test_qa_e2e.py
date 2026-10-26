@@ -21,6 +21,7 @@ sys.path.insert(0, str(project_root))
 from fastapi.testclient import TestClient
 from app import jobs, library, schema_library as sl
 from app.main import app
+from tests.dukungan import klien
 from app.services import document_service as ds
 
 UJI = project_root / 'data' / 'qa_e2e'
@@ -91,7 +92,7 @@ def main():
     sha_skema = hashlib.sha256(SKEMA_DOCX.read_bytes()).hexdigest()
 
     siapkan()
-    c = TestClient(app)
+    c = klien(app, 'admin')
     tok = token(c)
 
     # ------------------------------------------------------- 1 upload SKKNI
@@ -228,7 +229,7 @@ def main():
 
     # --------------------------------------------------------- 7 "restart"
     print("\n7. RESTART APLIKASI")
-    c2 = TestClient(app)
+    c2 = klien(app, 'admin')
     cek('/hasil 200 setelah restart', c2.get('/hasil').status_code == 200)
     cek('dokumen masih tercatat', ds.ambil_dokumen(meta['id']) is not None)
     cek('unduhan masih berfungsi',

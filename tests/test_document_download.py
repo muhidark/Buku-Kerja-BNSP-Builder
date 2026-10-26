@@ -16,6 +16,7 @@ sys.path.insert(0, str(project_root))
 from fastapi.testclient import TestClient
 from app import schema_library as sl
 from app.main import app
+from tests.dukungan import klien
 from app.services import document_service as ds
 
 DOC_UJI = project_root / 'output' / 'web_documents' / '_uji_dl'
@@ -63,7 +64,7 @@ def main():
     meta = ds.buat_dokumen(sid, [kode[0], kode[2]], setujui_draft=True)
     did = meta['id']
 
-    client = TestClient(app)
+    client = klien(app, 'admin')
     token = re.search(r'name="csrf_token" value="([^"]+)"', client.get('/skema').text).group(1)
 
     # -------------------------------------------------------------- 1 riwayat
@@ -152,7 +153,7 @@ def main():
     # --------------------------------------------------- 6 persistensi
     print("\n6. PERSISTENSI RIWAYAT")
     cek('metadata ada di disk', (META_UJI / f'{did}.json').exists())
-    client2 = TestClient(app)
+    client2 = klien(app, 'admin')
     r = client2.get('/hasil')
     cek('riwayat terbaca pada klien baru', r.status_code == 200 and meta['nama_skema'] in r.text)
     cek('dua dokumen tercatat', len(ds.daftar_dokumen()) == 2, str(len(ds.daftar_dokumen())))

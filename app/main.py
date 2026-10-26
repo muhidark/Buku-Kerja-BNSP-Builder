@@ -10,9 +10,10 @@ import json
 import math
 import re
 from pathlib import Path
+from typing import Any, Dict
 from urllib.parse import quote
 
-from fastapi import FastAPI, File, Form, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -21,6 +22,7 @@ from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app import db, jobs, koreksi, library, schema_library, status_units, web_data
+from app.api import auth_guard
 from app.buku_kerja import (
     DAFTAR_DOKUMEN_BUKU_KERJA,
     simpan_konfigurasi_muk,
@@ -66,6 +68,7 @@ app = FastAPI(
 )
 
 jobs.pulihkan_job_macet()
+auth_guard.pasang_penanganan_galat(app)
 
 app.mount('/static', StaticFiles(directory=str(STATIC_DIR)), name='static')
 templates = Jinja2Templates(directory=str(TEMPLATE_DIR))
@@ -123,9 +126,10 @@ def _ke_skema(pesan: str = '', tipe: str = '', doc_id: str = '') -> RedirectResp
 
 
 @app.get('/login', response_class=HTMLResponse)
-def halaman_login(request: Request, pesan: str = '', tipe: str = ''):
+def halaman_login(request: Request, pesan: str = '', tipe: str = '', next: str = ''):
     token = security.token_dari_cookie(request)
-    resp = _render(request, 'login.html', judul='Masuk Akun', pesan=pesan, tipe=tipe, csrf_token=token)
+    resp = _render(request, 'login.html', judul='Masuk Akun', pesan=pesan, tipe=tipe,
+                   csrf_token=token, tujuan=auth_guard.tujuan_aman(next))
     security.set_cookie_token(resp, token)
     return resp
 
@@ -138,16 +142,23 @@ async def proses_login(request: Request):
 
     username = str(form.get('username') or '').strip()
     password = str(form.get('password') or '').strip()
+    tujuan = auth_guard.tujuan_aman(str(form.get('next') or request.query_params.get('next') or ''))
 
     pengguna = db.autentikasi(username, password)
     if not pengguna:
         return RedirectResponse(
-            url='/login?tipe=galat&pesan=' + quote('Nama pengguna atau kata sandi salah.'),
+            url='/login?tipe=galat&pesan=' + quote('Nama pengguna atau kata sandi salah.')
+            + (f'&next={quote(tujuan, safe="/")}' if tujuan != '/' else ''),
             status_code=303,
         )
 
     token_sesi = db.buat_sesi(pengguna['id'])
-    resp = RedirectResponse(url='/?tipe=sukses&pesan=' + quote(f'Selamat datang, {pengguna["nama_lengkap"]}!'), status_code=303)
+    sudah_kembali = tujuan != '/'
+    pesan = (f'Selamat datang, {pengguna["nama_lengkap"]}!'
+             if not sudah_kembali
+             else f'Selamat datang, {pengguna["nama_lengkap"]}. Silakan lanjutkan tindakan Anda.')
+    tujuan_akhir = f'{tujuan}{"&" if "?" in tujuan else "?"}tipe=sukses&pesan={quote(pesan)}' if sudah_kembali else f'/?tipe=sukses&pesan={quote(pesan)}'
+    resp = RedirectResponse(url=tujuan_akhir, status_code=303)
     resp.set_cookie('skkni_session', token_sesi, httponly=True, samesite='lax', path='/', max_age=60 * 60 * 24 * 7)
     return resp
 
@@ -214,15 +225,10 @@ def perbarui_regulasi_skkni(request: Request, doc_id: str,
                             status_regulasi: str = Form('berlaku'),
                             kepmen_pengganti: str = Form(''),
                             catatan: str = Form(''),
-                            csrf_token: str = Form('')):
+                            csrf_token: str = Form(''),
+                            pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
+    """Kurasi status regulasi Kemnaker — khusus Admin / Kurator Master (T-01)."""
     security.periksa_token(request, csrf_token)
-    token_sesi = request.cookies.get('skkni_session', '')
-    pengguna = db.ambil_pengguna_dari_sesi(token_sesi)
-    if not pengguna or pengguna.get('peran') != 'admin':
-        return RedirectResponse(
-            url=f'/skkni/{doc_id}?tipe=galat&pesan=' + quote('Hanya Admin / Kurator Master yang berhak mengubah status regulasi SKKNI.'),
-            status_code=303,
-        )
 
     dok = library.ambil_dokumen(doc_id)
     if not dok:
@@ -260,7 +266,9 @@ def perbarui_regulasi_skkni(request: Request, doc_id: str,
 @app.post('/skkni/upload')
 async def unggah_skkni(request: Request,
                        berkas: UploadFile = File(...),
-                       csrf_token: str = Form('')):
+                       csrf_token: str = Form(''),
+                       pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
+    """Unggah PDF SKKNI baru — khusus Admin (T-01)."""
     security.periksa_token(request, csrf_token)
     try:
         if not berkas.filename:
@@ -381,7 +389,8 @@ def buka_pdf_skkni(request: Request, doc_id: str):
 
 @app.post('/skkni/{doc_id}/verifikasi')
 def verifikasi_manual(request: Request, doc_id: str,
-                      kode_unit: str = Form(...), csrf_token: str = Form('')):
+                      kode_unit: str = Form(...), csrf_token: str = Form(''),
+                      pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     security.periksa_token(request, csrf_token)
     doc = library.ambil_dokumen(doc_id)
     if not doc:
@@ -421,7 +430,9 @@ def halaman_skema(request: Request, q: str = '', pesan: str = '', tipe: str = ''
 @app.post('/skema/upload')
 async def unggah_skema(request: Request,
                        berkas: UploadFile = File(...),
-                       csrf_token: str = Form('')):
+                       csrf_token: str = Form(''),
+                       pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
+    """Unggah dokumen skema sertifikasi — khusus Admin (T-01)."""
     security.periksa_token(request, csrf_token)
     try:
         if not berkas.filename:
@@ -501,7 +512,8 @@ def detail_skema(request: Request, schema_id: str, q: str = '', page: int = 1,
 
 
 @app.post('/skema/{schema_id}/periksa-ulang')
-def periksa_ulang_skema(request: Request, schema_id: str, csrf_token: str = Form('')):
+def periksa_ulang_skema(request: Request, schema_id: str, csrf_token: str = Form(''),
+                        pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     security.periksa_token(request, csrf_token)
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
@@ -521,7 +533,8 @@ def periksa_ulang_skema(request: Request, schema_id: str, csrf_token: str = Form
 
 @app.post('/skema/{schema_id}/ekstrak')
 def ekstrak_unit(request: Request, schema_id: str,
-                 kode_unit: str = Form(''), csrf_token: str = Form('')):
+                 kode_unit: str = Form(''), csrf_token: str = Form(''),
+                 pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     security.periksa_token(request, csrf_token)
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
@@ -732,7 +745,8 @@ def halaman_muk_skema(
 
 
 @app.post('/skema/{schema_id}/muk')
-async def simpan_muk_skema(request: Request, schema_id: str):
+async def simpan_muk_skema(request: Request, schema_id: str,
+                           pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     form = await request.form()
     csrf_token = str(form.get('csrf_token') or '')
     security.periksa_token(request, csrf_token)
@@ -741,9 +755,7 @@ async def simpan_muk_skema(request: Request, schema_id: str):
     if not dok:
         return _ke_skema('Skema tidak ditemukan.', 'galat')
 
-    token_sesi = request.cookies.get('skkni_session', '')
-    pengguna = db.ambil_pengguna_dari_sesi(token_sesi)
-    dibuat_oleh = pengguna['id'] if pengguna else None
+    dibuat_oleh = pengguna['id']
 
     kode_versi = str(form.get('kode_versi') or 'v1').strip().lower()
     nama_versi = str(form.get('nama_versi') or 'Paket MUK Utama').strip()
@@ -905,7 +917,9 @@ def halaman_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
 
 
 @app.post('/skema/{schema_id}/unit/{kode_unit}/koreksi')
-async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str):
+async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
+                              pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
+    """Menyimpan koreksi manual teks elemen/KUK — khusus Admin (T-01)."""
     form = await request.form()
     csrf_token = str(form.get('csrf_token') or '')
     security.periksa_token(request, csrf_token)
@@ -1004,7 +1018,8 @@ async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str):
 
 @app.post('/skema/{schema_id}/unit/{kode_unit}/koreksi/kembalikan')
 def kembalikan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
-                            csrf_token: str = Form('')):
+                            csrf_token: str = Form(''),
+                            pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login(auth_guard.PERAN_ADMIN))):
     security.periksa_token(request, csrf_token)
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
@@ -1039,7 +1054,8 @@ def halaman_job(request: Request, job_id: str):
 
 @app.post('/skema/{schema_id}/verifikasi')
 def verifikasi_unit_skema(request: Request, schema_id: str,
-                          kode_unit: str = Form(...), csrf_token: str = Form('')):
+                          kode_unit: str = Form(...), csrf_token: str = Form(''),
+                          pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     security.periksa_token(request, csrf_token)
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
@@ -1088,7 +1104,8 @@ def generate_dari_browser(request: Request,
                           schema_id: str = Form(...),
                           kode_unit: list[str] | None = Form(None),
                           draft: str = Form(''),
-                          csrf_token: str = Form('')):
+                          csrf_token: str = Form(''),
+                          pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
     security.periksa_token(request, csrf_token)
     pilihan = [k for k in (kode_unit or []) if k]
     try:

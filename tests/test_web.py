@@ -18,6 +18,7 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app import web_data
 from app.version import __version__
+from tests.dukungan import klien
 
 client = TestClient(app)
 
@@ -162,8 +163,11 @@ def main():
     cek('tidak ada header CORS longgar',
         'access-control-allow-origin' not in
         {k.lower() for k in client.get('/api/health').headers})
-    cek('unggah tanpa token ditolak', client.post(
+    cek('unggah tanpa token ditolak', klien(app, 'admin').post(
         '/skkni/upload', files={'berkas': ('a.pdf', b'%PDF-1.4')}).status_code == 403)
+    cek('unggah tanpa sesi diarahkan ke login', client.post(
+        '/skkni/upload', files={'berkas': ('a.pdf', b'%PDF-1.4')},
+        follow_redirects=False).status_code == 303)
     cek('tidak ada unggah di halaman lain',
         client.post('/', files={'berkas': ('a.pdf', b'x')}).status_code == 405)
     cek('path traversal statis ditolak',

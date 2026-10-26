@@ -21,6 +21,7 @@ from fastapi.testclient import TestClient
 from app import schema_library as sl
 from app.main import app
 
+from tests.dukungan import klien
 UJI_DIR = project_root / 'data' / 'schema_library' / '_uji'
 SUMBER = project_root / 'data' / 'skema' / '21. Content Creator.docx'
 
@@ -75,7 +76,7 @@ def main():
 
     asli = hashlib.sha256(SUMBER.read_bytes()).hexdigest()
     pasang_direktori_uji()
-    client = TestClient(app)
+    client = klien(app, 'admin')
     token = token_csrf(client)
 
     # -------------------------------------------------------------- 1 valid
@@ -209,7 +210,7 @@ def main():
     cek('metadata memuat kunci wajib', all(k in isi for k in wajib),
         str([k for k in wajib if k not in isi]))
 
-    client2 = TestClient(app)
+    client2 = klien(app, 'admin')
     r = client2.get(f"/skema/{d['id']}")
     cek('dokumen masih terbaca pada klien baru', r.status_code == 200
         and 'CONTENT CREATOR' in r.text)

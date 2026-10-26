@@ -14,6 +14,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from fastapi.testclient import TestClient
 
 from app.main import app
+from tests.dukungan import klien
 from app.buku_kerja import (
     _jalur_muk,
     agregasi_referensi_bv_pp_skema,
@@ -33,7 +34,7 @@ from app import schema_library
 class TestBukuKerja(unittest.TestCase):
 
     def setUp(self):
-        self.client = TestClient(app)
+        self.client = klien(app, 'admin')
 
     def _ambil_skema_siap(self):
         """Ambil skema yang tidak memiliki unit Gagal agar dapat dicetak."""

@@ -18,6 +18,7 @@ from app import schema_library as sl
 from app.schema_parser import baca_skema
 from app.main import app
 
+from tests.dukungan import klien
 UJI_DIR = project_root / 'data' / 'schema_library' / '_uji_matching'
 SUMBER = project_root / 'data' / 'skema' / '21. Content Creator.docx'
 
@@ -65,7 +66,7 @@ def main():
     print("=" * 100)
 
     pasang_direktori_uji()
-    client = TestClient(app)
+    client = klien(app, 'admin')
     token = token_csrf(client)
 
     r = client.post('/skema/upload',

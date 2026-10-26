@@ -19,6 +19,7 @@ from fastapi.testclient import TestClient
 from app import library
 from app.main import app
 
+from tests.dukungan import klien
 UJI_DIR = project_root / 'data' / 'library' / '_uji'
 SUMBER = project_root / 'data' / 'pdf' / 'SKKNI 2018-056.pdf.pdf'
 
@@ -78,7 +79,7 @@ def main():
                 for p in (project_root / 'data' / 'json' / 'schema_content_creator').glob('*.json')}
 
     pasang_direktori_uji()
-    client = TestClient(app)
+    client = klien(app, 'admin')
     token = token_csrf(client)
     print(f"\nDirektori uji: {UJI_DIR.relative_to(project_root)} | token: {len(token)} karakter")
 

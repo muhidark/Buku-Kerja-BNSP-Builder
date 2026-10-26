@@ -231,6 +231,14 @@ def hapus_sesi(token: str) -> None:
         conn.commit()
 
 
+def hapus_semua_sesi_pengguna(pengguna_id: int) -> int:
+    """Menghapus seluruh sesi milik satu pengguna (dipakai test agar tidak menumpuk)."""
+    with _ambil_koneksi() as conn:
+        cur = conn.execute("DELETE FROM sesi WHERE pengguna_id = ?", (pengguna_id,))
+        conn.commit()
+        return cur.rowcount
+
+
 def daftar_pengguna() -> List[Dict[str, Any]]:
     with _ambil_koneksi() as conn:
         rows = conn.execute("SELECT id, username, nama_lengkap, email, peran, no_met, dibuat_pada FROM pengguna ORDER BY id ASC").fetchall()

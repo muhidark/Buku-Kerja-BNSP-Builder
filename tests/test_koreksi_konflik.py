@@ -23,6 +23,7 @@ from fastapi.testclient import TestClient
 from app import koreksi, schema_library as sl, status_units
 from app.main import app
 
+from tests.dukungan import klien
 lulus, gagal = [], []
 
 
@@ -51,7 +52,7 @@ def main() -> int:
     kode = 'J.63OPR00.004.2'
     jalur_mesin = koreksi.cari_berkas_mesin(kode)
     isi_mesin_asli = jalur_mesin.read_text(encoding='utf-8')
-    client = TestClient(app)
+    client = klien(app, 'admin')
 
     try:
         koreksi.hapus_koreksi(kode)
