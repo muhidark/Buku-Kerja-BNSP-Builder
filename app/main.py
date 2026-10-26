@@ -21,7 +21,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app import db, jobs, koreksi, library, schema_library, status_units, web_data
+from app import cadangan, db, jobs, koreksi, library, schema_library, status_units, web_data
 from app.api import auth_guard
 from app.api import keamanan_http
 from app.buku_kerja import (
@@ -73,6 +73,8 @@ app.add_middleware(keamanan_http.HeaderKeamanan)
 
 jobs.pulihkan_job_macet()
 auth_guard.pasang_penanganan_galat(app)
+# Pencadangan harian di latar belakang (T-31): sekali per hari, rotasi 7 arsip.
+cadangan.jalankan_harian()
 
 app.mount('/static', StaticFiles(directory=str(STATIC_DIR)), name='static')
 templates = Jinja2Templates(directory=str(TEMPLATE_DIR))

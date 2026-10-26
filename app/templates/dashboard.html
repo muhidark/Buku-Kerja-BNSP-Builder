@@ -84,6 +84,28 @@
 </section>
 
 <article class="card">
+  <h2>Pencadangan Data</h2>
+  {% if data.cadangan.terakhir %}
+  <p class="muted mb-6">
+    Cadangan terakhir: <strong>{{ data.cadangan.terakhir.waktu[:16]|replace('T', ' ') }}</strong>
+    ({{ data.cadangan.terakhir.ukuran_kb }} KB) ·
+    {{ data.cadangan.jumlah }} arsip tersimpan (maksimal 7).
+    {% if data.cadangan.hari_ini %}
+    <span class="badge badge-green">hari ini sudah dicadangkan</span>
+    {% else %}
+    <span class="badge badge-amber">belum dicadangkan hari ini</span>
+    {% endif %}
+  </p>
+  <details class="detail-teknis">
+    <summary>Detail teknis</summary>
+    <p class="muted small mb-6">Berkas: <code>{{ data.cadangan.terakhir.nama }}</code></p>
+  </details>
+  {% else %}
+  <p class="muted">Belum ada arsip cadangan di folder <code>backups/</code>.</p>
+  {% endif %}
+</article>
+
+<article class="card">
   <h2>Aktivitas</h2>
   {% if data.aktivitas %}
   <table class="table">

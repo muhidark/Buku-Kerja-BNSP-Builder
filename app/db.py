@@ -108,6 +108,64 @@ def verifikasi_kata_sandi(kata_sandi: str, hash_disimpan: str, garam: str) -> bo
     return hmac.compare_digest(hash_disimpan, hash_uji)
 
 
+# ==============================================================================
+# Migrasi struktur bernomor (temuan T-30 / langkah 4.3)
+# ==============================================================================
+#
+# Sebelumnya struktur hanya bergantung pada `CREATE TABLE IF NOT EXISTS`: tabel
+# baru dibuat, tetapi penambahan kolom pada basis data yang sudah ada tidak
+# pernah diterapkan. Sekarang setiap perubahan struktur adalah satu fungsi
+# bernomor, dan `PRAGMA user_version` menyimpan versi yang sudah dijalankan.
+#
+# Menambah perubahan struktur: tambahkan (nomor_baru, fungsi, keterangan) di
+# akhir MIGRASI. Jangan mengubah fungsi yang sudah pernah dirilis.
+
+
+def _migrasi_001(conn: sqlite3.Connection) -> None:
+    """Kolom untuk fitur keamanan: wajib ganti sandi & hash kunci API."""
+    _tambah_kolom(conn, "pengguna", "must_change_password", "INTEGER NOT NULL DEFAULT 0")
+    _tambah_kolom(conn, "kunci_api", "kunci_hash", "TEXT")
+    _tambah_kolom(conn, "kunci_api", "prefix", "TEXT")
+    _tambah_kolom(conn, "kunci_api", "kedaluwarsa", "TEXT")
+
+
+#: (nomor, fungsi, keterangan) — urut naik, tidak boleh diacak.
+MIGRASI: List[Tuple[int, Any, str]] = [
+    (1, _migrasi_001, "kolom must_change_password, kunci_hash, prefix, kedaluwarsa"),
+]
+
+#: Versi struktur yang diharapkan kode ini.
+SKEMA_VERSI = MIGRASI[-1][0]
+
+
+def versi_skema(conn: sqlite3.Connection) -> int:
+    """Versi struktur yang tercatat pada basis data."""
+    return conn.execute("PRAGMA user_version").fetchone()[0]
+
+
+def terapkan_migrasi(conn: sqlite3.Connection) -> int:
+    """Menjalankan migrasi yang belum diterapkan. Mengembalikan jumlahnya.
+
+    Idempoten pada tingkat versi: setelah `user_version` sama dengan
+    SKEMA_VERSI, pemanggilan berikutnya tidak melakukan apa pun.
+    """
+    versi = versi_skema(conn)
+    if versi >= SKEMA_VERSI:
+        return 0
+    dijalankan = 0
+    for nomor, fungsi, keterangan in MIGRASI:
+        if versi >= nomor:
+            continue
+        _log_aman().info("Migrasi basis data %s: %s", nomor, keterangan)
+        fungsi(conn)
+        # PRAGMA tidak menerima parameter; `nomor` berasal dari konstanta di
+        # modul ini, bukan dari input pengguna.
+        conn.execute(f"PRAGMA user_version = {int(nomor)}")
+        conn.commit()
+        dijalankan += 1
+    return dijalankan
+
+
 def inisialisasi_db() -> None:
     """Membuat tabel-tabel SQLite bila belum ada dan akun admin bawaan."""
     with _ambil_koneksi() as conn:
@@ -167,14 +225,8 @@ def inisialisasi_db() -> None:
 
         sekarang = datetime.now(timezone.utc).isoformat()
 
-        # ---------------------------------------------------------- migrasi kolom
-        # Idempoten: aman dijalankan setiap start, tidak mengubah apa pun bila
-        # kolom sudah ada. Kerangka migrasi bernomor (PRAGMA user_version)
-        # menyusul pada langkah 4.3.
-        _tambah_kolom(conn, "pengguna", "must_change_password", "INTEGER NOT NULL DEFAULT 0")
-        _tambah_kolom(conn, "kunci_api", "kunci_hash", "TEXT")
-        _tambah_kolom(conn, "kunci_api", "prefix", "TEXT")
-        _tambah_kolom(conn, "kunci_api", "kedaluwarsa", "TEXT")
+        # -------------------------------------------- migrasi struktur bernomor
+        terapkan_migrasi(conn)
 
         # ------------------------------------------- akun pertama (sandi acak)
         cur = conn.execute("SELECT COUNT(*) AS total FROM pengguna")

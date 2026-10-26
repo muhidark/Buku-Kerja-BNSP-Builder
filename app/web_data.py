@@ -276,11 +276,23 @@ def ringkasan() -> dict:
     }
 
 
+def status_cadangan() -> dict:
+    """Informasi pencadangan harian untuk dashboard (T-31)."""
+    from app import cadangan
+    terakhir = cadangan.terakhir()
+    return {
+        'terakhir': terakhir,
+        'jumlah': len(cadangan.daftar_cadangan()),
+        'hari_ini': cadangan.sudah_hari_ini(),
+    }
+
+
 def dashboard_data() -> dict:
     return {
         'stats': ringkasan(),
         'sistem': status_sistem(),
         'modul': status_modul(),
         'aktivitas': aktivitas(),
+        'cadangan': status_cadangan(),
         'dibuat': datetime.now().isoformat(timespec='seconds'),
     }
