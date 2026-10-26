@@ -17,6 +17,7 @@ import os
 import re
 import shutil
 import uuid
+from app import penyimpanan
 from datetime import datetime
 from pathlib import Path
 
@@ -48,24 +49,13 @@ class GalatUpload(Exception):
 # --------------------------------------------------------------------------
 
 def siapkan_direktori() -> None:
-    for d in (PDF_STORE, META_DIR, TMP_DIR):
-        d.mkdir(parents=True, exist_ok=True)
+    penyimpanan.pastikan_direktori((PDF_STORE, META_DIR, TMP_DIR))
 
 
-def _tulis_json_atomik(path: Path, data: dict) -> None:
-    sementara = path.with_suffix(path.suffix + '.tmp')
-    with open(sementara, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(sementara, path)
+_tulis_json_atomik = penyimpanan.tulis_json_atomik
 
 
-def _baca_json(path: Path) -> dict | None:
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+_baca_json = penyimpanan.baca_json
 
 
 def _sha256_berkas(path: Path) -> str:

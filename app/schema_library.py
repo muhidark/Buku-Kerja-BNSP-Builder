@@ -17,6 +17,7 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
+from app import penyimpanan
 from app import library
 from app import cache_berkas
 from app.schema_parser import baca_skema
@@ -61,13 +62,7 @@ def siapkan_direktori() -> None:
         d.mkdir(parents=True, exist_ok=True)
 
 
-def _tulis_json_atomik(path: Path, data: dict) -> None:
-    sementara = path.with_suffix(path.suffix + '.tmp')
-    with open(sementara, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(sementara, path)
+_tulis_json_atomik = penyimpanan.tulis_json_atomik
 
 
 def _baca_json(path: Path) -> dict | None:
@@ -75,12 +70,7 @@ def _baca_json(path: Path) -> dict | None:
     return cache_berkas.baca_json(path)
 
 
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with open(path, 'rb') as f:
-        for potong in iter(lambda: f.read(1024 * 1024), b''):
-            h.update(potong)
-    return h.hexdigest()
+_sha256 = penyimpanan.sha256_berkas
 
 
 def daftar_skema() -> list[dict]:

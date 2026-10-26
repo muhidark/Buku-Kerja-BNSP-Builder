@@ -14,6 +14,7 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
+from app import penyimpanan
 from app import jobs, koreksi, library, schema_library, status_units
 from app.logging_config import ambil_logger
 from app.multi_docx_generator import generate_multi_docx
@@ -46,36 +47,20 @@ class GalatDokumen(Exception):
 # --------------------------------------------------------------------------
 
 def siapkan_direktori() -> None:
-    DOC_DIR.mkdir(parents=True, exist_ok=True)
-    META_DIR.mkdir(parents=True, exist_ok=True)
+    penyimpanan.pastikan_direktori((DOC_DIR, META_DIR))
 
 
-def _tulis_atomik(path: Path, data: dict) -> None:
-    tmp = path.with_suffix(path.suffix + '.tmp')
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+_tulis_atomik = penyimpanan.tulis_json_atomik
 
 
 def _sekarang() -> str:
     return datetime.now().isoformat(timespec='seconds')
 
 
-def _baca(path: Path) -> dict | None:
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+_baca = penyimpanan.baca_json
 
 
-def _sha256(path: Path) -> str:
-    h = hashlib.sha256()
-    with open(path, 'rb') as f:
-        for potong in iter(lambda: f.read(1024 * 1024), b''):
-            h.update(potong)
-    return h.hexdigest()
+_sha256 = penyimpanan.sha256_berkas
 
 
 def _peta_pdf() -> dict[str, Path]:

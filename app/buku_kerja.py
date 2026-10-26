@@ -32,6 +32,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
+from app import penyimpanan
 from app import db, schema_library, status_units
 from app.lsp_exporter import ambil_json_unit
 
@@ -543,7 +544,7 @@ def muat_konfigurasi_muk(
         try:
             jalur = _jalur_muk(schema_id)
             if jalur.exists():
-                saved = json.loads(jalur.read_text(encoding="utf-8"))
+                saved = penyimpanan.baca_json(jalur)
         except Exception:
             pass
 

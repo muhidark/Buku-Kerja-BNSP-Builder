@@ -18,6 +18,7 @@ Contoh spesifikasi:
 """
 
 import json
+from app import penyimpanan
 from pathlib import Path
 
 from app import koreksi
@@ -90,7 +91,10 @@ if __name__ == '__main__':
         print('Penggunaan: python -m app.multi_docx_generator <spec.json> [output.docx]')
         sys.exit(1)
 
-    spec = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+    spec = penyimpanan.baca_json(Path(sys.argv[1]))
+    if spec is None:
+        print('Berkas spesifikasi tidak dapat dibaca sebagai JSON.')
+        sys.exit(1)
     out = sys.argv[2] if len(sys.argv) > 2 else 'output/multi_unit_test.docx'
     info = generate_multi_docx(spec, out)
     print(f"DOCX: {info['docx_path']}")

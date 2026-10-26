@@ -19,10 +19,11 @@ punya cache sendiri (tetap benar, hanya tidak saling berbagi).
 from __future__ import annotations
 
 import copy
-import json
 import threading
 from pathlib import Path
 from typing import Any, Dict, Optional, Tuple
+
+from app import penyimpanan
 
 #: path (str) -> ((mtime_ns, ukuran), data)
 _ISI: Dict[str, Tuple[Tuple[int, int], Any]] = {}
@@ -50,9 +51,10 @@ def baca_json(path: str | Path) -> Optional[Any]:
             _STATISTIK['hit'] += 1
             return copy.deepcopy(entri[1])
 
-    try:
-        data = json.loads(p.read_text(encoding='utf-8'))
-    except Exception:
+    # Parsing berkas ditangani satu modul (app/penyimpanan.py) supaya aturan
+    # "berkas hilang atau rusak -> None" tidak berbeda antar jalur.
+    data = penyimpanan.baca_json(p)
+    if data is None:
         with _LOCK:
             _STATISTIK['gagal'] += 1
         return None

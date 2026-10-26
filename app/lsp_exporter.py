@@ -9,6 +9,7 @@ Menyediakan konversi hasil ekstraksi unit dan skema menjadi:
 import json
 from pathlib import Path
 
+from app import penyimpanan
 from app import koreksi
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -85,8 +86,10 @@ def ambil_json_unit(kode_unit: str) -> dict | None:
     # Fallback pencarian di seluruh data/json (kecuali folder koreksi)
     for p in (ROOT / 'data' / 'json').rglob(f'{kode_unit}.json'):
         if p.is_file() and 'koreksi' not in p.parts:
+            data_mesin = penyimpanan.baca_json(p)
+            if data_mesin is None:
+                continue
             try:
-                data_mesin = json.loads(p.read_text(encoding='utf-8'))
                 return koreksi.terapkan_koreksi_ke_data(data_mesin, kode_unit)
             except Exception:
                 continue

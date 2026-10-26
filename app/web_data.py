@@ -13,6 +13,7 @@ Tidak ada data dummy: bila sumber belum ada, nilainya 0 / status belum tersedia.
 import json
 import os
 import re
+from app import penyimpanan
 from datetime import datetime
 from functools import lru_cache
 from pathlib import Path
@@ -101,9 +102,8 @@ def daftar_skema() -> list[dict]:
 # --------------------------------------------------------------------------
 
 def _baca_unit(path: Path) -> dict | None:
-    try:
-        data = json.loads(path.read_text(encoding='utf-8'))
-    except Exception:
+    data = penyimpanan.baca_json(path)
+    if data is None:
         return None
     if not data.get('kode_unit'):
         return None
@@ -235,9 +235,8 @@ def aktivitas(limit: int = 6) -> list[dict]:
     for path, judul in sumber:
         if not path.exists():
             continue
-        try:
-            data = json.loads(path.read_text(encoding='utf-8'))
-        except Exception:
+        data = penyimpanan.baca_json(path)
+        if data is None:
             continue
         waktu = data.get('dibuat') or datetime.fromtimestamp(
             path.stat().st_mtime).isoformat(timespec='seconds')

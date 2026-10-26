@@ -17,6 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
 from pathlib import Path
 
+from app import penyimpanan
 from app import library, schema_library
 from app.logging_config import ambil_logger
 from app.kuk_completeness_validator import periksa_unit
@@ -45,17 +46,10 @@ class GalatJob(Exception):
 # --------------------------------------------------------------------------
 
 def siapkan_direktori() -> None:
-    JOBS_DIR.mkdir(parents=True, exist_ok=True)
-    JSON_OUT.mkdir(parents=True, exist_ok=True)
+    penyimpanan.pastikan_direktori((JOBS_DIR, JSON_OUT))
 
 
-def _tulis_atomik(path: Path, data: dict) -> None:
-    tmp = path.with_suffix(path.suffix + '.tmp')
-    with open(tmp, 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.flush()
-        os.fsync(f.fileno())
-    os.replace(tmp, path)
+_tulis_atomik = penyimpanan.tulis_json_atomik
 
 
 def _sekarang() -> str:
@@ -63,10 +57,7 @@ def _sekarang() -> str:
 
 
 def _baca(path: Path) -> dict | None:
-    try:
-        return json.loads(path.read_text(encoding='utf-8'))
-    except Exception:
-        return None
+    return penyimpanan.baca_json(path)
 
 
 # --------------------------------------------------------------------------

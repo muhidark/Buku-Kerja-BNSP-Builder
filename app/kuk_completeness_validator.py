@@ -14,6 +14,7 @@ ini memeriksa NOMOR KUK saja, bukan kebenaran uraian teks.
 
 import json
 import re
+from app import penyimpanan
 from pathlib import Path
 
 import pymupdf as fitz
@@ -210,9 +211,8 @@ def muat_kuk_json(kode_unit: str) -> list[str] | None:
         p = folder / f'{kode_unit}.json'
         if not p.exists():
             continue
-        try:
-            data = json.loads(p.read_text(encoding='utf-8'))
-        except Exception:
+        data = penyimpanan.baca_json(p)
+        if data is None:
             return None
         nomor = [k['nomor_kuk'] for e in data.get('elemen_kompetensi') or []
                  for k in e.get('kuk') or [] if k.get('nomor_kuk')]
