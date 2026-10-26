@@ -11,9 +11,9 @@
 | Tahap / Modul | Status | Catatan Implementasi |
 | :--- | :---: | :--- |
 | **Pra-Fase (Fase 4F): Kualitas Data & Gerbang Dokumen** | **SELESAI (100%)** | Hapus KUK palsu, status 3-tingkat (`Siap dipakai`, `Perlu diperiksa`, `Gagal`), Gerbang Dokumen HTTP 409, Editor Koreksi Per-Unit berdampingan PDF + Deteksi Konflik SHA-256 (`docs/CATATAN_PERBAIKAN_FASE_4F.md`). |
-| **Fase 2: Modul Kelompok Pekerjaan & Bank Instrumen MUK** | **SELESAI (100%)** | Penyimpanan JSON per skema (`data/schema_library/muk/{schema_id}.json`), UI kelola di `/skema/{schema_id}/muk`, auto-default `IA.02`, `IA.03`, `IA.04`, `IA.05`, kalkulasi cakupan unit Kelompok Pekerjaan. |
-| **Fase 3: Konversi 18 Template Dokumen PHP ke Jinja2** | **SELESAI (100%)** | 19 parsial Jinja2 di `app/templates/buku_kerja/` (`APL.01–02`, `MAPA.01` [Obs/DIT/Port], `Peta Kelompok`, `MAPA.02`, `AK.01–07`, `IA.01–05C`) + mode cetak satuan & paket metode. |
-| **Fase 3B: Instrumen Lanjutan (`IA.06–11` & `FR.VA`)** | **BELUM (Menunggu Arahan)** | `FR.IA.06` (Esai), `IA.07` (Lisan), `IA.08` (Portofolio), `IA.09` (Wawancara), `IA.10` (Pihak Ketiga), `IA.11` (Reviu Produk), dan `FR.VA` (Validasi Asesmen — menunggu konsultasi Master Asesor). |
+| **Fase 2: Modul Kelompok Pekerjaan & Bank Instrumen MUK** | **SELESAI (100%)** | Penyimpanan JSON per skema (`data/schema_library/muk/{schema_id}.json`), UI kelola di `/skema/{schema_id}/muk`, auto-default `IA.02`, `IA.03`, `IA.04`, `IA.05`, `IA.06`, `IA.07`, `IA.08`, kalkulasi cakupan unit Kelompok Pekerjaan. |
+| **Fase 3: Konversi Template Dokumen Buku Kerja ke Jinja2** | **SELESAI (100%)** | 25 parsial Jinja2 di `app/templates/buku_kerja/` (`APL.01–02`, `MAPA.01` [Obs/DIT/Port], `Peta Kelompok`, `MAPA.02`, `AK.01–07`, `IA.01–08`, dan `FR.VA` Form Kosongan) + mode cetak satuan & paket metode. |
+| **Fase 3B: Instrumen Lanjutan (`IA.06–08` & `FR.VA`)** | **SELESAI (100%)** | `FR.IA.06A/B/C` (Esai), `IA.07` (Lisan), `IA.08` (Ceklis Verifikasi Portofolio), dan `FR.VA` (Form Kosongan Validasi Asesmen). `IA.09` & `IA.10` dilewati sesuai arahan. |
 | **Fase 3C: Asisten Referensi BV/PP & Ekspor `.docx` Buku Kerja** | **BELUM** | Menampilkan referensi Batasan Variabel & Panduan Penilaian di editor MUK + unduh bundel `.docx`/`.zip` untuk Buku Kerja. |
 | **Fase 1: Multi-User (Login/RBAC SQLite) & Katalog SKKNI Terpusat** | **BELUM** | Pemisahan role `Admin/Kurator Master` (verifikasi SKKNI & status berlaku/dicabut Kemnaker) vs `User/LSP/Asesor` (ruang kerja skema & MUK terpisah). |
 | **Fase 4: REST API Eksternal (`/api/v1/...`) dengan API Key** | **BELUM** | Endpoint sinkronisasi otomatis ke plugin WordPress / LMS eksternal menggunakan `X-API-Key`. |
@@ -75,8 +75,11 @@ Mengacu pada paket dokumen acuan (contoh: *Skema Videografer*) dan template yang
 | 18 | **FR.IA.03** | PMO - Pertanyaan Mendukung Observasi | `_form_ia03.html` | **Selesai** |
 | 19 | **FR.IA.04A & 04B** | DIT - Penjelasan Proyek Singkat (STAR) & Lembar Penilaian | `_form_ia04a.html`, `_form_ia04b.html` | **Selesai** |
 | 20 | **FR.IA.05A, B, C** | DPT - Soal Pilihan Ganda, Kunci Jawaban, & Lembar Jawaban | `_form_ia05a.html` s/d `05c.html` | **Selesai** |
-| 21 | **FR.IA.06 – 11** | Instrumen Esai, Lisan, Portofolio, Wawancara, Pihak Ketiga, Reviu Produk | *(Tahap Berikutnya)* | **Belum** |
-| 22 | **FR.VA** | Memberikan Kontribusi dalam Validasi Asesmen | *(Menunggu konsultasi Master Asesor)* | **Belum** |
+| 21 | **FR.IA.06A, B, C** | DPT - Soal Esai, Kunci Jawaban Esai, & Lembar Jawaban Esai | `_form_ia06a.html` s/d `06c.html` | **Selesai** |
+| 22 | **FR.IA.07** | DPL - Daftar Pertanyaan Lisan | `_form_ia07.html` | **Selesai** |
+| 23 | **FR.IA.08** | CVP - Ceklis Verifikasi Portofolio | `_form_ia08.html` | **Selesai** |
+| 24 | **FR.IA.09 & 10** | PW (Wawancara) & VPK (Verifikasi Pihak Ketiga) | *(Tidak dibuat sesuai arahan)* | Dilewati |
+| 25 | **FR.VA** | Memberikan Kontribusi dalam Validasi Asesmen (Form Kosongan) | `_form_va.html` | **Selesai** |
 
 ---
 

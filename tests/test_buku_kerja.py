@@ -67,10 +67,16 @@ class TestBukuKerja(unittest.TestCase):
 
     def test_tentukan_dokumen_aktif(self):
         all_docs = tentukan_dokumen_aktif("all")
-        self.assertEqual(len(all_docs), 20)
+        self.assertEqual(len(all_docs), 26)
         self.assertIn("mapa01", all_docs)
         self.assertIn("ia01", all_docs)
+        self.assertIn("ia06a", all_docs)
+        self.assertIn("ia06b", all_docs)
+        self.assertIn("ia06c", all_docs)
+        self.assertIn("ia07", all_docs)
+        self.assertIn("ia08", all_docs)
         self.assertIn("ak06", all_docs)
+        self.assertIn("va", all_docs)
 
         obs_docs = tentukan_dokumen_aktif("paket_observasi")
         self.assertIn("ia01", obs_docs)
@@ -82,6 +88,10 @@ class TestBukuKerja(unittest.TestCase):
         self.assertIn("ia04a", dit_docs)
         self.assertIn("ia04b", dit_docs)
         self.assertNotIn("ia01", dit_docs)
+
+        porto_docs = tentukan_dokumen_aktif("paket_portofolio")
+        self.assertIn("ia08", porto_docs)
+        self.assertIn("va", porto_docs)
 
     def test_susun_kelompok_pekerjaan_cetak(self):
         units = [
@@ -165,10 +175,16 @@ class TestBukuKerja(unittest.TestCase):
             "FR.IA.05A.",
             "FR.IA.05.B.",
             "FR.IA.05.C.",
+            "FR.IA.06A.DPT",
+            "FR.IA.06.B.",
+            "FR.IA.06.C.",
+            "FR.IA.07.DPL",
+            "FR.IA.08.CVP",
             "FR.AK.02.",
             "FR.AK.03.",
             "FR.AK.05.",
             "FR.AK.06.",
+            "FR.VA MEMBERIKAN KONTRIBUSI DALAM VALIDASI ASESMEN",
         ]:
             self.assertIn(judul_wajib, teks)
         self.assertIn("SKM-2024-TEST", teks)

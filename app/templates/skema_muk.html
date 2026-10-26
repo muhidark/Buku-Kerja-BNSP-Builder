@@ -35,6 +35,9 @@
 {% set ia03 = data.muk_raw.ia03 %}
 {% set ia04 = data.muk_raw.ia04 %}
 {% set ia05 = data.muk_raw.ia05 %}
+{% set ia06 = data.muk_raw.ia06 %}
+{% set ia07 = data.muk_raw.ia07 %}
+{% set ia08 = data.muk_raw.ia08 %}
 
 <form method="post" action="/skema/{{ dok.id }}/muk" id="form-muk" onsubmit="siapkanPayloadMuk()">
   <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
@@ -43,26 +46,35 @@
   <!-- Navigasi Tab MUK -->
   <article class="card" style="padding: 0; overflow: hidden;">
     <div style="display: flex; background: #f8fafc; border-bottom: 1px solid var(--border); overflow-x: auto;">
-      <button type="button" class="muk-tab-btn active" id="btn-muk-personel" onclick="pindahTabMuk('muk-personel')" style="padding: 12px 16px; border: none; background: #fff; font-weight: 600; font-size: 13.5px; color: var(--navy); border-bottom: 3px solid var(--navy-2); cursor: pointer; white-space: nowrap;">
+      <button type="button" class="muk-tab-btn active" id="btn-muk-personel" onclick="pindahTabMuk('muk-personel')" style="padding: 12px 14px; border: none; background: #fff; font-weight: 600; font-size: 13px; color: var(--navy); border-bottom: 3px solid var(--navy-2); cursor: pointer; white-space: nowrap;">
         👤 1. Personel &amp; MAPA
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-kelompok" onclick="pindahTabMuk('muk-kelompok')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+      <button type="button" class="muk-tab-btn" id="btn-muk-kelompok" onclick="pindahTabMuk('muk-kelompok')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
         🗂️ 2. Kelompok Pekerjaan
         <span class="badge {% if kp_info.is_complete %}badge-green{% else %}badge-amber{% endif %}" style="font-size: 11px; margin-left: 4px;">
           {{ kp_info.coverage_percent }}%
         </span>
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia02" onclick="pindahTabMuk('muk-ia02')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
-        🛠️ 3. FR.IA.02 (TPD)
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia02" onclick="pindahTabMuk('muk-ia02')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        🛠️ 3. IA.02 (TPD)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia03" onclick="pindahTabMuk('muk-ia03')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
-        💬 4. FR.IA.03 (PMO)
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia03" onclick="pindahTabMuk('muk-ia03')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        💬 4. IA.03 (PMO)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia04" onclick="pindahTabMuk('muk-ia04')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
-        📐 5. FR.IA.04A &amp; 04B (DIT)
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia04" onclick="pindahTabMuk('muk-ia04')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        📐 5. IA.04A/B (DIT)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia05" onclick="pindahTabMuk('muk-ia05')" style="padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13.5px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
-        📝 6. FR.IA.05A/B/C (Soal PG)
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia05" onclick="pindahTabMuk('muk-ia05')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        📝 6. IA.05 (Soal PG)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia06" onclick="pindahTabMuk('muk-ia06')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        ✍️ 7. IA.06 (Esai)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia07" onclick="pindahTabMuk('muk-ia07')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        🗣️ 8. IA.07 (Lisan)
+      </button>
+      <button type="button" class="muk-tab-btn" id="btn-muk-ia08" onclick="pindahTabMuk('muk-ia08')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
+        📁 9. IA.08 (Portofolio)
       </button>
     </div>
 
@@ -336,6 +348,85 @@
         </div>
       </div>
 
+      <!-- TAB 7: FR.IA.06A/B/C (PERTANYAAN TERTULIS ESAI) -->
+      <div id="muk-ia06" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">✍️ FR.IA.06A, 06.B, &amp; 06.C — Pertanyaan Tertulis Esai</h3>
+          <div class="aksi-group">
+            <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa06()">+ Tambah Soal Esai</button>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06a" target="_blank">🖨️ IA.06A (Soal)</a>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06b" target="_blank">🖨️ IA.06.B (Kunci)</a>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06c" target="_blank">🖨️ IA.06.C (Lembar Jawab)</a>
+          </div>
+        </div>
+        <div style="margin-bottom: 12px;">
+          <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Alokasi Waktu Ujian Esai</label>
+          <input type="text" id="ia06-waktu" value="{{ ia06.waktu or '60 Menit' }}" style="width:200px; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
+        </div>
+        <div id="wadah-ia06-questions">
+          {% for q in ia06.questions %}
+          <div class="ia06-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong>Soal Esai #{{ loop.index }}</strong>
+              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.ia06-q-item')" style="color: #b91c1c;">Hapus</button>
+            </div>
+            <textarea class="ia06-pertanyaan" rows="2" placeholder="Tulis butir pertanyaan esai..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;">{{ q.pertanyaan }}</textarea>
+            <textarea class="ia06-kunci" rows="2" placeholder="Tulis kunci jawaban esai..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">{{ q.kunci_jawaban }}</textarea>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TAB 8: FR.IA.07 (DAFTAR PERTANYAAN LISAN) -->
+      <div id="muk-ia07" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">🗣️ FR.IA.07 — DPL: Daftar Pertanyaan Lisan</h3>
+          <div class="aksi-group">
+            <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa07()">+ Tambah Pertanyaan Lisan</button>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia07" target="_blank">🖨️ Pratinjau FR.IA.07</a>
+          </div>
+        </div>
+        <div id="wadah-ia07-questions">
+          {% for q in ia07.questions %}
+          <div class="ia07-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong>Pertanyaan Lisan #{{ loop.index }}</strong>
+              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.ia07-q-item')" style="color: #b91c1c;">Hapus</button>
+            </div>
+            <textarea class="ia07-pertanyaan" rows="2" placeholder="Tulis pertanyaan lisan (penguatan KUK, batasan variabel, aspek kritis)..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;">{{ q.pertanyaan }}</textarea>
+            <textarea class="ia07-kunci" rows="2" placeholder="Tulis kunci jawaban lisan..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">{{ q.kunci_jawaban }}</textarea>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- TAB 9: FR.IA.08 (CEKLIS VERIFIKASI PORTOFOLIO) -->
+      <div id="muk-ia08" class="muk-panel" style="display: none;">
+        <div class="card-head" style="margin-bottom: 10px;">
+          <h3 style="margin: 0;">📁 FR.IA.08 — CVP: Ceklis Verifikasi Portofolio</h3>
+          <div class="aksi-group">
+            <button type="button" class="btn btn-small btn-ghost" onclick="tambahBuktiIa08()">+ Tambah Baris Bukti Portofolio</button>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia08" target="_blank">🖨️ Pratinjau FR.IA.08</a>
+          </div>
+        </div>
+        <p class="muted small" style="margin-bottom: 10px;">
+          Kosongkan baris bukti jika ingin ditulis tangan pada lembaran cetak, atau isi nama dokumen portofolio standar untuk skema ini.
+        </p>
+        <div id="wadah-ia08-bukti" style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px;">
+          {% for b in ia08.bukti_portofolio %}
+          <div class="ia08-bukti-item" style="display: flex; gap: 8px; align-items: center;">
+            <span style="font-weight: 600; width: 28px;">{{ loop.index }}.</span>
+            <input type="text" class="ia08-bukti-teks" value="{{ b }}" placeholder="Nama dokumen portofolio (opsional, biarkan kosong untuk blanko)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
+            <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.ia08-bukti-item')" style="color: #b91c1c;">Hapus</button>
+          </div>
+          {% endfor %}
+        </div>
+        <div>
+          <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Catatan Bukti Tambahan (Opsional)</label>
+          <input type="text" id="ia08-bukti-tambahan" value="{{ ia08.bukti_tambahan }}" placeholder="Kosongkan jika diisi manual oleh asesor" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
+        </div>
+      </div>
+
     </div>
 
     <!-- Footer Tombol Simpan -->
@@ -432,6 +523,51 @@ function tambahPertanyaanIa04b() {
   wadah.appendChild(div);
 }
 
+function tambahPertanyaanIa06() {
+  var wadah = document.getElementById('wadah-ia06-questions');
+  var nomor = wadah.querySelectorAll('.ia06-q-item').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia06-q-item';
+  div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+  div.innerHTML = ''
+    + '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">'
+    + '  <strong>Soal Esai #' + nomor + '</strong>'
+    + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia06-q-item\')" style="color: #b91c1c;">Hapus</button>'
+    + '</div>'
+    + '<textarea class="ia06-pertanyaan" rows="2" placeholder="Tulis butir pertanyaan esai..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+    + '<textarea class="ia06-kunci" rows="2" placeholder="Tulis kunci jawaban esai..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;"></textarea>';
+  wadah.appendChild(div);
+}
+
+function tambahPertanyaanIa07() {
+  var wadah = document.getElementById('wadah-ia07-questions');
+  var nomor = wadah.querySelectorAll('.ia07-q-item').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia07-q-item';
+  div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+  div.innerHTML = ''
+    + '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">'
+    + '  <strong>Pertanyaan Lisan #' + nomor + '</strong>'
+    + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia07-q-item\')" style="color: #b91c1c;">Hapus</button>'
+    + '</div>'
+    + '<textarea class="ia07-pertanyaan" rows="2" placeholder="Tulis pertanyaan lisan..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+    + '<textarea class="ia07-kunci" rows="2" placeholder="Tulis kunci jawaban lisan..." style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;"></textarea>';
+  wadah.appendChild(div);
+}
+
+function tambahBuktiIa08() {
+  var wadah = document.getElementById('wadah-ia08-bukti');
+  var nomor = wadah.querySelectorAll('.ia08-bukti-item').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia08-bukti-item';
+  div.style.cssText = 'display: flex; gap: 8px; align-items: center;';
+  div.innerHTML = ''
+    + '<span style="font-weight: 600; width: 28px;">' + nomor + '.</span>'
+    + '<input type="text" class="ia08-bukti-teks" placeholder="Nama dokumen portofolio (opsional)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">'
+    + '<button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia08-bukti-item\')" style="color: #b91c1c;">Hapus</button>';
+  wadah.appendChild(div);
+}
+
 function siapkanPayloadMuk() {
   var kelompok = [];
   document.querySelectorAll('.kp-item').forEach(function(el, idx) {
@@ -471,6 +607,29 @@ function siapkanPayloadMuk() {
         dimensi: (el.querySelector('.ia04b-dimensi').value || '').trim()
       });
     }
+  });
+
+  var qIa06 = [];
+  document.querySelectorAll('.ia06-q-item').forEach(function(el, idx) {
+    qIa06.push({
+      order: idx + 1,
+      pertanyaan: (el.querySelector('.ia06-pertanyaan').value || '').trim(),
+      kunci_jawaban: (el.querySelector('.ia06-kunci').value || '').trim()
+    });
+  });
+
+  var qIa07 = [];
+  document.querySelectorAll('.ia07-q-item').forEach(function(el, idx) {
+    qIa07.push({
+      order: idx + 1,
+      pertanyaan: (el.querySelector('.ia07-pertanyaan').value || '').trim(),
+      kunci_jawaban: (el.querySelector('.ia07-kunci').value || '').trim()
+    });
+  });
+
+  var buktiIa08 = [];
+  document.querySelectorAll('.ia08-bukti-item').forEach(function(el) {
+    buktiIa08.push((el.querySelector('.ia08-bukti-teks').value || '').trim());
   });
 
   var payload = {
@@ -517,6 +676,17 @@ function siapkanPayloadMuk() {
       jumlah_soal: parseInt(document.getElementById('ia05-jumlah').value || '10', 10),
       pertanyaan: document.getElementById('ia05-pertanyaan').value,
       kunci: document.getElementById('ia05-kunci').value
+    },
+    ia06: {
+      waktu: document.getElementById('ia06-waktu').value,
+      questions: qIa06
+    },
+    ia07: {
+      questions: qIa07
+    },
+    ia08: {
+      bukti_portofolio: buktiIa08,
+      bukti_tambahan: document.getElementById('ia08-bukti-tambahan').value
     }
   };
 

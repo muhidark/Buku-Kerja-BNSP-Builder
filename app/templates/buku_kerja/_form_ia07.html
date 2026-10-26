@@ -1,0 +1,186 @@
+<!-- ========================================================= -->
+<!-- 16. FR.IA.07 : DPL - DAFTAR PERTANYAAN LISAN              -->
+<!-- ========================================================= -->
+{% set ia07 = data.ia07 %}
+<div class="lsp-page-sheet" id="section-ia07">
+    <div class="lsp-doc-title" style="text-align: left; border: 1px solid #000; padding: 7px 10px; background: #f8fafc; margin-bottom: 0; font-size: 13px;">
+        FR.IA.07.DPL &ndash; DAFTAR PERTANYAAN LISAN
+    </div>
+
+    <!-- Header Identitas Skema -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: -1px; margin-bottom: 4px;">
+        <tr>
+            <td width="30%" rowspan="2" valign="middle"><strong>Skema Sertifikasi<br>({{ data.jenis_skema }})</strong></td>
+            <td width="12%"><strong>Judul</strong></td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td><strong>Nomor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>TUK</strong></td>
+            <td style="text-align: center;">:</td>
+            <td>
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'sewaktu' else '' }}</span> Sewaktu /
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'tempat_kerja' else '' }}</span> Tempat Kerja /
+                <span class="box-check">{{ '✓' if data.jenis_tuk == 'mandiri' else '' }}</span> Mandiri*
+                {% if data.nama_tuk %}&nbsp;({{ data.nama_tuk }}){% endif %}
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesor</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_asesor or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Nama Asesi</strong></td>
+            <td style="text-align: center;">:</td>
+            <td><span class="dots-line"></span></td>
+        </tr>
+        <tr>
+            <td colspan="2"><strong>Tanggal</strong></td>
+            <td style="text-align: center;">:</td>
+            <td>{{ data.tanggal_pelaksanaan or '....................................................................................' }}</td>
+        </tr>
+    </table>
+    <div style="font-size: 10px; font-style: italic; margin-bottom: 8px;">*Coret yang tidak perlu</div>
+
+    <!-- Panduan Bagi Asesor -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 10px;">
+        <tr style="background: #f8fafc;">
+            <td style="padding: 6px 10px;"><strong>PANDUAN BAGI ASESOR</strong></td>
+        </tr>
+        <tr>
+            <td style="padding: 6px 10px; font-size: 11px; line-height: 1.5;">
+                <strong>Instruksi:</strong>
+                <ul style="margin: 4px 0 0 18px; padding: 0;">
+                    <li>Pertanyaan lisan merupakan jenis bukti tambahan untuk mendukung bukti-bukti yang sudah ada.</li>
+                    <li>Buatlah pertanyaan lisan yang dapat mencakupi penguatan informasi berdasarkan KUK, batasan variabel, pengetahuan dan keterampilan esensial, sikap dan aspek kritis.</li>
+                    <li>Perkiraan jawaban dapat diisikan pada baris kunci jawaban.</li>
+                    <li>Tanggapan/penilaian dapat diisi dengan centang (&radic;) pada kolom Asesi &ldquo;Ya&rdquo; atau &ldquo;Tidak&rdquo;.</li>
+                    <li>Dibutuhkan justifikasi profesional asesor untuk memutuskan hal ini.</li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Kelompok Pekerjaan & Daftar Unit -->
+    {% include "buku_kerja/_tabel_kelompok_unit.html" %}
+
+    <!-- Tabel Pertanyaan Lisan -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 12px;">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th rowspan="2" width="6%" style="vertical-align: middle;">No.</th>
+                <th rowspan="2" width="74%" style="text-align: left; vertical-align: middle; padding: 6px 8px;">Pertanyaan</th>
+                <th colspan="2" width="20%">Pencapaian</th>
+            </tr>
+            <tr style="background: #f8fafc;">
+                <th width="10%">Ya</th>
+                <th width="10%">Tidak</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for q in ia07.questions %}
+            <tr class="avoid-break">
+                <td rowspan="3" valign="top" style="text-align: center; font-weight: bold; padding: 8px;">{{ loop.index }}.</td>
+                <td valign="top" style="padding: 6px 8px; min-height: 36px;">
+                    <strong>Pertanyaan:</strong><br>
+                    <div style="white-space: pre-line; margin-top: 2px;">{{ q.pertanyaan or '' }}</div>
+                </td>
+                <td rowspan="3" style="text-align: center; vertical-align: middle;"><span class="box-check"></span></td>
+                <td rowspan="3" style="text-align: center; vertical-align: middle;"><span class="box-check"></span></td>
+            </tr>
+            <tr class="avoid-break">
+                <td valign="top" style="padding: 6px 8px; min-height: 36px; background: #fcfcfd;">
+                    <strong>Kunci Jawaban:</strong><br>
+                    <div style="white-space: pre-line; margin-top: 2px;">{{ q.kunci_jawaban or '' }}</div>
+                </td>
+            </tr>
+            <tr class="avoid-break">
+                <td valign="top" style="padding: 6px 8px; height: 48px;">
+                    <strong>Jawaban Asesi:</strong><br>
+                    &nbsp;
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Umpan Balik & Tanda Tangan -->
+    <table class="lsp-doc-table lsp-table-bordered avoid-break" style="margin-bottom: 12px;">
+        <tr>
+            <td width="24%" valign="top"><strong>Umpan balik untuk asesi</strong></td>
+            <td width="3%" valign="top" style="text-align: center;">:</td>
+            <td colspan="2" style="line-height: 1.5;">
+                Aspek pengetahuan seluruh unit pada kelompok pekerjaan yang diujikan <strong>(tercapai / belum tercapai)*</strong><br>
+                Tuliskan unit kompetensi /elemen/KUK jika belum tercapai: ........................................................................
+            </td>
+        </tr>
+        <tr style="background: #f8fafc;">
+            <td colspan="2"><strong>ASESI :</strong></td>
+            <td colspan="2"><strong>ASESOR :</strong></td>
+        </tr>
+        <tr>
+            <td width="18%">Nama</td>
+            <td width="32%"><span class="dots-line"></span></td>
+            <td width="18%">Nama</td>
+            <td width="32%"><strong>{{ data.nama_asesor or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td rowspan="2" valign="top">Tanda tangan dan Tanggal</td>
+            <td rowspan="2" style="height: 55px; vertical-align: bottom;">................................ / ..................</td>
+            <td>No. Reg</td>
+            <td><strong>{{ data.no_met or '..................................................' }}</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">Tanda tangan dan Tanggal</td>
+            <td style="height: 45px; vertical-align: bottom;">................................ / ..................</td>
+        </tr>
+    </table>
+
+    <!-- Penyusun & Validator -->
+    <div class="lsp-section-title avoid-break">PENYUSUN DAN VALIDATOR</div>
+    <table class="lsp-doc-table lsp-table-bordered avoid-break">
+        <thead>
+            <tr style="background: #f1f5f9;">
+                <th width="18%">STATUS</th>
+                <th width="6%">NO</th>
+                <th width="30%">NAMA</th>
+                <th width="24%">NOMOR MET</th>
+                <th width="22%">TANDA TANGAN DAN TANGGAL</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2" style="text-align: center; font-weight: bold; vertical-align: middle;">PENYUSUN</td>
+                <td style="text-align: center;">1</td>
+                <td><strong>{{ data.nama_penyusun }}</strong></td>
+                <td style="font-family: monospace; text-align: center;">{{ data.met_penyusun }}</td>
+                <td style="text-align: center;">{{ data.tanggal_penyusunan or '' }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">2</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+            <tr>
+                <td rowspan="2" style="text-align: center; font-weight: bold; vertical-align: middle;">VALIDATOR</td>
+                <td style="text-align: center;">1</td>
+                <td><strong>{{ data.nama_validator }}</strong></td>
+                <td style="font-family: monospace; text-align: center;">{{ data.met_validator }}</td>
+                <td style="text-align: center;">{{ data.tanggal_penyusunan or '' }}</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">2</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

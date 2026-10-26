@@ -813,6 +813,31 @@
             {% include "buku_kerja/_form_ia05c.html" %}
         {% endif %}
 
+        <!-- 15a. FR.IA.06A -->
+        {% if 'ia06a' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia06a.html" %}
+        {% endif %}
+
+        <!-- 15b. FR.IA.06.B -->
+        {% if 'ia06b' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia06b.html" %}
+        {% endif %}
+
+        <!-- 15c. FR.IA.06.C -->
+        {% if 'ia06c' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia06c.html" %}
+        {% endif %}
+
+        <!-- 16. FR.IA.07 -->
+        {% if 'ia07' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia07.html" %}
+        {% endif %}
+
+        <!-- 17. FR.IA.08 -->
+        {% if 'ia08' in dokumen_aktif %}
+            {% include "buku_kerja/_form_ia08.html" %}
+        {% endif %}
+
         <!-- 21. FR.AK.02 -->
         {% if 'ak02' in dokumen_aktif %}
             {% include "buku_kerja/_form_ak02.html" %}
@@ -831,6 +856,11 @@
         <!-- 24. FR.AK.06 -->
         {% if 'ak06' in dokumen_aktif %}
             {% include "buku_kerja/_form_ak06.html" %}
+        {% endif %}
+
+        <!-- 25. FR.VA -->
+        {% if 'va' in dokumen_aktif %}
+            {% include "buku_kerja/_form_va.html" %}
         {% endif %}
 
     </div>

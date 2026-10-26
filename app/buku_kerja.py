@@ -16,10 +16,14 @@ Menyediakan penyusunan data terstruktur & penyimpanan konfigurasi per skema untu
 - 13a. FR.IA.04A: DIT - Penjelasan Proyek Singkat / Kegiatan Terstruktur
 - 13b. FR.IA.04B: DIT - Penilaian Proyek Singkat / Kegiatan Terstruktur
 - 14a/b/c. FR.IA.05A, FR.IA.05B, FR.IA.05C: Soal, Kunci, & Lembar Jawaban Pilihan Ganda
+- 15a/b/c. FR.IA.06A, FR.IA.06.B, FR.IA.06.C: Soal, Kunci, & Lembar Jawaban Pertanyaan Tertulis Esai
+- 16. FR.IA.07: DPL - Daftar Pertanyaan Lisan
+- 17. FR.IA.08: CVP - Ceklis Verifikasi Portofolio
 - 21. FR.AK.02: Rekaman Asesmen Kompetensi
 - 22. FR.AK.03: Umpan Balik dan Catatan Asesmen
 - 23. FR.AK.05: Laporan Asesmen
 - 24. FR.AK.06: Meninjau Proses Asesmen
+- 25. FR.VA: Memberikan Kontribusi dalam Validasi Asesmen (Form Kosongan)
 """
 
 import json
@@ -36,7 +40,7 @@ MUK_DIR = ROOT / "data" / "schema_library" / "muk"
 
 # Daftar dokumen yang didukung beserta label resminya
 DAFTAR_DOKUMEN_BUKU_KERJA = [
-    {"kode": "all", "label": "📚 Semua Dokumen (Paket Lengkap Urutan 1–24)"},
+    {"kode": "all", "label": "📚 Semua Dokumen (Paket Lengkap Urutan 1–25)"},
     {"kode": "paket_observasi", "label": "📦 Paket Metode Observasi Langsung (CLO + TPD + PMO + DPT)"},
     {"kode": "paket_dit", "label": "📦 Paket Metode Proyek Singkat / Kegiatan Terstruktur (DIT + DPT)"},
     {"kode": "paket_portofolio", "label": "📦 Paket Metode Verifikasi Portofolio (CVP + DPT)"},
@@ -56,10 +60,16 @@ DAFTAR_DOKUMEN_BUKU_KERJA = [
     {"kode": "ia05a", "label": "14a. FR.IA.05A — DPT: Pertanyaan Tertulis Pilihan Ganda"},
     {"kode": "ia05b", "label": "14b. FR.IA.05B — Lembar Kunci Jawaban Pilihan Ganda"},
     {"kode": "ia05c", "label": "14c. FR.IA.05C — Lembar Jawaban Pilihan Ganda"},
+    {"kode": "ia06a", "label": "15a. FR.IA.06A — DPT: Daftar Pertanyaan Tertulis Esai"},
+    {"kode": "ia06b", "label": "15b. FR.IA.06.B — Lembar Kunci Jawaban Pertanyaan Tertulis Esai"},
+    {"kode": "ia06c", "label": "15c. FR.IA.06.C — Lembar Jawaban Pertanyaan Tertulis Esai"},
+    {"kode": "ia07", "label": "16. FR.IA.07 — DPL: Daftar Pertanyaan Lisan"},
+    {"kode": "ia08", "label": "17. FR.IA.08 — CVP: Ceklis Verifikasi Portofolio"},
     {"kode": "ak02", "label": "21. FR.AK.02 — Rekaman Asesmen Kompetensi"},
     {"kode": "ak03", "label": "22. FR.AK.03 — Umpan Balik dan Catatan Asesmen"},
     {"kode": "ak05", "label": "23. FR.AK.05 — Laporan Asesmen"},
     {"kode": "ak06", "label": "24. FR.AK.06 — Meninjau Proses Asesmen"},
+    {"kode": "va", "label": "25. FR.VA — Memberikan Kontribusi dalam Validasi Asesmen"},
 ]
 
 DIMENSI_KOMPETENSI_LABELS = {
@@ -291,6 +301,35 @@ def default_konfigurasi_muk(nama_skema: str, daftar_unit: List[Dict[str, Any]], 
             "pertanyaan": "",
             "kunci": "",
         },
+        "ia06": {
+            "waktu": "60 Menit",
+            "questions": [
+                {"order": 1, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 2, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 3, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 4, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 5, "pertanyaan": "", "kunci_jawaban": ""},
+            ],
+        },
+        "ia07": {
+            "questions": [
+                {"order": 1, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 2, "pertanyaan": "", "kunci_jawaban": ""},
+                {"order": 3, "pertanyaan": "", "kunci_jawaban": ""},
+            ],
+        },
+        "ia08": {
+            "bukti_portofolio": ["", "", "", ""],
+            "klarifikasi": [
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+                {"no_unit": "", "no_elemen": "", "materi": ""},
+            ],
+            "bukti_tambahan": "",
+        },
     }
 
 
@@ -320,7 +359,7 @@ def muat_konfigurasi_muk(
         return default_cfg
 
     # Gabungkan sub-dictionary dengan aman
-    for key in ["personel", "ia02", "ia03", "ia04", "ia05"]:
+    for key in ["personel", "ia02", "ia03", "ia04", "ia05", "ia06", "ia07", "ia08"]:
         if isinstance(saved.get(key), dict):
             default_cfg[key].update({k: v for k, v in saved[key].items() if v is not None})
 
@@ -436,6 +475,59 @@ def simpan_konfigurasi_muk(schema_id: str, payload: Dict[str, Any]) -> Dict[str,
                 jml = 10
             cfg["ia05"]["jumlah_soal"] = jml
 
+    if isinstance(payload.get("ia06"), dict):
+        if "waktu" in payload["ia06"]:
+            cfg["ia06"]["waktu"] = str(payload["ia06"]["waktu"] or "").strip()
+        if isinstance(payload["ia06"].get("questions"), list):
+            clean_q6 = []
+            for idx, q in enumerate(payload["ia06"]["questions"], start=1):
+                if not isinstance(q, dict):
+                    continue
+                pert = str(q.get("pertanyaan") or "").strip()
+                kunci = str(q.get("kunci_jawaban") or "").strip()
+                clean_q6.append({
+                    "order": idx,
+                    "pertanyaan": pert,
+                    "kunci_jawaban": kunci,
+                })
+            if clean_q6:
+                cfg["ia06"]["questions"] = clean_q6
+
+    if isinstance(payload.get("ia07"), dict):
+        if isinstance(payload["ia07"].get("questions"), list):
+            clean_q7 = []
+            for idx, q in enumerate(payload["ia07"]["questions"], start=1):
+                if not isinstance(q, dict):
+                    continue
+                pert = str(q.get("pertanyaan") or "").strip()
+                kunci = str(q.get("kunci_jawaban") or "").strip()
+                clean_q7.append({
+                    "order": idx,
+                    "pertanyaan": pert,
+                    "kunci_jawaban": kunci,
+                })
+            if clean_q7:
+                cfg["ia07"]["questions"] = clean_q7
+
+    if isinstance(payload.get("ia08"), dict):
+        if isinstance(payload["ia08"].get("bukti_portofolio"), list):
+            cfg["ia08"]["bukti_portofolio"] = [
+                str(b or "").strip() for b in payload["ia08"]["bukti_portofolio"]
+            ]
+        if isinstance(payload["ia08"].get("klarifikasi"), list):
+            clean_kl = []
+            for item in payload["ia08"]["klarifikasi"]:
+                if isinstance(item, dict):
+                    clean_kl.append({
+                        "no_unit": str(item.get("no_unit") or "").strip(),
+                        "no_elemen": str(item.get("no_elemen") or "").strip(),
+                        "materi": str(item.get("materi") or "").strip(),
+                    })
+            if clean_kl:
+                cfg["ia08"]["klarifikasi"] = clean_kl
+        if "bukti_tambahan" in payload["ia08"]:
+            cfg["ia08"]["bukti_tambahan"] = str(payload["ia08"]["bukti_tambahan"] or "").strip()
+
     cfg["diperbarui_pada"] = datetime.now().isoformat(timespec="seconds")
     jalur = _jalur_muk(schema_id)
     jalur.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -534,7 +626,9 @@ def tentukan_dokumen_aktif(doc_mode: str, metode_mapa: str = "observasi") -> Lis
             "ak07", "ak04", "ak01",
             "ia01", "ia02", "ia03", "ia04a", "ia04b",
             "ia05a", "ia05b", "ia05c",
-            "ak02", "ak03", "ak05", "ak06",
+            "ia06a", "ia06b", "ia06c",
+            "ia07", "ia08",
+            "ak02", "ak03", "ak05", "ak06", "va",
         ]
     elif mode == "paket_observasi":
         return [
@@ -542,7 +636,7 @@ def tentukan_dokumen_aktif(doc_mode: str, metode_mapa: str = "observasi") -> Lis
             "ak07", "ak04", "ak01",
             "ia01", "ia02", "ia03",
             "ia05a", "ia05b", "ia05c",
-            "ak02", "ak03", "ak05", "ak06",
+            "ak02", "ak03", "ak05", "ak06", "va",
         ]
     elif mode == "paket_dit":
         return [
@@ -550,14 +644,15 @@ def tentukan_dokumen_aktif(doc_mode: str, metode_mapa: str = "observasi") -> Lis
             "ak07", "ak04", "ak01",
             "ia04a", "ia04b",
             "ia05a", "ia05b", "ia05c",
-            "ak02", "ak03", "ak05", "ak06",
+            "ak02", "ak03", "ak05", "ak06", "va",
         ]
     elif mode == "paket_portofolio":
         return [
             "apl01", "apl02", "mapa01", "peta_kelompok", "mapa02",
             "ak07", "ak04", "ak01",
+            "ia08",
             "ia05a", "ia05b", "ia05c",
-            "ak02", "ak03", "ak05", "ak06",
+            "ak02", "ak03", "ak05", "ak06", "va",
         ]
     valid_single = {d["kode"] for d in DAFTAR_DOKUMEN_BUKU_KERJA}
     if mode in valid_single:
@@ -760,6 +855,37 @@ def susun_data_buku_kerja(
         "baris_dua_kolom": baris_dua_kolom,
     }
 
+    # Siapkan detail IA.06A, 06B, 06C (Esai)
+    ia06_cfg = muk_cfg.get("ia06") or {}
+    ia06_questions = ia06_cfg.get("questions") or [
+        {"order": i, "pertanyaan": "", "kunci_jawaban": ""} for i in range(1, 6)
+    ]
+    ia06_prepared = {
+        "waktu": ia06_cfg.get("waktu") or "60 Menit",
+        "questions": ia06_questions,
+    }
+
+    # Siapkan detail IA.07 (DPL - Pertanyaan Lisan)
+    ia07_cfg = muk_cfg.get("ia07") or {}
+    ia07_questions = ia07_cfg.get("questions") or [
+        {"order": i, "pertanyaan": "", "kunci_jawaban": ""} for i in range(1, 4)
+    ]
+    ia07_prepared = {
+        "questions": ia07_questions,
+    }
+
+    # Siapkan detail IA.08 (CVP - Ceklis Verifikasi Portofolio)
+    ia08_cfg = muk_cfg.get("ia08") or {}
+    bukti_porto = ia08_cfg.get("bukti_portofolio") or ["", "", "", ""]
+    klarifikasi_list = ia08_cfg.get("klarifikasi") or [
+        {"no_unit": "", "no_elemen": "", "materi": ""} for _ in range(6)
+    ]
+    ia08_prepared = {
+        "bukti_portofolio": bukti_porto,
+        "klarifikasi": klarifikasi_list,
+        "bukti_tambahan": ia08_cfg.get("bukti_tambahan") or "",
+    }
+
     # Bukti persyaratan default untuk APL 01
     persyaratan_dasar = [
         "Fotokopi Ijazah Pendidikan Terakhir",
@@ -810,6 +936,9 @@ def susun_data_buku_kerja(
         "ia03": ia03_prepared,
         "ia04": ia04_prepared,
         "ia05": ia05_prepared,
+        "ia06": ia06_prepared,
+        "ia07": ia07_prepared,
+        "ia08": ia08_prepared,
         "muk_raw": muk_cfg,
         "persyaratan_dasar": persyaratan_dasar,
         "persyaratan_admin": persyaratan_admin,
