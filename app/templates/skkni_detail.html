@@ -46,14 +46,14 @@
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <div>
         <label style="display:block; font-size: 12px; font-weight:600; margin-bottom:3px;">Status Regulasi:</label>
-        <select name="status_regulasi" style="padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
+        <select aria-label="Status Regulasi:" name="status_regulasi" style="padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
           <option value="berlaku" {% if status_regulasi != 'dicabut' %}selected{% endif %}>✓ Berlaku</option>
           <option value="dicabut" {% if status_regulasi == 'dicabut' %}selected{% endif %}>⛔ Dicabut</option>
         </select>
       </div>
       <div style="flex: 1; min-width: 220px;">
         <label style="display:block; font-size: 12px; font-weight:600; margin-bottom:3px;">Kepmenaker Pengganti (Bila Dicabut):</label>
-        <input type="text" name="kepmen_pengganti" value="{{ kepmen_pengganti }}" placeholder="Contoh: Kepmenaker No. 124 Tahun 2022" style="width:100%; box-sizing:border-box; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
+        <input aria-label="Kepmenaker Pengganti (Bila Dicabut):" type="text" name="kepmen_pengganti" value="{{ kepmen_pengganti }}" placeholder="Contoh: Kepmenaker No. 124 Tahun 2022" style="width:100%; box-sizing:border-box; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
       </div>
       <div>
         <button type="submit" class="btn btn-small" style="background:#0369A1; border-color:#0369A1; color:#fff; padding: 7px 14px;">Simpan Regulasi</button>
@@ -118,7 +118,7 @@
   <div class="card-head">
     <h2>Daftar Unit Kompetensi</h2>
     <form class="cari" method="get" action="/skkni/{{ dok.id }}">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari kode atau judul unit…">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari kode atau judul unit…" aria-label="Cari unit kompetensi pada dokumen ini">
       <button type="submit" class="btn btn-ghost">Cari</button>
       {% if q %}<a class="btn btn-ghost" href="/skkni/{{ dok.id }}">Reset</a>{% endif %}
     </form>
@@ -205,7 +205,7 @@
   </p>
   <form class="upload" method="post" action="/skkni/{{ dok.id }}/verifikasi">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <select name="kode_unit" required>
+    <select name="kode_unit" required aria-label="Pilih kode unit yang akan ditandai terverifikasi manual">
       <option value="">— pilih kode unit —</option>
       {% for u in units %}<option value="{{ u.kode_unit }}">{{ u.kode_unit }}</option>{% endfor %}
     </select>

@@ -167,6 +167,7 @@
             value="{{ el.nama }}"
             placeholder="Ketik nama elemen kompetensi..."
             required
+            aria-label="Nama elemen kompetensi {{ el.nomor }}"
             class="koreksi-input input-elemen-nama input-padat-tebal flex-1"
            
           >
@@ -202,6 +203,7 @@
               rows="2"
               required
               placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..."
+              aria-label="Uraian KUK {{ k.nomor }}"
               class="koreksi-input input-kuk-uraian area-teks"
              
             >{{ k.uraian }}</textarea>
@@ -334,7 +336,7 @@
         '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
       '</div>' +
       '<div class="flex-1">' +
-        '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
+        '<textarea name="kuk_uraian" rows="2" required aria-label="Uraian KUK ' + noKuk + '" placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
       '</div>' +
       '<div class="pt-1">' +
         '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +
@@ -374,7 +376,7 @@
         '<div class="baris-cari">' +
           '<span class="badge badge-blue mono label-nomor-elemen tombol-mungil">ELEMEN ' + nextEl + '</span>' +
           '<input type="hidden" name="elemen_nomor" value="' + nextEl + '" class="input-elemen-nomor">' +
-          '<input type="text" name="elemen_nama" value="" placeholder="Ketik nama elemen kompetensi..." required class="koreksi-input input-elemen-nama input-padat-tebal flex-1">' +
+          '<input type="text" name="elemen_nama" value="" aria-label="Nama elemen kompetensi baru" placeholder="Ketik nama elemen kompetensi..." required class="koreksi-input input-elemen-nama input-padat-tebal flex-1">' +
         '</div>' +
         '<div>' +
           '<button type="button" class="btn btn-secondary btn-small btn-hapus-elemen" onclick="hapusElemen(this)">Hapus Elemen</button>' +
@@ -388,7 +390,7 @@
             '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
           '</div>' +
           '<div class="flex-1">' +
-            '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
+            '<textarea name="kuk_uraian" aria-label="Uraian KUK" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
           '</div>' +
           '<div class="pt-1">' +
             '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +

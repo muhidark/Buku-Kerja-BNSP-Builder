@@ -31,7 +31,7 @@
   <h2>Unggah PDF SKKNI</h2>
   <form class="upload" method="post" action="/skkni/upload" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <input type="file" name="berkas" accept="application/pdf,.pdf" required>
+    <input type="file" name="berkas" accept="application/pdf,.pdf" required aria-label="Pilih berkas PDF SKKNI yang akan diunggah">
     <button type="submit" class="btn">Unggah &amp; identifikasi</button>
   </form>
   <p class="note">
@@ -45,7 +45,7 @@
   <div class="card-head">
     <h2>Daftar Dokumen</h2>
     <form class="cari" method="get" action="/skkni">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama, nomor, tahun, judul...">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama, nomor, tahun, judul..." aria-label="Cari dokumen SKKNI">
       <button type="submit" class="btn btn-ghost">Cari</button>
       {% if q %}<a class="btn btn-ghost" href="/skkni">Reset</a>{% endif %}
     </form>

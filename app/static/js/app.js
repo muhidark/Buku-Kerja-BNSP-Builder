@@ -118,6 +118,25 @@
     if (e.key === 'Escape') sembunyikanProses();
   });
 
+
+  /* Menu ponsel (langkah 3.6, temuan T-13). */
+  (function pasangMenuPonsel() {
+    var tombol = document.getElementById('nav-toggle');
+    var nav = document.getElementById('nav-utama');
+    if (!tombol || !nav) return;
+    tombol.addEventListener('click', function () {
+      var terbuka = nav.classList.toggle('is-terbuka');
+      tombol.setAttribute('aria-expanded', terbuka ? 'true' : 'false');
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && nav.classList.contains('is-terbuka')) {
+        nav.classList.remove('is-terbuka');
+        tombol.setAttribute('aria-expanded', 'false');
+        tombol.focus();
+      }
+    });
+  })();
+
   /* Tandai item navigasi aktif bila server tidak menentukannya. */
   var jalur = window.location.pathname.replace(/\/$/, '') || '/';
   document.querySelectorAll('.nav-item').forEach(function (a) {

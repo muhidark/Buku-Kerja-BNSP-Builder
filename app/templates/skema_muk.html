@@ -35,7 +35,7 @@
   <div style="background: #f8fafc; border-top: 1px solid var(--border); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
     <div class="baris-rapat">
       <span style="font-weight: 700; font-size: 13px; color: #334155;">🗂️ Versi Paket MUK:</span>
-      <select onchange="window.location.href='/skema/{{ dok.id }}/muk?versi=' + this.value" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600; background: #fff;">
+      <select onchange="window.location.href='/skema/{{ dok.id }}/muk?versi=' + this.value" aria-label="Pilih versi paket MUK" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600; background: #fff;">
         {% for v in data.daftar_versi_muk %}
         <option value="{{ v.kode_versi }}" {% if v.kode_versi == versi_terpilih %}selected{% endif %}>
           {{ v.nama_versi }} ({{ v.kode_versi|upper }}){% if v.is_aktif %} &bull; [Aktif]{% endif %}
@@ -71,35 +71,35 @@
 
   <!-- Navigasi Tab MUK -->
   <article class="card kartu-tab">
-    <div class="muk-tabbar">
-      <button type="button" class="muk-tab-btn is-active" id="btn-muk-personel" onclick="pindahTabMuk('muk-personel')">
+    <div class="muk-tabbar" role="tablist" aria-label="Bagian pengaturan MUK">
+      <button type="button" class="muk-tab-btn is-active" role="tab" id="btn-muk-personel" aria-selected="true" aria-controls="muk-personel" onclick="pindahTabMuk('muk-personel')">
         👤 1. Personel &amp; MAPA
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-kelompok" onclick="pindahTabMuk('muk-kelompok')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-kelompok" aria-selected="false" aria-controls="muk-kelompok" onclick="pindahTabMuk('muk-kelompok')">
         🗂️ 2. Kelompok Pekerjaan
         <span class="badge {% if kp_info.is_complete %}badge-green{% else %}badge-amber{% endif %}" style="font-size: 12px; margin-left: 4px;">
           {{ kp_info.coverage_percent }}%
         </span>
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia02" onclick="pindahTabMuk('muk-ia02')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia02" aria-selected="false" aria-controls="muk-ia02" onclick="pindahTabMuk('muk-ia02')">
         🛠️ 3. IA.02 (TPD)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia03" onclick="pindahTabMuk('muk-ia03')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia03" aria-selected="false" aria-controls="muk-ia03" onclick="pindahTabMuk('muk-ia03')">
         💬 4. IA.03 (PMO)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia04" onclick="pindahTabMuk('muk-ia04')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia04" aria-selected="false" aria-controls="muk-ia04" onclick="pindahTabMuk('muk-ia04')">
         📐 5. IA.04A/B (DIT)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia05" onclick="pindahTabMuk('muk-ia05')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia05" aria-selected="false" aria-controls="muk-ia05" onclick="pindahTabMuk('muk-ia05')">
         📝 6. IA.05 (Soal PG)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia06" onclick="pindahTabMuk('muk-ia06')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia06" aria-selected="false" aria-controls="muk-ia06" onclick="pindahTabMuk('muk-ia06')">
         ✍️ 7. IA.06 (Esai)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia07" onclick="pindahTabMuk('muk-ia07')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia07" aria-selected="false" aria-controls="muk-ia07" onclick="pindahTabMuk('muk-ia07')">
         🗣️ 8. IA.07 (Lisan)
       </button>
-      <button type="button" class="muk-tab-btn" id="btn-muk-ia08" onclick="pindahTabMuk('muk-ia08')">
+      <button type="button" class="muk-tab-btn" role="tab" id="btn-muk-ia08" aria-selected="false" aria-controls="muk-ia08" onclick="pindahTabMuk('muk-ia08')">
         📁 9. IA.08 (Portofolio)
       </button>
     </div>
@@ -107,15 +107,15 @@
     <div class="p-22">
 
       <!-- TAB 1: PERSONEL & PENGATURAN MAPA -->
-      <div id="muk-personel" class="muk-panel is-active">
+      <div id="muk-personel" class="muk-panel is-active" role="tabpanel" aria-labelledby="btn-muk-personel">
         <h3 style="margin-top: 0;">👤 Identitas Skema, Personel Asesmen &amp; Pendekatan MAPA</h3>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 16px;">
           <div>
-            <label class="label-blok">Nomor Skema Sertifikasi</label>
+            <label class="label-blok" for="p-nomor-skema">Nomor Skema Sertifikasi</label>
             <input class="input-penuh" type="text" id="p-nomor-skema" value="{{ personel.nomor_skema }}">
           </div>
           <div>
-            <label class="label-blok">Metode Utama FR.MAPA.01 &amp; 02</label>
+            <label class="label-blok" for="p-metode-mapa">Metode Utama FR.MAPA.01 &amp; 02</label>
             <select class="input-penuh" id="p-metode-mapa">
               <option value="observasi" {% if personel.metode_mapa == 'observasi' %}selected{% endif %}>Observasi Langsung (CLO + TPD + PMO + DPT)</option>
               <option value="dit" {% if personel.metode_mapa == 'dit' %}selected{% endif %}>Kegiatan Terstruktur / Proyek Singkat (DIT + DPT)</option>
@@ -123,7 +123,7 @@
             </select>
           </div>
           <div>
-            <label class="label-blok">Kategori Potensi Asesi (1 s/d 5)</label>
+            <label class="label-blok" for="p-kategori-asesi">Kategori Potensi Asesi (1 s/d 5)</label>
             <select class="input-penuh" id="p-kategori-asesi">
               <option value="1" {% if personel.kategori_asesi == 1 %}selected{% endif %}>1 — Pelatihan/Pendidikan berbasis kompetensi</option>
               <option value="2" {% if personel.kategori_asesi == 2 %}selected{% endif %}>2 — Pelatihan/Pendidikan belum berbasis kompetensi</option>
@@ -133,18 +133,18 @@
             </select>
           </div>
           <div>
-            <label class="label-blok">Nama Asesor Penguji</label>
+            <label class="label-blok" for="p-nama-asesor">Nama Asesor Penguji</label>
             <input class="input-penuh" type="text" id="p-nama-asesor" value="{{ personel.nama_asesor }}" placeholder="Contoh: Muhadi, S.Kom.">
           </div>
           <div>
-            <label class="label-blok">No. Reg. MET Asesor</label>
+            <label class="label-blok" for="p-no-met">No. Reg. MET Asesor</label>
             <input class="input-penuh" type="text" id="p-no-met" value="{{ personel.no_met }}" placeholder="Contoh: MET.000.001234 2023">
           </div>
           <div>
             <label class="label-blok">Nama TUK &amp; Jenis TUK</label>
             <div style="display:flex; gap:6px;">
-              <input type="text" id="p-nama-tuk" value="{{ personel.nama_tuk }}" style="flex:1; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
-              <select id="p-jenis-tuk" style="padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+              <input type="text" id="p-nama-tuk" value="{{ personel.nama_tuk }}" aria-label="Nama TUK" style="flex:1; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
+              <select id="p-jenis-tuk" aria-label="Jenis TUK" style="padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
                 <option value="sewaktu" {% if personel.jenis_tuk == 'sewaktu' %}selected{% endif %}>Sewaktu</option>
                 <option value="tempat_kerja" {% if personel.jenis_tuk == 'tempat_kerja' %}selected{% endif %}>Tempat Kerja</option>
                 <option value="mandiri" {% if personel.jenis_tuk == 'mandiri' %}selected{% endif %}>Mandiri</option>
@@ -152,34 +152,34 @@
             </div>
           </div>
           <div>
-            <label class="label-blok">Nama Penyusun MUK</label>
+            <label class="label-blok" for="p-nama-penyusun">Nama Penyusun MUK</label>
             <input class="input-penuh" type="text" id="p-nama-penyusun" value="{{ personel.nama_penyusun }}">
           </div>
           <div>
-            <label class="label-blok">Nomor MET Penyusun</label>
+            <label class="label-blok" for="p-met-penyusun">Nomor MET Penyusun</label>
             <input class="input-penuh" type="text" id="p-met-penyusun" value="{{ personel.met_penyusun }}">
           </div>
           <div>
-            <label class="label-blok">Nama Validator MUK</label>
+            <label class="label-blok" for="p-nama-validator">Nama Validator MUK</label>
             <input class="input-penuh" type="text" id="p-nama-validator" value="{{ personel.nama_validator }}">
           </div>
           <div>
-            <label class="label-blok">Nomor MET Validator</label>
+            <label class="label-blok" for="p-met-validator">Nomor MET Validator</label>
             <input class="input-penuh" type="text" id="p-met-validator" value="{{ personel.met_validator }}">
           </div>
           <div>
-            <label class="label-blok">Nama Manajer Sertifikasi LSP</label>
+            <label class="label-blok" for="p-nama-manajer">Nama Manajer Sertifikasi LSP</label>
             <input class="input-penuh" type="text" id="p-nama-manajer" value="{{ personel.nama_manajer_sertifikasi }}">
           </div>
           <div>
-            <label class="label-blok">Tanggal Pelaksanaan (Opsional)</label>
+            <label class="label-blok" for="p-tanggal-pelaksanaan">Tanggal Pelaksanaan (Opsional)</label>
             <input class="input-penuh" type="text" id="p-tanggal-pelaksanaan" value="{{ personel.tanggal_pelaksanaan }}" placeholder="Kosongkan jika diisi tulis tangan">
           </div>
         </div>
       </div>
 
       <!-- TAB 2: KELOMPOK PEKERJAAN (MODUL LENGKAP) -->
-      <div id="muk-kelompok" class="muk-panel">
+      <div id="muk-kelompok" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-kelompok">
         <div class="card-head mb-10">
           <div>
             <h3 class="m-0">🗂️ Pengelompokan Unit Kompetensi Berdasarkan Kelompok Pekerjaan</h3>
@@ -239,11 +239,11 @@
                 <div class="baris-antara-gap mb-10">
                   <div class="flex-1">
                     <label class="label-kecil">Nama Kelompok Pekerjaan:</label>
-                    <input type="text" class="kp-nama input-penuh-md input-padat-tebal" value="{{ grp.nama }}" oninput="perbaruiStatistikKelompok()" placeholder="Contoh: Kelompok Pekerjaan 1 Perencanaan Proyek">
+                    <input aria-label="Nama Kelompok Pekerjaan:" type="text" class="kp-nama input-penuh-md input-padat-tebal" value="{{ grp.nama }}" oninput="perbaruiStatistikKelompok()" placeholder="Contoh: Kelompok Pekerjaan 1 Perencanaan Proyek">
                   </div>
                   <div class="lebar-78">
                     <label class="label-kecil">Urutan:</label>
-                    <input type="number" class="kp-urutan" value="{{ grp.urutan or loop.index }}" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
+                    <input aria-label="Urutan:" type="number" class="kp-urutan" value="{{ grp.urutan or loop.index }}" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
                   </div>
                   <div style="padding-top: 18px;">
                     <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusKelompokPekerjaan(this)">Hapus</button>
@@ -259,7 +259,7 @@
                 <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
                   {% for u in data.daftar_unit %}
                   <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; padding: 4px 6px; border-radius: 3px;">
-                    <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()" {% if u.kode_unit in (grp.units or []) %}checked{% endif %}>
+                    <input type="checkbox" aria-label="Pilih unit kompetensi untuk kelompok pekerjaan ini" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()" {% if u.kode_unit in (grp.units or []) %}checked{% endif %}>
                     <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
                   </label>
                   {% endfor %}
@@ -293,7 +293,7 @@
       </div>
 
       <!-- TAB 3: FR.IA.02 (TPD) -->
-      <div id="muk-ia02" class="muk-panel">
+      <div id="muk-ia02" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia02">
         <div class="card-head mb-10">
           <h3 class="m-0">🛠️ FR.IA.02 — Tugas Praktik Demonstrasi (TPD)</h3>
           <div class="aksi-group">
@@ -363,36 +363,36 @@
 
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div>
-            <label class="label-blok">A. Skenario Tugas Praktik Demonstrasi</label>
+            <label class="label-blok" for="ia02-skenario">A. Skenario Tugas Praktik Demonstrasi</label>
             <textarea class="input-penuh" id="ia02-skenario" rows="4">{{ ia02.skenario }}</textarea>
           </div>
           <div>
-            <label class="label-blok">B. Langkah-langkah Kerja (Satu langkah per baris — otomatis dikelompokkan per Kelompok Pekerjaan bila klik tombol di atas)</label>
+            <label class="label-blok" for="ia02-langkah">B. Langkah-langkah Kerja (Satu langkah per baris — otomatis dikelompokkan per Kelompok Pekerjaan bila klik tombol di atas)</label>
             <textarea class="input-penuh" id="ia02-langkah" rows="6">{{ ia02.langkah_kerja }}</textarea>
           </div>
           <div>
-            <label class="label-blok">C. Hasil Pekerjaan</label>
+            <label class="label-blok" for="ia02-hasil">C. Hasil Pekerjaan</label>
             <textarea class="input-penuh" id="ia02-hasil" rows="2">{{ ia02.hasil_kerja }}</textarea>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
             <div>
-              <label class="label-blok">D1. Perlengkapan (Satu item per baris)</label>
+              <label class="label-blok" for="ia02-perlengkapan">D1. Perlengkapan (Satu item per baris)</label>
               <textarea class="input-penuh" id="ia02-perlengkapan" rows="4">{{ ia02.perlengkapan }}</textarea>
             </div>
             <div>
-              <label class="label-blok">D2. Peralatan (Satu item per baris)</label>
+              <label class="label-blok" for="ia02-peralatan">D2. Peralatan (Satu item per baris)</label>
               <textarea class="input-penuh" id="ia02-peralatan" rows="4">{{ ia02.peralatan }}</textarea>
             </div>
           </div>
           <div>
-            <label class="label-blok">E. Durasi Waktu Praktik</label>
+            <label class="label-blok" for="ia02-durasi">E. Durasi Waktu Praktik</label>
             <input type="text" id="ia02-durasi" value="{{ ia02.durasi_waktu }}" style="width:240px; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">
           </div>
         </div>
       </div>
 
       <!-- TAB 4: FR.IA.03 (PMO) -->
-      <div id="muk-ia03" class="muk-panel">
+      <div id="muk-ia03" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia03">
         <div class="card-head mb-10">
           <h3 class="m-0">💬 FR.IA.03 — Pertanyaan Untuk Mendukung Observasi (PMO)</h3>
           <div class="aksi-group">
@@ -440,22 +440,22 @@
           {% for q in ia03.questions %}
           <div class="ia03-q-item kartu-referensi">
             <div class="baris-antara-gap">
-              <select class="ia03-dimensi input-padat-tebal">
+              <select aria-label="Dimensi pertanyaan PMO" class="ia03-dimensi input-padat-tebal">
                 {% for d_code, d_lbl in data.dimensi_labels.items() %}
                 <option value="{{ d_code }}" {% if q.dimensi == d_code %}selected{% endif %}>{{ d_lbl }}</option>
                 {% endfor %}
               </select>
               <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, '.ia03-q-item')">Hapus</button>
             </div>
-            <textarea class="ia03-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan pendukung observasi...">{{ q.pertanyaan }}</textarea>
-            <input type="text" class="ia03-kunci input-penuh-sm" value="{{ q.kunci_jawaban }}" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)">
+            <textarea aria-label="Pertanyaan PMO (FR.IA.03)" class="ia03-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan pendukung observasi...">{{ q.pertanyaan }}</textarea>
+            <input type="text" aria-label="Kunci jawaban pertanyaan PMO" class="ia03-kunci input-penuh-sm" value="{{ q.kunci_jawaban }}" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)">
           </div>
           {% endfor %}
         </div>
       </div>
 
       <!-- TAB 5: FR.IA.04A & 04B (DIT) -->
-      <div id="muk-ia04" class="muk-panel">
+      <div id="muk-ia04" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia04">
         <div class="card-head mb-10">
           <h3 class="m-0">📐 FR.IA.04A &amp; 04B — Daftar Instruksi Terstruktur (DIT Proyek Singkat)</h3>
           <div class="aksi-group">
@@ -487,44 +487,44 @@
         <h4 style="margin: 8px 0;">Bagian A — Penjelasan Proyek Singkat (FR.IA.04A - Metode STAR)</h4>
         <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
           <div>
-            <label class="label-blok">Judul Kegiatan Terstruktur / Proyek Singkat</label>
+            <label class="label-blok" for="ia04-judul">Judul Kegiatan Terstruktur / Proyek Singkat</label>
             <input class="input-penuh" type="text" id="ia04-judul" value="{{ ia04.judul_kegiatan }}">
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label class="label-blok">S – Situation (Situasi Studi Kasus)</label>
+              <label class="label-blok" for="ia04-situasi">S – Situation (Situasi Studi Kasus)</label>
               <textarea class="input-penuh" id="ia04-situasi" rows="3">{{ ia04.situasi }}</textarea>
             </div>
             <div>
-              <label class="label-blok">T – Task (Tugas Proyek)</label>
+              <label class="label-blok" for="ia04-tugas">T – Task (Tugas Proyek)</label>
               <textarea class="input-penuh" id="ia04-tugas" rows="3">{{ ia04.tugas }}</textarea>
             </div>
           </div>
           <div>
-            <label class="label-blok">A – Action (Tindakan / Instruksi Kerja untuk Asesi)</label>
+            <label class="label-blok" for="ia04-tindakan">A – Action (Tindakan / Instruksi Kerja untuk Asesi)</label>
             <textarea class="input-penuh" id="ia04-tindakan" rows="4">{{ ia04.tindakan }}</textarea>
           </div>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
             <div>
-              <label class="label-blok">Data / Informasi yang Disediakan</label>
+              <label class="label-blok" for="ia04-data">Data / Informasi yang Disediakan</label>
               <textarea class="input-penuh" id="ia04-data" rows="2">{{ ia04.data_informasi }}</textarea>
             </div>
             <div>
-              <label class="label-blok">R – Result (Hasil / Keluaran yang Diharapkan)</label>
+              <label class="label-blok" for="ia04-hasil">R – Result (Hasil / Keluaran yang Diharapkan)</label>
               <textarea class="input-penuh" id="ia04-hasil" rows="2">{{ ia04.hasil }}</textarea>
             </div>
           </div>
           <div>
-            <label class="label-blok">Hal yang Perlu Didemonstrasikan / Dipresentasikan</label>
+            <label class="label-blok" for="ia04-demonstrasi">Hal yang Perlu Didemonstrasikan / Dipresentasikan</label>
             <textarea class="input-penuh" id="ia04-demonstrasi" rows="3">{{ ia04.hal_demonstrasi }}</textarea>
           </div>
           <div style="display: flex; gap: 12px;">
             <div>
-              <label class="label-blok">Waktu Pengerjaan Proyek</label>
+              <label class="label-blok" for="ia04-waktu-proyek">Waktu Pengerjaan Proyek</label>
               <input type="text" id="ia04-waktu-proyek" value="{{ ia04.waktu_proyek }}" style="padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
             </div>
             <div>
-              <label class="label-blok">Waktu Presentasi</label>
+              <label class="label-blok" for="ia04-waktu-presentasi">Waktu Presentasi</label>
               <input type="text" id="ia04-waktu-presentasi" value="{{ ia04.waktu_presentasi }}" style="padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
             </div>
           </div>
@@ -538,19 +538,19 @@
           {% for q in ia04.questions %}
           <div class="ia04b-q-item kartu-referensi">
             <div class="kisi-baris">
-              <input type="text" class="ia04b-lingkup input-padat-tebal" value="{{ q.lingkup }}" placeholder="Lingkup penyajian proyek">
-              <input type="text" class="ia04b-kuk input-padat" value="{{ q.elemen_kuk }}" placeholder="Kode Unit / KUK">
-              <input type="text" class="ia04b-dimensi input-padat" value="{{ q.dimensi }}" placeholder="Dimensi, mis: (TS, TMS)">
+              <input type="text" aria-label="Lingkup proyek singkat (FR.IA.04B)" class="ia04b-lingkup input-padat-tebal" value="{{ q.lingkup }}" placeholder="Lingkup penyajian proyek">
+              <input type="text" aria-label="Rujukan elemen/KUK pertanyaan proyek singkat" class="ia04b-kuk input-padat" value="{{ q.elemen_kuk }}" placeholder="Kode Unit / KUK">
+              <input type="text" aria-label="Dimensi pertanyaan proyek singkat" class="ia04b-dimensi input-padat" value="{{ q.dimensi }}" placeholder="Dimensi, mis: (TS, TMS)">
               <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, '.ia04b-q-item')">Hapus</button>
             </div>
-            <textarea class="ia04b-pertanyaan input-penuh-md" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek...">{{ q.pertanyaan }}</textarea>
+            <textarea aria-label="Pertanyaan proyek singkat (FR.IA.04B)" class="ia04b-pertanyaan input-penuh-md" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek...">{{ q.pertanyaan }}</textarea>
           </div>
           {% endfor %}
         </div>
       </div>
 
       <!-- TAB 6: FR.IA.05A/B/C (SOAL & KUNCI PILIHAN GANDA) -->
-      <div id="muk-ia05" class="muk-panel">
+      <div id="muk-ia05" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia05">
         <div class="card-head mb-10">
           <h3 class="m-0">📝 FR.IA.05A, 05B, &amp; 05C — Pertanyaan Tertulis Pilihan Ganda</h3>
           <div class="aksi-group">
@@ -561,24 +561,24 @@
         </div>
 
         <div class="mb-12">
-          <label class="label-blok">Jumlah Soal Pilihan Ganda (Menentukan jumlah baris di Lembar Jawaban IA.05C &amp; Kunci IA.05B)</label>
+          <label class="label-blok" for="ia05-jumlah">Jumlah Soal Pilihan Ganda (Menentukan jumlah baris di Lembar Jawaban IA.05C &amp; Kunci IA.05B)</label>
           <input type="number" id="ia05-jumlah" min="1" max="100" value="{{ ia05.jumlah_soal or 10 }}" style="width:140px; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
         </div>
 
         <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
           <div>
-            <label class="label-blok">Naskah Soal Pilihan Ganda (FR.IA.05A)</label>
+            <label class="label-blok" for="ia05-pertanyaan">Naskah Soal Pilihan Ganda (FR.IA.05A)</label>
             <textarea id="ia05-pertanyaan" rows="14" placeholder="1. Pertanyaan pertama...&#10;a. Pilihan A&#10;b. Pilihan B&#10;c. Pilihan C&#10;d. Pilihan D" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px; font-family:inherit;">{{ ia05.pertanyaan }}</textarea>
           </div>
           <div>
-            <label class="label-blok">Kunci Jawaban (FR.IA.05B — Satu nomor per baris, misal: 1. B)</label>
+            <label class="label-blok" for="ia05-kunci">Kunci Jawaban (FR.IA.05B — Satu nomor per baris, misal: 1. B)</label>
             <textarea id="ia05-kunci" rows="14" placeholder="1. B&#10;2. A&#10;3. D&#10;4. C" style="width:100%; padding:10px; border:1px solid var(--border); border-radius:4px; font-family:monospace;">{{ ia05.kunci }}</textarea>
           </div>
         </div>
       </div>
 
       <!-- TAB 7: FR.IA.06A/B/C (PERTANYAAN TERTULIS ESAI) -->
-      <div id="muk-ia06" class="muk-panel">
+      <div id="muk-ia06" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia06">
         <div class="card-head mb-10">
           <h3 class="m-0">✍️ FR.IA.06A, 06.B, &amp; 06.C — Pertanyaan Tertulis Esai</h3>
           <div class="aksi-group">
@@ -625,7 +625,7 @@
           </div>
         </details>
         <div class="mb-12">
-          <label class="label-blok">Alokasi Waktu Ujian Esai</label>
+          <label class="label-blok" for="ia06-waktu">Alokasi Waktu Ujian Esai</label>
           <input type="text" id="ia06-waktu" value="{{ ia06.waktu or '60 Menit' }}" style="width:200px; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
         </div>
         <div id="wadah-ia06-questions">
@@ -635,15 +635,15 @@
               <strong>Soal Esai #{{ loop.index }}</strong>
               <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, '.ia06-q-item')">Hapus</button>
             </div>
-            <textarea class="ia06-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis butir pertanyaan esai...">{{ q.pertanyaan }}</textarea>
-            <textarea class="ia06-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban esai...">{{ q.kunci_jawaban }}</textarea>
+            <textarea aria-label="Pertanyaan esai (FR.IA.06)" class="ia06-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis butir pertanyaan esai...">{{ q.pertanyaan }}</textarea>
+            <textarea aria-label="Kunci jawaban pertanyaan esai" class="ia06-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban esai...">{{ q.kunci_jawaban }}</textarea>
           </div>
           {% endfor %}
         </div>
       </div>
 
       <!-- TAB 8: FR.IA.07 (DAFTAR PERTANYAAN LISAN) -->
-      <div id="muk-ia07" class="muk-panel">
+      <div id="muk-ia07" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia07">
         <div class="card-head mb-10">
           <h3 class="m-0">🗣️ FR.IA.07 — DPL: Daftar Pertanyaan Lisan</h3>
           <div class="aksi-group">
@@ -694,15 +694,15 @@
               <strong>Pertanyaan Lisan #{{ loop.index }}</strong>
               <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, '.ia07-q-item')">Hapus</button>
             </div>
-            <textarea class="ia07-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan lisan (penguatan KUK, batasan variabel, aspek kritis)...">{{ q.pertanyaan }}</textarea>
-            <textarea class="ia07-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban lisan...">{{ q.kunci_jawaban }}</textarea>
+            <textarea aria-label="Pertanyaan lisan (FR.IA.07)" class="ia07-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan lisan (penguatan KUK, batasan variabel, aspek kritis)...">{{ q.pertanyaan }}</textarea>
+            <textarea aria-label="Kunci jawaban pertanyaan lisan" class="ia07-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban lisan...">{{ q.kunci_jawaban }}</textarea>
           </div>
           {% endfor %}
         </div>
       </div>
 
       <!-- TAB 9: FR.IA.08 (CEKLIS VERIFIKASI PORTOFOLIO) -->
-      <div id="muk-ia08" class="muk-panel">
+      <div id="muk-ia08" class="muk-panel" role="tabpanel" aria-labelledby="btn-muk-ia08">
         <div class="card-head mb-10">
           <h3 class="m-0">📁 FR.IA.08 — CVP: Ceklis Verifikasi Portofolio</h3>
           <div class="aksi-group">
@@ -717,13 +717,13 @@
           {% for b in ia08.bukti_portofolio %}
           <div class="ia08-bukti-item" style="display: flex; gap: 8px; align-items: center;">
             <span style="font-weight: 600; width: 28px;">{{ loop.index }}.</span>
-            <input type="text" class="ia08-bukti-teks" value="{{ b }}" placeholder="Nama dokumen portofolio (opsional, biarkan kosong untuk blanko)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
+            <input type="text" aria-label="Nama dokumen bukti portofolio" class="ia08-bukti-teks" value="{{ b }}" placeholder="Nama dokumen portofolio (opsional, biarkan kosong untuk blanko)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">
             <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, '.ia08-bukti-item')">Hapus</button>
           </div>
           {% endfor %}
         </div>
         <div>
-          <label class="label-blok">Catatan Bukti Tambahan (Opsional)</label>
+          <label class="label-blok" for="ia08-bukti-tambahan">Catatan Bukti Tambahan (Opsional)</label>
           <input class="input-penuh-md" type="text" id="ia08-bukti-tambahan" value="{{ ia08.bukti_tambahan }}" placeholder="Kosongkan jika diisi manual oleh asesor">
         </div>
       </div>
@@ -755,11 +755,11 @@
     <div class="baris-antara-gap mb-10">
       <div class="flex-1">
         <label class="label-kecil">Nama Kelompok Pekerjaan:</label>
-        <input type="text" class="kp-nama input-penuh-md input-padat-tebal" value="Kelompok Pekerjaan Baru" oninput="perbaruiStatistikKelompok()">
+        <input aria-label="Nama Kelompok Pekerjaan:" type="text" class="kp-nama input-penuh-md input-padat-tebal" value="Kelompok Pekerjaan Baru" oninput="perbaruiStatistikKelompok()">
       </div>
       <div class="lebar-78">
         <label class="label-kecil">Urutan:</label>
-        <input type="number" class="kp-urutan" value="1" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
+        <input aria-label="Urutan:" type="number" class="kp-urutan" value="1" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
       </div>
       <div style="padding-top: 18px;">
         <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusKelompokPekerjaan(this)">Hapus</button>
@@ -775,7 +775,7 @@
     <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
       {% for u in data.daftar_unit %}
       <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; padding: 4px 6px; border-radius: 3px;">
-        <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()">
+        <input type="checkbox" aria-label="Pilih unit kompetensi untuk kelompok pekerjaan ini" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()">
         <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
       </label>
       {% endfor %}
@@ -1035,11 +1035,11 @@ function buatItemIa03Dom(wadah, dim, pert, kunci) {
   }).join('');
   div.innerHTML = ''
     + '<div class="baris-antara-gap">'
-    + '  <select class="ia03-dimensi input-padat-tebal">' + opts + '</select>'
+    + '  <select aria-label="Dimensi pertanyaan PMO" class="ia03-dimensi input-padat-tebal">' + opts + '</select>'
     + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia03-q-item\')">Hapus</button>'
     + '</div>'
-    + '<textarea class="ia03-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
-    + '<input type="text" class="ia03-kunci input-penuh-sm">';
+    + '<textarea aria-label="Pertanyaan PMO (FR.IA.03)" class="ia03-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
+    + '<input type="text" aria-label="Kunci jawaban pertanyaan PMO" class="ia03-kunci input-penuh-sm">';
   div.querySelector('.ia03-pertanyaan').value = pert;
   div.querySelector('.ia03-kunci').value = kunci;
   wadah.appendChild(div);
@@ -1077,8 +1077,8 @@ function tarikPpKeIa06() {
       + '  <strong>Soal Esai #' + (idx + 1) + '</strong>'
       + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia06-q-item\')">Hapus</button>'
       + '</div>'
-      + '<textarea class="ia06-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
-      + '<textarea class="ia06-kunci input-penuh-md" rows="2"></textarea>';
+      + '<textarea aria-label="Pertanyaan esai (FR.IA.06)" class="ia06-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
+      + '<textarea aria-label="Kunci jawaban pertanyaan esai" class="ia06-kunci input-penuh-md" rows="2"></textarea>';
     div.querySelector('.ia06-pertanyaan').value = q.pert;
     div.querySelector('.ia06-kunci').value = q.kunci;
     wadah.appendChild(div);
@@ -1117,8 +1117,8 @@ function tarikPpKeIa07() {
       + '  <strong>Pertanyaan Lisan #' + (idx + 1) + '</strong>'
       + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia07-q-item\')">Hapus</button>'
       + '</div>'
-      + '<textarea class="ia07-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
-      + '<textarea class="ia07-kunci input-penuh-md" rows="2"></textarea>';
+      + '<textarea aria-label="Pertanyaan lisan (FR.IA.07)" class="ia07-pertanyaan input-penuh-md mb-6" rows="2"></textarea>'
+      + '<textarea aria-label="Kunci jawaban pertanyaan lisan" class="ia07-kunci input-penuh-md" rows="2"></textarea>';
     div.querySelector('.ia07-pertanyaan').value = q.pert;
     div.querySelector('.ia07-kunci').value = q.kunci;
     wadah.appendChild(div);
@@ -1156,12 +1156,12 @@ function tarikPanduanKelompokKeIa04() {
     div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
     div.innerHTML = ''
       + '<div class="kisi-baris">'
-      + '  <input type="text" class="ia04b-lingkup" value="Penyajian proyek pada ' + g.nama.replace(/"/g, '&quot;') + '" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-weight:600;">'
-      + '  <input type="text" class="ia04b-kuk input-padat" value="' + kodeUnits + '">'
-      + '  <input type="text" class="ia04b-dimensi input-padat" value="(TS, TMS, CMS)">'
+      + '  <input type="text" aria-label="Lingkup proyek singkat (FR.IA.04B)" class="ia04b-lingkup" value="Penyajian proyek pada ' + g.nama.replace(/"/g, '&quot;') + '" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-weight:600;">'
+      + '  <input type="text" aria-label="Rujukan elemen/KUK pertanyaan proyek singkat" class="ia04b-kuk input-padat" value="' + kodeUnits + '">'
+      + '  <input type="text" aria-label="Dimensi pertanyaan proyek singkat" class="ia04b-dimensi input-padat" value="(TS, TMS, CMS)">'
       + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia04b-q-item\')">Hapus</button>'
       + '</div>'
-      + '<textarea class="ia04b-pertanyaan input-penuh-md" rows="2">Jelaskan alur kerja, pemenuhan standar kualitas, dan penanganan kendala pada tahapan ' + g.nama + '!</textarea>';
+      + '<textarea aria-label="Pertanyaan proyek singkat (FR.IA.04B)" class="ia04b-pertanyaan input-penuh-md" rows="2">Jelaskan alur kerja, pemenuhan standar kualitas, dan penanganan kendala pada tahapan ' + g.nama + '!</textarea>';
     wadahQ4.appendChild(div);
   });
 }
@@ -1173,7 +1173,7 @@ function tambahPertanyaanIa03() {
   div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
   div.innerHTML = ''
     + '<div class="baris-antara-gap">'
-    + '  <select class="ia03-dimensi input-padat-tebal">'
+    + '  <select aria-label="Dimensi pertanyaan PMO" class="ia03-dimensi input-padat-tebal">'
     + '    <option value="TS">TS - Task Skills</option>'
     + '    <option value="TMS">TMS - Task Management Skills</option>'
     + '    <option value="CMS">CMS - Contingency Management Skills</option>'
@@ -1182,8 +1182,8 @@ function tambahPertanyaanIa03() {
     + '  </select>'
     + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia03-q-item\')">Hapus</button>'
     + '</div>'
-    + '<textarea class="ia03-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan pendukung observasi..."></textarea>'
-    + '<input type="text" class="ia03-kunci input-penuh-sm" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)">';
+    + '<textarea aria-label="Pertanyaan PMO (FR.IA.03)" class="ia03-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan pendukung observasi..."></textarea>'
+    + '<input type="text" aria-label="Kunci jawaban pertanyaan PMO" class="ia03-kunci input-penuh-sm" placeholder="Standar tanggapan / kunci jawaban asesor (opsional)">';
   wadah.appendChild(div);
 }
 
@@ -1194,12 +1194,12 @@ function tambahPertanyaanIa04b() {
   div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
   div.innerHTML = ''
     + '<div class="kisi-baris">'
-    + '  <input type="text" class="ia04b-lingkup input-padat-tebal" placeholder="Lingkup penyajian proyek">'
-    + '  <input type="text" class="ia04b-kuk input-padat" placeholder="Kode Unit / KUK">'
-    + '  <input type="text" class="ia04b-dimensi input-padat" placeholder="Dimensi, mis: (TS, TMS)">'
+    + '  <input type="text" aria-label="Lingkup proyek singkat (FR.IA.04B)" class="ia04b-lingkup input-padat-tebal" placeholder="Lingkup penyajian proyek">'
+    + '  <input type="text" aria-label="Rujukan elemen/KUK pertanyaan proyek singkat" class="ia04b-kuk input-padat" placeholder="Kode Unit / KUK">'
+    + '  <input type="text" aria-label="Dimensi pertanyaan proyek singkat" class="ia04b-dimensi input-padat" placeholder="Dimensi, mis: (TS, TMS)">'
     + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia04b-q-item\')">Hapus</button>'
     + '</div>'
-    + '<textarea class="ia04b-pertanyaan input-penuh-md" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek..."></textarea>';
+    + '<textarea aria-label="Pertanyaan proyek singkat (FR.IA.04B)" class="ia04b-pertanyaan input-penuh-md" rows="2" placeholder="Daftar pertanyaan penilaian presentasi proyek..."></textarea>';
   wadah.appendChild(div);
 }
 
@@ -1214,8 +1214,8 @@ function tambahPertanyaanIa06() {
     + '  <strong>Soal Esai #' + nomor + '</strong>'
     + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia06-q-item\')">Hapus</button>'
     + '</div>'
-    + '<textarea class="ia06-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis butir pertanyaan esai..."></textarea>'
-    + '<textarea class="ia06-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban esai..."></textarea>';
+    + '<textarea aria-label="Pertanyaan esai (FR.IA.06)" class="ia06-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis butir pertanyaan esai..."></textarea>'
+    + '<textarea aria-label="Kunci jawaban pertanyaan esai" class="ia06-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban esai..."></textarea>';
   wadah.appendChild(div);
 }
 
@@ -1230,8 +1230,8 @@ function tambahPertanyaanIa07() {
     + '  <strong>Pertanyaan Lisan #' + nomor + '</strong>'
     + '  <button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia07-q-item\')">Hapus</button>'
     + '</div>'
-    + '<textarea class="ia07-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan lisan..."></textarea>'
-    + '<textarea class="ia07-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban lisan..."></textarea>';
+    + '<textarea aria-label="Pertanyaan lisan (FR.IA.07)" class="ia07-pertanyaan input-penuh-md mb-6" rows="2" placeholder="Tulis pertanyaan lisan..."></textarea>'
+    + '<textarea aria-label="Kunci jawaban pertanyaan lisan" class="ia07-kunci input-penuh-md" rows="2" placeholder="Tulis kunci jawaban lisan..."></textarea>';
   wadah.appendChild(div);
 }
 
@@ -1243,7 +1243,7 @@ function tambahBuktiIa08() {
   div.style.cssText = 'display: flex; gap: 8px; align-items: center;';
   div.innerHTML = ''
     + '<span style="font-weight: 600; width: 28px;">' + nomor + '.</span>'
-    + '<input type="text" class="ia08-bukti-teks" placeholder="Nama dokumen portofolio (opsional)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">'
+    + '<input type="text" aria-label="Nama dokumen bukti portofolio" class="ia08-bukti-teks" placeholder="Nama dokumen portofolio (opsional)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px;">'
     + '<button type="button" class="btn btn-small btn-ghost teks-bahaya" onclick="hapusElemenDom(this, \'.ia08-bukti-item\')">Hapus</button>';
   wadah.appendChild(div);
 }

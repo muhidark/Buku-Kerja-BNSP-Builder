@@ -1,3 +1,4 @@
+{%- from "_ikon.html" import ikon -%}
 <!doctype html>
 <html lang="id">
 <head>
@@ -17,10 +18,19 @@
         <small>V.2023 (v{{ versi }})</small>
       </div>
     </div>
-    <nav class="nav">
+    <button type="button" class="nav-toggle" id="nav-toggle"
+            aria-expanded="false" aria-controls="nav-utama">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false">
+        <path d="M4 7h16M4 12h16M4 17h16"/>
+      </svg>
+      <span>Menu</span>
+    </button>
+    <nav class="nav" id="nav-utama" aria-label="Menu utama">
       {% for h in halaman %}
-      <a href="{{ h.path }}" class="nav-item{% if aktif == h.path %} is-active{% endif %}">
-        <span class="nav-icon" aria-hidden="true">{{ h.ikon }}</span>
+      <a href="{{ h.path }}" class="nav-item{% if aktif == h.path %} is-active{% endif %}"
+         {% if aktif == h.path %}aria-current="page"{% endif %}>
+        <span class="nav-icon">{{ ikon(h.ikon) }}</span>
         <span>{{ h.label }}</span>
       </a>
       {% endfor %}

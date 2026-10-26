@@ -172,12 +172,16 @@ body {
 
 @media (max-width: 900px) {
   .app { grid-template-columns: 1fr; }
+  /* Bilah menu mendatar 946 px pada layar 390 px diganti tombol Menu +
+     panel buka-tutup (temuan T-13). */
   .sidebar { position: static; height: auto; flex-direction: row; align-items: center;
-             gap: 14px; padding: 12px 14px; overflow-x: auto; }
+             gap: 14px; padding: 12px 14px; flex-wrap: wrap; }
   .brand { padding: 0; }
   .brand-text small { display: none; }
-  .nav { flex-direction: row; gap: 4px; }
-  .nav-item { white-space: nowrap; padding: 7px 10px; font-size: 13px; }
+  .nav-toggle { display: inline-flex; margin-left: auto; }
+  .nav { display: none; flex-direction: column; width: 100%; gap: 2px; }
+  .nav.is-terbuka { display: flex; }
+  .nav-item { white-space: nowrap; padding: 10px 12px; font-size: 14px; }
   .sidebar-foot { display: none; }
   .grid-2, .cards-3 { grid-template-columns: 1fr; }
   .topbar { padding: 14px 18px; }
@@ -568,4 +572,23 @@ input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; accent-
 .proses-sub { font-size: 12px; color: var(--muted); text-align: center; }
 @media (prefers-reduced-motion: reduce) {
   .proses-lingkar { animation: none; border-top-color: var(--navy-2); }
+}
+
+/* --- menu ponsel & ikon SVG (langkah 3.6, temuan T-13/T-27) --- */
+.nav-ikon { width: 20px; height: 20px; flex: none; }
+.nav-toggle {
+  display: none; align-items: center; gap: 8px;
+  padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px;
+  background: #fff; color: var(--navy-2); font-size: 13.5px; font-weight: 600;
+  cursor: pointer;
+}
+.nav-toggle:hover { background: #f1f5f9; }
+
+/* Override menu ponsel diletakkan paling akhir agar tidak kalah oleh aturan
+   dasar .nav-toggle di atas (urutan sumber menentukan pada spesifisitas sama). */
+@media (max-width: 900px) {
+  .nav-toggle { display: inline-flex; margin-left: auto; }
+  .nav { display: none; flex-direction: column; width: 100%; gap: 2px; }
+  .nav.is-terbuka { display: flex; }
+  .nav-item { white-space: nowrap; padding: 10px 12px; font-size: 14px; }
 }

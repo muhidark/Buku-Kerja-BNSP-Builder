@@ -85,13 +85,16 @@ app.include_router(api_jobs.router)
 app.include_router(api_documents.router)
 app.include_router(api_v1.router)
 
+#: Menu utama. `ikon` adalah nama ikon SVG di app/templates/_ikon.html —
+#: sebelumnya berupa karakter glyph (▤▦▧▣⚙) yang tampil beda antar sistem
+#: operasi (temuan T-27).
 HALAMAN = [
-    {'path': '/', 'label': 'Dashboard', 'ikon': '▤'},
-    {'path': '/skkni', 'label': 'Dokumen SKKNI', 'ikon': '▦'},
-    {'path': '/skema', 'label': 'Skema Sertifikasi', 'ikon': '▧'},
-    {'path': '/unit', 'label': 'Unit Kompetensi', 'ikon': '▤'},
-    {'path': '/ekstraksi', 'label': 'Ekstraksi', 'ikon': '⚙'},
-    {'path': '/hasil', 'label': 'Hasil Ekstraksi', 'ikon': '▣'},
+    {'path': '/', 'label': 'Dashboard', 'ikon': 'dashboard'},
+    {'path': '/skkni', 'label': 'Dokumen SKKNI', 'ikon': 'dokumen'},
+    {'path': '/skema', 'label': 'Skema Sertifikasi', 'ikon': 'skema'},
+    {'path': '/unit', 'label': 'Unit Kompetensi', 'ikon': 'unit'},
+    {'path': '/ekstraksi', 'label': 'Ekstraksi', 'ikon': 'ekstraksi'},
+    {'path': '/hasil', 'label': 'Hasil Ekstraksi', 'ikon': 'hasil'},
 ]
 
 

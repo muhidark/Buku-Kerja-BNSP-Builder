@@ -33,7 +33,7 @@
   <h2>Unggah Skema Sertifikasi</h2>
   <form class="upload" method="post" action="/skema/upload" enctype="multipart/form-data">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <input type="file" name="berkas" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+    <input type="file" name="berkas" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required aria-label="Pilih berkas dokumen skema (.docx) yang akan diunggah">
     <button type="submit" class="btn">Unggah &amp; baca unit</button>
   </form>
   <p class="note">
@@ -47,7 +47,7 @@
   <div class="card-head">
     <h2>Daftar Skema</h2>
     <form class="cari" method="get" action="/skema">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama skema atau berkas...">
+      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama skema atau berkas..." aria-label="Cari skema sertifikasi">
       <button type="submit" class="btn btn-ghost">Cari</button>
       {% if q %}<a class="btn btn-ghost" href="/skema">Reset</a>{% endif %}
     </form>

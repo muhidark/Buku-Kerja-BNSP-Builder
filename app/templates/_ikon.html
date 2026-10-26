@@ -1,0 +1,31 @@
+{#- Ikon SVG lokal 20 px untuk menu utama.
+    Menggantikan karakter glyph (▤▦▧▣⚙) yang tampil berbeda di tiap sistem
+    operasi (temuan T-27). Semua ikon aria-hidden karena label teksnya sudah
+    ada di sebelahnya. -#}
+{% macro ikon(nama) -%}
+<svg class="nav-ikon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+     stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+     stroke-linejoin="round" aria-hidden="true" focusable="false">
+  {%- if nama == 'dashboard' -%}
+  <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+  <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
+  {%- elif nama == 'dokumen' -%}
+  <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+  <path d="M14 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/>
+  {%- elif nama == 'skema' -%}
+  <rect x="5" y="4" width="14" height="17" rx="2"/>
+  <path d="M9 4V3h6v1"/><path d="M9 10h6"/><path d="M9 14h4"/>
+  {%- elif nama == 'unit' -%}
+  <path d="M9 6h12"/><path d="M9 12h12"/><path d="M9 18h12"/>
+  <circle cx="4" cy="6" r="1.2"/><circle cx="4" cy="12" r="1.2"/><circle cx="4" cy="18" r="1.2"/>
+  {%- elif nama == 'ekstraksi' -%}
+  <circle cx="12" cy="12" r="3.2"/>
+  <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/>
+  {%- elif nama == 'hasil' -%}
+  <path d="M21 8v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8"/>
+  <rect x="2" y="3" width="20" height="5" rx="1"/><path d="M10 12h4"/>
+  {%- else -%}
+  <circle cx="12" cy="12" r="8"/>
+  {%- endif -%}
+</svg>
+{%- endmacro %}

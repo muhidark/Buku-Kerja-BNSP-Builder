@@ -210,8 +210,8 @@
           ⬇️ Unduh JSON Skema (.json)
         </a>
       </div>
-      <textarea class="tersembunyi" id="skema-smart-text-hidden">{{ skema_smart_text }}</textarea>
-      <textarea class="tersembunyi" id="skema-lsp-json-hidden">{{ skema_lsp_json }}</textarea>
+      <textarea class="tersembunyi" id="skema-smart-text-hidden" aria-label="Teks tempel cepat untuk skema (bahan salin)">{{ skema_smart_text }}</textarea>
+      <textarea class="tersembunyi" id="skema-lsp-json-hidden" aria-label="JSON LSP untuk skema (bahan salin)">{{ skema_lsp_json }}</textarea>
       {% else %}
       <div class="alert alert-info m-0">
         Belum ada unit yang diekstrak untuk diekspor. Silakan lakukan ekstraksi unit terlebih dahulu.
@@ -314,7 +314,7 @@
   <div class="card-head">
     <h2>Daftar Unit Kompetensi</h2>
     <form class="cari" method="get" action="/skema/{{ dok.id }}">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari kode atau judul unit...">
+      <input type="search" name="q" aria-label="Cari unit kompetensi pada skema ini" value="{{ q }}" placeholder="Cari kode atau judul unit...">
       <button type="submit" class="btn btn-ghost">Cari</button>
       {% if q %}<a class="btn btn-ghost" href="/skema/{{ dok.id }}">Reset</a>{% endif %}
     </form>
@@ -423,7 +423,7 @@
   </p>
   <form class="upload" method="post" action="/skema/{{ dok.id }}/verifikasi">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <select name="kode_unit" required>
+    <select name="kode_unit" required aria-label="Pilih kode unit yang akan ditandai terverifikasi manual">
       <option value="">— pilih kode unit —</option>
       {% for u in units %}<option value="{{ u.kode_unit }}">{{ u.kode_unit }}</option>{% endfor %}
     </select>
@@ -500,20 +500,20 @@
     <form id="form-cetak-apl" onsubmit="prosesCetakApl(event)">
       <input type="hidden" id="cetak-doc-target" value="all">
       <div class="mb-12">
-        <label class="label-blok-12">Nomor Skema</label>
+        <label class="label-blok-12" for="cetak-no-skema">Nomor Skema</label>
         <input type="text" id="cetak-no-skema" class="input input-penuh-md" placeholder="Contoh: SKM-2024-001 (atau kosongkan)">
       </div>
       <div class="mb-12">
-        <label class="label-blok-12">Nama Asesor</label>
+        <label class="label-blok-12" for="cetak-nama-asesor">Nama Asesor</label>
         <input type="text" id="cetak-nama-asesor" class="input input-penuh-md" placeholder="Contoh: Muhadi, S.Kom., M.T.">
       </div>
       <div class="mb-12">
-        <label class="label-blok-12">No. Registrasi MET Asesor</label>
+        <label class="label-blok-12" for="cetak-no-met">No. Registrasi MET Asesor</label>
         <input type="text" id="cetak-no-met" class="input input-penuh-md" placeholder="Contoh: MET.000.001234.2023">
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
         <div>
-          <label class="label-blok-12">Metode MAPA.01 &amp; 02</label>
+          <label class="label-blok-12" for="cetak-metode-mapa">Metode MAPA.01 &amp; 02</label>
           <select id="cetak-metode-mapa" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
             <option value="observasi">Observasi (CLO+TPD+PMO)</option>
             <option value="dit">Proyek Singkat (DIT)</option>
@@ -521,7 +521,7 @@
           </select>
         </div>
         <div>
-          <label class="label-blok-12">Potensi Asesi (1–5)</label>
+          <label class="label-blok-12" for="cetak-kategori-asesi">Potensi Asesi (1–5)</label>
           <select id="cetak-kategori-asesi" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
             <option value="1">Kategori 1 (Pelatihan Telusur)</option>
             <option value="2">Kategori 2 (Pelatihan Non-SKKNI)</option>

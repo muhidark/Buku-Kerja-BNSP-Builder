@@ -109,12 +109,17 @@ def main():
         all(client.get(t).status_code == 200 for t in tautan))
     cek('navigasi aktif ditandai di setiap halaman',
         all('is-active' in isi[p] for p in HALAMAN))
+    # Ikon menu kini berupa SVG (langkah 3.6), jadi isi <span> pertama bukan
+    # teks lagi; yang diperiksa adalah blok tautan aktif dan aria-current.
     aktif_benar = all(
-        f'class="nav-item is-active"' in isi[p] and
-        re.search(r'class="nav-item is-active"[^>]*>\s*<span[^>]*>[^<]*</span>\s*<span>([^<]+)</span>', isi[p])
+        re.search(r'class="nav-item is-active"[^>]*aria-current="page"', isi[p])
+        and re.search(r'class="nav-item is-active"[^>]*>(?:(?!</a>).)*<span>[^<]+</span>\s*</a>',
+                      isi[p], re.S)
         for p in HALAMAN)
     cek('hanya satu item aktif per halaman',
         all(t.count('nav-item is-active') == 1 for t in isi.values()) and aktif_benar)
+    cek('item aktif ditandai aria-current',
+        all('aria-current="page"' in isi[p] for p in HALAMAN))
 
     # 7 --------------------------------------------------------- bukan data dummy
     print("\n7. DATA NYATA (BUKAN DUMMY)")

@@ -170,6 +170,51 @@ def main() -> int:
     cek('animasi menghormati prefers-reduced-motion',
         'prefers-reduced-motion' in css)
 
+
+    # ------------------------------------------------- 6. aksesibilitas (3.6)
+    print('\n6. AKSESIBILITAS FORM, TAB, DAN MENU PONSEL (T-12, T-13, T-27)')
+    dasar = (project_root / 'app' / 'templates' / 'base.html').read_text(encoding='utf-8')
+    muk = (project_root / 'app' / 'templates' / 'skema_muk.html').read_text(encoding='utf-8')
+
+    cek('tombol menu ponsel ada', 'id="nav-toggle"' in dasar)
+    cek('tombol menu menyatakan aria-expanded', 'aria-expanded="false"' in dasar)
+    cek('nav punya id & label', 'id="nav-utama"' in dasar and 'aria-label="Menu utama"' in dasar)
+    cek('ikon menu memakai SVG, bukan glyph',
+        '"_ikon.html" import ikon' in dasar
+        and not any(g in dasar for g in ('▤', '▦', '▧', '▣', '⚙')))
+    cek('berkas ikon SVG ada', (project_root / 'app' / 'templates' / '_ikon.html').exists())
+
+    cek('tab MUK memakai role=tablist', 'role="tablist"' in muk)
+    cek('setiap tab punya aria-selected', muk.count('aria-selected=') >= 9, f'jumlah={muk.count("aria-selected=")}')
+    cek('setiap tab punya aria-controls', muk.count('aria-controls=') >= 9)
+    cek('panel memakai role=tabpanel', muk.count('role="tabpanel"') >= 9)
+    cek('panel menunjuk tab-nya (aria-labelledby)', muk.count('aria-labelledby="btn-') >= 9)
+
+    # setiap kontrol form statis harus punya id atau nama aksesibel
+    kurang = []
+    for t in sorted(TEMPLATES.glob('*.html')):
+        if t.name in ('cetak_apl.html',):
+            continue
+        isi_t = t.read_text(encoding='utf-8')
+        for m in re.finditer(r'<(?:input|select|textarea)\b[^>]*>', isi_t, re.S):
+            tag = m.group(0)
+            if ('type="hidden"' in tag or 'type="checkbox"' in tag
+                    or 'type="radio"' in tag):
+                continue
+            if ('aria-label' in tag or 'aria-labelledby' in tag
+                    or re.search(r'\bid="', tag)):
+                continue
+            kurang.append(f'{t.name}: {tag[:60]}')
+    cek('semua kontrol form punya id atau nama aksesibel', not kurang,
+        f'{len(kurang)} kontrol: {kurang[:3]}')
+
+    # urutan CSS: override menu ponsel harus berada setelah aturan dasarnya
+    pos_dasar = css.find('.nav-toggle {\n  display: none')
+    pos_override = css.rfind('.nav-toggle { display: inline-flex')
+    cek('override menu ponsel ditulis setelah aturan dasar',
+        pos_dasar != -1 and pos_override > pos_dasar,
+        f'posisi dasar={pos_dasar} override={pos_override}')
+
     print('\n' + '=' * 100)
     print(f'HASIL: {len(lulus)} lulus, {len(gagal)} gagal')
     if gagal:
