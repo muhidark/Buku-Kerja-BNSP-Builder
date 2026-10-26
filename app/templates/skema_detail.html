@@ -239,7 +239,7 @@
       {% endif %}
 
       <div style="margin-bottom: 12px;">
-        <div style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; text-transform: uppercase;">Paket Buku Kerja Siap Cetak:</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; text-transform: uppercase;">Paket Buku Kerja Siap Cetak &amp; Unduh Word (.docx / .zip):</div>
         <div class="aksi-group" style="gap: 8px; flex-wrap: wrap;">
           <button
             type="button"
@@ -249,6 +249,19 @@
           >
             🖨️ Cetak Semua Dokumen (Paket Lengkap)
           </button>
+          <a
+            class="btn btn-small"
+            style="background:#0284c7; border-color:#0284c7; color:#fff;"
+            {% if gerbang and gerbang.ada_gagal %}href="javascript:void(0)" title="Ada unit Gagal"{% else %}href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all"{% endif %}
+          >
+            📦 Unduh Bundel .ZIP (24 Word .docx Bernomor)
+          </a>
+          <a
+            class="btn btn-small btn-ghost"
+            {% if gerbang and gerbang.ada_gagal %}href="javascript:void(0)" title="Ada unit Gagal"{% else %}href="/skema/{{ dok.id }}/unduh-buku-kerja-docx?doc=all"{% endif %}
+          >
+            📄 Unduh Gabungan (.docx)
+          </a>
           <button type="button" class="btn btn-small" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('paket_observasi')"{% endif %}>
             📦 Paket Metode Observasi (CLO+TPD+PMO)
           </button>
@@ -262,7 +275,7 @@
       </div>
 
       <div>
-        <div style="font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">Cetak Dokumen Satuan:</div>
+        <div style="font-size: 12px; font-weight: 700; color: var(--muted); margin-bottom: 6px; text-transform: uppercase;">Cetak / Unduh Dokumen Satuan (Urutan 1–25):</div>
         <div class="aksi-group" style="gap: 6px; flex-wrap: wrap;">
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl01')"{% endif %}>1. FR.APL.01</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl02')"{% endif %}>2. FR.APL.02</button>
@@ -280,10 +293,16 @@
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05a')"{% endif %}>14a. FR.IA.05A</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05b')"{% endif %}>14b. FR.IA.05B</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia05c')"{% endif %}>14c. FR.IA.05C</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia06a')"{% endif %}>15a. FR.IA.06A</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia06b')"{% endif %}>15b. FR.IA.06.B</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia06c')"{% endif %}>15c. FR.IA.06.C</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia07')"{% endif %}>16. FR.IA.07</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ia08')"{% endif %}>17. FR.IA.08</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak02')"{% endif %}>21. FR.AK.02</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak03')"{% endif %}>22. FR.AK.03</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak05')"{% endif %}>23. FR.AK.05</button>
           <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('ak06')"{% endif %}>24. FR.AK.06</button>
+          <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('va')"{% endif %}>25. FR.VA</button>
         </div>
       </div>
     </div>
@@ -512,11 +531,13 @@
           </select>
         </div>
       </div>
-      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
         <a href="/skema/{{ dok.id }}/muk" style="font-size:12px; color:#0284c7; font-weight:600; text-decoration:underline;">⚙️ Atur Soal &amp; Kelompok MUK</a>
-        <div style="display:flex; gap:8px;">
-          <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 14px;">Batal</button>
-          <button type="submit" class="btn" style="background:#16a34a; border-color:#16a34a; color:#fff; padding:6px 16px;">Buka Halaman Cetak &rarr;</button>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 12px;">Batal</button>
+          <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('docx')" style="padding:6px 12px;">📄 Unduh .DOCX</button>
+          <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('zip')" style="padding:6px 12px;">📦 Unduh .ZIP</button>
+          <button type="submit" class="btn" style="background:#16a34a; border-color:#16a34a; color:#fff; padding:6px 14px;">🖨️ Buka Halaman Cetak &rarr;</button>
         </div>
       </div>
     </form>
@@ -633,6 +654,34 @@ function prosesCetakApl(e) {
     + '&kategori_asesi=' + encodeURIComponent(katAsesi);
 
   window.open(url, '_blank');
+}
+
+function prosesUnduhWordApl(format) {
+  var docType = document.getElementById('cetak-doc-target').value;
+  var noSkema = document.getElementById('cetak-no-skema').value.trim();
+  var namaAsesor = document.getElementById('cetak-nama-asesor').value.trim();
+  var noMet = document.getElementById('cetak-no-met').value.trim();
+  var metodeMapa = document.getElementById('cetak-metode-mapa').value;
+  var katAsesi = document.getElementById('cetak-kategori-asesi').value;
+
+  if (namaAsesor) localStorage.setItem('lsp_asesor_nama', namaAsesor);
+  if (noMet) localStorage.setItem('lsp_asesor_met', noMet);
+  if (noSkema) localStorage.setItem('lsp_no_skema_{{ dok.id }}', noSkema);
+  if (metodeMapa) localStorage.setItem('lsp_metode_mapa_{{ dok.id }}', metodeMapa);
+
+  tutupModalCetakApl();
+
+  var base = (format === 'zip')
+    ? '/skema/{{ dok.id }}/unduh-buku-kerja-zip'
+    : '/skema/{{ dok.id }}/unduh-buku-kerja-docx';
+  var url = base + '?doc=' + encodeURIComponent(docType)
+    + '&no_skema=' + encodeURIComponent(noSkema)
+    + '&nama_asesor=' + encodeURIComponent(namaAsesor)
+    + '&no_met=' + encodeURIComponent(noMet)
+    + '&metode_mapa=' + encodeURIComponent(metodeMapa)
+    + '&kategori_asesi=' + encodeURIComponent(katAsesi);
+
+  window.location.href = url;
 }
 </script>
 {% endblock %}

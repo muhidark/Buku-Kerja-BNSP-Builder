@@ -2,9 +2,11 @@
 Pengujian fitur Cetak Buku Kerja Asesor V.2023 (18 Dokumen BNSP & Manajemen MUK/Kelompok Pekerjaan).
 """
 
+import io
 import json
 import sys
 import unittest
+import zipfile
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -14,10 +16,12 @@ from fastapi.testclient import TestClient
 from app.main import app
 from app.buku_kerja import (
     _jalur_muk,
+    agregasi_referensi_bv_pp_skema,
     deteksi_standar_skkni,
     format_elemen_apl02,
     muat_konfigurasi_muk,
     parse_kunci_jawaban_ia05,
+    ringkas_bv_pp_unit,
     simpan_konfigurasi_muk,
     susun_data_buku_kerja,
     susun_kelompok_pekerjaan_cetak,
@@ -265,6 +269,59 @@ class TestBukuKerja(unittest.TestCase):
         res_json = api_resp.json()
         self.assertEqual(res_json["nomor_skema"], "SKM-2024-TEST")
         self.assertEqual(res_json["nama_asesor"], "Budi Santoso")
+
+    def test_ringkas_bv_pp_unit_dan_agregasi(self):
+        jalur_contoh = Path(__file__).resolve().parent.parent / "data" / "json" / "test_unit_001.json"
+        if not jalur_contoh.exists():
+            self.skipTest("Contoh test_unit_001.json tidak tersedia.")
+        unit_json = json.loads(jalur_contoh.read_text(encoding="utf-8"))
+        ringkasan = ringkas_bv_pp_unit(unit_json.get("batasan_variabel"), unit_json.get("panduan_penilaian"))
+        self.assertTrue(ringkasan["ada_isi"])
+        self.assertIn("Komputer dengan jaringan internet", ringkasan["peralatan"])
+        self.assertIn("Printer", ringkasan["peralatan"])
+        self.assertIn("Alat Tulis Kantor (ATK)", ringkasan["perlengkapan"])
+        self.assertEqual(ringkasan["peraturan"], [])
+        self.assertTrue(len(ringkasan["pengetahuan"]) >= 5)
+        self.assertTrue(len(ringkasan["keterampilan"]) >= 3)
+        self.assertTrue(len(ringkasan["sikap_kerja"]) >= 3)
+        self.assertTrue(len(ringkasan["aspek_kritis"]) >= 1)
+
+        agregasi = agregasi_referensi_bv_pp_skema([{
+            "kode_unit": unit_json.get("kode_unit"),
+            "judul_unit": unit_json.get("judul_unit"),
+            "ringkasan_bv_pp": ringkasan,
+        }])
+        self.assertEqual(agregasi["unit_dengan_bv_pp"], 1)
+        self.assertIn("Komputer dengan jaringan internet", agregasi["peralatan_unik"])
+        self.assertGreaterEqual(len(agregasi["aspek_kritis_list"]), 1)
+
+    def test_endpoint_unduh_docx_dan_zip_buku_kerja(self):
+        doc = self._ambil_skema_siap()
+        if not doc:
+            self.skipTest("Tidak ada skema terdaftar.")
+        schema_id = doc["id"]
+
+        # 1. Unduh 1 dokumen satuan (.docx)
+        resp_docx = self.client.get(f"/skema/{schema_id}/unduh-buku-kerja-docx?doc=ia02")
+        self.assertEqual(resp_docx.status_code, 200)
+        self.assertEqual(
+            resp_docx.headers.get("content-type"),
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        )
+        self.assertTrue(len(resp_docx.content) > 2000)
+
+        # 2. Unduh paket .ZIP (paket_observasi)
+        resp_zip = self.client.get(f"/skema/{schema_id}/unduh-buku-kerja-zip?doc=paket_observasi")
+        self.assertEqual(resp_zip.status_code, 200)
+        self.assertEqual(resp_zip.headers.get("content-type"), "application/zip")
+
+        with zipfile.ZipFile(io.BytesIO(resp_zip.content), "r") as zf:
+            names = zf.namelist()
+            self.assertTrue(any("01_FR.APL.01" in n for n in names))
+            self.assertTrue(any("04_FR.MAPA.01" in n for n in names))
+            self.assertTrue(any("11_FR.IA.02" in n for n in names))
+            self.assertTrue(any("25_FR.VA" in n for n in names))
+            self.assertTrue(any("00_Buku_Kerja_Lengkap_Gabungan.docx" in n for n in names))
 
 
 if __name__ == "__main__":

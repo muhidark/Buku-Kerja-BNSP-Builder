@@ -153,9 +153,179 @@ def _jalur_muk(schema_id: str) -> Path:
     return MUK_DIR / f"{aman}.json"
 
 
+def _bersih_teks_item_skkni(teks: str) -> str:
+    """Membersihkan teks butir BV/PP dan menyaring nilai kosong / '(Tidak ada.)'."""
+    t = re.sub(r"\s+", " ", (teks or "")).strip()
+    if not t:
+        return ""
+    t_low = t.lower().strip("(). ")
+    if t_low in ("tidak ada", "tidak diperlukan", "-"):
+        return ""
+    return t
+
+
+def _kumpulkan_daun_section(nodes: List[Dict[str, Any]]) -> List[str]:
+    """Mengambil butir teks terdalam (leaf nodes) dari pohon section BV/PP."""
+    hasil: List[str] = []
+    for node in nodes or []:
+        sub = node.get("items") or []
+        if sub:
+            hasil.extend(_kumpulkan_daun_section(sub))
+        else:
+            t = _bersih_teks_item_skkni(node.get("teks") or node.get("judul") or "")
+            if t:
+                hasil.append(t)
+    return hasil
+
+
+def ringkas_bv_pp_unit(raw_bv: Optional[Dict[str, Any]], raw_pp: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+    """
+    Mengekstrak komponen terstruktur Batasan Variabel (BV) & Panduan Penilaian (PP)
+    dari JSON unit kompetensi SKKNI untuk asisten penyusunan MUK otomatis:
+    - BV: konteks_variabel, peralatan, perlengkapan, peraturan, norma_standar
+    - PP: konteks_penilaian, persyaratan_kompetensi, pengetahuan, keterampilan, sikap_kerja, aspek_kritis
+    """
+    bv_sections = (raw_bv or {}).get("sections") or []
+    pp_sections = (raw_pp or {}).get("sections") or []
+
+    konteks_variabel: List[str] = []
+    peralatan: List[str] = []
+    perlengkapan: List[str] = []
+    peraturan: List[str] = []
+    norma_standar: List[str] = []
+
+    for sec in bv_sections:
+        no = str(sec.get("nomor") or "").strip()
+        jdl = (sec.get("teks") or sec.get("judul") or "").lower()
+        items = sec.get("items") or []
+
+        if no == "1" or "konteks" in jdl:
+            konteks_variabel.extend(_kumpulkan_daun_section(items))
+        elif no == "2" or "peralatan" in jdl or "perlengkapan" in jdl:
+            for sub in items:
+                sub_no = str(sub.get("nomor") or "").strip()
+                sub_jdl = (sub.get("teks") or sub.get("judul") or "").lower()
+                sub_items = sub.get("items") or []
+                if sub_no == "2.1" or "peralatan" in sub_jdl:
+                    peralatan.extend(_kumpulkan_daun_section(sub_items) if sub_items else _kumpulkan_daun_section([sub]))
+                elif sub_no == "2.2" or "perlengkapan" in sub_jdl:
+                    perlengkapan.extend(_kumpulkan_daun_section(sub_items) if sub_items else _kumpulkan_daun_section([sub]))
+                else:
+                    peralatan.extend(_kumpulkan_daun_section([sub]))
+        elif no == "3" or "peraturan" in jdl:
+            peraturan.extend(_kumpulkan_daun_section(items))
+        elif no == "4" or "norma" in jdl or "standar" in jdl:
+            norma_standar.extend(_kumpulkan_daun_section(items))
+
+    konteks_penilaian: List[str] = []
+    persyaratan_kompetensi: List[str] = []
+    pengetahuan: List[str] = []
+    keterampilan: List[str] = []
+    sikap_kerja: List[str] = []
+    aspek_kritis: List[str] = []
+
+    for sec in pp_sections:
+        no = str(sec.get("nomor") or "").strip()
+        jdl = (sec.get("teks") or sec.get("judul") or "").lower()
+        items = sec.get("items") or []
+
+        if no == "1" or "konteks" in jdl:
+            konteks_penilaian.extend(_kumpulkan_daun_section(items))
+        elif no == "2" or "persyaratan" in jdl:
+            persyaratan_kompetensi.extend(_kumpulkan_daun_section(items))
+        elif no == "3" or "pengetahuan" in jdl or "keterampilan" in jdl:
+            for sub in items:
+                sub_no = str(sub.get("nomor") or "").strip()
+                sub_jdl = (sub.get("teks") or sub.get("judul") or "").lower()
+                sub_items = sub.get("items") or []
+                if sub_no == "3.1" or "pengetahuan" in sub_jdl:
+                    pengetahuan.extend(_kumpulkan_daun_section(sub_items) if sub_items else _kumpulkan_daun_section([sub]))
+                elif sub_no == "3.2" or "keterampilan" in sub_jdl:
+                    keterampilan.extend(_kumpulkan_daun_section(sub_items) if sub_items else _kumpulkan_daun_section([sub]))
+                else:
+                    pengetahuan.extend(_kumpulkan_daun_section([sub]))
+        elif no == "4" or "sikap" in jdl:
+            sikap_kerja.extend(_kumpulkan_daun_section(items))
+        elif no == "5" or "aspek kritis" in jdl or "kritis" in jdl:
+            aspek_kritis.extend(_kumpulkan_daun_section(items))
+
+    ada_isi = bool(
+        konteks_variabel or peralatan or perlengkapan or peraturan or norma_standar
+        or pengetahuan or keterampilan or sikap_kerja or aspek_kritis
+    )
+    return {
+        "ada_isi": ada_isi,
+        "konteks_variabel": konteks_variabel,
+        "peralatan": peralatan,
+        "perlengkapan": perlengkapan,
+        "peraturan": peraturan,
+        "norma_standar": norma_standar,
+        "konteks_penilaian": konteks_penilaian,
+        "persyaratan_kompetensi": persyaratan_kompetensi,
+        "pengetahuan": pengetahuan,
+        "keterampilan": keterampilan,
+        "sikap_kerja": sikap_kerja,
+        "aspek_kritis": aspek_kritis,
+    }
+
+
+def agregasi_referensi_bv_pp_skema(daftar_unit: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Mengagregasi seluruh Batasan Variabel & Panduan Penilaian lintas unit kompetensi skema."""
+    peralatan_unik: List[str] = []
+    perlengkapan_unik: List[str] = []
+    norma_unik: List[str] = []
+    aspek_kritis_list: List[Dict[str, str]] = []
+    pengetahuan_list: List[Dict[str, str]] = []
+    keterampilan_list: List[Dict[str, str]] = []
+    sikap_kerja_list: List[Dict[str, str]] = []
+    unit_dengan_bv_pp = 0
+
+    for u in daftar_unit or []:
+        kode = u.get("kode_unit") or ""
+        judul = u.get("judul_unit") or ""
+        ringkasan = u.get("ringkasan_bv_pp")
+        if not ringkasan:
+            ringkasan = ringkas_bv_pp_unit(u.get("batasan_variabel"), u.get("panduan_penilaian"))
+
+        if ringkasan.get("ada_isi"):
+            unit_dengan_bv_pp += 1
+
+        for item in ringkasan.get("peralatan") or []:
+            if item.lower() not in {x.lower() for x in peralatan_unik}:
+                peralatan_unik.append(item)
+        for item in ringkasan.get("perlengkapan") or []:
+            if item.lower() not in {x.lower() for x in perlengkapan_unik}:
+                perlengkapan_unik.append(item)
+        for item in ringkasan.get("norma_standar") or []:
+            if item.lower() not in {x.lower() for x in norma_unik}:
+                norma_unik.append(item)
+
+        for ak in ringkasan.get("aspek_kritis") or []:
+            aspek_kritis_list.append({"kode_unit": kode, "judul_unit": judul, "teks": ak})
+        for pg in ringkasan.get("pengetahuan") or []:
+            pengetahuan_list.append({"kode_unit": kode, "judul_unit": judul, "teks": pg})
+        for kt in ringkasan.get("keterampilan") or []:
+            keterampilan_list.append({"kode_unit": kode, "judul_unit": judul, "teks": kt})
+        for sk in ringkasan.get("sikap_kerja") or []:
+            sikap_kerja_list.append({"kode_unit": kode, "judul_unit": judul, "teks": sk})
+
+    return {
+        "unit_dengan_bv_pp": unit_dengan_bv_pp,
+        "total_unit": len(daftar_unit or []),
+        "peralatan_unik": peralatan_unik,
+        "perlengkapan_unik": perlengkapan_unik,
+        "norma_unik": norma_unik,
+        "aspek_kritis_list": aspek_kritis_list,
+        "pengetahuan_list": pengetahuan_list,
+        "keterampilan_list": keterampilan_list,
+        "sikap_kerja_list": sikap_kerja_list,
+    }
+
+
 def default_konfigurasi_muk(nama_skema: str, daftar_unit: List[Dict[str, Any]], nomor_skema: str = "") -> Dict[str, Any]:
     """Menyusun konfigurasi default MUK & Kelompok Pekerjaan untuk suatu skema."""
     semua_kode = [u["kode_unit"] for u in daftar_unit if u.get("kode_unit")]
+    ref_skkni = agregasi_referensi_bv_pp_skema(daftar_unit)
 
     langkah_default = []
     for idx, u in enumerate(daftar_unit, start=1):
@@ -257,16 +427,24 @@ def default_konfigurasi_muk(nama_skema: str, daftar_unit: List[Dict[str, Any]], 
                 "dan lembar verifikasi hasil pekerjaan yang diserahkan kepada asesor."
             ),
             "perlengkapan": (
-                "Alat Keselamatan & Kesehatan Kerja (K3)\n"
-                "Perangkat media penyimpanan / flashdisk / cloud\n"
-                "Bahan penunjang demonstrasi / dokumen kerja\n"
-                "Formulir checklist laporan pekerjaan"
+                "\n".join(ref_skkni["perlengkapan_unik"])
+                if ref_skkni.get("perlengkapan_unik")
+                else (
+                    "Alat Keselamatan & Kesehatan Kerja (K3)\n"
+                    "Perangkat media penyimpanan / flashdisk / cloud\n"
+                    "Bahan penunjang demonstrasi / dokumen kerja\n"
+                    "Formulir checklist laporan pekerjaan"
+                )
             ),
             "peralatan": (
-                "Komputer / laptop / gawai penunjang\n"
-                "Perangkat kerja spesifik bidang profesi\n"
-                "Aksesori / peripheral pendukung teknis\n"
-                "Alat Tulis Kantor (ATK)"
+                "\n".join(ref_skkni["peralatan_unik"])
+                if ref_skkni.get("peralatan_unik")
+                else (
+                    "Komputer / laptop / gawai penunjang\n"
+                    "Perangkat kerja spesifik bidang profesi\n"
+                    "Aksesori / peripheral pendukung teknis\n"
+                    "Alat Tulis Kantor (ATK)"
+                )
             ),
             "durasi_waktu": "120 Menit",
         },
@@ -759,6 +937,7 @@ def susun_data_buku_kerja(
 
         standar_acuan = deteksi_standar_skkni(kode)
         info_st = peta_status.get(kode) or {}
+        ringkasan_bv_pp = ringkas_bv_pp_unit(raw_bv, raw_pp)
 
         daftar_unit.append({
             "nomor_urut": idx + 1,
@@ -769,10 +948,13 @@ def susun_data_buku_kerja(
             "elemen": elemen_list,
             "batasan_variabel": raw_bv,
             "panduan_penilaian": raw_pp,
+            "ringkasan_bv_pp": ringkasan_bv_pp,
             "status": info_st.get("status", "gagal"),
             "label_status": info_st.get("label", "Gagal"),
             "alasan_status": info_st.get("alasan", ""),
         })
+
+    referensi_skkni = agregasi_referensi_bv_pp_skema(daftar_unit)
 
     # Muat konfigurasi MUK tersimpan untuk skema ini
     nomor_skema_awal = doc.get("kode_skema") or doc.get("nomor_skema") or doc.get("nomor_dokumen") or ""
@@ -952,6 +1134,7 @@ def susun_data_buku_kerja(
         "tanggal_penyusunan": tgl_penyusunan,
         "jumlah_unit": len(daftar_unit),
         "daftar_unit": daftar_unit,
+        "referensi_skkni": referensi_skkni,
         "kelompok_pekerjaan": info_kelompok,
         "ia02": ia02_prepared,
         "ia03": ia03_prepared,

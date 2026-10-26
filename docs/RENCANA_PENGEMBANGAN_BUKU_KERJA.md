@@ -14,7 +14,7 @@
 | **Fase 2: Modul Kelompok Pekerjaan & Bank Instrumen MUK** | **SELESAI (100%)** | Penyimpanan JSON per skema (`data/schema_library/muk/{schema_id}.json`), UI kelola di `/skema/{schema_id}/muk`, auto-default `IA.02`, `IA.03`, `IA.04`, `IA.05`, `IA.06`, `IA.07`, `IA.08`, kalkulasi cakupan unit Kelompok Pekerjaan. |
 | **Fase 3: Konversi Template Dokumen Buku Kerja ke Jinja2** | **SELESAI (100%)** | 25 parsial Jinja2 di `app/templates/buku_kerja/` (`APL.01–02`, `MAPA.01` [Obs/DIT/Port], `Peta Kelompok`, `MAPA.02`, `AK.01–07`, `IA.01–08`, dan `FR.VA` Form Kosongan) + mode cetak satuan & paket metode. |
 | **Fase 3B: Instrumen Lanjutan (`IA.06–08` & `FR.VA`)** | **SELESAI (100%)** | `FR.IA.06A/B/C` (Esai), `IA.07` (Lisan), `IA.08` (Ceklis Verifikasi Portofolio), dan `FR.VA` (Form Kosongan Validasi Asesmen). `IA.09` & `IA.10` dilewati sesuai arahan. |
-| **Fase 3C: Asisten Referensi BV/PP & Ekspor `.docx` Buku Kerja** | **BELUM** | Menampilkan referensi Batasan Variabel & Panduan Penilaian di editor MUK + unduh bundel `.docx`/`.zip` untuk Buku Kerja. |
+| **Fase 3C: Asisten Referensi BV/PP & Ekspor `.docx`/`.zip` Buku Kerja** | **SELESAI (100%)** | Ekstraksi & panel referensi otomatis Batasan Variabel (Peralatan/Perlengkapan) & Panduan Penilaian (Aspek Kritis/Pengetahuan/Sikap Kerja) di `/skema/{schema_id}/muk` dengan tombol tarik 1-klik ke `IA.02`, `IA.03`, `IA.06`, `IA.07` + Generator unduh `.docx` & bundel `.zip` bernomor urut (`app/buku_kerja_docx.py`). |
 | **Fase 1: Multi-User (Login/RBAC SQLite) & Katalog SKKNI Terpusat** | **BELUM** | Pemisahan role `Admin/Kurator Master` (verifikasi SKKNI & status berlaku/dicabut Kemnaker) vs `User/LSP/Asesor` (ruang kerja skema & MUK terpisah). |
 | **Fase 4: REST API Eksternal (`/api/v1/...`) dengan API Key** | **BELUM** | Endpoint sinkronisasi otomatis ke plugin WordPress / LMS eksternal menggunakan `X-API-Key`. |
 
@@ -95,39 +95,31 @@ Mengacu pada paket dokumen acuan (contoh: *Skema Videografer*) dan template yang
    - `app/buku_kerja.py`: Penyimpanan dan pemuatan konfigurasi MUK per skema di `data/schema_library/muk/{schema_id}.json`.
    - `app/templates/skema_muk.html` (`GET/POST /skema/{schema_id}/muk`): Antarmuka terpadu untuk mengelola Personel & TUK, Kelompok Pekerjaan (dengan indikator persentase cakupan unit), serta instrumen `FR.IA.02`, `FR.IA.03`, `FR.IA.04`, dan `FR.IA.05`.
    - Fungsi generator otomatis (`buat_default_ia02`, `buat_default_ia03`, `buat_default_ia04`, `buat_default_ia05`) jika pengguna belum mengisi instrumen secara manual.
-3. **Konversi 18 Dokumen Buku Kerja BNSP ke Jinja2 (`Fase 3`):**
-   - 19 file parsial Jinja2 di `app/templates/buku_kerja/` yang diintegrasikan ke dalam `app/templates/cetak_apl.html`.
+3. **Konversi 24 Dokumen Buku Kerja BNSP ke Jinja2 (`Fase 3` & `Fase 3B`):**
+   - 25 file parsial Jinja2 di `app/templates/buku_kerja/` yang diintegrasikan ke dalam `app/templates/cetak_apl.html` (`FR.APL.01`, `FR.APL.02`, `FR.MAPA.01` per Kelompok Pekerjaan, `Peta Kelompok Pekerjaan`, `FR.MAPA.02` per Kelompok Pekerjaan, `FR.AK.01–07`, `FR.IA.01–08`, dan `FR.VA` Form Kosongan).
    - Mendukung pencetakan dokumen satuan, **Paket per Metode (`Observasi`, `DIT`, `Portofolio`)**, maupun **Paket Lengkap (`all`)**, termasuk pengaturan orientasi halaman *Portrait* & *Landscape* otomatis untuk `FR.MAPA.01`.
+4. **Asisten Referensi Batasan Variabel & Panduan Penilaian + Ekspor `.docx`/`.zip` Buku Kerja (`Fase 3C`):**
+   - `ringkas_bv_pp_unit` & `agregasi_referensi_bv_pp_skema` di `app/buku_kerja.py`: Mengekstrak otomatis daftar Peralatan (`2.1`), Perlengkapan (`2.2`), Norma/Standar (`4`), Pengetahuan (`3.1`), Keterampilan (`3.2`), Sikap Kerja (`4`), dan Aspek Kritis (`5`) dari JSON SKKNI.
+   - Panel referensi interaktif & tombol generator 1-klik di `app/templates/skema_muk.html`:
+     - `tarikBvKeIa02()` untuk mengisi Peralatan & Perlengkapan `FR.IA.02` dari Batasan Variabel SKKNI.
+     - `tarikPpKeIa03()`, `tarikPpKeIa06()`, dan `tarikPpKeIa07()` untuk menyusun draf pertanyaan dan kunci jawaban dari Aspek Kritis, Sikap Kerja, dan Pengetahuan SKKNI.
+   - `app/buku_kerja_docx.py` & endpoint `/skema/{schema_id}/unduh-buku-kerja-docx` serta `/skema/{schema_id}/unduh-buku-kerja-zip`: Mengonversi seluruh formulir Buku Kerja menjadi dokumen Word (`.docx`) satuan, gabungan, maupun bundel `.zip` bernomor urut (`01_FR.APL.01.docx` s/d `25_FR.VA.docx`).
    - Seluruh pengujian otomatis (`tests/test_buku_kerja.py`, `tests/test_gerbang_dokumen.py`, `tests/test_koreksi.py`, `tests/test_koreksi_konflik.py`, `tests/test_web.py`) lulus 100%.
 
 ---
 
-## 4. Bagian C —Apa yang Belum Dikerjakan & Rencana Pengembangan Berikutnya
+## 4. Bagian C — Apa yang Belum Dikerjakan & Rencana Pengembangan Berikutnya
 
-Berikut adalah daftar pekerjaan yang belum dieksekusi beserta urutan prioritas pengerjaan berikutnya:
+Seluruh fitur inti ekstraksi, koreksi per-unit, Kelompok Pekerjaan, Asisten MUK (BV/PP), pencetakan HTML A4, dan ekspor `.docx`/`.zip` untuk 24 Dokumen Buku Kerja BNSP V.2023 telah **selesai 100%**. Tahapan pengembangan berikutnya berfokus pada arsitektur komersial multi-user dan integrasi eksternal:
 
-### Prioritas 1 — Peningkatan Kualitas Penyusunan MUK & Ekspor Dokumen (Jangka Pendek)
-1. **Panel Referensi Otomatis Batasan Variabel (BV) & Panduan Penilaian (PP) di Editor MUK (`/skema/{schema_id}/muk`):**
-   - Menampilkan hasil ekstraksi **Batasan Variabel** (konteks, peralatan, perlengkapan) dan **Panduan Penilaian** (pengetahuan, keterampilan, aspek kritis) dari JSON SKKNI langsung di samping form `FR.IA.02`, `FR.IA.03`, dan `FR.IA.04` agar penyusun MUK tinggal menyalin/mengklik ke dalam instrumen.
-2. **Pengembangan Instrumen Tambahan (`FR.IA.06` s/d `FR.IA.11` & `FR.VA`):**
-   - Menyusun struktur JSON, form editor di `/skema/{schema_id}/muk`, dan template cetak Jinja2 untuk:
-     - `FR.IA.06` (Pertanyaan Tertulis Esai: Soal, Kunci Jawaban, Lembar Jawaban)
-     - `FR.IA.07` (Pertanyaan Lisan)
-     - `FR.IA.08` (Ceklis Verifikasi Portofolio — penting untuk melengkapi paket metode Portofolio)
-     - `FR.IA.09` (Pertanyaan Wawancara)
-     - `FR.IA.10` (Klarifikasi Bukti Pihak Ketiga) & `FR.IA.11` (Ceklis Reviu Produk)
-     - `FR.VA` (Memberikan Kontribusi dalam Validasi Asesmen — menunggu hasil konsultasi dengan Master Asesor).
-3. **Ekspor Buku Kerja ke Format Microsoft Word (`.docx`) / Paket `.zip` Terstruktur:**
-   - Menambahkan generator `.docx` untuk formulir Buku Kerja sehingga pengguna dapat mengunduh bundel `.zip` bernomor urut (`01. FR.APL.01.docx`, `02. FR.APL.02.docx`, dst.) seperti pada folder contoh *01 Videografer*.
-
-### Prioritas 2 — Katalog SKKNI Terpusat & Sistem Multi-User Komersial (Fase 1 Arsitektur SaaS)
+### Prioritas 1 — Katalog SKKNI Terpusat & Sistem Multi-User Komersial (Fase 1 Arsitektur SaaS)
 1. **Migrasi Metadata ke SQLite (`data/app.db`) & Autentikasi Multi-User (RBAC):**
    - **Role `Admin / Kurator Master`:** Mengunggah PDF SKKNI, melakukan koreksi unit hingga berstatus `Siap dipakai`, serta memberi label status regulasi Kemnaker (`Berlaku` / `Dicabut` beserta tautan referensi Kepmenaker).
    - **Role `User / LSP / Asesor`:** Menggunakan unit kompetensi dari **Katalog SKKNI Terpusat** secara instan (*Read-Only* terhadap Master SKKNI) untuk merakit Skema Sertifikasi dan Paket MUK di ruang kerjanya masing-masing tanpa saling menimpa.
 2. **Multi-Versi Paket MUK per Skema:**
    - Memungkinkan satu skema memiliki beberapa versi paket soal/instrumen (misal: *Paket MUK Versi A*, *Paket MUK Versi B*).
 
-### Prioritas 3 — REST API Eksternal (`/api/v1/...`) dengan API Key (Fase 4 Integrasi)
+### Prioritas 2 — REST API Eksternal (`/api/v1/...`) dengan API Key (Fase 4 Integrasi)
 1. **Endpoint Terproteksi `X-API-Key`:**
    - `GET /api/v1/skkni` & `GET /api/v1/skkni/{kode_unit}` — Mengambil data unit, elemen, KUK, BV, dan PP yang sudah terverifikasi.
    - `GET /api/v1/skema` & `GET /api/v1/skema/{id}/muk` — Sinkronisasi langsung daftar unit, kelompok pekerjaan, dan instrumen MUK ke plugin WordPress (`lsp-certification-management`) tanpa *Smart Paste* manual.

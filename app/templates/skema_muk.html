@@ -22,6 +22,9 @@
     </div>
     <div class="aksi-group">
       <a class="btn btn-ghost btn-small" href="/skema/{{ dok.id }}">&larr; Kembali ke Skema</a>
+      <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all">
+        📦 Unduh Bundel .ZIP (Word .docx)
+      </a>
       <a class="btn btn-small" style="background:#16a34a; border-color:#16a34a; color:#fff;" href="/skema/{{ dok.id }}/cetak-apl?doc=all" target="_blank">
         🖨️ Pratinjau &amp; Cetak Buku Kerja
       </a>
@@ -30,6 +33,7 @@
 </article>
 
 {% set kp_info = data.kelompok_pekerjaan %}
+{% set ref_skkni = data.referensi_skkni %}
 {% set personel = data.muk_raw.personel %}
 {% set ia02 = data.muk_raw.ia02 %}
 {% set ia03 = data.muk_raw.ia03 %}
@@ -272,14 +276,17 @@
           <h3 style="margin: 0;">🛠️ FR.IA.02 — Tugas Praktik Demonstrasi (TPD)</h3>
           <div class="aksi-group">
             <button type="button" class="btn btn-small" style="background:#0284c7; border-color:#0284c7; color:#fff;" onclick="tarikPanduanKelompokKeIa02()">
-              ⚡ Susun Otomatis Skenario &amp; Langkah dari Kelompok Pekerjaan
+              ⚡ Susun Skenario &amp; Langkah dari Kelompok Pekerjaan
+            </button>
+            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikBvKeIa02()">
+              📥 Tarik Peralatan &amp; Perlengkapan dari Batasan Variabel SKKNI
             </button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia02" target="_blank">🖨️ Pratinjau FR.IA.02</a>
           </div>
         </div>
 
         <!-- Panel Panduan Kelompok Pekerjaan untuk IA.02 -->
-        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px 14px; margin-bottom: 10px; font-size: 12px;">
           <strong>🗂️ Panduan Kelompok Pekerjaan Aktif (Acuan Pembuatan Tugas Praktik FR.IA.02):</strong>
           <div id="ia02-panduan-kp" style="margin-top: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px;">
             {% for grp in kp_info.groups %}
@@ -294,6 +301,43 @@
             {% endfor %}
           </div>
         </div>
+
+        <!-- Panel Referensi Batasan Variabel SKKNI -->
+        <details style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <summary style="cursor: pointer; font-weight: 700; color: #166534;">
+            📚 Referensi Batasan Variabel SKKNI ({{ ref_skkni.peralatan_unik|length }} Peralatan &middot; {{ ref_skkni.perlengkapan_unik|length }} Perlengkapan dari {{ ref_skkni.unit_dengan_bv_pp }}/{{ ref_skkni.total_unit }} Unit) — Klik untuk melihat detail
+          </summary>
+          <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">🔧 Daftar Peralatan SKKNI (2.1):</strong>
+              {% if ref_skkni.peralatan_unik %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.peralatan_unik %}<li>{{ item }}</li>{% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada data ekstraksi peralatan pada unit skema ini.</p>
+              {% endif %}
+            </div>
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">📦 Daftar Perlengkapan SKKNI (2.2):</strong>
+              {% if ref_skkni.perlengkapan_unik %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.perlengkapan_unik %}<li>{{ item }}</li>{% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada data ekstraksi perlengkapan pada unit skema ini.</p>
+              {% endif %}
+            </div>
+            {% if ref_skkni.norma_unik %}
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">📜 Norma &amp; Standar SKKNI (4):</strong>
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.norma_unik %}<li>{{ item }}</li>{% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+        </details>
 
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div>
@@ -330,10 +374,46 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">💬 FR.IA.03 — Pertanyaan Untuk Mendukung Observasi (PMO)</h3>
           <div class="aksi-group">
+            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa03()">
+              📥 Susun Pertanyaan PMO dari Aspek Kritis &amp; Sikap Kerja SKKNI
+            </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa03()">+ Tambah Pertanyaan PMO</button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia03" target="_blank">🖨️ Pratinjau FR.IA.03</a>
           </div>
         </div>
+
+        <!-- Panel Referensi Panduan Penilaian SKKNI untuk IA.03 -->
+        <details style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <summary style="cursor: pointer; font-weight: 700; color: #166534;">
+            📚 Referensi Panduan Penilaian SKKNI ({{ ref_skkni.aspek_kritis_list|length }} Aspek Kritis &middot; {{ ref_skkni.sikap_kerja_list|length }} Sikap Kerja) — Klik untuk melihat detail
+          </summary>
+          <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">🎯 Aspek Kritis (5.x):</strong>
+              {% if ref_skkni.aspek_kritis_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.aspek_kritis_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Aspek Kritis pada unit skema ini.</p>
+              {% endif %}
+            </div>
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">🤝 Sikap Kerja yang Diperlukan (4.x):</strong>
+              {% if ref_skkni.sikap_kerja_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.sikap_kerja_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Sikap Kerja pada unit skema ini.</p>
+              {% endif %}
+            </div>
+          </div>
+        </details>
         <div id="wadah-ia03-questions">
           {% for q in ia03.questions %}
           <div class="ia03-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
@@ -480,12 +560,48 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">✍️ FR.IA.06A, 06.B, &amp; 06.C — Pertanyaan Tertulis Esai</h3>
           <div class="aksi-group">
+            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa06()">
+              📥 Susun Soal Esai dari Pengetahuan &amp; Aspek Kritis SKKNI
+            </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa06()">+ Tambah Soal Esai</button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06a" target="_blank">🖨️ IA.06A (Soal)</a>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06b" target="_blank">🖨️ IA.06.B (Kunci)</a>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia06c" target="_blank">🖨️ IA.06.C (Lembar Jawab)</a>
           </div>
         </div>
+
+        <!-- Panel Referensi Panduan Penilaian SKKNI untuk IA.06 -->
+        <details style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <summary style="cursor: pointer; font-weight: 700; color: #166534;">
+            📚 Referensi Panduan Penilaian SKKNI ({{ ref_skkni.pengetahuan_list|length }} Butir Pengetahuan &middot; {{ ref_skkni.aspek_kritis_list|length }} Aspek Kritis) — Klik untuk melihat detail
+          </summary>
+          <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">📖 Pengetahuan yang Diperlukan (3.1):</strong>
+              {% if ref_skkni.pengetahuan_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.pengetahuan_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Pengetahuan pada unit skema ini.</p>
+              {% endif %}
+            </div>
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">🎯 Aspek Kritis (5.x):</strong>
+              {% if ref_skkni.aspek_kritis_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.aspek_kritis_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Aspek Kritis pada unit skema ini.</p>
+              {% endif %}
+            </div>
+          </div>
+        </details>
         <div style="margin-bottom: 12px;">
           <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">Alokasi Waktu Ujian Esai</label>
           <input type="text" id="ia06-waktu" value="{{ ia06.waktu or '60 Menit' }}" style="width:200px; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">
@@ -509,10 +625,46 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">🗣️ FR.IA.07 — DPL: Daftar Pertanyaan Lisan</h3>
           <div class="aksi-group">
+            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa07()">
+              📥 Susun Pertanyaan Lisan dari Aspek Kritis &amp; Pengetahuan SKKNI
+            </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa07()">+ Tambah Pertanyaan Lisan</button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia07" target="_blank">🖨️ Pratinjau FR.IA.07</a>
           </div>
         </div>
+
+        <!-- Panel Referensi Panduan Penilaian SKKNI untuk IA.07 -->
+        <details style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <summary style="cursor: pointer; font-weight: 700; color: #166534;">
+            📚 Referensi Panduan Penilaian SKKNI ({{ ref_skkni.aspek_kritis_list|length }} Aspek Kritis &middot; {{ ref_skkni.pengetahuan_list|length }} Pengetahuan) — Klik untuk melihat detail
+          </summary>
+          <div style="margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">🎯 Aspek Kritis (5.x):</strong>
+              {% if ref_skkni.aspek_kritis_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.aspek_kritis_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Aspek Kritis pada unit skema ini.</p>
+              {% endif %}
+            </div>
+            <div style="background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #15803d;">📖 Pengetahuan yang Diperlukan (3.1):</strong>
+              {% if ref_skkni.pengetahuan_list %}
+              <ul style="margin: 4px 0 0 16px; padding: 0; color: #334155;">
+                {% for item in ref_skkni.pengetahuan_list %}
+                <li><code>{{ item.kode_unit }}</code>: {{ item.teks }}</li>
+                {% endfor %}
+              </ul>
+              {% else %}
+              <p class="muted small" style="margin: 4px 0 0;">Belum ada ekstraksi Pengetahuan pada unit skema ini.</p>
+              {% endif %}
+            </div>
+          </div>
+        </details>
         <div id="wadah-ia07-questions">
           {% for q in ia07.questions %}
           <div class="ia07-q-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;">
@@ -607,6 +759,7 @@ var MASTER_UNITS = [
   {% endfor %}
 ];
 var NAMA_SKEMA = {{ dok.nama_skema|tojson }};
+var REF_SKKNI = {{ data.referensi_skkni|tojson }};
 
 function pindahTabMuk(panelId) {
   document.querySelectorAll('.muk-panel').forEach(function(p) { p.style.display = 'none'; });
@@ -795,6 +948,150 @@ function tarikPanduanKelompokKeIa02() {
   document.getElementById('ia02-skenario').value = skenario;
   document.getElementById('ia02-langkah').value = langkahLines.join('\n');
   document.getElementById('ia02-hasil').value = hasilLines + '.';
+}
+
+function tarikBvKeIa02() {
+  var peralatan = (REF_SKKNI && REF_SKKNI.peralatan_unik) || [];
+  var perlengkapan = (REF_SKKNI && REF_SKKNI.perlengkapan_unik) || [];
+  if (peralatan.length === 0 && perlengkapan.length === 0) {
+    alert('Belum ada data ekstraksi Batasan Variabel (Peralatan/Perlengkapan) pada unit-unit skema ini.');
+    return;
+  }
+  if (perlengkapan.length > 0) {
+    document.getElementById('ia02-perlengkapan').value = perlengkapan.join('\n');
+  }
+  if (peralatan.length > 0) {
+    document.getElementById('ia02-peralatan').value = peralatan.join('\n');
+  }
+}
+
+function tarikPpKeIa03() {
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  var sikapList = (REF_SKKNI && REF_SKKNI.sikap_kerja_list) || [];
+  if (aspekList.length === 0 && sikapList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Aspek Kritis / Sikap Kerja) pada unit-unit skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia03-questions');
+  wadah.innerHTML = '';
+
+  aspekList.forEach(function(item, idx) {
+    var dim = (idx % 2 === 0) ? 'TS' : 'CMS';
+    var pert = 'Berdasarkan aspek kritis unit ' + item.kode_unit + ' (' + item.judul_unit + '), bagaimana Anda memastikan: ' + item.teks + '?';
+    var kunci = 'Asesi mampu mendemonstrasikan dan menjelaskan prosedur pemenuhan aspek kritis: ' + item.teks + '.';
+    buatItemIa03Dom(wadah, dim, pert, kunci);
+  });
+
+  sikapList.slice(0, 3).forEach(function(item) {
+    var pert = 'Selama pelaksanaan pekerjaan pada unit ' + item.kode_unit + ', bagaimana Anda menerapkan sikap kerja: ' + item.teks + '?';
+    var kunci = 'Asesi mematuhi standar sikap kerja: ' + item.teks + ' sesuai SOP tempat kerja.';
+    buatItemIa03Dom(wadah, 'JRES', pert, kunci);
+  });
+}
+
+function buatItemIa03Dom(wadah, dim, pert, kunci) {
+  var div = document.createElement('div');
+  div.className = 'ia03-q-item';
+  div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+  var opts = [
+    ['TS', 'TS - Task Skills'],
+    ['TMS', 'TMS - Task Management Skills'],
+    ['CMS', 'CMS - Contingency Management Skills'],
+    ['JRES', 'JRES - Job/Role Environment Skills'],
+    ['TRS', 'TRS - Transfer Skills']
+  ].map(function(o) {
+    return '<option value="' + o[0] + '"' + (o[0] === dim ? ' selected' : '') + '>' + o[1] + '</option>';
+  }).join('');
+  div.innerHTML = ''
+    + '<div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px;">'
+    + '  <select class="ia03-dimensi" style="padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">' + opts + '</select>'
+    + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia03-q-item\')" style="color: #b91c1c;">Hapus</button>'
+    + '</div>'
+    + '<textarea class="ia03-pertanyaan" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+    + '<input type="text" class="ia03-kunci" style="width:100%; padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-size:12px;">';
+  div.querySelector('.ia03-pertanyaan').value = pert;
+  div.querySelector('.ia03-kunci').value = kunci;
+  wadah.appendChild(div);
+}
+
+function tarikPpKeIa06() {
+  var pengList = (REF_SKKNI && REF_SKKNI.pengetahuan_list) || [];
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  if (pengList.length === 0 && aspekList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Pengetahuan / Aspek Kritis) pada unit-unit skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia06-questions');
+  wadah.innerHTML = '';
+  var gabungan = [];
+  aspekList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Jelaskan langkah-langkah dan parameter utama untuk memastikan: ' + item.teks + ' pada unit ' + item.kode_unit + ' (' + item.judul_unit + ')!',
+      kunci: 'Menjelaskan prosedur teknis dan verifikasi pemenuhan aspek kritis: ' + item.teks + ' sesuai standar kerja.'
+    });
+  });
+  pengList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Uraikan konsep dan penerapan pengetahuan mengenai "' + item.teks + '" dalam melaksanakan unit ' + item.kode_unit + ' (' + item.judul_unit + ')!',
+      kunci: 'Menguraikan konsep, fungsi, dan penerapan praktis ' + item.teks + ' pada pekerjaan ' + item.judul_unit + '.'
+    });
+  });
+
+  gabungan.slice(0, 10).forEach(function(q, idx) {
+    var div = document.createElement('div');
+    div.className = 'ia06-q-item';
+    div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+    div.innerHTML = ''
+      + '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">'
+      + '  <strong>Soal Esai #' + (idx + 1) + '</strong>'
+      + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia06-q-item\')" style="color: #b91c1c;">Hapus</button>'
+      + '</div>'
+      + '<textarea class="ia06-pertanyaan" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+      + '<textarea class="ia06-kunci" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;"></textarea>';
+    div.querySelector('.ia06-pertanyaan').value = q.pert;
+    div.querySelector('.ia06-kunci').value = q.kunci;
+    wadah.appendChild(div);
+  });
+}
+
+function tarikPpKeIa07() {
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  var pengList = (REF_SKKNI && REF_SKKNI.pengetahuan_list) || [];
+  if (aspekList.length === 0 && pengList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Aspek Kritis / Pengetahuan) pada unit-unit skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia07-questions');
+  wadah.innerHTML = '';
+  var gabungan = [];
+  aspekList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Mengapa aspek "' + item.teks + '" sangat kritis dalam menyelesaikan unit ' + item.kode_unit + '? Jelaskan secara lisan!',
+      kunci: 'Asesi menjelaskan alasan kritis dan cara memastikan ' + item.teks + ' berjalan sesuai standar.'
+    });
+  });
+  pengList.slice(0, 5).forEach(function(item) {
+    gabungan.push({
+      pert: 'Jelaskan secara singkat bagaimana Anda menerapkan pengetahuan "' + item.teks + '" pada unit ' + item.kode_unit + '!',
+      kunci: 'Asesi menjelaskan penerapan praktis ' + item.teks + ' sesuai konteks unit kompetensi.'
+    });
+  });
+
+  gabungan.slice(0, 8).forEach(function(q, idx) {
+    var div = document.createElement('div');
+    div.className = 'ia07-q-item';
+    div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+    div.innerHTML = ''
+      + '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">'
+      + '  <strong>Pertanyaan Lisan #' + (idx + 1) + '</strong>'
+      + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia07-q-item\')" style="color: #b91c1c;">Hapus</button>'
+      + '</div>'
+      + '<textarea class="ia07-pertanyaan" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px; margin-bottom:6px;"></textarea>'
+      + '<textarea class="ia07-kunci" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;"></textarea>';
+    div.querySelector('.ia07-pertanyaan').value = q.pert;
+    div.querySelector('.ia07-kunci').value = q.kunci;
+    wadah.appendChild(div);
+  });
 }
 
 function tarikPanduanKelompokKeIa04() {

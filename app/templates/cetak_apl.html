@@ -316,6 +316,12 @@
             <a href="/skema/{{ data.schema_id }}/muk" class="lsp-btn-muk">
                 ⚙️ Atur MUK &amp; Kelompok
             </a>
+            <a href="/skema/{{ data.schema_id }}/unduh-buku-kerja-docx?doc={{ doc_mode }}&amp;metode_mapa={{ data.metode_mapa }}&amp;kategori_asesi={{ data.kategori_asesi }}" class="lsp-btn-muk" style="background:#0d9488;">
+                📄 Unduh .DOCX
+            </a>
+            <a href="/skema/{{ data.schema_id }}/unduh-buku-kerja-zip?doc={{ doc_mode }}&amp;metode_mapa={{ data.metode_mapa }}&amp;kategori_asesi={{ data.kategori_asesi }}" class="lsp-btn-muk" style="background:#4f46e5;">
+                📦 Unduh .ZIP
+            </a>
             <button type="button" class="lsp-btn-print" onclick="window.print()">
                 🖨️ Cetak (Ctrl + P)
             </button>
