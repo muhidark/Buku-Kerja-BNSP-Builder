@@ -17,8 +17,9 @@ import re
 from datetime import datetime, timezone
 from typing import Any, Dict, List, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, Query, Request, Response
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, Security
 from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.security import APIKeyHeader, HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
 
 from app import db, library, schema_library
@@ -62,40 +63,65 @@ class BuatApiKeyRequest(BaseModel):
 # Dependency Autentikasi API Key
 # ==============================================================================
 
+api_key_header = APIKeyHeader(
+    name="X-API-Key",
+    auto_error=False,
+    description=(
+        "Kunci API klien. Buat dengan `python -m tools.kunci_api buat --nama <klien>`; "
+        "nilainya hanya ditampilkan sekali saat dibuat."
+    ),
+)
+
+bearer_auth = HTTPBearer(
+    auto_error=False,
+    scheme_name="BearerAuth",
+    description="Kunci API yang sama, dikirim sebagai header Authorization: Bearer <kunci>.",
+)
+
+
 async def autentikasi_api_key(
     request: Request,
-    x_api_key: Optional[str] = Header(None, alias="X-API-Key"),
-    authorization: Optional[str] = Header(None),
+    x_api_key: Optional[str] = Security(api_key_header),
+    kredensial: Optional[HTTPAuthorizationCredentials] = Security(bearer_auth),
 ) -> Dict[str, Any]:
     """
     Memvalidasi API Key dari:
     1. Header `X-API-Key: <kunci>`
-    2. Header `Authorization: Bearer <kunci>`
+    2. Header `Authorization: Bearer <kunci>` (atau nilai kunci saja)
     3. Query param `?api_key=<kunci>`
+
+    Kedua skema dideklarasikan sebagai dependency keamanan FastAPI supaya
+    `components.securitySchemes` terisi dan Swagger UI menampilkan tombol
+    Authorize (temuan T-04).
     """
     token = None
     if x_api_key and x_api_key.strip():
         token = x_api_key.strip()
-    elif authorization and authorization.strip():
-        parts = authorization.strip().split()
-        if len(parts) == 2 and parts[0].lower() == "bearer":
-            token = parts[1]
-        elif len(parts) == 1:
-            token = parts[0]
-    elif "api_key" in request.query_params:
-        token = request.query_params.get("api_key", "").strip()
+    elif kredensial and kredensial.credentials and kredensial.credentials.strip():
+        token = kredensial.credentials.strip()
+    else:
+        # Kompatibilitas: sebagian klien lama mengirim kunci tanpa awalan
+        # "Bearer ". HTTPBearer menolak bentuk itu, jadi dibaca langsung di sini.
+        mentah = (request.headers.get("authorization") or "").strip()
+        if mentah and len(mentah.split()) == 1:
+            token = mentah
+        elif "api_key" in request.query_params:
+            token = request.query_params.get("api_key", "").strip()
 
     if not token:
         raise HTTPException(
             status_code=401,
-            detail="Kredensial API tidak ditemukan. Sertakan header 'X-API-Key: <kunci>' atau 'Authorization: Bearer <kunci>'."
+            detail=(
+                "Kredensial API tidak ditemukan. Sertakan header X-API-Key atau "
+                "Authorization: Bearer <kunci>, atau parameter ?api_key=<kunci>."
+            ),
         )
 
     klien = db.validasi_kunci_api(token)
     if not klien:
         raise HTTPException(
             status_code=401,
-            detail="API Key tidak valid, tidak aktif, atau telah dicabut."
+            detail="API Key tidak valid, tidak aktif, atau telah dicabut.",
         )
 
     return klien
