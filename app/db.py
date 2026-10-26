@@ -16,6 +16,7 @@ import hmac
 import json
 import secrets
 import sqlite3
+import time
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -235,6 +236,16 @@ def inisialisasi_db() -> None:
                     "Buat kunci baru lewat: python -m tools.kunci_api buat --nama <klien>"
                 )
 
+        # ------------------------------ kunci API lama: teks biasa -> SHA-256
+        # Dijalankan SETELAH pencabutan di atas, karena pencabutan mencocokkan
+        # nilai kunci apa adanya.
+        jumlah_migrasi = _migrasi_kunci_api_ke_hash(conn)
+        if jumlah_migrasi:
+            _log_aman().warning(
+                "%s kunci API lama diubah menjadi hash SHA-256; nilai aslinya tidak lagi "
+                "tersimpan di basis data.", jumlah_migrasi,
+            )
+
 
 # ==============================================================================
 # Layanan Pengguna & Otentikasi
@@ -446,59 +457,165 @@ def simpan_versi_muk(schema_id: str, kode_versi: str, nama_versi: str, data_payl
 # Manajemen Kunci API Eksternal (Fase 4)
 # ==============================================================================
 
+#: Panjang awalan kunci yang disimpan sebagai `prefix` untuk ditampilkan.
+PREFIX_KUNCI = 12
+
+#: Jeda minimum (detik) sebelum kolom terakhir_digunakan ditulis lagi.
+JEDA_CATAT_PEMAKAIAN = 300
+
+#: Penanda terakhir penulisan per id kunci, agar setiap permintaan API tidak
+#: menulis ke basis data (temuan T-21).
+_TERAKHIR_DICATAT: Dict[int, float] = {}
+
+
+def hash_kunci_api(kunci: str) -> str:
+    """SHA-256 dari nilai kunci API (hex). Nilai asli tidak pernah disimpan."""
+    return hashlib.sha256(kunci.strip().encode("utf-8")).hexdigest()
+
+
+def _catat_pemakaian_kunci(kunci_id: int) -> None:
+    """Menulis terakhir_digunakan paling sering sekali per JEDA_CATAT_PEMAKAIAN."""
+    sekarang_monoton = time.monotonic()
+    terakhir = _TERAKHIR_DICATAT.get(kunci_id, 0.0)
+    if sekarang_monoton - terakhir < JEDA_CATAT_PEMAKAIAN:
+        return
+    _TERAKHIR_DICATAT[kunci_id] = sekarang_monoton
+    try:
+        with _ambil_koneksi() as conn:
+            conn.execute(
+                "UPDATE kunci_api SET terakhir_digunakan = ? WHERE id = ?",
+                (datetime.now(timezone.utc).isoformat(), kunci_id),
+            )
+            conn.commit()
+    except sqlite3.Error:
+        # Pencatatan pemakaian tidak boleh menggagalkan permintaan API.
+        pass
+
+
+def _migrasi_kunci_api_ke_hash(conn: sqlite3.Connection) -> int:
+    """Mengubah baris kunci_api lama (teks biasa) menjadi hash.
+
+    Kolom `kunci` bersifat NOT NULL dan UNIQUE, jadi setelah di-hash nilainya
+    diganti dengan penanda 'sha256:<hash>' agar rahasianya tidak lagi tersimpan
+    sementara keunikan tetap terjaga. Idempoten.
+    """
+    baris = conn.execute(
+        "SELECT id, kunci FROM kunci_api WHERE kunci_hash IS NULL OR kunci_hash = ''"
+    ).fetchall()
+    for r in baris:
+        nilai = (r["kunci"] or "").strip()
+        if not nilai or nilai.startswith("sha256:"):
+            continue
+        h = hash_kunci_api(nilai)
+        conn.execute(
+            "UPDATE kunci_api SET kunci = ?, kunci_hash = ?, prefix = ? WHERE id = ?",
+            (f"sha256:{h}", h, nilai[:PREFIX_KUNCI], r["id"]),
+        )
+    if baris:
+        conn.commit()
+    return len(baris)
+
+
 def validasi_kunci_api(kunci: str) -> Optional[Dict[str, Any]]:
-    """Memvalidasi kunci API eksternal dan mencatat timestamp terakhir digunakan."""
+    """Memvalidasi kunci API eksternal dan (terbatas) mencatat pemakaiannya.
+
+    Nilai kunci tidak dibandingkan langsung dengan isi basis data: yang dicari
+    adalah baris ber-`prefix` sama, lalu hash-nya dibandingkan dengan
+    hmac.compare_digest.
+    """
     if not kunci or not kunci.strip():
         return None
-    sekarang = datetime.now(timezone.utc).isoformat()
+    nilai = kunci.strip()
+    harapan = hash_kunci_api(nilai)
+    awalan = nilai[:PREFIX_KUNCI]
+
     with _ambil_koneksi() as conn:
-        row = conn.execute(
-            "SELECT id, kunci, nama_klien, peran, aktif FROM kunci_api WHERE kunci = ? AND aktif = 1",
-            (kunci.strip(),),
-        ).fetchone()
-        if not row:
+        kandidat = conn.execute(
+            """SELECT id, nama_klien, peran, aktif, kunci_hash, kedaluwarsa
+               FROM kunci_api WHERE aktif = 1 AND prefix = ?""",
+            (awalan,),
+        ).fetchall()
+        cocok = None
+        for r in kandidat:
+            hash_tersimpan = r["kunci_hash"] or ""
+            if hash_tersimpan and hmac.compare_digest(hash_tersimpan, harapan):
+                cocok = r
+                break
+        if not cocok:
             return None
-        conn.execute(
-            "UPDATE kunci_api SET terakhir_digunakan = ? WHERE id = ?",
-            (sekarang, row["id"]),
-        )
-        conn.commit()
-        return dict(row)
+
+        kedaluwarsa = cocok["kedaluwarsa"]
+        if kedaluwarsa:
+            try:
+                if datetime.fromisoformat(kedaluwarsa) < datetime.now(timezone.utc):
+                    return None
+            except ValueError:
+                _log_aman().warning(
+                    "Kunci API id %s memiliki tanggal kedaluwarsa yang tidak dapat dibaca (%r); "
+                    "kunci ditolak.", cocok["id"], kedaluwarsa,
+                )
+                return None
+
+        hasil = {
+            "id": cocok["id"],
+            "nama_klien": cocok["nama_klien"],
+            "peran": cocok["peran"],
+        }
+
+    _catat_pemakaian_kunci(hasil["id"])
+    return hasil
 
 
-def buat_kunci_api(nama_klien: str, peran: str = "klien", kunci_khusus: Optional[str] = None) -> str:
-    """Membuat kunci API baru untuk integrasi eksternal (idempotent bila kunci_khusus telah ada)."""
+def buat_kunci_api(
+    nama_klien: str,
+    peran: str = "klien",
+    kunci_khusus: Optional[str] = None,
+    kedaluwarsa: Optional[str] = None,
+) -> str:
+    """Membuat kunci API baru dan mengembalikan nilai aslinya SEKALI.
+
+    Yang tersimpan hanya hash SHA-256 dan `prefix`. Nilai asli tidak dapat
+    diambil kembali dari basis data.
+    """
     kunci = kunci_khusus.strip() if kunci_khusus else f"skkni_live_{secrets.token_urlsafe(24)}"
+    h = hash_kunci_api(kunci)
     sekarang = datetime.now(timezone.utc).isoformat()
     with _ambil_koneksi() as conn:
         conn.execute(
-            """INSERT INTO kunci_api (kunci, nama_klien, peran, aktif, dibuat_pada)
-               VALUES (?, ?, ?, 1, ?)
+            """INSERT INTO kunci_api (kunci, kunci_hash, prefix, nama_klien, peran, aktif, dibuat_pada, kedaluwarsa)
+               VALUES (?, ?, ?, ?, ?, 1, ?, ?)
                ON CONFLICT(kunci) DO UPDATE SET
+               kunci_hash = excluded.kunci_hash,
+               prefix = excluded.prefix,
                nama_klien = excluded.nama_klien,
                peran = excluded.peran,
-               aktif = 1""",
-            (kunci, nama_klien.strip(), peran.strip(), sekarang),
+               aktif = 1,
+               kedaluwarsa = excluded.kedaluwarsa""",
+            (f"sha256:{h}", h, kunci[:PREFIX_KUNCI], nama_klien.strip(), peran.strip(),
+             sekarang, kedaluwarsa),
         )
         conn.commit()
-        return kunci
+    return kunci
 
 
 def daftar_kunci_api() -> List[Dict[str, Any]]:
-    """Mengembalikan daftar seluruh kunci API terdaftar."""
+    """Daftar kunci API terdaftar — tanpa nilai rahasia, hanya `prefix`."""
     with _ambil_koneksi() as conn:
         rows = conn.execute(
-            "SELECT id, kunci, nama_klien, peran, aktif, dibuat_pada, terakhir_digunakan FROM kunci_api ORDER BY id DESC"
+            """SELECT id, prefix, nama_klien, peran, aktif, dibuat_pada,
+                      terakhir_digunakan, kedaluwarsa
+               FROM kunci_api ORDER BY id DESC"""
         ).fetchall()
         return [dict(r) for r in rows]
 
 
 def ubah_status_kunci_api(kunci: str, aktif: bool) -> bool:
-    """Mengaktifkan atau menonaktifkan kunci API (berdasarkan nilai kunci)."""
+    """Mengaktifkan atau menonaktifkan kunci API berdasarkan nilai kuncinya."""
+    h = hash_kunci_api(kunci)
     with _ambil_koneksi() as conn:
         cur = conn.execute(
-            "UPDATE kunci_api SET aktif = ? WHERE kunci = ?",
-            (1 if aktif else 0, kunci.strip()),
+            "UPDATE kunci_api SET aktif = ? WHERE kunci_hash = ?",
+            (1 if aktif else 0, h),
         )
         conn.commit()
         return cur.rowcount > 0
