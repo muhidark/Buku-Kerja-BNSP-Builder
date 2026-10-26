@@ -25,7 +25,7 @@
       <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all">
         📦 Unduh Bundel .ZIP (Word .docx)
       </a>
-      <a class="btn btn-small" style="background:#16a34a; border-color:#16a34a; color:#fff;" href="/skema/{{ dok.id }}/cetak-apl?doc=all" target="_blank">
+      <a class="btn btn-small" style="background:#15803D; border-color:#15803D; color:#fff;" href="/skema/{{ dok.id }}/cetak-apl?doc=all" target="_blank">
         🖨️ Pratinjau &amp; Cetak Buku Kerja
       </a>
     </div>
@@ -77,7 +77,7 @@
       </button>
       <button type="button" class="muk-tab-btn" id="btn-muk-kelompok" onclick="pindahTabMuk('muk-kelompok')" style="padding: 12px 14px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;">
         🗂️ 2. Kelompok Pekerjaan
-        <span class="badge {% if kp_info.is_complete %}badge-green{% else %}badge-amber{% endif %}" style="font-size: 11px; margin-left: 4px;">
+        <span class="badge {% if kp_info.is_complete %}badge-green{% else %}badge-amber{% endif %}" style="font-size: 12px; margin-left: 4px;">
           {{ kp_info.coverage_percent }}%
         </span>
       </button>
@@ -192,26 +192,26 @@
 
         <!-- 4 Kartu Indikator Cakupan Unit Kompetensi -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; margin-bottom: 16px;">
-          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #0284c7; border-radius: 6px; padding: 12px 14px;">
-            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Total Unit Master Skema</div>
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #0369A1; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Total Unit Master Skema</div>
             <div style="font-size: 24px; font-weight: 800; color: #0f172a; margin-top: 4px;">
               <span id="kp-stat-master">{{ kp_info.total_master }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
             </div>
           </div>
-          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #10b981; border-radius: 6px; padding: 12px 14px;">
-            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Terkelompok (Unik)</div>
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #047857; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Terkelompok (Unik)</div>
             <div style="font-size: 24px; font-weight: 800; color: #047857; margin-top: 4px;">
               <span id="kp-stat-grouped">{{ kp_info.total_grouped_unique }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
             </div>
           </div>
-          <div id="kp-card-unassigned" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.total_unassigned > 0 %}#ef4444{% else %}#10b981{% endif %}; border-radius: 6px; padding: 12px 14px;">
-            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Belum Dikelompokkan</div>
+          <div id="kp-card-unassigned" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.total_unassigned > 0 %}#B91C1C{% else %}#047857{% endif %}; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Belum Dikelompokkan</div>
             <div id="kp-stat-unassigned-wrap" style="font-size: 24px; font-weight: 800; color: {% if kp_info.total_unassigned > 0 %}#b91c1c{% else %}#047857{% endif %}; margin-top: 4px;">
               <span id="kp-stat-unassigned">{{ kp_info.total_unassigned }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
             </div>
           </div>
-          <div id="kp-card-status" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.is_complete %}#10b981{% else %}#f59e0b{% endif %}; border-radius: 6px; padding: 12px 14px;">
-            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Status Cakupan Dokumen</div>
+          <div id="kp-card-status" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.is_complete %}#047857{% else %}#B45309{% endif %}; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase;">Status Cakupan Dokumen</div>
             <div id="kp-stat-status" style="font-size: 18px; font-weight: 800; color: {% if kp_info.is_complete %}#047857{% else %}#b45309{% endif %}; margin-top: 6px;">
               {% if kp_info.is_complete %}✅ Lengkap (100%){% else %}⚠️ {{ kp_info.coverage_percent }}% (Belum Lengkap){% endif %}
             </div>
@@ -219,7 +219,7 @@
         </div>
 
         <!-- Kotak Peringatan Unit Belum Dikelompokkan -->
-        <div id="kp-unassigned-alert" style="display: {% if not kp_info.is_complete and kp_info.unassigned_units %}block{% else %}none{% endif %}; background: #fffbeb; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
+        <div id="kp-unassigned-alert" style="display: {% if not kp_info.is_complete and kp_info.unassigned_units %}block{% else %}none{% endif %}; background: #fffbeb; border: 1px solid #B45309; border-left: 4px solid #B45309; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
           <p style="margin: 0 0 6px 0; font-weight: 700; color: #b45309; font-size: 13px;">
             ⚠️ Perhatian: Masih ada unit kompetensi dari Master Skema yang belum masuk ke dalam Kelompok Pekerjaan manapun:
           </p>
@@ -238,11 +238,11 @@
               <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
                 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
                   <div style="flex: 1;">
-                    <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
+                    <label style="display:block; font-size: 12px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
                     <input type="text" class="kp-nama" value="{{ grp.nama }}" oninput="perbaruiStatistikKelompok()" placeholder="Contoh: Kelompok Pekerjaan 1 Perencanaan Proyek" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
                   </div>
                   <div style="width: 78px;">
-                    <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
+                    <label style="display:block; font-size: 12px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
                     <input type="number" class="kp-urutan" value="{{ grp.urutan or loop.index }}" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
                   </div>
                   <div style="padding-top: 18px;">
@@ -252,8 +252,8 @@
                 <div style="font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; display: flex; justify-content: space-between;">
                   <span>Pilih Unit Kompetensi Anggota Kelompok:</span>
                   <span>
-                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size:11.5px;">Pilih Semua</a> &middot;
-                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size:11.5px; color:#64748b;">Kosongkan</a>
+                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size: 12px;">Pilih Semua</a> &middot;
+                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size: 12px; color:#64748b;">Kosongkan</a>
                   </span>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
@@ -284,9 +284,9 @@
             <div style="background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                 <strong style="font-size: 13px;">👁️ Pratinjau Tabel Kelompok Pekerjaan (A4)</strong>
-                <span class="badge" style="font-size: 10.5px;">Live Preview</span>
+                <span class="badge" style="font-size: 12px;">Live Preview</span>
               </div>
-              <div id="kp-live-preview-box" style="overflow-x: auto; font-size: 11.5px;"></div>
+              <div id="kp-live-preview-box" style="overflow-x: auto; font-size: 12px;"></div>
             </div>
           </div>
         </div>
@@ -297,10 +297,10 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">🛠️ FR.IA.02 — Tugas Praktik Demonstrasi (TPD)</h3>
           <div class="aksi-group">
-            <button type="button" class="btn btn-small" style="background:#0284c7; border-color:#0284c7; color:#fff;" onclick="tarikPanduanKelompokKeIa02()">
+            <button type="button" class="btn btn-small" style="background:#0369A1; border-color:#0369A1; color:#fff;" onclick="tarikPanduanKelompokKeIa02()">
               ⚡ Susun Skenario &amp; Langkah dari Kelompok Pekerjaan
             </button>
-            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikBvKeIa02()">
+            <button type="button" class="btn btn-small" style="background:#0F766E; border-color:#0F766E; color:#fff;" onclick="tarikBvKeIa02()">
               📥 Tarik Peralatan &amp; Perlengkapan dari Batasan Variabel SKKNI
             </button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia02" target="_blank">🖨️ Pratinjau FR.IA.02</a>
@@ -314,7 +314,7 @@
             {% for grp in kp_info.groups %}
             <div style="background: #fff; border: 1px solid #e0f2fe; border-radius: 4px; padding: 8px 10px;">
               <strong style="color: #0369a1;">{{ grp.nama }}</strong> ({{ grp.units|length }} Unit):
-              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 11.5px; color: #334155;">
+              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 12px; color: #334155;">
                 {% for u in grp.units %}
                 <li><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</li>
                 {% endfor %}
@@ -396,7 +396,7 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">💬 FR.IA.03 — Pertanyaan Untuk Mendukung Observasi (PMO)</h3>
           <div class="aksi-group">
-            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa03()">
+            <button type="button" class="btn btn-small" style="background:#0F766E; border-color:#0F766E; color:#fff;" onclick="tarikPpKeIa03()">
               📥 Susun Pertanyaan PMO dari Aspek Kritis &amp; Sikap Kerja SKKNI
             </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa03()">+ Tambah Pertanyaan PMO</button>
@@ -459,7 +459,7 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">📐 FR.IA.04A &amp; 04B — Daftar Instruksi Terstruktur (DIT Proyek Singkat)</h3>
           <div class="aksi-group">
-            <button type="button" class="btn btn-small" style="background:#0284c7; border-color:#0284c7; color:#fff;" onclick="tarikPanduanKelompokKeIa04()">
+            <button type="button" class="btn btn-small" style="background:#0369A1; border-color:#0369A1; color:#fff;" onclick="tarikPanduanKelompokKeIa04()">
               ⚡ Susun Otomatis Skenario Proyek &amp; Aspek Penilaian dari Kelompok Pekerjaan
             </button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia04a" target="_blank">🖨️ Pratinjau IA.04A</a>
@@ -474,7 +474,7 @@
             {% for grp in kp_info.groups %}
             <div style="background: #fff; border: 1px solid #e0f2fe; border-radius: 4px; padding: 8px 10px;">
               <strong style="color: #0369a1;">{{ grp.nama }}</strong> ({{ grp.units|length }} Unit):
-              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 11.5px; color: #334155;">
+              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 12px; color: #334155;">
                 {% for u in grp.units %}
                 <li><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</li>
                 {% endfor %}
@@ -582,7 +582,7 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">✍️ FR.IA.06A, 06.B, &amp; 06.C — Pertanyaan Tertulis Esai</h3>
           <div class="aksi-group">
-            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa06()">
+            <button type="button" class="btn btn-small" style="background:#0F766E; border-color:#0F766E; color:#fff;" onclick="tarikPpKeIa06()">
               📥 Susun Soal Esai dari Pengetahuan &amp; Aspek Kritis SKKNI
             </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa06()">+ Tambah Soal Esai</button>
@@ -647,7 +647,7 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">🗣️ FR.IA.07 — DPL: Daftar Pertanyaan Lisan</h3>
           <div class="aksi-group">
-            <button type="button" class="btn btn-small" style="background:#0d9488; border-color:#0d9488; color:#fff;" onclick="tarikPpKeIa07()">
+            <button type="button" class="btn btn-small" style="background:#0F766E; border-color:#0F766E; color:#fff;" onclick="tarikPpKeIa07()">
               📥 Susun Pertanyaan Lisan dari Aspek Kritis &amp; Pengetahuan SKKNI
             </button>
             <button type="button" class="btn btn-small btn-ghost" onclick="tambahPertanyaanIa07()">+ Tambah Pertanyaan Lisan</button>
@@ -745,11 +745,11 @@
   <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
       <div style="flex: 1;">
-        <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
+        <label style="display:block; font-size: 12px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
         <input type="text" class="kp-nama" value="Kelompok Pekerjaan Baru" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
       </div>
       <div style="width: 78px;">
-        <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
+        <label style="display:block; font-size: 12px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
         <input type="number" class="kp-urutan" value="1" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
       </div>
       <div style="padding-top: 18px;">
@@ -759,8 +759,8 @@
     <div style="font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; display: flex; justify-content: space-between;">
       <span>Pilih Unit Kompetensi Anggota Kelompok:</span>
       <span>
-        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size:11.5px;">Pilih Semua</a> &middot;
-        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size:11.5px; color:#64748b;">Kosongkan</a>
+        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size: 12px;">Pilih Semua</a> &middot;
+        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size: 12px; color:#64748b;">Kosongkan</a>
       </span>
     </div>
     <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
@@ -881,9 +881,9 @@ function perbaruiStatistikKelompok() {
 
   if (elGrouped) elGrouped.textContent = groupedCount;
   if (elUnassigned) elUnassigned.textContent = unassignedCount;
-  if (cardUnassigned) cardUnassigned.style.borderLeftColor = unassignedCount > 0 ? '#ef4444' : '#10b981';
+  if (cardUnassigned) cardUnassigned.style.borderLeftColor = unassignedCount > 0 ? '#B91C1C' : '#047857';
   if (wrapUnassigned) wrapUnassigned.style.color = unassignedCount > 0 ? '#b91c1c' : '#047857';
-  if (cardStatus) cardStatus.style.borderLeftColor = isComplete ? '#10b981' : '#f59e0b';
+  if (cardStatus) cardStatus.style.borderLeftColor = isComplete ? '#047857' : '#B45309';
   if (elStatus) {
     elStatus.style.color = isComplete ? '#047857' : '#b45309';
     elStatus.textContent = isComplete ? '✅ Lengkap (100%)' : ('⚠️ ' + pct + '% (Belum Lengkap)');
@@ -922,7 +922,7 @@ function perbaruiStatistikKelompok() {
       rowsHtml = '<tr><td colspan="4" style="border:1px solid #cbd5e1; padding:10px; text-align:center; color:#64748b; font-style:italic;">Belum ada unit yang dipilih pada kelompok pekerjaan.</td></tr>';
     }
     previewBox.innerHTML = ''
-      + '<table style="width:100%; border-collapse:collapse; font-size:11px;">'
+      + '<table style="width:100%; border-collapse:collapse; font-size: 12px;">'
       + '<thead><tr style="background:#f1f5f9;">'
       + '<th style="border:1px solid #334155; padding:5px 8px; width:28%;">Kelompok Pekerjaan</th>'
       + '<th style="border:1px solid #334155; padding:5px; width:7%;">No.</th>'
@@ -936,7 +936,7 @@ function perbaruiStatistikKelompok() {
     var li = g.unitObjs.map(function(u) { return '<li><code>' + u.kode + '</code> — ' + u.judul + '</li>'; }).join('');
     return '<div style="background:#fff; border:1px solid #e0f2fe; border-radius:4px; padding:8px 10px;">'
       + '<strong style="color:#0369a1;">' + g.nama + '</strong> (' + g.unitObjs.length + ' Unit):'
-      + '<ol style="margin:4px 0 0 16px; padding:0; font-size:11.5px; color:#334155;">' + li + '</ol></div>';
+      + '<ol style="margin:4px 0 0 16px; padding:0; font-size: 12px; color:#334155;">' + li + '</ol></div>';
   }).join('');
   var boxIa02 = document.getElementById('ia02-panduan-kp');
   var boxIa04 = document.getElementById('ia04-panduan-kp');

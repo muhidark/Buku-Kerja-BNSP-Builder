@@ -7,13 +7,13 @@
   --bg: #f3f5f9;
   --card: #ffffff;
   --text: #1b2733;
-  --muted: #6b7a8c;
+  --muted: #4a5a6b;
   --border: #e2e8f0;
-  --green: #1f9d55;
+  --green: #157a41;
   --green-bg: #e7f6ee;
-  --amber: #a8650a;
+  --amber: #8a5208;
   --amber-bg: #fdf3e2;
-  --red: #b42318;
+  --red: #9f1c12;
   --red-bg: #fdeceb;
   --radius: 10px;
   --shadow: 0 1px 2px rgba(16, 38, 64, .06), 0 6px 18px rgba(16, 38, 64, .05);
@@ -55,7 +55,7 @@ body {
 }
 .brand-text { display: flex; flex-direction: column; line-height: 1.2; }
 .brand-text strong { font-size: 15px; color: #fff; }
-.brand-text small { color: #93a8bf; font-size: 11.5px; }
+.brand-text small { color: #b7c8dc; font-size: 12.5px; }
 
 .nav { display: flex; flex-direction: column; gap: 2px; }
 .nav-item {
@@ -137,7 +137,7 @@ body {
 .table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .table th {
   text-align: left; font-weight: 600; color: var(--muted);
-  text-transform: uppercase; font-size: 11.5px; letter-spacing: .5px;
+  text-transform: uppercase; font-size: 12.5px; letter-spacing: .5px;
   padding: 8px 10px; border-bottom: 1px solid var(--border); white-space: nowrap;
 }
 .table td { padding: 9px 10px; border-bottom: 1px solid #eef2f7; vertical-align: top; }
@@ -193,15 +193,38 @@ body {
 
 /* --------------------------------------------------- perpustakaan SKKNI (4B) */
 .btn {
-  display: inline-flex; align-items: center; gap: 6px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   background: var(--navy-2); color: #fff; border: 1px solid var(--navy-2);
   border-radius: 8px; padding: 8px 14px; font-size: 13.5px; font-weight: 600;
   text-decoration: none; cursor: pointer; line-height: 1.2;
+  /* Target sentuh minimum 36 px (temuan T-07): tombol 24-27 px mudah salah klik. */
+  min-height: 36px;
 }
 .btn:hover { background: var(--navy-3); border-color: var(--navy-3); }
 .btn-ghost { background: #fff; color: var(--navy-2); border-color: var(--border); }
 .btn-ghost:hover { background: #f1f5f9; border-color: #cbd8e6; }
-.btn-small { padding: 5px 10px; font-size: 12.5px; font-weight: 550; }
+.btn-small { padding: 7px 11px; font-size: 12.5px; font-weight: 550; min-height: 32px; }
+
+/* Fokus keyboard harus terlihat jelas pada semua kontrol interaktif (T-07/T-12). */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.btn:focus-visible,
+.nav-item:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Kontrol form tidak boleh lebih pendek dari 32 px. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+select,
+textarea,
+button {
+  min-height: 32px;
+}
 
 .upload, .cari { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .upload input[type="file"] {
@@ -229,7 +252,7 @@ body {
 
 .tag {
   display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 5px;
-  background: #eef2f7; color: #46586c; font-size: 11px; font-weight: 600;
+  background: #eef2f7; color: #46586c; font-size: 12px; font-weight: 600;
   text-transform: uppercase; letter-spacing: .4px;
 }
 
@@ -258,7 +281,7 @@ body {
 .badge-baris { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 5px; }
 .tag-mini {
   display: inline-block; padding: 1px 6px; border-radius: 4px;
-  font-size: 10.5px; font-weight: 600; letter-spacing: .2px;
+  font-size: 12px; font-weight: 600; letter-spacing: .2px;
   border: 1px solid transparent;
 }
 .tag-mini.on { background: var(--green-bg); color: var(--green); border-color: #bfe6ce; }

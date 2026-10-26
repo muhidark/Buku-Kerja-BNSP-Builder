@@ -93,12 +93,12 @@
     <button type="button" class="tab-btn" id="btn-tab-lsp" onclick="pindahTab('tab-lsp')" style="flex: 1; padding: 13px 18px; border: none; background: transparent; font-size: 14.5px; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; transition: all .15s ease;">
       ⚡ 2. Export Plugin
       {% if skema_lsp_count %}
-      <span class="badge badge-green" style="font-size: 11px; padding: 2px 7px;">{{ skema_lsp_count }} Siap</span>
+      <span class="badge badge-green" style="font-size: 12px; padding: 2px 7px;">{{ skema_lsp_count }} Siap</span>
       {% endif %}
     </button>
     <button type="button" class="tab-btn" id="btn-tab-buku-kerja" onclick="pindahTab('tab-buku-kerja')" style="flex: 1; padding: 13px 18px; border: none; background: transparent; font-size: 14.5px; font-weight: 600; color: var(--muted); border-bottom: 3px solid transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; transition: all .15s ease;">
       🖨️ 3. Cetak Buku Kerja
-      <span class="badge" style="background: #e0f2fe; color: #0284c7; font-size: 11px; padding: 2px 7px;">BNSP V.2023</span>
+      <span class="badge" style="background: #e0f2fe; color: #0369A1; font-size: 12px; padding: 2px 7px;">BNSP V.2023</span>
     </button>
   </div>
 
@@ -130,7 +130,7 @@
               {% for p_unit in gerbang.penahan %}
               <li>
                 <code>{{ p_unit.kode_unit }}</code> ({{ p_unit.label }}): {{ p_unit.alasan }}
-                — <a href="/skema/{{ dok.id }}/unit/{{ p_unit.kode_unit }}/koreksi" style="font-weight:600; text-decoration:underline;">Koreksi</a>
+                — <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/unit/{{ p_unit.kode_unit }}/koreksi">Koreksi</a>
               </li>
               {% endfor %}
             </ul>
@@ -244,14 +244,14 @@
           <button
             type="button"
             class="btn btn-small"
-            style="background:#16a34a; border-color:#16a34a; color:#fff;"
+            style="background:#15803D; border-color:#15803D; color:#fff;"
             {% if gerbang and gerbang.ada_gagal %}disabled title="Ada unit Gagal"{% else %}onclick="bukaModalCetakApl('all')"{% endif %}
           >
             🖨️ Cetak Semua Dokumen (Paket Lengkap)
           </button>
           <a
             class="btn btn-small"
-            style="background:#0284c7; border-color:#0284c7; color:#fff;"
+            style="background:#0369A1; border-color:#0369A1; color:#fff;"
             {% if gerbang and gerbang.ada_gagal %}href="javascript:void(0)" title="Ada unit Gagal"{% else %}href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all"{% endif %}
           >
             📦 Unduh Bundel .ZIP (24 Word .docx Bernomor)
@@ -532,12 +532,12 @@
         </div>
       </div>
       <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
-        <a href="/skema/{{ dok.id }}/muk" style="font-size:12px; color:#0284c7; font-weight:600; text-decoration:underline;">⚙️ Atur Soal &amp; Kelompok MUK</a>
+        <a href="/skema/{{ dok.id }}/muk" style="font-size:12px; color:#0369A1; font-weight:600; text-decoration:underline;">⚙️ Atur Soal &amp; Kelompok MUK</a>
         <div style="display:flex; gap:6px; flex-wrap:wrap;">
           <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 12px;">Batal</button>
           <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('docx')" style="padding:6px 12px;">📄 Unduh .DOCX</button>
           <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('zip')" style="padding:6px 12px;">📦 Unduh .ZIP</button>
-          <button type="submit" class="btn" style="background:#16a34a; border-color:#16a34a; color:#fff; padding:6px 14px;">🖨️ Buka Halaman Cetak &rarr;</button>
+          <button type="submit" class="btn" style="background:#15803D; border-color:#15803D; color:#fff; padding:6px 14px;">🖨️ Buka Halaman Cetak &rarr;</button>
         </div>
       </div>
     </form>
