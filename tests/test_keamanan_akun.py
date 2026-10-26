@@ -51,6 +51,7 @@ def main() -> int:
 
         keluaran = io.StringIO()
         with contextlib.redirect_stdout(keluaran):
+            db.inisialisasi_db()
             from app.main import app  # noqa: PLC0415  (impor sengaja di dalam)
         konsol = keluaran.getvalue()
 
@@ -175,6 +176,10 @@ def main() -> int:
             print(f'  - GAGAL: {g}')
     print('=' * 100)
     return 0 if not gagal else 1
+
+
+def test_keamanan_akun():
+    assert main() == 0
 
 
 if __name__ == '__main__':

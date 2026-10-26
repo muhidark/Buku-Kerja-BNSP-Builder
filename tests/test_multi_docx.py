@@ -279,5 +279,11 @@ def main():
     return 0 if not gagal else 1
 
 
+
+
+def test_multi_docx():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     sys.exit(main())

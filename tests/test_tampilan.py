@@ -253,5 +253,11 @@ def main() -> int:
     return 0 if not gagal else 1
 
 
+
+
+def test_tampilan():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     sys.exit(main())

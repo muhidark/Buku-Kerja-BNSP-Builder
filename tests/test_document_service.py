@@ -256,6 +256,12 @@ def main():
     return 0 if not gagal else 1
 
 
+
+
+def test_document_service():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     try:
         sys.exit(main())

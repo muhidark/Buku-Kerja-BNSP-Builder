@@ -268,6 +268,12 @@ def main():
     return 0 if not gagal else 1
 
 
+
+
+def test_skkni_library():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     try:
         sys.exit(main())

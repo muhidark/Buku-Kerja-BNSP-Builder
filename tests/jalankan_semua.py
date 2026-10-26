@@ -64,6 +64,11 @@ def jalankan(path: Path) -> tuple[bool, float, str]:
 
 
 def main(argv: list[str]) -> int:
+    if '--pytest' in argv or '-p' in argv:
+        sisa = [a for a in argv[1:] if a not in ('--pytest', '-p')]
+        cmd = [sys.executable, '-m', 'pytest'] + (sisa if sisa else ['-q'])
+        return subprocess.run(cmd, cwd=str(ROOT)).returncode
+
     verbose = '-v' in argv or '--verbose' in argv
     penyaring = next((a for a in argv[1:] if not a.startswith('-')), '')
 

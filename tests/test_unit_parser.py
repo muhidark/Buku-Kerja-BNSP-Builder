@@ -98,5 +98,11 @@ def main():
             print(f"    {kuk['uraian_kuk']}")
 
 
+
+
+def test_unit_parser():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     main()

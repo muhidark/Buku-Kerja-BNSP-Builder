@@ -71,5 +71,11 @@ def main():
         print(f"  {u['code']} | hal {u['start_page']}-{u['end_page']} | {u['title']}")
 
 
+
+
+def test_extractor():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     main()

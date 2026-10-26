@@ -359,5 +359,11 @@ def main():
     return 0 if not gagal else 1
 
 
+
+
+def test_docx_generator():
+    assert main() == 0
+
+
 if __name__ == '__main__':
     sys.exit(main())
