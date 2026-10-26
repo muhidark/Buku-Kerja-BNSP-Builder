@@ -71,7 +71,7 @@
         <td>
           {% if d.status_regulasi == 'dicabut' %}
             <span class="badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;">⛔ Dicabut</span>
-            {% if d.kepmen_pengganti %}<div class="small muted" style="margin-top:2px;">Ganti: {{ d.kepmen_pengganti }}</div>{% endif %}
+            {% if d.kepmen_pengganti %}<div class="small muted mt-2">Ganti: {{ d.kepmen_pengganti }}</div>{% endif %}
           {% else %}
             <span class="badge badge-green">✓ Berlaku</span>
           {% endif %}

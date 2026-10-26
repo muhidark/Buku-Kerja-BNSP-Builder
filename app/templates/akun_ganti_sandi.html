@@ -6,7 +6,7 @@
   <h2 class="kartu-judul">Ganti Kata Sandi</h2>
 
   {% if wajib %}
-  <div class="alert alert-amber" style="margin-bottom: 16px;">
+  <div class="alert alert-amber mb-16">
     Akun Anda masih memakai kata sandi bawaan yang pernah dicetak di halaman login.
     Demi keamanan, ganti kata sandi sekarang. Selama belum diganti, tindakan lain
     (unggah, simpan MUK, ekstrak, cetak) ditahan oleh sistem.
@@ -14,7 +14,7 @@
   {% endif %}
 
   {% if pesan %}
-  <div class="alert alert-{{ tipe or 'info' }}" style="margin-bottom: 16px;">{{ pesan }}</div>
+  <div class="alert alert-{{ tipe or 'info' }} mb-16">{{ pesan }}</div>
   {% endif %}
 
   <form method="post" action="/akun/ganti-sandi">

@@ -51,7 +51,7 @@
     <h2>⚡ Ekspor ke Plugin LSP WordPress</h2>
     <span class="badge badge-green">Siap Impor</span>
   </div>
-  <p class="muted small" style="margin-bottom: 12px;">
+  <p class="muted small mb-12">
     Gunakan salah satu tombol di bawah untuk menyalin data unit ini ke modal <strong>⚡ Quick Import / Paste Teks SKKNI</strong> pada plugin <code>lsp-core-management</code> WordPress.
   </p>
   <div class="aksi-group" style="gap: 8px; flex-wrap: wrap;">
@@ -65,8 +65,8 @@
       ⬇️ Unduh Berkas JSON
     </a>
   </div>
-  <textarea id="unit-smart-text-hidden" style="display:none;">{{ unit_smart_text }}</textarea>
-  <textarea id="unit-lsp-json-hidden" style="display:none;">{{ unit_lsp_json }}</textarea>
+  <textarea class="tersembunyi" id="unit-smart-text-hidden">{{ unit_smart_text }}</textarea>
+  <textarea class="tersembunyi" id="unit-lsp-json-hidden">{{ unit_lsp_json }}</textarea>
 </article>
 
 {% set vk = data.validasi_kelengkapan or {} %}

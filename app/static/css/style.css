@@ -315,7 +315,7 @@ button {
 }
 .checklist label { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
 .checklist code { font-size: 12.5px; }
-.cek-draft { display: flex; gap: 8px; align-items: center; font-size: 13.5px; margin: 4px 0 14px; }
+.cek-draft { display: block; font-size: 13.5px; margin: 0 0 15px; cursor: pointer; }
 .masalah-list { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
 .masalah-list code { font-size: 12.5px; }
 
@@ -419,3 +419,108 @@ button {
 .baris-form .input { width: 100%; box-sizing: border-box; }
 
 .aksi-form { display: flex; gap: 10px; align-items: center; margin-top: 20px; }
+
+/* ===========================================================================
+   Kelas semantik hasil pemindahan gaya inline (langkah 3.3, temuan T-11).
+   Sebelumnya 527 atribut style ditulis langsung di template; bagian yang
+   berulang dipindahkan ke sini agar tampilan seragam dan bisa diubah di satu
+   tempat. Warna hard-code diganti variabel atau varian yang lolos 4,5:1.
+   =========================================================================== */
+
+/* --- tipografi & label --- */
+.label-blok { display: block; font-weight: 600; font-size: 12.5px; margin-bottom: 4px; }
+.label-blok-12 { display: block; font-size: 12px; font-weight: 600; margin-bottom: 4px; color: #1e293b; }
+.label-kecil { display: block; font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 3px; }
+.label-upper { font-size: 12px; color: #64748b; font-weight: 700; text-transform: uppercase; }
+.ringkas-teks { font-size: 13px; font-weight: normal; color: #64748b; }
+.teks-12 { font-size: 12px; }
+.teks-16 { font-size: 16px; }
+.urut-teks { font-size: 0.86rem; user-select: none; }
+.teks-bahaya { color: var(--red); }
+.teks-sukses { color: #15803d; }
+.teks-tebal-hijau { cursor: pointer; font-weight: 700; color: #166534; }
+
+/* --- kontrol form --- */
+.input-penuh { width: 100%; padding: 8px 10px; border: 1px solid var(--border); border-radius: 4px; }
+.input-penuh-md { width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; }
+.input-penuh-sm { width: 100%; padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 12px; }
+.input-padat { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; }
+.input-padat-tebal { padding: 6px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600; }
+.area-teks { width: 100%; padding: 0.5rem 0.65rem; border: 1px solid var(--border); border-radius: 6px; font: inherit; resize: vertical; }
+
+/* --- wadah & kartu --- */
+.kotak-hijau { background: #fff; border: 1px solid #dcfce7; border-radius: 4px; padding: 8px 10px; }
+.kotak-info-hijau { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; }
+.kartu-referensi { border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa; }
+
+/* --- tata letak --- */
+.baris-antara { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.baris-antara-gap { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 8px; }
+.kisi-auto { margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px; }
+.kisi-baris { display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px; }
+.daftar-isi { margin: 4px 0 0; }
+.daftar-rapat { margin: 4px 0 0 16px; padding: 0; color: #334155; }
+.sel-tengah { min-width: 56px; padding-top: 0.35rem; text-align: center; }
+.flex-1 { flex: 1; }
+.tersembunyi { display: none; }
+
+/* --- jarak --- */
+.m-0 { margin: 0; }
+.mb-6 { margin-bottom: 6px; }
+.mb-8 { margin-bottom: 8px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-12 { margin-bottom: 12px; }
+.mb-14 { margin-bottom: 14px; }
+.mb-16 { margin-bottom: 16px; }
+.mt-2 { margin-top: 2px; }
+.mt-4 { margin-top: 4px; }
+.mt-8 { margin-top: 8px; }
+.pt-1 { padding-top: 0.25rem; }
+
+/* --- tab MUK: keadaan aktif kini berupa kelas, bukan gaya inline --- */
+.muk-tabbar { display: flex; background: #f8fafc; border-bottom: 1px solid var(--border); overflow-x: auto; }
+.muk-tab-btn {
+  padding: 12px 14px; border: none; background: transparent;
+  font-weight: 600; font-size: 13px; color: var(--muted);
+  border-bottom: 3px solid transparent; cursor: pointer; white-space: nowrap;
+}
+.muk-tab-btn:hover { color: var(--navy-3); }
+.muk-tab-btn.is-active,
+.muk-tab-btn.active { background: #fff; color: var(--navy); border-bottom-color: var(--navy-2); }
+.muk-panel { display: none; }
+.muk-panel.is-active { display: block; }
+
+/* --- varian tombol berwarna (menggantikan background hard-code di template) --- */
+.btn-teal { background: #0f766e; border-color: #0f766e; color: #fff; }
+.btn-teal:hover { background: #115e56; border-color: #115e56; }
+.btn-biru { background: #0369a1; border-color: #0369a1; color: #fff; }
+.btn-biru:hover { background: #075985; border-color: #075985; }
+.btn-hijau { background: #15803d; border-color: #15803d; color: #fff; }
+.btn-hijau:hover { background: #166534; border-color: #166534; }
+
+/* --- putaran kedua: pola struktural yang masih berulang --- */
+.baris-renggang { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+.baris-kepala { display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 0.85rem; }
+.baris-cari { display: flex; align-items: center; gap: 0.65rem; flex: 1; min-width: 260px; }
+.baris-rapat { display: flex; align-items: center; gap: 10px; }
+.kolom-renggang { display: flex; flex-direction: column; gap: 0.65rem; }
+.kartu-baris { display: flex; align-items: flex-start; gap: 0.65rem; padding: 0.6rem; border: 1px solid var(--border); border-radius: 8px; background: #fcfcfd; }
+.input-penuh-lg { width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--border); border-radius: 4px; }
+.label-blok-13 { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+.tombol-mungil { font-size: 0.88rem; padding: 0.35rem 0.65rem; }
+.mt-12 { margin-top: 0.75rem; }
+.mb-20 { margin-bottom: 1.25rem; }
+.p-22 { padding: 22px; }
+.p-6-12 { padding: 6px 12px; }
+.lebar-78 { width: 78px; }
+
+/* --- kotak centang: ukuran & warna aksen agar mudah dilihat --- */
+input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; accent-color: var(--navy-2); flex: none; }
+.kartu-tab { padding: 0; overflow: hidden; }
+.label-cek { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer; min-height: 32px; }
+
+/* kartu pembungkus tab aksi pada halaman detail skema (gaya inline dipindah) */
+.tab-card {
+  padding: 0; overflow: hidden; margin-bottom: 24px;
+  box-shadow: var(--shadow); border: 1px solid var(--border);
+}

@@ -48,7 +48,7 @@
   </article>
   <article class="card stat">
     <span class="stat-label">● Gagal</span>
-    <span class="stat-value" style="color:#b91c1c;">{{ gr.gagal }}</span>
+    <span class="stat-value teks-bahaya">{{ gr.gagal }}</span>
     <span class="stat-note">{{ ringkas.ditemukan if ringkas else 0 }} cocok di SKKNI · {{ ringkas.tidak_ditemukan if ringkas else 0 }} belum ditemukan</span>
   </article>
 </section>
@@ -84,7 +84,7 @@
 </article>
 
 <!-- Tab Aksi Terpadu Skema: 1. Buat Dokumen Word, 2. Export Plugin, 3. Cetak Buku Kerja -->
-<article class="card tab-card" id="tab-aksi-skema" style="padding: 0; overflow: hidden; margin-bottom: 24px; box-shadow: var(--shadow); border: 1px solid var(--border);">
+<article class="card tab-card" id="tab-aksi-skema">
   <!-- Tab Navigation Bar -->
   <div class="tabs-header" style="display: flex; background: #f8fafc; border-bottom: 1px solid var(--border); overflow-x: auto;">
     <button type="button" class="tab-btn active" id="btn-tab-word" onclick="pindahTab('tab-word')" style="flex: 1; padding: 13px 18px; border: none; background: #ffffff; font-size: 14.5px; font-weight: 600; color: var(--navy); border-bottom: 3px solid var(--navy-2); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap; transition: all .15s ease;">
@@ -103,25 +103,25 @@
   </div>
 
   <!-- Tab Contents -->
-  <div class="tab-content" style="padding: 22px;">
+  <div class="tab-content p-22">
 
     <!-- TAB 1: Buat Dokumen Word -->
     <div id="tab-word" class="tab-panel" style="display: block;">
-      <div class="card-head" style="margin-bottom: 8px;">
-        <h3 style="margin: 0; font-size: 16px;">📄 Generator Dokumen Word (.docx)</h3>
+      <div class="card-head mb-8">
+        <h3 class="m-0 teks-16">📄 Generator Dokumen Word (.docx)</h3>
       </div>
-      <p class="muted small" style="margin-bottom: 14px;">
+      <p class="muted small mb-14">
         Pilih unit yang akan dimasukkan ke dokumen. Hanya unit yang sudah memiliki JSON ekstraksi yang dapat dipilih. Urutan dokumen mengikuti urutan skema.
       </p>
       {% if dok.verifikasi_manual %}
-      <p class="note" style="margin-bottom: 14px;">
+      <p class="note mb-14">
         Unit yang sudah Anda tandai <strong>terverifikasi manual</strong>
         ({{ dok.verifikasi_manual.keys()|join(', ') }}) dianggap lolos pemeriksaan struktur/kelengkapan.
       </p>
       {% endif %}
 
       {% if gerbang and not gerbang.siap_semua %}
-      <div class="alert {% if gerbang.ada_gagal %}alert-galat{% else %}alert-info{% endif %}" style="margin-bottom: 14px;">
+      <div class="alert {% if gerbang.ada_gagal %}alert-galat{% else %}alert-info{% endif %} mb-14">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
           <div>
             <strong>⚠ Dokumen belum siap dibuat final:</strong>
@@ -150,7 +150,7 @@
           {% for u in dok.units %}
             {% set st3_chk = (peta_status_3 or {}).get(u.kode_unit) or {} %}
             {% if u.kode_unit in ada_json %}
-            <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer;">
+            <label class="label-cek">
               <input type="checkbox" name="kode_unit" value="{{ u.kode_unit }}" {% if st3_chk.status != 'gagal' %}checked{% endif %}>
               <span>
                 <code>{{ u.kode_unit }}</code> {{ u.judul_skema }}
@@ -160,7 +160,7 @@
             {% endif %}
           {% endfor %}
         </div>
-        <label class="cek-draft" style="display: block; margin-bottom: 15px; font-size: 13.5px;">
+        <label class="cek-draft">
           <input type="checkbox" name="draft" value="1">
           Buat sebagai draft bila ada unit yang perlu diperiksa
         </label>
@@ -181,21 +181,21 @@
         </div>
       </form>
       {% else %}
-      <div class="alert alert-info" style="margin: 0;">
+      <div class="alert alert-info m-0">
         Belum ada unit yang diekstrak menjadi JSON. Silakan klik tombol <strong>"Ekstrak Seluruh Unit"</strong> pada bagian Pencocokan SKKNI terlebih dahulu.
       </div>
       {% endif %}
     </div>
 
     <!-- TAB 2: Export Plugin -->
-    <div id="tab-lsp" class="tab-panel" style="display: none;">
-      <div class="card-head" style="margin-bottom: 8px;">
-        <h3 style="margin: 0; font-size: 16px;">⚡ Ekspor ke Plugin LSP WordPress (Multi-Unit)</h3>
+    <div id="tab-lsp" class="tab-panel tersembunyi">
+      <div class="card-head mb-8">
+        <h3 class="m-0 teks-16">⚡ Ekspor ke Plugin LSP WordPress (Multi-Unit)</h3>
         {% if skema_lsp_count %}
         <span class="badge badge-green">{{ skema_lsp_count }} Unit Siap Impor</span>
         {% endif %}
       </div>
-      <p class="muted small" style="margin-bottom: 16px;">
+      <p class="muted small mb-16">
         Salin seluruh unit kompetensi skema ini sekaligus untuk dimasukkan ke form skema sertifikasi pada modal <strong>⚡ Quick Import</strong> plugin <code>lsp-core-management</code>.
       </p>
       {% if skema_lsp_count %}
@@ -210,48 +210,48 @@
           ⬇️ Unduh JSON Skema (.json)
         </a>
       </div>
-      <textarea id="skema-smart-text-hidden" style="display:none;">{{ skema_smart_text }}</textarea>
-      <textarea id="skema-lsp-json-hidden" style="display:none;">{{ skema_lsp_json }}</textarea>
+      <textarea class="tersembunyi" id="skema-smart-text-hidden">{{ skema_smart_text }}</textarea>
+      <textarea class="tersembunyi" id="skema-lsp-json-hidden">{{ skema_lsp_json }}</textarea>
       {% else %}
-      <div class="alert alert-info" style="margin: 0;">
+      <div class="alert alert-info m-0">
         Belum ada unit yang diekstrak untuk diekspor. Silakan lakukan ekstraksi unit terlebih dahulu.
       </div>
       {% endif %}
     </div>
 
     <!-- TAB 3: Cetak Buku Kerja -->
-    <div id="tab-buku-kerja" class="tab-panel" style="display: none;">
-      <div class="card-head" style="margin-bottom: 8px;">
-        <h3 style="margin: 0; font-size: 16px;">🖨️ Cetak Buku Kerja Asesor V.2023 (18 Dokumen BNSP &amp; Paket MUK)</h3>
+    <div id="tab-buku-kerja" class="tab-panel tersembunyi">
+      <div class="card-head mb-8">
+        <h3 class="m-0 teks-16">🖨️ Cetak Buku Kerja Asesor V.2023 (18 Dokumen BNSP &amp; Paket MUK)</h3>
         <div class="aksi-group">
           <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/muk">⚙️ Pengaturan MUK &amp; Kelompok Pekerjaan</a>
           <span class="badge badge-green">Template BNSP Siap Cetak</span>
         </div>
       </div>
-      <p class="muted small" style="margin-bottom: 14px;">
+      <p class="muted small mb-14">
         Cetak paket lengkap maupun satuan formulir Buku Kerja Asesor V.2023 sesuai urutan Daftar Periksa Upgrading-RCC:
         <strong>FR.APL.01, FR.APL.02, FR.MAPA.01 (Observasi/DIT/Portofolio), Peta Kelompok Pekerjaan, FR.MAPA.02, FR.AK.01–07, FR.IA.01–05C</strong>.
       </p>
       {% if gerbang and gerbang.ada_gagal %}
-      <div class="alert alert-galat" style="margin-bottom: 14px;">
+      <div class="alert alert-galat mb-14">
         Cetak Buku Kerja ditahan karena masih ada unit berstatus <strong>Gagal</strong> (0 elemen/KUK). Silakan lakukan <strong>Koreksi</strong> pada unit terkait terlebih dahulu.
       </div>
       {% endif %}
 
-      <div style="margin-bottom: 12px;">
+      <div class="mb-12">
         <div style="font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 6px; text-transform: uppercase;">Paket Buku Kerja Siap Cetak &amp; Unduh Word (.docx / .zip):</div>
         <div class="aksi-group" style="gap: 8px; flex-wrap: wrap;">
           <button
             type="button"
-            class="btn btn-small"
-            style="background:#15803D; border-color:#15803D; color:#fff;"
+            class="btn btn-small btn-hijau"
+           
             {% if gerbang and gerbang.ada_gagal %}disabled title="Ada unit Gagal"{% else %}onclick="bukaModalCetakApl('all')"{% endif %}
           >
             🖨️ Cetak Semua Dokumen (Paket Lengkap)
           </button>
           <a
-            class="btn btn-small"
-            style="background:#0369A1; border-color:#0369A1; color:#fff;"
+            class="btn btn-small btn-biru"
+           
             {% if gerbang and gerbang.ada_gagal %}href="javascript:void(0)" title="Ada unit Gagal"{% else %}href="/skema/{{ dok.id }}/unduh-buku-kerja-zip?doc=all"{% endif %}
           >
             📦 Unduh Bundel .ZIP (24 Word .docx Bernomor)
@@ -367,7 +367,7 @@
             {% endif %}
           </div>
           {% if st3.alasan %}
-          <div class="small {% if st3.status == 'gagal' %}warn-text{% elif st3.status == 'perlu' %}warn-text{% else %}muted{% endif %}" style="margin-top:2px;">
+          <div class="small {% if st3.status == 'gagal' %}warn-text{% elif st3.status == 'perlu' %}warn-text{% else %}muted{% endif %} mt-2">
             {{ st3.alasan }}
           </div>
           {% endif %}
@@ -499,21 +499,21 @@
     </p>
     <form id="form-cetak-apl" onsubmit="prosesCetakApl(event)">
       <input type="hidden" id="cetak-doc-target" value="all">
-      <div style="margin-bottom:12px;">
-        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Nomor Skema</label>
-        <input type="text" id="cetak-no-skema" class="input" style="width:100%; box-sizing:border-box; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;" placeholder="Contoh: SKM-2024-001 (atau kosongkan)">
+      <div class="mb-12">
+        <label class="label-blok-12">Nomor Skema</label>
+        <input type="text" id="cetak-no-skema" class="input input-penuh-md" placeholder="Contoh: SKM-2024-001 (atau kosongkan)">
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Nama Asesor</label>
-        <input type="text" id="cetak-nama-asesor" class="input" style="width:100%; box-sizing:border-box; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;" placeholder="Contoh: Muhadi, S.Kom., M.T.">
+      <div class="mb-12">
+        <label class="label-blok-12">Nama Asesor</label>
+        <input type="text" id="cetak-nama-asesor" class="input input-penuh-md" placeholder="Contoh: Muhadi, S.Kom., M.T.">
       </div>
-      <div style="margin-bottom:12px;">
-        <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">No. Registrasi MET Asesor</label>
-        <input type="text" id="cetak-no-met" class="input" style="width:100%; box-sizing:border-box; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;" placeholder="Contoh: MET.000.001234.2023">
+      <div class="mb-12">
+        <label class="label-blok-12">No. Registrasi MET Asesor</label>
+        <input type="text" id="cetak-no-met" class="input input-penuh-md" placeholder="Contoh: MET.000.001234.2023">
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:18px;">
         <div>
-          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Metode MAPA.01 &amp; 02</label>
+          <label class="label-blok-12">Metode MAPA.01 &amp; 02</label>
           <select id="cetak-metode-mapa" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
             <option value="observasi">Observasi (CLO+TPD+PMO)</option>
             <option value="dit">Proyek Singkat (DIT)</option>
@@ -521,7 +521,7 @@
           </select>
         </div>
         <div>
-          <label style="display:block; font-size:12px; font-weight:600; margin-bottom:4px; color:#1e293b;">Potensi Asesi (1–5)</label>
+          <label class="label-blok-12">Potensi Asesi (1–5)</label>
           <select id="cetak-kategori-asesi" style="width:100%; padding:7px 10px; border:1px solid #cbd5e1; border-radius:4px; font-size:13px;">
             <option value="1">Kategori 1 (Pelatihan Telusur)</option>
             <option value="2">Kategori 2 (Pelatihan Non-SKKNI)</option>
@@ -534,9 +534,9 @@
       <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;">
         <a href="/skema/{{ dok.id }}/muk" style="font-size:12px; color:#0369A1; font-weight:600; text-decoration:underline;">⚙️ Atur Soal &amp; Kelompok MUK</a>
         <div style="display:flex; gap:6px; flex-wrap:wrap;">
-          <button type="button" class="btn btn-ghost" onclick="tutupModalCetakApl()" style="padding:6px 12px;">Batal</button>
-          <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('docx')" style="padding:6px 12px;">📄 Unduh .DOCX</button>
-          <button type="button" class="btn btn-ghost" onclick="prosesUnduhWordApl('zip')" style="padding:6px 12px;">📦 Unduh .ZIP</button>
+          <button type="button" class="btn btn-ghost p-6-12" onclick="tutupModalCetakApl()">Batal</button>
+          <button type="button" class="btn btn-ghost p-6-12" onclick="prosesUnduhWordApl('docx')">📄 Unduh .DOCX</button>
+          <button type="button" class="btn btn-ghost p-6-12" onclick="prosesUnduhWordApl('zip')">📦 Unduh .ZIP</button>
           <button type="submit" class="btn" style="background:#15803D; border-color:#15803D; color:#fff; padding:6px 14px;">🖨️ Buka Halaman Cetak &rarr;</button>
         </div>
       </div>

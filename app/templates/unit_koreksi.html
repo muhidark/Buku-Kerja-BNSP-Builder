@@ -42,7 +42,7 @@
       Silakan tinjau perbandingan di bawah, lalu pilih apakah ingin mempertahankan koreksi Anda atau kembali ke hasil mesin baru.
     </p>
   </div>
-  <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+  <div class="baris-renggang">
     <form action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi" method="post" class="inline-form">
       <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
       <input type="hidden" name="aksi" value="pertahankan">
@@ -57,7 +57,7 @@
 {% endif %}
 
 {# Kotak Informasi Status & Sumber #}
-<section class="card" style="margin-bottom:1.25rem;">
+<section class="card mb-20">
   <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
     <div>
       <strong>Status Kesiapan Unit:</strong>
@@ -82,7 +82,7 @@
 
 {# Tabel Perbandingan Berdampingan (Audit Riwayat Mesin vs Koreksi) bila ada koreksi #}
 {% if info_koreksi and info_koreksi.ada_koreksi and info_koreksi.perbandingan %}
-<section class="card" style="margin-bottom:1.25rem;">
+<section class="card mb-20">
   <details {% if info_koreksi.konflik %}open{% endif %}>
     <summary style="cursor:pointer; font-weight:600; color:var(--primary);">
       🔍 Lihat Perbandingan Berdampingan: Teks Asli Mesin vs Teks Koreksi Manual
@@ -155,9 +155,9 @@
     {% for el in elemen_form %}
     {% set el_mesin_nama = peta_el_mesin.get(el.nomor, '') %}
     <section class="card elemen-koreksi-card" data-elemen-no="{{ el.nomor }}" style="margin-bottom:1.15rem;">
-      <div class="card-head" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.85rem;">
-        <div style="display:flex; align-items:center; gap:0.65rem; flex:1; min-width:260px;">
-          <span class="badge badge-blue mono label-nomor-elemen" style="font-size:0.88rem; padding:0.35rem 0.65rem;">
+      <div class="card-head baris-kepala">
+        <div class="baris-cari">
+          <span class="badge badge-blue mono label-nomor-elemen tombol-mungil">
             ELEMEN {{ el.nomor }}
           </span>
           <input type="hidden" name="elemen_nomor" value="{{ el.nomor }}" class="input-elemen-nomor">
@@ -167,8 +167,8 @@
             value="{{ el.nama }}"
             placeholder="Ketik nama elemen kompetensi..."
             required
-            class="koreksi-input input-elemen-nama"
-            style="flex:1; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:6px; font:inherit; font-weight:600;"
+            class="koreksi-input input-elemen-nama input-padat-tebal flex-1"
+           
           >
         </div>
         <div style="display:flex; align-items:center; gap:0.5rem;">
@@ -187,23 +187,23 @@
       </div>
       {% endif %}
 
-      <div class="daftar-kuk-container" style="display:flex; flex-direction:column; gap:0.65rem;">
+      <div class="daftar-kuk-container kolom-renggang">
         {% for k in el.kuk %}
         {% set kuk_mesin_ur = peta_kuk_mesin.get(k.nomor, '') %}
-        <div class="baris-kuk-koreksi" style="display:flex; align-items:flex-start; gap:0.65rem; padding:0.6rem; border:1px solid var(--border); border-radius:8px; background:#fcfcfd;">
-          <div style="min-width:56px; padding-top:0.35rem; text-align:center;">
-            <span class="badge badge-neutral mono label-nomor-kuk" style="font-size:0.86rem; user-select:none;" title="Nomor KUK dikunci otomatis agar urutan skema tidak rusak">{{ k.nomor }}</span>
+        <div class="baris-kuk-koreksi kartu-baris">
+          <div class="sel-tengah">
+            <span class="badge badge-neutral mono label-nomor-kuk urut-teks" title="Nomor KUK dikunci otomatis agar urutan skema tidak rusak">{{ k.nomor }}</span>
             <input type="hidden" name="kuk_elemen" value="{{ el.nomor }}" class="input-kuk-elemen">
             <input type="hidden" name="kuk_nomor" value="{{ k.nomor }}" class="input-kuk-nomor">
           </div>
-          <div style="flex:1;">
+          <div class="flex-1">
             <textarea
               name="kuk_uraian"
               rows="2"
               required
               placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..."
-              class="koreksi-input input-kuk-uraian"
-              style="width:100%; padding:0.5rem 0.65rem; border:1px solid var(--border); border-radius:6px; font:inherit; resize:vertical;"
+              class="koreksi-input input-kuk-uraian area-teks"
+             
             >{{ k.uraian }}</textarea>
             {% if kuk_mesin_ur and kuk_mesin_ur != k.uraian %}
             <div class="muted" style="font-size:0.8rem; margin-top:0.3rem; padding:0.3rem 0.5rem; background:#fffbeb; border-left:3px solid #B45309; border-radius:4px;">
@@ -212,14 +212,14 @@
             </div>
             {% endif %}
           </div>
-          <div style="padding-top:0.25rem;">
+          <div class="pt-1">
             <button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>
           </div>
         </div>
         {% endfor %}
       </div>
 
-      <div style="margin-top:0.75rem;">
+      <div class="mt-12">
         <button type="button" class="btn btn-secondary btn-small btn-tambah-kuk" onclick="tambahBarisKuk(this)">
           + Tambah KUK {{ el.nomor }}.{{ (el.kuk|length) + 1 }}
         </button>
@@ -239,7 +239,7 @@
     <div class="muted" style="font-size:0.9rem;">
       <strong id="status-perubahan-teks">Siap disunting</strong> · Pintasan simpan cepat: <kbd style="padding:0.1rem 0.35rem; border:1px solid #cbd5e1; border-radius:4px; background:#f8fafc; font-family:monospace;">Ctrl+S</kbd>
     </div>
-    <div style="display:flex; gap:0.6rem; flex-wrap:wrap;">
+    <div class="baris-renggang">
       {% if info_koreksi and info_koreksi.ada_koreksi %}
       <button type="button" class="btn btn-secondary" onclick="konfirmasiKembalikanMesin()">
         Kembalikan ke hasil mesin
@@ -255,7 +255,7 @@
   </div>
 </form>
 
-<form id="form-kembalikan-mesin" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post" style="display:none;">
+<form class="tersembunyi" id="form-kembalikan-mesin" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post">
   <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
 </form>
 
@@ -328,15 +328,15 @@
     div.className = 'baris-kuk-koreksi';
     div.style.cssText = 'display:flex; align-items:flex-start; gap:0.65rem; padding:0.6rem; border:1px solid var(--border); border-radius:8px; background:#fcfcfd;';
     div.innerHTML =
-      '<div style="min-width:56px; padding-top:0.35rem; text-align:center;">' +
-        '<span class="badge badge-neutral mono label-nomor-kuk" style="font-size:0.86rem; user-select:none;">' + noKuk + '</span>' +
+      '<div class="sel-tengah">' +
+        '<span class="badge badge-neutral mono label-nomor-kuk urut-teks">' + noKuk + '</span>' +
         '<input type="hidden" name="kuk_elemen" value="' + noEl + '" class="input-kuk-elemen">' +
         '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
       '</div>' +
-      '<div style="flex:1;">' +
-        '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian" style="width:100%; padding:0.5rem 0.65rem; border:1px solid var(--border); border-radius:6px; font:inherit; resize:vertical;"></textarea>' +
+      '<div class="flex-1">' +
+        '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
       '</div>' +
-      '<div style="padding-top:0.25rem;">' +
+      '<div class="pt-1">' +
         '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +
       '</div>';
     container.appendChild(div);
@@ -370,32 +370,32 @@
     sec.setAttribute('data-elemen-no', String(nextEl));
     sec.style.marginBottom = '1.15rem';
     sec.innerHTML =
-      '<div class="card-head" style="display:flex; justify-content:space-between; align-items:center; gap:0.75rem; flex-wrap:wrap; margin-bottom:0.85rem;">' +
-        '<div style="display:flex; align-items:center; gap:0.65rem; flex:1; min-width:260px;">' +
-          '<span class="badge badge-blue mono label-nomor-elemen" style="font-size:0.88rem; padding:0.35rem 0.65rem;">ELEMEN ' + nextEl + '</span>' +
+      '<div class="card-head baris-kepala">' +
+        '<div class="baris-cari">' +
+          '<span class="badge badge-blue mono label-nomor-elemen tombol-mungil">ELEMEN ' + nextEl + '</span>' +
           '<input type="hidden" name="elemen_nomor" value="' + nextEl + '" class="input-elemen-nomor">' +
-          '<input type="text" name="elemen_nama" value="" placeholder="Ketik nama elemen kompetensi..." required class="koreksi-input input-elemen-nama" style="flex:1; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:6px; font:inherit; font-weight:600;">' +
+          '<input type="text" name="elemen_nama" value="" placeholder="Ketik nama elemen kompetensi..." required class="koreksi-input input-elemen-nama input-padat-tebal flex-1">' +
         '</div>' +
         '<div>' +
           '<button type="button" class="btn btn-secondary btn-small btn-hapus-elemen" onclick="hapusElemen(this)">Hapus Elemen</button>' +
         '</div>' +
       '</div>' +
-      '<div class="daftar-kuk-container" style="display:flex; flex-direction:column; gap:0.65rem;">' +
-        '<div class="baris-kuk-koreksi" style="display:flex; align-items:flex-start; gap:0.65rem; padding:0.6rem; border:1px solid var(--border); border-radius:8px; background:#fcfcfd;">' +
-          '<div style="min-width:56px; padding-top:0.35rem; text-align:center;">' +
-            '<span class="badge badge-neutral mono label-nomor-kuk" style="font-size:0.86rem; user-select:none;">' + noKuk + '</span>' +
+      '<div class="daftar-kuk-container kolom-renggang">' +
+        '<div class="baris-kuk-koreksi kartu-baris">' +
+          '<div class="sel-tengah">' +
+            '<span class="badge badge-neutral mono label-nomor-kuk urut-teks">' + noKuk + '</span>' +
             '<input type="hidden" name="kuk_elemen" value="' + nextEl + '" class="input-kuk-elemen">' +
             '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
           '</div>' +
-          '<div style="flex:1;">' +
-            '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian" style="width:100%; padding:0.5rem 0.65rem; border:1px solid var(--border); border-radius:6px; font:inherit; resize:vertical;"></textarea>' +
+          '<div class="flex-1">' +
+            '<textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
           '</div>' +
-          '<div style="padding-top:0.25rem;">' +
+          '<div class="pt-1">' +
             '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +
           '</div>' +
         '</div>' +
       '</div>' +
-      '<div style="margin-top:0.75rem;">' +
+      '<div class="mt-12">' +
         '<button type="button" class="btn btn-secondary btn-small btn-tambah-kuk" onclick="tambahBarisKuk(this)">+ Tambah KUK ' + nextEl + '.2</button>' +
       '</div>';
     container.appendChild(sec);

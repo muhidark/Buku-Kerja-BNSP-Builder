@@ -5,29 +5,29 @@
 <div style="max-width: 440px; margin: 40px auto; background: #fff; border: 1px solid var(--border); border-radius: 8px; padding: 28px; box-shadow: var(--shadow);">
   <div style="text-align: center; margin-bottom: 22px;">
     <h2 style="margin: 0 0 6px;">🔐 Masuk Akun</h2>
-    <p class="muted small" style="margin: 0;">Sistem Pembuatan Dokumen Buku Kerja Asesor V.2023</p>
+    <p class="muted small m-0">Sistem Pembuatan Dokumen Buku Kerja Asesor V.2023</p>
   </div>
 
   {% if pesan %}
-  <div class="alert alert-{{ tipe or 'info' }}" style="margin-bottom: 16px;">{{ pesan }}</div>
+  <div class="alert alert-{{ tipe or 'info' }} mb-16">{{ pesan }}</div>
   {% endif %}
 
   <form method="post" action="/login">
     <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
     {% if tujuan and tujuan != '/' %}
     <input type="hidden" name="next" value="{{ tujuan }}">
-    <div class="alert alert-info" style="margin-bottom: 14px;">
+    <div class="alert alert-info mb-14">
       Anda diarahkan ke halaman ini karena tindakan tersebut memerlukan akun.
       Setelah masuk, Anda akan dikembalikan ke halaman sebelumnya.
     </div>
     {% endif %}
-    <div style="margin-bottom: 14px;">
-      <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px;">Nama Pengguna (Username)</label>
-      <input type="text" name="username" class="input" style="width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--border); border-radius: 4px;" placeholder="Contoh: admin atau asesor" required autofocus>
+    <div class="mb-14">
+      <label class="label-blok-13">Nama Pengguna (Username)</label>
+      <input type="text" name="username" class="input input-penuh-lg" placeholder="Contoh: admin atau asesor" required autofocus>
     </div>
     <div style="margin-bottom: 20px;">
-      <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px;">Kata Sandi (Password)</label>
-      <input type="password" name="password" class="input" style="width: 100%; box-sizing: border-box; padding: 9px 12px; border: 1px solid var(--border); border-radius: 4px;" placeholder="••••••••" required>
+      <label class="label-blok-13">Kata Sandi (Password)</label>
+      <input type="password" name="password" class="input input-penuh-lg" placeholder="••••••••" required>
     </div>
     <button type="submit" class="btn" style="width: 100%; padding: 10px; background: var(--navy); border-color: var(--navy); color: #fff; font-weight: 700; font-size: 14px;">
       Masuk Sekarang &rarr;
