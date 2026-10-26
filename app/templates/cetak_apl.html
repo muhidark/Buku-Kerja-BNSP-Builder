@@ -104,15 +104,18 @@
 
         /* Printable Paper Container (A4 Preview) */
         .lsp-paper-container {
-            width: 210mm;
+            width: 100%;
+            max-width: 1250px;
             margin: 25px auto 50px;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 30px;
             align-items: center;
         }
+        /* Standar Kertas A4 Portrait: 210mm x 297mm */
         .lsp-page-sheet {
             width: 210mm;
+            min-height: 297mm;
             box-sizing: border-box;
             background: #ffffff;
             padding: 14mm 14mm;
@@ -120,8 +123,12 @@
             border-radius: 2px;
             position: relative;
         }
+        /* Standar Kertas A4 Landscape: 297mm x 210mm (MAPA 01, MAPA 02, IA 01) */
         .lsp-page-sheet.lsp-page-landscape {
-            width: 285mm;
+            width: 297mm;
+            min-height: 210mm;
+            padding: 12mm 14mm;
+            page: landscapeSheet;
         }
 
         /* Tables & Typography */
@@ -211,7 +218,16 @@
             display: block;
         }
 
-        /* Print Media Styles (Standar Kertas A4: 21 x 29.7 cm) */
+        /* Print Media Styles (Standar Kertas A4: 210 x 297 mm) */
+        @page {
+            size: A4 portrait;
+            margin: 10mm 12mm;
+        }
+        @page landscapeSheet {
+            size: A4 landscape;
+            margin: 8mm 10mm;
+        }
+
         @media print {
             html, body {
                 width: 100% !important;
@@ -226,21 +242,28 @@
             }
             .lsp-paper-container {
                 width: 100% !important;
+                max-width: 100% !important;
                 margin: 0 !important;
                 padding: 0 !important;
                 gap: 0 !important;
                 display: block !important;
             }
-            .lsp-page-sheet,
-            .lsp-page-sheet.lsp-page-landscape {
+            .lsp-page-sheet {
                 width: 100% !important;
+                max-width: 100% !important;
+                min-height: auto !important;
                 margin: 0 !important;
-                padding: 10mm 12mm !important;
+                padding: 8mm 12mm !important;
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 background: transparent !important;
                 page-break-after: always !important;
                 break-after: page !important;
+            }
+            .lsp-page-sheet.lsp-page-landscape {
+                width: 100% !important;
+                max-width: 100% !important;
+                page: landscapeSheet !important;
             }
             .lsp-page-sheet:last-child {
                 page-break-after: auto !important;
@@ -268,11 +291,9 @@
             }
         }
     </style>
-    {% if doc_mode == 'mapa01' %}
+    {% if doc_mode in ['mapa01', 'mapa02', 'peta_kelompok', 'ia01'] %}
     <style>
-        @media print {
-            @page { size: A4 landscape; margin: 8mm; }
-        }
+        @page { size: A4 landscape !important; margin: 8mm 10mm !important; }
     </style>
     {% endif %}
 </head>

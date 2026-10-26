@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
 from docx import Document
+from docx.enum.section import WD_ORIENT, WD_SECTION
 from docx.enum.table import WD_TABLE_ALIGNMENT
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml import OxmlElement
@@ -154,8 +155,8 @@ class _BukuKerjaHtmlParser(HTMLParser):
         if tag == "div":
             self.paper_depth += 1
             if "lsp-page-sheet" in cls:
-                if self.sheet_count > 0:
-                    self.items.append({"type": "page_break"})
+                is_landscape = "lsp-page-landscape" in cls
+                self.items.append({"type": "sheet_start", "landscape": is_landscape})
                 self.sheet_count += 1
                 return
 
@@ -435,22 +436,38 @@ def buat_docx_buku_kerja_bytes(
     parser.feed(rendered_html)
 
     doc = Document()
-    # Konfigurasi halaman A4 (210mm x 297mm) dengan margin 1.5 cm
-    for section in doc.sections:
-        section.page_width = Cm(21.0)
-        section.page_height = Cm(29.7)
-        section.top_margin = Cm(1.5)
-        section.bottom_margin = Cm(1.5)
-        section.left_margin = Cm(1.5)
-        section.right_margin = Cm(1.5)
-
     normal_style = doc.styles["Normal"]
     normal_style.font.name = "Arial"
     normal_style.font.size = Pt(10)
 
+    sheet_seen = 0
     for item in parser.items:
         tipe = item.get("type")
-        if tipe == "page_break":
+        if tipe == "sheet_start":
+            is_land = item.get("landscape", False)
+            if sheet_seen == 0:
+                sec = doc.sections[0]
+            else:
+                sec = doc.add_section(WD_SECTION.NEW_PAGE)
+            sheet_seen += 1
+
+            if is_land:
+                sec.orientation = WD_ORIENT.LANDSCAPE
+                sec.page_width = Cm(29.7)
+                sec.page_height = Cm(21.0)
+                sec.top_margin = Cm(1.2)
+                sec.bottom_margin = Cm(1.2)
+                sec.left_margin = Cm(1.2)
+                sec.right_margin = Cm(1.2)
+            else:
+                sec.orientation = WD_ORIENT.PORTRAIT
+                sec.page_width = Cm(21.0)
+                sec.page_height = Cm(29.7)
+                sec.top_margin = Cm(1.5)
+                sec.bottom_margin = Cm(1.5)
+                sec.left_margin = Cm(1.5)
+                sec.right_margin = Cm(1.5)
+        elif tipe == "page_break":
             doc.add_page_break()
         elif tipe == "paragraph":
             lvl = item.get("level", "normal")
