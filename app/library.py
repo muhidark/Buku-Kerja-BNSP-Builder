@@ -190,8 +190,14 @@ def jalur_pdf(doc: dict) -> Path:
 # Identifikasi unit (mesin Fase 1)
 # --------------------------------------------------------------------------
 
-def identifikasi(doc: dict) -> dict:
-    """Jalankan identify_units dan simpan ringkasan ke metadata."""
+def identifikasi(doc: dict, simpan: bool = True) -> dict:
+    """Menjalankan identify_units dan menyimpan ringkasan ke metadata.
+
+    `simpan=False` dipakai oleh halaman GET: hasilnya dihitung di memori saja
+    supaya membuka halaman tidak mengubah berkas metadata (temuan T-25).
+    Penulisan hanya terjadi lewat aksi eksplisit (unggah atau tombol
+    "Identifikasi ulang").
+    """
     from app.extractor import identify_units
 
     path = jalur_pdf(doc)
@@ -235,7 +241,8 @@ def identifikasi(doc: dict) -> dict:
         doc['pesan_identifikasi'] = f'Identifikasi gagal: {type(e).__name__}'
 
     doc['identifikasi_pada'] = datetime.now().isoformat(timespec='seconds')
-    simpan_metadata(doc)
+    if simpan:
+        simpan_metadata(doc)
     return doc
 
 
@@ -387,13 +394,13 @@ def pastikan_dokumen_proyek() -> int:
 # Validasi kelengkapan & verifikasi manual
 # --------------------------------------------------------------------------
 
-def jalankan_validator(doc: dict) -> dict:
-    """Periksa kelengkapan nomor KUK dengan modul validator independen."""
+def hitung_validasi(doc: dict) -> dict:
+    """Menghitung kelengkapan KUK TANPA menulis apa pun ke disk (T-25)."""
     from app.kuk_completeness_validator import periksa_dokumen
 
     path = jalur_pdf(doc)
     hasil = periksa_dokumen(path, doc.get('units') or [])
-    doc['validasi_kelengkapan'] = {
+    return {
         'versi': 3,
         'status': hasil['status'],
         'diperiksa_pada': datetime.now().isoformat(timespec='seconds'),
@@ -401,7 +408,13 @@ def jalankan_validator(doc: dict) -> dict:
         'unit': {u['kode_unit']: u for u in hasil['units']},
         'catatan': hasil['catatan'],
     }
-    simpan_metadata(doc)
+
+
+def jalankan_validator(doc: dict, simpan: bool = True) -> dict:
+    """Memeriksa kelengkapan nomor KUK lalu menyimpan hasilnya."""
+    doc['validasi_kelengkapan'] = hitung_validasi(doc)
+    if simpan:
+        simpan_metadata(doc)
     return doc
 
 

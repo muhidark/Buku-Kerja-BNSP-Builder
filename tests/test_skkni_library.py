@@ -173,8 +173,21 @@ def main():
     cek('detail 200', r.status_code == 200)
     cek('detail memuat kode unit', 'J.63OPR00.009.2' in r.text)
     cek('detail memuat label halaman 1-based', '(1-based)' in r.text)
-    cek('detail memuat bagian validasi', 'Validasi Kelengkapan KUK' in r.text)
-    cek('detail memuat sha256 pendek', d['sha256'][:16] in r.text)
+    # Sejak langkah 4.4, GET tidak lagi menjalankan validasi otomatis: halaman
+    # menawarkan tombolnya. Hasil validasi muncul setelah aksi eksplisit.
+    cek('detail menawarkan pemeriksaan (bukan menulis saat GET)',
+        'Pemeriksaan belum dijalankan' in r.text)
+    cek('belum ada hasil validasi sebelum dijalankan',
+        'unit dibandingkan' not in r.text)
+
+    cocok_csrf = re.search(r'name="csrf_token" value="([^"]+)"', r.text)
+    csrf_validasi = cocok_csrf.group(1) if cocok_csrf else ''
+    r_aksi = client.post(f'/skkni/{d["id"]}/validasi',
+                         data={'csrf_token': csrf_validasi}, follow_redirects=False)
+    cek('POST validasi diterima (303)', r_aksi.status_code == 303, f'status={r_aksi.status_code}')
+    r_setelah = client.get(f'/skkni/{d["id"]}')
+    cek('setelah POST, hasil validasi tampil', 'unit dibandingkan' in r_setelah.text)
+    cek('detail memuat sha256 pendek', d['sha256'][:16] in r_setelah.text)
 
     print("\n6. PENCARIAN & PAGINATION UNIT")
     r = client.get(f'/skkni/{d["id"]}?q=J.59MTM00.011.1')

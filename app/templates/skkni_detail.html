@@ -86,6 +86,33 @@
   </article>
 </section>
 
+{% if belum_diidentifikasi or validasi_basi %}
+<article class="card">
+  <div class="card-head">
+    <h2>Pemeriksaan belum dijalankan</h2>
+    <span class="badge badge-amber">menunggu tindakan</span>
+  </div>
+  <p class="muted mb-12">
+    Membuka halaman tidak lagi memproses dokumen secara otomatis, supaya aktivitas
+    hanya-baca tidak mengubah data. Jalankan pemeriksaan lewat tombol di bawah.
+  </p>
+  <div class="aksi-group">
+    {% if belum_diidentifikasi %}
+    <form method="post" action="/skkni/{{ dok.id }}/identifikasi" class="inline-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn">Identifikasi unit sekarang</button>
+    </form>
+    {% endif %}
+    {% if validasi_basi %}
+    <form method="post" action="/skkni/{{ dok.id }}/validasi" class="inline-form">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <button type="submit" class="btn">Validasi kelengkapan KUK</button>
+    </form>
+    {% endif %}
+  </div>
+</article>
+{% endif %}
+
 {% if validasi %}
 <article class="card">
   <div class="card-head">
@@ -95,6 +122,10 @@
     </span>
   </div>
   {% set rs = validasi.ringkasan or {} %}
+  <form method="post" action="/skkni/{{ dok.id }}/validasi" class="inline-form mb-12">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="btn btn-small btn-ghost">Validasi ulang</button>
+  </form>
   <p class="muted">
     Diperiksa {{ (validasi.diperiksa_pada or '-')[:16] }} ·
     {{ rs.unit_terbandingkan or 0 }} unit dibandingkan ·

@@ -271,10 +271,10 @@ def halaman_skkni(request: Request, q: str = '', pesan: str = '', tipe: str = ''
     library.pastikan_dokumen_proyek()
     documents = library.daftar_dokumen()
 
-    # Identifikasi ringan dijalankan sekali per dokumen (hasil disimpan di metadata).
-    for d in documents:
-        if d.get('status_identifikasi') in ('belum_diproses', None) and not d.get('units'):
-            d = library.identifikasi(d)
+    # Dokumen yang belum diidentifikasi TIDAK lagi diproses di sini: GET tidak
+    # boleh menulis (temuan T-25), dan pekerjaan itu membuat waktu buka halaman
+    # tumbuh linear dengan jumlah PDF (T-17). Pengguna menjalankannya lewat
+    # tombol "Identifikasi" (POST /skkni/{id}/identifikasi).
 
     kata = (q or '').strip().lower()
     if kata:
@@ -386,12 +386,19 @@ def detail_skkni(request: Request, doc_id: str, q: str = '', page: int = 1,
         html.status_code = 404
         return html
 
-    if not doc.get('units') and doc.get('status_identifikasi') in ('belum_diproses', None):
-        doc = library.identifikasi(doc)
-
+    # GET hanya membaca. Bila data belum ada, halaman menampilkan tombol untuk
+    # menjalankannya (POST), bukan diam-diam menulis seperti sebelumnya (T-25).
+    belum_diidentifikasi = (
+        not doc.get('units')
+        and doc.get('status_identifikasi') in ('belum_diproses', None)
+    )
     validasi_lama = doc.get('validasi_kelengkapan')
-    if doc.get('units') and (not validasi_lama or validasi_lama.get('versi') != 3):
-        doc = library.jalankan_validator(doc)
+    validasi_basi = bool(doc.get('units')) and (
+        not validasi_lama or validasi_lama.get('versi') != 3
+    )
+    if validasi_basi and validasi_lama:
+        # Sudah ada hasil versi lama: tampilkan apa adanya, minta validasi ulang.
+        pass
 
     validasi = doc.get('validasi_kelengkapan') or {}
     peta_validasi = validasi.get('unit') or {}
@@ -442,6 +449,7 @@ def detail_skkni(request: Request, doc_id: str, q: str = '', page: int = 1,
         peta_status_3=peta_status_3, ringkasan_status_3=ringkasan_status_3,
         status_regulasi=status_reg, kepmen_pengganti=kepmen_ganti, catatan_regulasi=catatan_reg,
         pesan=pesan, tipe=tipe, csrf_token=token,
+        belum_diidentifikasi=belum_diidentifikasi, validasi_basi=validasi_basi,
     )
     security.set_cookie_token(resp, token)
     return resp
@@ -468,6 +476,43 @@ def buka_pdf_skkni(request: Request, doc_id: str):
         media_type='application/pdf',
         headers={'Content-Disposition': f'inline; filename="{nama_aman}"'},
     )
+
+
+@app.post('/skkni/{doc_id}/identifikasi')
+def identifikasi_ulang_skkni(request: Request, doc_id: str,
+                             csrf_token: str = Form(''),
+                             pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
+    """Menjalankan identifikasi unit secara eksplisit (bukan efek samping GET)."""
+    security.periksa_token(request, csrf_token)
+    doc = library.ambil_dokumen(doc_id)
+    if not doc:
+        return _ke_skkni('Dokumen SKKNI tidak ditemukan.', 'galat')
+    doc = library.identifikasi(doc)
+    pesan = (f"Identifikasi selesai: {doc.get('jumlah_unit', 0)} unit dikenali."
+             if doc.get('status_identifikasi') == 'lengkap'
+             else doc.get('pesan_identifikasi') or 'Identifikasi selesai dengan catatan.')
+    return RedirectResponse(
+        url=f'/skkni/{doc_id}?tipe=sukses&pesan={quote(pesan)}', status_code=303)
+
+
+@app.post('/skkni/{doc_id}/validasi')
+def validasi_ulang_skkni(request: Request, doc_id: str,
+                         csrf_token: str = Form(''),
+                         pengguna: Dict[str, Any] = Depends(auth_guard.wajib_login())):
+    """Menjalankan pemeriksaan kelengkapan KUK secara eksplisit."""
+    security.periksa_token(request, csrf_token)
+    doc = library.ambil_dokumen(doc_id)
+    if not doc:
+        return _ke_skkni('Dokumen SKKNI tidak ditemukan.', 'galat')
+    if not doc.get('units'):
+        return _ke_skkni('Jalankan identifikasi unit lebih dulu.', 'galat', doc_id)
+    doc = library.jalankan_validator(doc)
+    ringkas = (doc.get('validasi_kelengkapan') or {}).get('ringkasan') or {}
+    return RedirectResponse(
+        url=f'/skkni/{doc_id}?tipe=sukses&pesan=' + quote(
+            f"Validasi kelengkapan selesai: {ringkas.get('jumlah_unit_lengkap', 0)} unit lengkap, "
+            f"{ringkas.get('jumlah_unit_hilang', 0)} unit perlu diperiksa."),
+        status_code=303)
 
 
 @app.post('/skkni/{doc_id}/verifikasi')
