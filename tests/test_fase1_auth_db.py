@@ -157,6 +157,93 @@ class TestFase1MultiUserDanMultiVersi(unittest.TestCase):
         self.assertIn('v1', kode_set)
         self.assertIn('v2', kode_set)
 
+    def test_hanya_satu_versi_muk_aktif(self):
+        """Penanda versi aktif harus berbentuk 0/1, bukan timestamp (temuan T-03)."""
+        docs = schema_library.daftar_skema()
+        if not docs:
+            self.skipTest('Tidak ada skema terdaftar.')
+        schema_id = docs[0]['id']
+
+        simpan_konfigurasi_muk(schema_id, {'personel': {'nama_asesor': 'Aktif A'}},
+                               kode_versi='va', nama_versi='Versi A', is_aktif=True)
+        simpan_konfigurasi_muk(schema_id, {'personel': {'nama_asesor': 'Aktif B'}},
+                               kode_versi='vb', nama_versi='Versi B', is_aktif=True)
+
+        daftar = [v for v in db.daftar_versi_muk_skema(schema_id) if v['kode_versi'] in ('va', 'vb')]
+        aktif = [v for v in daftar if v['is_aktif'] in (1, '1', True)]
+        self.assertEqual(len(aktif), 1, f'harus tepat satu versi aktif, ditemukan: {aktif}')
+        self.assertEqual(aktif[0]['kode_versi'], 'vb')
+
+        for v in daftar:
+            self.assertIn(str(v['is_aktif']), ('0', '1'),
+                          f"is_aktif berisi nilai bukan biner: {v['is_aktif']!r}")
+            self.assertRegex(str(v['diperbarui_pada']), r'^\d{4}-\d{2}-\d{2}T',
+                             f"diperbarui_pada bukan timestamp: {v['diperbarui_pada']!r}")
+
+        # Bersihkan versi uji agar tidak menumpuk di data/app.db setiap run.
+        with db._ambil_koneksi() as conn:
+            conn.execute("DELETE FROM muk_versi WHERE schema_id = ? AND kode_versi IN ('va','vb')",
+                         (schema_id,))
+            conn.commit()
+
+    def test_migrasi_membetulkan_baris_penanda_tertukar(self):
+        """Baris lama yang is_aktif/diperbarui_pada tertukar harus dibalik pasti."""
+        schema_id = 'uji_migrasi_penanda_muk'
+        with db._ambil_koneksi() as conn:
+            conn.execute('DELETE FROM muk_versi WHERE schema_id = ?', (schema_id,))
+            # Tiruan baris cacat versi lama: nilai penanda masuk ke
+            # diperbarui_pada, timestamp masuk ke is_aktif.
+            conn.execute(
+                """INSERT INTO muk_versi
+                   (schema_id, kode_versi, nama_versi, deskripsi, data_json,
+                    dibuat_oleh, diperbarui_pada, is_aktif)
+                   VALUES (?, 'v1', 'Versi 1', '', '{}', NULL, '1', '2026-10-26T12:31:09+00:00')""",
+                (schema_id,),
+            )
+            conn.execute(
+                """INSERT INTO muk_versi
+                   (schema_id, kode_versi, nama_versi, deskripsi, data_json,
+                    dibuat_oleh, diperbarui_pada, is_aktif)
+                   VALUES (?, 'v2', 'Versi 2', '', '{}', NULL, '0', 0)""",
+                (schema_id,),
+            )
+            conn.commit()
+
+        db.inisialisasi_db()
+
+        with db._ambil_koneksi() as conn:
+            rows = {
+                r['kode_versi']: dict(r)
+                for r in conn.execute(
+                    'SELECT kode_versi, is_aktif, diperbarui_pada FROM muk_versi WHERE schema_id = ?',
+                    (schema_id,),
+                )
+            }
+
+        self.assertEqual(str(rows['v1']['is_aktif']), '1', rows['v1'])
+        self.assertEqual(str(rows['v2']['is_aktif']), '0', rows['v2'])
+        self.assertRegex(str(rows['v1']['diperbarui_pada']), r'^\d{4}-\d{2}-\d{2}T',
+                         'timestamp asli harus dikembalikan ke diperbarui_pada')
+        self.assertRegex(str(rows['v2']['diperbarui_pada']), r'^\d{4}-\d{2}-\d{2}T',
+                         'timestamp yang tertimpa harus diganti timestamp baru')
+
+        # idempoten: jalankan lagi tidak boleh mengubah apa pun
+        db.inisialisasi_db()
+        with db._ambil_koneksi() as conn:
+            ulang = {
+                r['kode_versi']: dict(r)
+                for r in conn.execute(
+                    'SELECT kode_versi, is_aktif, diperbarui_pada FROM muk_versi WHERE schema_id = ?',
+                    (schema_id,),
+                )
+            }
+        self.assertEqual(ulang['v1'], rows['v1'])
+        self.assertEqual(ulang['v2'], rows['v2'])
+
+        with db._ambil_koneksi() as conn:
+            conn.execute('DELETE FROM muk_versi WHERE schema_id = ?', (schema_id,))
+            conn.commit()
+
     def test_flow_web_login_dan_logout(self):
         username = PENGGUNA_UJI['admin'][0]
 

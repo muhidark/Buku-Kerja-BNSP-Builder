@@ -246,6 +246,9 @@ def inisialisasi_db() -> None:
                 "tersimpan di basis data.", jumlah_migrasi,
             )
 
+        # --------------------------- penanda versi MUK yang tertukar (T-03)
+        _perbaiki_penanda_aktif_muk(conn)
+
 
 # ==============================================================================
 # Layanan Pengguna & Otentikasi
@@ -430,6 +433,73 @@ def ambil_versi_muk(schema_id: str, kode_versi: str) -> Optional[Dict[str, Any]]
         return res
 
 
+def _perbaiki_penanda_aktif_muk(conn: sqlite3.Connection) -> int:
+    """Membetulkan baris muk_versi yang kolom is_aktif/diperbarui_pada tertukar.
+
+    Cacat lama (T-03) menulis nilai penanda aktif (1/0) ke kolom
+    `diperbarui_pada` dan timestamp ke kolom `is_aktif`. Karena pertukarannya
+    sempurna, perbaikannya juga pasti: nilai di `diperbarui_pada` dikembalikan
+    ke `is_aktif`, dan timestamp di `is_aktif` dikembalikan ke
+    `diperbarui_pada`. Bila timestamp-nya sudah tertimpa (mis. oleh UPDATE
+    penonaktifan), dipakai waktu sekarang dan hal itu dicatat di log.
+
+    Baris yang sudah benar tidak disentuh, sehingga aman dijalankan berulang.
+    """
+    baris = conn.execute(
+        "SELECT id, schema_id, kode_versi, is_aktif, diperbarui_pada FROM muk_versi"
+    ).fetchall()
+    sekarang = datetime.now(timezone.utc).isoformat()
+    skema_disentuh = set()
+    diperbaiki = 0
+
+    for r in baris:
+        nilai_diperbarui = str(r["diperbarui_pada"] if r["diperbarui_pada"] is not None else "").strip()
+        if nilai_diperbarui not in ("0", "1"):
+            continue  # sudah berbentuk timestamp -> baris sehat
+
+        lama_aktif = r["is_aktif"]
+        timestamp_lama = None
+        if isinstance(lama_aktif, str) and "T" in lama_aktif and len(lama_aktif) >= 10:
+            timestamp_lama = lama_aktif
+
+        conn.execute(
+            "UPDATE muk_versi SET is_aktif = ?, diperbarui_pada = ? WHERE id = ?",
+            (int(nilai_diperbarui), timestamp_lama or sekarang, r["id"]),
+        )
+        diperbaiki += 1
+        skema_disentuh.add(r["schema_id"])
+
+    if diperbaiki:
+        conn.commit()
+        _log_aman().warning(
+            "Penanda versi MUK diperbaiki pada %s baris (%s skema): is_aktif kini berisi 0/1 "
+            "dan diperbarui_pada berisi timestamp.", diperbaiki, len(skema_disentuh),
+        )
+
+    # Setelah perbaikan, setiap skema yang tersentuh harus punya tepat satu versi
+    # aktif; bila tidak ada, aktifkan versi dengan id terbesar.
+    for schema_id in skema_disentuh:
+        jumlah = conn.execute(
+            "SELECT COUNT(*) AS n FROM muk_versi WHERE schema_id = ? AND is_aktif = 1",
+            (schema_id,),
+        ).fetchone()["n"]
+        if jumlah:
+            continue
+        terakhir = conn.execute(
+            "SELECT id, kode_versi FROM muk_versi WHERE schema_id = ? ORDER BY id DESC LIMIT 1",
+            (schema_id,),
+        ).fetchone()
+        if terakhir:
+            conn.execute("UPDATE muk_versi SET is_aktif = 1 WHERE id = ?", (terakhir["id"],))
+            conn.commit()
+            _log_aman().warning(
+                "Skema %s tidak memiliki versi aktif setelah perbaikan; versi %s diaktifkan.",
+                schema_id, terakhir["kode_versi"],
+            )
+
+    return diperbaiki
+
+
 def simpan_versi_muk(schema_id: str, kode_versi: str, nama_versi: str, data_payload: Dict[str, Any], deskripsi: str = "", dibuat_oleh: Optional[int] = None, is_aktif: bool = True) -> int:
     sekarang = datetime.now(timezone.utc).isoformat()
     raw_json = json.dumps(data_payload, ensure_ascii=False, indent=2)
@@ -447,7 +517,12 @@ def simpan_versi_muk(schema_id: str, kode_versi: str, nama_versi: str, data_payl
                data_json = excluded.data_json,
                diperbarui_pada = excluded.diperbarui_pada,
                is_aktif = excluded.is_aktif""",
-            (schema_id, kode_versi.strip(), nama_versi.strip(), deskripsi.strip(), raw_json, dibuat_oleh, 1 if is_aktif else 0, sekarang),
+            # Urutan kolom: schema_id, kode_versi, nama_versi, deskripsi, data_json,
+            # dibuat_oleh, diperbarui_pada, is_aktif. Nilai penanda aktif (0/1)
+            # HARUS berada di posisi terakhir dan timestamp di sebelumnya
+            # (temuan T-03: keduanya sempat tertukar).
+            (schema_id, kode_versi.strip(), nama_versi.strip(), deskripsi.strip(), raw_json,
+             dibuat_oleh, sekarang, 1 if is_aktif else 0),
         )
         conn.commit()
         return cur.lastrowid
