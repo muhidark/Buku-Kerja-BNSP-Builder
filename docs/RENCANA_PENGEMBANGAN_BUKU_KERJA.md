@@ -110,15 +110,26 @@ Mengacu pada paket dokumen acuan (contoh: *Skema Videografer*) dan template yang
    - Sistem login dan manajemen sesi berbasis cookie `skkni_session` dengan hashing PBKDF2-HMAC-SHA256 (Akun bawaan: `admin` [Kurator Master] dan `asesor` [Penyusun Skema/MUK]).
    - Status regulasi SKKNI Kemnaker (`Berlaku` vs `Dicabut` beserta nomor Kepmenaker pengganti) yang dapat dikurasi oleh Admin dan ditampilkan pada daftar & detail SKKNI.
    - Dukungan Multi-Versi Paket MUK per skema (misal: Paket Versi A, Paket Versi B) yang disimpan secara terisolasi di SQLite dan terhubung langsung ke editor MUK.
+6. **REST API Eksternal v1 dengan API Key & Integrasi Sistem Eksternal (`Fase 4`):**
+   - Router mandiri di `app/api/v1.py` terproteksi autentikasi `X-API-Key` atau `Authorization: Bearer <token>` terintegrasi dengan tabel `kunci_api` di SQLite.
+   - `GET /api/v1/ping` & `GET /api/v1/status`: Verifikasi ketersediaan layanan dan validitas kredensial klien eksternal.
+   - `GET /api/v1/skkni`: Katalog SKKNI terverifikasi dengan status regulasi Kemnaker (Berlaku / Dicabut).
+   - `GET /api/v1/skkni/{identifier}`: Detail dokumen SKKNI atau ekstraksi unit kompetensi lengkap (Elemen, KUK, Batasan Variabel, Panduan Penilaian, dan format siap ekspor ke WordPress LSP).
+   - `GET /api/v1/skema`: Katalog seluruh skema sertifikasi dan unit kompetensinya.
+   - `GET /api/v1/skema/{schema_id}/muk`: Sinkronisasi langsung MUK, kelompok pekerjaan, dan seluruh instrumen asesmen (IA.01 s/d IA.11) untuk plugin WordPress (`lsp-certification-management`) maupun SIMLSP.
+   - `POST /api/v1/documents/render`: Generator dokumen Buku Kerja siap cetak (HTML / Word .docx) untuk aplikasi eksternal.
+   - `GET /api/v1/keys` & `POST /api/v1/keys`: Manajemen pembuatan dan kurasi kunci API (khusus peran admin).
+   - Seluruh 26 unit test lulus 100% (`tests/test_api_v1.py`, `tests/test_fase1_auth_db.py`, dsb). Dokumentasi OpenAPI Swagger interaktif aktif di `/docs`.
 
 ---
 
-## 4. Bagian C — Apa yang Belum Dikerjakan & Rencana Pengembangan Berikutnya
+## 4. Bagian C — Ringkasan Status & Kesimpulan Roadmap
 
-Seluruh fitur inti ekstraksi, koreksi per-unit, Kelompok Pekerjaan, Asisten MUK (BV/PP), pencetakan HTML A4, ekspor `.docx`/`.zip`, serta sistem database SQLite multi-user & multi-versi MUK telah **selesai 100%**. Tahapan pengembangan berikutnya berfokus pada integrasi eksternal:
+Seluruh fase pengembangan dalam roadmap master:
+- **Fase 1**: Fondasi Data, Multi-User RBAC & Multi-Versi MUK (100% Selesai)
+- **Fase 2**: Koreksi Per-Unit, Verifikasi Mandiri & Riwayat Audit (100% Selesai)
+- **Fase 3 / 3B / 3C**: 24 Templat Jinja2 Buku Kerja BNSP V.2023, Kelompok Pekerjaan, Asisten BV/PP, Cetak HTML A4 & Ekspor Word `.docx` / `.zip` (100% Selesai)
+- **Fase 4**: REST API Eksternal v1 Terproteksi API Key untuk Integrasi WordPress LSP Plugin / SIMLSP (100% Selesai)
 
-### Prioritas Terakhir — REST API Eksternal (`/api/v1/...`) dengan API Key (Fase 4 Integrasi)
-1. **Endpoint Terproteksi `X-API-Key`:**
-   - `GET /api/v1/skkni` & `GET /api/v1/skkni/{kode_unit}` — Mengambil data unit, elemen, KUK, BV, dan PP yang sudah terverifikasi.
-   - `GET /api/v1/skema` & `GET /api/v1/skema/{id}/muk` — Sinkronisasi langsung daftar unit, kelompok pekerjaan, dan instrumen MUK ke plugin WordPress (`lsp-certification-management`) tanpa *Smart Paste* manual.
-   - `POST /api/v1/documents/render` — Render HTML/dokumen Buku Kerja dari aplikasi eksternal.
+**Status Proyek**: **SELESAI LENGKAP (100% ALL PHASES COMPLETED)**.
+Aplikasi siap digunakan baik secara mandiri (GUI web lokal untuk Kurator & Asesor) maupun terhubung secara nir-kabel sebagai penyedia data SKKNI & generator Buku Kerja bagi sistem eksternal (WordPress LSP Plugin, SIMLSP, LMS).

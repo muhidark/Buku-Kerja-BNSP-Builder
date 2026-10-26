@@ -102,12 +102,23 @@ def inisialisasi_db() -> None:
             is_aktif INTEGER NOT NULL DEFAULT 1,
             UNIQUE(schema_id, kode_versi)
         );
+
+        CREATE TABLE IF NOT EXISTS kunci_api (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            kunci TEXT UNIQUE NOT NULL,
+            nama_klien TEXT NOT NULL,
+            peran TEXT NOT NULL DEFAULT 'klien',
+            aktif INTEGER NOT NULL DEFAULT 1,
+            dibuat_pada TEXT NOT NULL,
+            terakhir_digunakan TEXT
+        );
         """)
+
+        sekarang = datetime.now(timezone.utc).isoformat()
 
         # Buat akun admin dan asesor default bila tabel pengguna masih kosong
         cur = conn.execute("SELECT COUNT(*) AS total FROM pengguna")
         if cur.fetchone()["total"] == 0:
-            sekarang = datetime.now(timezone.utc).isoformat()
             # Akun Admin Master: admin / admin123
             h_admin, s_admin = hash_kata_sandi("admin123")
             conn.execute(
@@ -123,6 +134,16 @@ def inisialisasi_db() -> None:
                    (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, dibuat_pada)
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
                 ("asesor", "Asesor Kompetensi", "asesor@lsp.local", "asesor", h_asesor, s_asesor, "MET.000.032423 2019", sekarang),
+            )
+            conn.commit()
+
+        # Buat kunci API bawaan bila tabel kunci_api masih kosong
+        cur_kunci = conn.execute("SELECT COUNT(*) AS total FROM kunci_api")
+        if cur_kunci.fetchone()["total"] == 0:
+            conn.execute(
+                """INSERT INTO kunci_api (kunci, nama_klien, peran, aktif, dibuat_pada)
+                   VALUES (?, ?, ?, 1, ?)""",
+                ("skkni_live_secret_key_bnsp2023", "WordPress LSP Plugin / Client Default", "klien", sekarang),
             )
             conn.commit()
 
@@ -305,3 +326,66 @@ def simpan_versi_muk(schema_id: str, kode_versi: str, nama_versi: str, data_payl
         )
         conn.commit()
         return cur.lastrowid
+
+
+# ==============================================================================
+# Manajemen Kunci API Eksternal (Fase 4)
+# ==============================================================================
+
+def validasi_kunci_api(kunci: str) -> Optional[Dict[str, Any]]:
+    """Memvalidasi kunci API eksternal dan mencatat timestamp terakhir digunakan."""
+    if not kunci or not kunci.strip():
+        return None
+    sekarang = datetime.now(timezone.utc).isoformat()
+    with _ambil_koneksi() as conn:
+        row = conn.execute(
+            "SELECT id, kunci, nama_klien, peran, aktif FROM kunci_api WHERE kunci = ? AND aktif = 1",
+            (kunci.strip(),),
+        ).fetchone()
+        if not row:
+            return None
+        conn.execute(
+            "UPDATE kunci_api SET terakhir_digunakan = ? WHERE id = ?",
+            (sekarang, row["id"]),
+        )
+        conn.commit()
+        return dict(row)
+
+
+def buat_kunci_api(nama_klien: str, peran: str = "klien", kunci_khusus: Optional[str] = None) -> str:
+    """Membuat kunci API baru untuk integrasi eksternal (idempotent bila kunci_khusus telah ada)."""
+    kunci = kunci_khusus.strip() if kunci_khusus else f"skkni_live_{secrets.token_urlsafe(24)}"
+    sekarang = datetime.now(timezone.utc).isoformat()
+    with _ambil_koneksi() as conn:
+        conn.execute(
+            """INSERT INTO kunci_api (kunci, nama_klien, peran, aktif, dibuat_pada)
+               VALUES (?, ?, ?, 1, ?)
+               ON CONFLICT(kunci) DO UPDATE SET
+               nama_klien = excluded.nama_klien,
+               peran = excluded.peran,
+               aktif = 1""",
+            (kunci, nama_klien.strip(), peran.strip(), sekarang),
+        )
+        conn.commit()
+        return kunci
+
+
+def daftar_kunci_api() -> List[Dict[str, Any]]:
+    """Mengembalikan daftar seluruh kunci API terdaftar."""
+    with _ambil_koneksi() as conn:
+        rows = conn.execute(
+            "SELECT id, kunci, nama_klien, peran, aktif, dibuat_pada, terakhir_digunakan FROM kunci_api ORDER BY id DESC"
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
+def ubah_status_kunci_api(kunci: str, aktif: bool) -> bool:
+    """Mengaktifkan atau menonaktifkan kunci API."""
+    with _ambil_koneksi() as conn:
+        cur = conn.execute(
+            "UPDATE kunci_api SET aktif = ? WHERE kunci = ?",
+            (1 if aktif else 0, kunci.strip()),
+        )
+        conn.commit()
+        return cur.rowcount > 0
+

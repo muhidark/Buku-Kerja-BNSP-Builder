@@ -42,6 +42,7 @@ from app.api import security
 from app.api import skema as api_skema
 from app.api import skkni as api_skkni
 from app.api import system as api_system
+from app.api import v1 as api_v1
 
 from app.version import __version__
 from app.logging_config import inisialisasi_logging, ambil_logger
@@ -59,9 +60,9 @@ VERSI = __version__
 app = FastAPI(
     title='Sistem Pembuatan Dokumen Buku Kerja Asessor V.2023',
     version=VERSI,
-    docs_url=None,
-    redoc_url=None,
-    openapi_url=None,
+    docs_url='/docs',
+    redoc_url='/redoc',
+    openapi_url='/openapi.json',
 )
 
 jobs.pulihkan_job_macet()
@@ -75,6 +76,7 @@ app.include_router(api_skkni.router)
 app.include_router(api_skema.router)
 app.include_router(api_jobs.router)
 app.include_router(api_documents.router)
+app.include_router(api_v1.router)
 
 HALAMAN = [
     {'path': '/', 'label': 'Dashboard', 'ikon': '▤'},
