@@ -138,153 +138,145 @@
         </tbody>
     </table>
 
-    <!-- Bagian 2: Mempersiapkan Rencana Asesmen -->
+    <!-- Bagian 2: Mempersiapkan Rencana Asesmen (Dikelompokkan per Kelompok Pekerjaan) -->
     <div style="font-weight: bold; font-size: 12px; margin: 12px 0 6px 0;">
         2. Mempersiapkan Rencana Asesmen
     </div>
 
-    <!-- Kelompok Pekerjaan & Daftar Unit -->
-    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 8px;">
-        <thead>
-            <tr style="background: #f1f5f9;">
-                <th width="25%" rowspan="{{ (data.daftar_unit|length) + 1 }}" style="vertical-align: middle;">
-                    Kelompok Pekerjaan<br><span style="font-weight: normal; font-size: 10px;">({{ data.nama_skema }})</span>
-                </th>
-                <th width="6%">No.</th>
-                <th width="22%">Kode Unit</th>
-                <th width="47%" style="text-align: left;">Judul Unit</th>
-            </tr>
-            {% for u in data.daftar_unit %}
-            <tr>
-                <td style="text-align: center;">{{ u.nomor_urut }}.</td>
-                <td style="font-family: monospace; font-weight: bold; text-align: center;">{{ u.kode_unit }}</td>
-                <td>{{ u.judul_unit }}</td>
-            </tr>
-            {% endfor %}
-        </thead>
-    </table>
+    {% for grp in data.kelompok_pekerjaan.groups %}
+    <div style="margin-bottom: 14px;">
+        <!-- Tabel Daftar Unit per Kelompok Pekerjaan -->
+        <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 0;">
+            <thead>
+                <tr style="background: #f1f5f9;">
+                    <th width="25%" rowspan="{{ (grp.units|length) + 1 }}" style="vertical-align: middle; text-align: center;">
+                        {{ grp.nama }}
+                    </th>
+                    <th width="6%">No.</th>
+                    <th width="22%">Kode Unit</th>
+                    <th width="47%" style="text-align: left;">Judul Unit</th>
+                </tr>
+                {% for u in grp.units %}
+                <tr>
+                    <td style="text-align: center;">{{ u.no_lokal or loop.index }}.</td>
+                    <td style="font-family: monospace; font-weight: bold; text-align: center;">{{ u.kode_unit }}</td>
+                    <td>{{ u.judul_unit }}</td>
+                </tr>
+                {% endfor %}
+            </thead>
+        </table>
 
-    <!-- Matriks Metode dan Perangkat Asesmen -->
-    <table class="lsp-doc-table lsp-table-bordered" style="font-size: 9.5px; margin-bottom: 10px;">
-        <thead>
-            <tr style="background: #f1f5f9; text-align: center;">
-                <th rowspan="3" width="18%">Unit Kompetensi</th>
-                <th rowspan="3" width="22%">
-                    Bukti-Bukti<br>
-                    <span style="font-weight: normal; font-size: 8.5px;">(Kinerja, Produk, Portofolio, dan / atau Hafalan) diidentifikasi berdasarkan Kriteria Unjuk Kerja dan Pendekatan Asesmen.</span>
-                </th>
-                <th colspan="3" width="10%">Jenis Bukti</th>
-                <th colspan="6" width="50%">
-                    Metode dan Perangkat Asesmen<br>
-                    <span style="font-weight: normal; font-size: 8px;">
-                        CL (Ceklis Observasi), DIT (Daftar Instruksi Terstruktur), DPL (Pertanyaan Lisan), DPT (Pertanyaan Tertulis), VPK (Verifikasi Pihak Ketiga), CVP (Verifikasi Portofolio),aly/PW (Wawancara)
-                    </span>
-                </th>
-            </tr>
-            <tr style="background: #f8fafc; text-align: center;">
-                <th rowspan="2" width="3.3%">L</th>
-                <th rowspan="2" width="3.3%">TL</th>
-                <th rowspan="2" width="3.4%">T</th>
-                <th width="8.3%">Observasi langsung</th>
-                <th width="8.3%">Kegiatan Terstruktur</th>
-                <th width="8.3%">Tanya Jawab</th>
-                <th width="8.3%">Verifikasi Portfolio</th>
-                <th width="8.3%">Reviu Produk</th>
-                <th width="8.5%">Lainnya</th>
-            </tr>
-            <tr style="background: #f8fafc; text-align: center; font-size: 8px;">
-                <th>(kerja nyata/aktivitas waktu nyata di tempat kerja/simulasi)</th>
-                <th>(latihan simulasi dan bermain peran, proyek, presentasi, lembar kegiatan)</th>
-                <th>(pertanyaan tertulis, wawancara, asesmen diri, kuesioner, lisan)</th>
-                <th>(sampel pekerjaan yang disusun oleh Asesi, dokumentasi)</th>
-                <th>(testimoni dan laporan dari atasan, bukti pelatihan)</th>
-                <th>......</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for u in data.daftar_unit %}
-                {% if metode == 'observasi' %}
-                <tr>
-                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
-                    <td>Hasil observasi langsung tentang {{ u.judul_unit }}</td>
-                    <td style="text-align: center; font-weight: bold;">L</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">CLO / TPD</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+        <!-- Matriks Metode dan Perangkat Asesmen untuk Kelompok Pekerjaan Ini -->
+        <table class="lsp-doc-table lsp-table-bordered" style="font-size: 9.5px; margin-top: -1px;">
+            <thead>
+                <tr style="background: #f1f5f9; text-align: center;">
+                    <th rowspan="3" width="18%">Unit Kompetensi</th>
+                    <th rowspan="3" width="22%">
+                        Bukti-Bukti<br>
+                        <span style="font-weight: normal; font-size: 8.5px;">(Kinerja, Produk, Portofolio, dan / atau Pengetahuan) diidentifikasi berdasarkan Kriteria Unjuk Kerja dan Pendekatan Asesmen.</span>
+                    </th>
+                    <th colspan="3" width="10%">Jenis Bukti</th>
+                    <th colspan="6" width="50%">
+                        Metode dan Perangkat Asesmen<br>
+                        <span style="font-weight: normal; font-size: 8px;">
+                            CL (Ceklis Observasi), DIT (Daftar Instruksi Terstruktur), DPL (Pertanyaan Lisan), DPT (Pertanyaan Tertulis), VPK (Verifikasi Pihak Ketiga), CVP (Verifikasi Portofolio), CRP (Ceklis Reviu Produk), PW (Pertanyaan Wawancara)
+                        </span>
+                    </th>
                 </tr>
-                <tr>
-                    <td>Hasil tanya jawab tertulis tentang {{ u.judul_unit }}</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">T</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">DPT / PMO</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr style="background: #f8fafc; text-align: center;">
+                    <th rowspan="2" width="3.3%">L</th>
+                    <th rowspan="2" width="3.3%">TL</th>
+                    <th rowspan="2" width="3.4%">T</th>
+                    <th width="8.3%">Observasi langsung</th>
+                    <th width="8.3%">Kegiatan Terstruktur</th>
+                    <th width="8.3%">Tanya Jawab</th>
+                    <th width="8.3%">Verifikasi Portfolio</th>
+                    <th width="8.3%">Reviu Produk</th>
+                    <th width="8.5%">Verifikasi Pihak Ketiga</th>
                 </tr>
-                {% elif metode == 'dit' %}
-                <tr>
-                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
-                    <td>Hasil kegiatan terstruktur / proyek singkat tentang {{ u.judul_unit }}</td>
-                    <td style="text-align: center; font-weight: bold;">L</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">DIT</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                <tr style="background: #f8fafc; text-align: center; font-size: 8px;">
+                    <th>(kerja nyata/aktivitas waktu nyata di tempat kerja/simulasi)</th>
+                    <th>(latihan simulasi dan bermain peran, proyek, presentasi, lembar kegiatan)</th>
+                    <th>(pertanyaan tertulis, wawancara, asesmen diri, tanya jawab lisan, angket, ujian lisan atau tertulis)</th>
+                    <th>(sampel pekerjaan yang disusun oleh Asesi, dokumentasi pendukung)</th>
+                    <th>(produk hasil proyek, contoh hasil kerja/produk)</th>
+                    <th>(testimoni dan laporan dari atasan, bukti pelatihan)</th>
                 </tr>
-                <tr>
-                    <td>Hasil tanya jawab tertulis pilihan ganda tentang {{ u.judul_unit }}</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">T</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">DPT</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% else %}
-                <tr>
-                    <td rowspan="2" style="vertical-align: top;"><strong>{{ u.nomor_urut }}. {{ u.judul_unit }}</strong></td>
-                    <td>Hasil verifikasi portofolio tentang {{ u.judul_unit }}</td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">TL</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">CVP</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Hasil tanya jawab / wawancara tentang {{ u.judul_unit }}</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">T</td>
-                    <td></td>
-                    <td></td>
-                    <td style="text-align: center; font-weight: bold;">DPT / PW</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% endif %}
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for u in grp.units %}
+                    {% if metode == 'observasi' %}
+                    <tr>
+                        <td rowspan="2" style="vertical-align: top;"><strong>{{ u.no_lokal or loop.index }}. {{ u.judul_unit }}</strong></td>
+                        <td>Hasil observasi langsung tentang {{ u.judul_unit }}</td>
+                        <td style="text-align: center; font-weight: bold;">L</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">CLO / TPD</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Hasil tanya jawab tertulis tentang {{ u.judul_unit }}</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">T</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">DPT / PMO</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% elif metode == 'dit' %}
+                    <tr>
+                        <td style="vertical-align: top;"><strong>{{ u.no_lokal or loop.index }}. {{ u.judul_unit }}</strong></td>
+                        <td>Hasil kegiatan terstruktur dan tanya jawab tentang {{ u.judul_unit }}</td>
+                        <td style="text-align: center; font-weight: bold;">L</td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">T</td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">DIT</td>
+                        <td style="text-align: center; font-weight: bold;">DPT / DPL</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td rowspan="2" style="vertical-align: top;"><strong>{{ u.no_lokal or loop.index }}. {{ u.judul_unit }}</strong></td>
+                        <td>Hasil verifikasi portofolio tentang {{ u.judul_unit }}</td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">TL</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">CVP</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Hasil tanya jawab / wawancara tentang {{ u.judul_unit }}</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">T</td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align: center; font-weight: bold;">DPT / PW</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
 
     <!-- Bagian 3: Mengidentifikasi Persyaratan Modifikasi dan Kontekstualisasi -->
     <table class="lsp-doc-table lsp-table-bordered avoid-break" style="margin-bottom: 12px;">

@@ -540,8 +540,8 @@ def susun_kelompok_pekerjaan_cetak(
     nama_skema: str = "Skema Sertifikasi",
 ) -> Dict[str, Any]:
     """
-    Menyusun struktur kelompok pekerjaan siap cetak (untuk FR.IA.01, IA.02, IA.03, dan Peta Kelompok)
-    beserta informasi validasi cakupan terhadap seluruh unit skema.
+    Menyusun struktur kelompok pekerjaan siap cetak (untuk FR.MAPA.01, MAPA.02, FR.IA.01, IA.02, IA.03, IA.04A, dan Peta Kelompok)
+    beserta informasi validasi cakupan terhadap seluruh unit skema dan panduan pembuatan instrumen per kelompok.
     """
     peta_unit = {u["kode_unit"]: u for u in daftar_unit if u.get("kode_unit")}
     total_master = len(peta_unit)
@@ -552,25 +552,34 @@ def susun_kelompok_pekerjaan_cetak(
 
     for idx, grp in enumerate(kelompok_pekerjaan_raw or [], start=1):
         group_units = []
+        lokal_no = 1
         for u_code in (grp.get("units") or []):
             if u_code in peta_unit:
                 u_detail = peta_unit[u_code]
                 assigned_codes.append(u_code)
                 group_units.append({
                     "no": global_no,
+                    "no_lokal": lokal_no,
                     "kode_unit": u_code,
                     "judul_unit": u_detail["judul_unit"],
                     "standar_acuan": u_detail.get("standar_acuan", ""),
                     "elemen": u_detail.get("elemen", []),
+                    "batasan_variabel": u_detail.get("batasan_variabel", {}),
+                    "panduan_penilaian": u_detail.get("panduan_penilaian", {}),
                 })
                 global_no += 1
+                lokal_no += 1
         if group_units:
+            nama_grp = grp.get("nama") or f"Kelompok Pekerjaan {idx}"
+            judul_units_str = ", ".join(u["judul_unit"] for u in group_units)
             groups_cetak.append({
                 "id": grp.get("id") or f"kp_{idx}",
-                "nama": grp.get("nama") or f"Kelompok Pekerjaan {idx}",
+                "no_kelompok": len(groups_cetak) + 1,
+                "nama": nama_grp,
                 "urutan": grp.get("urutan") or idx,
                 "rowspan": len(group_units),
                 "units": group_units,
+                "ringkasan_unit": judul_units_str,
             })
 
     unique_assigned = list(dict.fromkeys(assigned_codes))
@@ -586,17 +595,23 @@ def susun_kelompok_pekerjaan_cetak(
         for idx_u, u in enumerate(daftar_unit, start=1):
             default_units.append({
                 "no": idx_u,
+                "no_lokal": idx_u,
                 "kode_unit": u["kode_unit"],
                 "judul_unit": u["judul_unit"],
                 "standar_acuan": u.get("standar_acuan", ""),
                 "elemen": u.get("elemen", []),
+                "batasan_variabel": u.get("batasan_variabel", {}),
+                "panduan_penilaian": u.get("panduan_penilaian", {}),
             })
+        judul_units_str = ", ".join(u["judul_unit"] for u in default_units)
         groups_cetak.append({
             "id": "kp_1",
+            "no_kelompok": 1,
             "nama": f"Kelompok Pekerjaan 1 ({nama_skema})",
             "urutan": 1,
             "rowspan": len(default_units),
             "units": default_units,
+            "ringkasan_unit": judul_units_str,
         })
         unique_assigned = [u["kode_unit"] for u in daftar_unit]
         unassigned_units = []
@@ -707,9 +722,13 @@ def susun_data_buku_kerja(
             judul = data_ekstraksi.get("judul_unit") or judul
             deskripsi = data_ekstraksi.get("deskripsi_unit") or ""
             raw_elemen = data_ekstraksi.get("elemen_kompetensi") or []
+            raw_bv = data_ekstraksi.get("batasan_variabel") or {}
+            raw_pp = data_ekstraksi.get("panduan_penilaian") or {}
         else:
             deskripsi = ""
             raw_elemen = []
+            raw_bv = {}
+            raw_pp = {}
 
         elemen_list = []
         for e_idx, el in enumerate(raw_elemen):
@@ -748,6 +767,8 @@ def susun_data_buku_kerja(
             "deskripsi_unit": deskripsi,
             "standar_acuan": standar_acuan,
             "elemen": elemen_list,
+            "batasan_variabel": raw_bv,
+            "panduan_penilaian": raw_pp,
             "status": info_st.get("status", "gagal"),
             "label_status": info_st.get("label", "Gagal"),
             "alasan_status": info_st.get("alasan", ""),

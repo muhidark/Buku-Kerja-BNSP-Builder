@@ -152,33 +152,117 @@
         </div>
       </div>
 
-      <!-- TAB 2: KELOMPOK PEKERJAAN -->
+      <!-- TAB 2: KELOMPOK PEKERJAAN (MODUL LENGKAP) -->
       <div id="muk-kelompok" class="muk-panel" style="display: none;">
         <div class="card-head" style="margin-bottom: 10px;">
-          <h3 style="margin: 0;">🗂️ Pengelompokan Unit Kompetensi Berdasarkan Kelompok Pekerjaan</h3>
-          <button type="button" class="btn btn-small btn-ghost" onclick="tambahKelompokPekerjaan()">+ Tambah Kelompok Pekerjaan</button>
+          <div>
+            <h3 style="margin: 0;">🗂️ Pengelompokan Unit Kompetensi Berdasarkan Kelompok Pekerjaan</h3>
+            <p class="muted small" style="margin: 4px 0 0;">
+              Wajib pada Buku Kerja BNSP V.2023 — menjadi acuan utama pada <strong>FR.MAPA.01</strong>, <strong>Peta Kelompok (5c)</strong>, <strong>FR.MAPA.02</strong>, <strong>FR.IA.01</strong>, serta panduan penyusunan <strong>FR.IA.02 (TPD)</strong> dan <strong>FR.IA.04 (DIT)</strong>.
+            </p>
+          </div>
+          <button type="button" class="btn btn-small btn-ghost" onclick="tambahKelompokPekerjaan()">➕ Tambah Kelompok Pekerjaan</button>
         </div>
-        <p class="muted small" style="margin-bottom: 14px;">
-          Digunakan pada <strong>Peta Kelompok Pekerjaan (5c)</strong>, <strong>FR.MAPA.02 (6)</strong>, <strong>FR.IA.01 (10)</strong>, <strong>FR.IA.02 (11)</strong>, dan <strong>FR.IA.03 (12)</strong>. Pastikan seluruh unit tercentang minimal pada satu kelompok pekerjaan.
-        </p>
 
-        <div id="wadah-kelompok-pekerjaan">
-          {% for grp in data.muk_raw.kelompok_pekerjaan %}
-          <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
-            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
-              <input type="text" class="kp-nama" value="{{ grp.nama }}" placeholder="Nama Kelompok Pekerjaan (misal: Kelompok Pekerjaan 1)" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
-              <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.kp-item')" style="color: #b91c1c;">Hapus Kelompok</button>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px;">
-              {% for u in data.daftar_unit %}
-              <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; background: #fff; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
-                <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" {% if u.kode_unit in (grp.units or []) %}checked{% endif %}>
-                <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
-              </label>
-              {% endfor %}
+        <!-- 4 Kartu Indikator Cakupan Unit Kompetensi -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(195px, 1fr)); gap: 12px; margin-bottom: 16px;">
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #0284c7; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Total Unit Master Skema</div>
+            <div style="font-size: 24px; font-weight: 800; color: #0f172a; margin-top: 4px;">
+              <span id="kp-stat-master">{{ kp_info.total_master }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
             </div>
           </div>
-          {% endfor %}
+          <div style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid #10b981; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Terkelompok (Unik)</div>
+            <div style="font-size: 24px; font-weight: 800; color: #047857; margin-top: 4px;">
+              <span id="kp-stat-grouped">{{ kp_info.total_grouped_unique }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
+            </div>
+          </div>
+          <div id="kp-card-unassigned" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.total_unassigned > 0 %}#ef4444{% else %}#10b981{% endif %}; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Unit Belum Dikelompokkan</div>
+            <div id="kp-stat-unassigned-wrap" style="font-size: 24px; font-weight: 800; color: {% if kp_info.total_unassigned > 0 %}#b91c1c{% else %}#047857{% endif %}; margin-top: 4px;">
+              <span id="kp-stat-unassigned">{{ kp_info.total_unassigned }}</span> <span style="font-size: 13px; font-weight: normal; color: #64748b;">Unit</span>
+            </div>
+          </div>
+          <div id="kp-card-status" style="background: #f8fafc; border: 1px solid var(--border); border-left: 4px solid {% if kp_info.is_complete %}#10b981{% else %}#f59e0b{% endif %}; border-radius: 6px; padding: 12px 14px;">
+            <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase;">Status Cakupan Dokumen</div>
+            <div id="kp-stat-status" style="font-size: 18px; font-weight: 800; color: {% if kp_info.is_complete %}#047857{% else %}#b45309{% endif %}; margin-top: 6px;">
+              {% if kp_info.is_complete %}✅ Lengkap (100%){% else %}⚠️ {{ kp_info.coverage_percent }}% (Belum Lengkap){% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Kotak Peringatan Unit Belum Dikelompokkan -->
+        <div id="kp-unassigned-alert" style="display: {% if not kp_info.is_complete and kp_info.unassigned_units %}block{% else %}none{% endif %}; background: #fffbeb; border: 1px solid #f59e0b; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
+          <p style="margin: 0 0 6px 0; font-weight: 700; color: #b45309; font-size: 13px;">
+            ⚠️ Perhatian: Masih ada unit kompetensi dari Master Skema yang belum masuk ke dalam Kelompok Pekerjaan manapun:
+          </p>
+          <ul id="kp-unassigned-list" style="margin: 0; padding-left: 20px; color: #78350f; font-size: 12.5px;">
+            {% for u_un in kp_info.unassigned_units %}
+            <li><code>{{ u_un.kode_unit }}</code> — {{ u_un.judul_unit }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <!-- Layout 2 Kolom: Daftar Kelompok Pekerjaan (Kiri) & Pratinjau Cetak Live (Kanan) -->
+        <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px; align-items: start;">
+          <div>
+            <div id="wadah-kelompok-pekerjaan">
+              {% for grp in data.muk_raw.kelompok_pekerjaan %}
+              <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
+                  <div style="flex: 1;">
+                    <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
+                    <input type="text" class="kp-nama" value="{{ grp.nama }}" oninput="perbaruiStatistikKelompok()" placeholder="Contoh: Kelompok Pekerjaan 1 Perencanaan Proyek" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
+                  </div>
+                  <div style="width: 78px;">
+                    <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
+                    <input type="number" class="kp-urutan" value="{{ grp.urutan or loop.index }}" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
+                  </div>
+                  <div style="padding-top: 18px;">
+                    <button type="button" class="btn btn-small btn-ghost" onclick="hapusKelompokPekerjaan(this)" style="color: #b91c1c;">Hapus</button>
+                  </div>
+                </div>
+                <div style="font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; display: flex; justify-content: space-between;">
+                  <span>Pilih Unit Kompetensi Anggota Kelompok:</span>
+                  <span>
+                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size:11.5px;">Pilih Semua</a> &middot;
+                    <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size:11.5px; color:#64748b;">Kosongkan</a>
+                  </span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
+                  {% for u in data.daftar_unit %}
+                  <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; padding: 4px 6px; border-radius: 3px;">
+                    <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()" {% if u.kode_unit in (grp.units or []) %}checked{% endif %}>
+                    <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
+                  </label>
+                  {% endfor %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <button type="button" class="btn btn-small btn-ghost" onclick="tambahKelompokPekerjaan()">➕ Tambah Kelompok Pekerjaan Lain</button>
+          </div>
+
+          <!-- Kolom Kanan: Panduan BNSP & Pratinjau Tabel Cetak Live -->
+          <div>
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-left: 4px solid #2563eb; border-radius: 6px; padding: 12px 14px; margin-bottom: 14px; font-size: 12px; color: #1e3a8a; line-height: 1.55;">
+              <strong>📌 Aturan Buku Kerja BNSP V.2023:</strong>
+              <ul style="margin: 4px 0 0 16px; padding: 0;">
+                <li>Semua unit kompetensi skema wajib masuk minimal ke dalam satu Kelompok Pekerjaan (Cakupan 100%).</li>
+                <li>Susunan Kelompok Pekerjaan ini otomatis membagi tabel pada <strong>FR.MAPA.01</strong> dan <strong>FR.MAPA.02</strong>.</li>
+                <li>Gunakan tombol <em>"⚡ Susun Otomatis dari Kelompok Pekerjaan"</em> pada tab <strong>IA.02 (TPD)</strong> dan <strong>IA.04A/B (DIT)</strong> untuk menjadikan kelompok pekerjaan ini sebagai kerangka skenario tugas praktik/proyek.</li>
+              </ul>
+            </div>
+
+            <div style="background: #fff; border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <strong style="font-size: 13px;">👁️ Pratinjau Tabel Kelompok Pekerjaan (A4)</strong>
+                <span class="badge" style="font-size: 10.5px;">Live Preview</span>
+              </div>
+              <div id="kp-live-preview-box" style="overflow-x: auto; font-size: 11.5px;"></div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -186,16 +270,39 @@
       <div id="muk-ia02" class="muk-panel" style="display: none;">
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">🛠️ FR.IA.02 — Tugas Praktik Demonstrasi (TPD)</h3>
-          <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia02" target="_blank">🖨️ Pratinjau FR.IA.02</a>
+          <div class="aksi-group">
+            <button type="button" class="btn btn-small" style="background:#0284c7; border-color:#0284c7; color:#fff;" onclick="tarikPanduanKelompokKeIa02()">
+              ⚡ Susun Otomatis Skenario &amp; Langkah dari Kelompok Pekerjaan
+            </button>
+            <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia02" target="_blank">🖨️ Pratinjau FR.IA.02</a>
+          </div>
         </div>
+
+        <!-- Panel Panduan Kelompok Pekerjaan untuk IA.02 -->
+        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <strong>🗂️ Panduan Kelompok Pekerjaan Aktif (Acuan Pembuatan Tugas Praktik FR.IA.02):</strong>
+          <div id="ia02-panduan-kp" style="margin-top: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px;">
+            {% for grp in kp_info.groups %}
+            <div style="background: #fff; border: 1px solid #e0f2fe; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #0369a1;">{{ grp.nama }}</strong> ({{ grp.units|length }} Unit):
+              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 11.5px; color: #334155;">
+                {% for u in grp.units %}
+                <li><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</li>
+                {% endfor %}
+              </ol>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+
         <div style="display: flex; flex-direction: column; gap: 12px;">
           <div>
             <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">A. Skenario Tugas Praktik Demonstrasi</label>
-            <textarea id="ia02-skenario" rows="3" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.skenario }}</textarea>
+            <textarea id="ia02-skenario" rows="4" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.skenario }}</textarea>
           </div>
           <div>
-            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">B. Langkah-langkah Kerja (Satu langkah per baris)</label>
-            <textarea id="ia02-langkah" rows="5" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.langkah_kerja }}</textarea>
+            <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">B. Langkah-langkah Kerja (Satu langkah per baris — otomatis dikelompokkan per Kelompok Pekerjaan bila klik tombol di atas)</label>
+            <textarea id="ia02-langkah" rows="6" style="width:100%; padding:8px 10px; border:1px solid var(--border); border-radius:4px;">{{ ia02.langkah_kerja }}</textarea>
           </div>
           <div>
             <label style="display:block; font-weight:600; font-size:12.5px; margin-bottom:4px;">C. Hasil Pekerjaan</label>
@@ -250,8 +357,28 @@
         <div class="card-head" style="margin-bottom: 10px;">
           <h3 style="margin: 0;">📐 FR.IA.04A &amp; 04B — Daftar Instruksi Terstruktur (DIT Proyek Singkat)</h3>
           <div class="aksi-group">
+            <button type="button" class="btn btn-small" style="background:#0284c7; border-color:#0284c7; color:#fff;" onclick="tarikPanduanKelompokKeIa04()">
+              ⚡ Susun Otomatis Skenario Proyek &amp; Aspek Penilaian dari Kelompok Pekerjaan
+            </button>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia04a" target="_blank">🖨️ Pratinjau IA.04A</a>
             <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/cetak-apl?doc=ia04b" target="_blank">🖨️ Pratinjau IA.04B</a>
+          </div>
+        </div>
+
+        <!-- Panel Panduan Kelompok Pekerjaan untuk IA.04 -->
+        <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 6px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px;">
+          <strong>🗂️ Panduan Kelompok Pekerjaan Aktif (Acuan Pembuatan Proyek Singkat FR.IA.04A &amp; 04B):</strong>
+          <div id="ia04-panduan-kp" style="margin-top: 6px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px;">
+            {% for grp in kp_info.groups %}
+            <div style="background: #fff; border: 1px solid #e0f2fe; border-radius: 4px; padding: 8px 10px;">
+              <strong style="color: #0369a1;">{{ grp.nama }}</strong> ({{ grp.units|length }} Unit):
+              <ol style="margin: 4px 0 0 16px; padding: 0; font-size: 11.5px; color: #334155;">
+                {% for u in grp.units %}
+                <li><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</li>
+                {% endfor %}
+              </ol>
+            </div>
+            {% endfor %}
           </div>
         </div>
 
@@ -443,13 +570,29 @@
 <template id="tpl-kelompok-baru">
   <div class="kp-item" style="border: 1px solid var(--border); border-radius: 6px; padding: 14px; margin-bottom: 12px; background: #fafafa;">
     <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 10px;">
-      <input type="text" class="kp-nama" value="Kelompok Pekerjaan Baru" style="flex: 1; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
-      <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, '.kp-item')" style="color: #b91c1c;">Hapus Kelompok</button>
+      <div style="flex: 1;">
+        <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Nama Kelompok Pekerjaan:</label>
+        <input type="text" class="kp-nama" value="Kelompok Pekerjaan Baru" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 10px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600;">
+      </div>
+      <div style="width: 78px;">
+        <label style="display:block; font-size:11.5px; font-weight:600; color:#475569; margin-bottom:3px;">Urutan:</label>
+        <input type="number" class="kp-urutan" value="1" min="1" oninput="perbaruiStatistikKelompok()" style="width: 100%; padding: 7px 8px; border: 1px solid var(--border); border-radius: 4px; text-align: center;">
+      </div>
+      <div style="padding-top: 18px;">
+        <button type="button" class="btn btn-small btn-ghost" onclick="hapusKelompokPekerjaan(this)" style="color: #b91c1c;">Hapus</button>
+      </div>
     </div>
-    <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 6px;">
+    <div style="font-size: 12px; font-weight: 600; color: #334155; margin-bottom: 6px; display: flex; justify-content: space-between;">
+      <span>Pilih Unit Kompetensi Anggota Kelompok:</span>
+      <span>
+        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, true)" style="font-size:11.5px;">Pilih Semua</a> &middot;
+        <a href="javascript:void(0)" onclick="pilihSemuaUnitKelompok(this, false)" style="font-size:11.5px; color:#64748b;">Kosongkan</a>
+      </span>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr; gap: 5px; max-height: 230px; overflow-y: auto; background: #fff; padding: 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
       {% for u in data.daftar_unit %}
-      <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; background: #fff; padding: 6px 8px; border: 1px solid #e2e8f0; border-radius: 4px;">
-        <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}">
+      <label style="display: flex; align-items: flex-start; gap: 6px; font-size: 12.5px; cursor: pointer; padding: 4px 6px; border-radius: 3px;">
+        <input type="checkbox" class="kp-unit-cb" value="{{ u.kode_unit }}" data-judul="{{ u.judul_unit }}" onchange="perbaruiStatistikKelompok()">
         <span><code>{{ u.kode_unit }}</code> — {{ u.judul_unit }}</span>
       </label>
       {% endfor %}
@@ -458,6 +601,13 @@
 </template>
 
 <script>
+var MASTER_UNITS = [
+  {% for u in data.daftar_unit %}
+  { kode: {{ u.kode_unit|tojson }}, judul: {{ u.judul_unit|tojson }} }{% if not loop.last %},{% endif %}
+  {% endfor %}
+];
+var NAMA_SKEMA = {{ dok.nama_skema|tojson }};
+
 function pindahTabMuk(panelId) {
   document.querySelectorAll('.muk-panel').forEach(function(p) { p.style.display = 'none'; });
   document.querySelectorAll('.muk-tab-btn').forEach(function(b) {
@@ -480,10 +630,212 @@ function hapusElemenDom(btn, selector) {
   if (item) item.remove();
 }
 
+function pilihSemuaUnitKelompok(linkEl, checked) {
+  var item = linkEl.closest('.kp-item');
+  if (!item) return;
+  item.querySelectorAll('.kp-unit-cb').forEach(function(cb) { cb.checked = checked; });
+  perbaruiStatistikKelompok();
+}
+
+function hapusKelompokPekerjaan(btn) {
+  var wadah = document.getElementById('wadah-kelompok-pekerjaan');
+  if (wadah.querySelectorAll('.kp-item').length <= 1) {
+    alert('Minimal harus terdapat 1 Kelompok Pekerjaan.');
+    return;
+  }
+  var item = btn.closest('.kp-item');
+  if (item) item.remove();
+  perbaruiStatistikKelompok();
+}
+
 function tambahKelompokPekerjaan() {
   var tpl = document.getElementById('tpl-kelompok-baru');
   var wadah = document.getElementById('wadah-kelompok-pekerjaan');
-  wadah.appendChild(tpl.content.cloneNode(true));
+  var nextNo = wadah.querySelectorAll('.kp-item').length + 1;
+  var node = tpl.content.cloneNode(true);
+  node.querySelector('.kp-nama').value = 'Kelompok Pekerjaan ' + nextNo;
+  node.querySelector('.kp-urutan').value = nextNo;
+  wadah.appendChild(node);
+  perbaruiStatistikKelompok();
+}
+
+function ambilKelompokDariDom() {
+  var list = [];
+  var petaJudul = {};
+  MASTER_UNITS.forEach(function(u) { petaJudul[u.kode] = u.judul; });
+
+  document.querySelectorAll('.kp-item').forEach(function(el, idx) {
+    var nama = (el.querySelector('.kp-nama').value || '').trim() || ('Kelompok Pekerjaan ' + (idx + 1));
+    var urutanInput = el.querySelector('.kp-urutan');
+    var urutan = urutanInput ? (parseInt(urutanInput.value, 10) || (idx + 1)) : (idx + 1);
+    var units = [];
+    var unitObjs = [];
+    el.querySelectorAll('.kp-unit-cb:checked').forEach(function(cb) {
+      units.push(cb.value);
+      unitObjs.push({ kode: cb.value, judul: petaJudul[cb.value] || '' });
+    });
+    list.push({ id: 'kp_' + (idx + 1), nama: nama, urutan: urutan, units: units, unitObjs: unitObjs });
+  });
+
+  list.sort(function(a, b) { return a.urutan - b.urutan; });
+  return list;
+}
+
+function perbaruiStatistikKelompok() {
+  var kelompok = ambilKelompokDariDom();
+  var assignedSet = {};
+  kelompok.forEach(function(g) {
+    g.units.forEach(function(k) { assignedSet[k] = true; });
+  });
+
+  var totalMaster = MASTER_UNITS.length;
+  var groupedCount = Object.keys(assignedSet).length;
+  var unassigned = MASTER_UNITS.filter(function(u) { return !assignedSet[u.kode]; });
+  var unassignedCount = unassigned.length;
+  var pct = totalMaster > 0 ? Math.round((groupedCount / totalMaster) * 1000) / 10 : 100;
+  var isComplete = (totalMaster > 0 && unassignedCount === 0);
+
+  var elGrouped = document.getElementById('kp-stat-grouped');
+  var elUnassigned = document.getElementById('kp-stat-unassigned');
+  var elStatus = document.getElementById('kp-stat-status');
+  var cardUnassigned = document.getElementById('kp-card-unassigned');
+  var wrapUnassigned = document.getElementById('kp-stat-unassigned-wrap');
+  var cardStatus = document.getElementById('kp-card-status');
+  var alertBox = document.getElementById('kp-unassigned-alert');
+  var alertList = document.getElementById('kp-unassigned-list');
+
+  if (elGrouped) elGrouped.textContent = groupedCount;
+  if (elUnassigned) elUnassigned.textContent = unassignedCount;
+  if (cardUnassigned) cardUnassigned.style.borderLeftColor = unassignedCount > 0 ? '#ef4444' : '#10b981';
+  if (wrapUnassigned) wrapUnassigned.style.color = unassignedCount > 0 ? '#b91c1c' : '#047857';
+  if (cardStatus) cardStatus.style.borderLeftColor = isComplete ? '#10b981' : '#f59e0b';
+  if (elStatus) {
+    elStatus.style.color = isComplete ? '#047857' : '#b45309';
+    elStatus.textContent = isComplete ? '✅ Lengkap (100%)' : ('⚠️ ' + pct + '% (Belum Lengkap)');
+  }
+
+  if (alertBox && alertList) {
+    if (!isComplete && unassigned.length > 0) {
+      alertBox.style.display = 'block';
+      alertList.innerHTML = unassigned.map(function(u) {
+        return '<li><code>' + u.kode + '</code> — ' + u.judul + '</li>';
+      }).join('');
+    } else {
+      alertBox.style.display = 'none';
+    }
+  }
+
+  // Render Live Preview Tabel Cetak A4
+  var previewBox = document.getElementById('kp-live-preview-box');
+  if (previewBox) {
+    var rowsHtml = '';
+    var globalNo = 1;
+    kelompok.forEach(function(g) {
+      if (g.unitObjs.length === 0) return;
+      g.unitObjs.forEach(function(u, idx) {
+        rowsHtml += '<tr>';
+        if (idx === 0) {
+          rowsHtml += '<td rowspan="' + g.unitObjs.length + '" style="border:1px solid #334155; padding:6px 8px; font-weight:700; vertical-align:middle; background:#f8fafc;">' + g.nama + '</td>';
+        }
+        rowsHtml += '<td style="border:1px solid #334155; padding:5px; text-align:center;">' + (globalNo++) + '.</td>';
+        rowsHtml += '<td style="border:1px solid #334155; padding:5px 6px; font-family:monospace; font-weight:600; text-align:center;">' + u.kode + '</td>';
+        rowsHtml += '<td style="border:1px solid #334155; padding:5px 8px;">' + u.judul + '</td>';
+        rowsHtml += '</tr>';
+      });
+    });
+    if (!rowsHtml) {
+      rowsHtml = '<tr><td colspan="4" style="border:1px solid #cbd5e1; padding:10px; text-align:center; color:#64748b; font-style:italic;">Belum ada unit yang dipilih pada kelompok pekerjaan.</td></tr>';
+    }
+    previewBox.innerHTML = ''
+      + '<table style="width:100%; border-collapse:collapse; font-size:11px;">'
+      + '<thead><tr style="background:#f1f5f9;">'
+      + '<th style="border:1px solid #334155; padding:5px 8px; width:28%;">Kelompok Pekerjaan</th>'
+      + '<th style="border:1px solid #334155; padding:5px; width:7%;">No.</th>'
+      + '<th style="border:1px solid #334155; padding:5px 8px; width:25%;">Kode Unit</th>'
+      + '<th style="border:1px solid #334155; padding:5px 8px; text-align:left;">Judul Unit</th>'
+      + '</tr></thead><tbody>' + rowsHtml + '</tbody></table>';
+  }
+
+  // Perbarui kotak panduan Kelompok Pekerjaan di Tab IA.02 dan IA.04
+  var htmlPanduan = kelompok.filter(function(g) { return g.unitObjs.length > 0; }).map(function(g) {
+    var li = g.unitObjs.map(function(u) { return '<li><code>' + u.kode + '</code> — ' + u.judul + '</li>'; }).join('');
+    return '<div style="background:#fff; border:1px solid #e0f2fe; border-radius:4px; padding:8px 10px;">'
+      + '<strong style="color:#0369a1;">' + g.nama + '</strong> (' + g.unitObjs.length + ' Unit):'
+      + '<ol style="margin:4px 0 0 16px; padding:0; font-size:11.5px; color:#334155;">' + li + '</ol></div>';
+  }).join('');
+  var boxIa02 = document.getElementById('ia02-panduan-kp');
+  var boxIa04 = document.getElementById('ia04-panduan-kp');
+  if (boxIa02 && htmlPanduan) boxIa02.innerHTML = htmlPanduan;
+  if (boxIa04 && htmlPanduan) boxIa04.innerHTML = htmlPanduan;
+}
+
+function tarikPanduanKelompokKeIa02() {
+  var kelompok = ambilKelompokDariDom().filter(function(g) { return g.unitObjs.length > 0; });
+  if (kelompok.length === 0) {
+    alert('Silakan pilih unit kompetensi pada tab Kelompok Pekerjaan terlebih dahulu.');
+    return;
+  }
+  var namaKelompokList = kelompok.map(function(g) { return g.nama; }).join(', ');
+  var skenario = 'Anda sebagai asesi pada skema ' + NAMA_SKEMA + ' diminta untuk mendemonstrasikan tugas praktik yang mencakup '
+    + kelompok.length + ' kelompok pekerjaan (' + namaKelompokList + ') sesuai prosedur operasional standar (SOP) dan keselamatan kerja.';
+
+  var langkahLines = [];
+  var stepNo = 1;
+  kelompok.forEach(function(g) {
+    g.unitObjs.forEach(function(u) {
+      langkahLines.push(stepNo + '. [' + g.nama + '] Melaksanakan ' + u.judul + ' (' + u.kode + ') sesuai kriteria unjuk kerja.');
+      stepNo++;
+    });
+  });
+
+  var hasilLines = kelompok.map(function(g, i) {
+    return (i + 1) + '. Bukti hasil demonstrasi kerja pada ' + g.nama;
+  }).join('; ');
+
+  document.getElementById('ia02-skenario').value = skenario;
+  document.getElementById('ia02-langkah').value = langkahLines.join('\n');
+  document.getElementById('ia02-hasil').value = hasilLines + '.';
+}
+
+function tarikPanduanKelompokKeIa04() {
+  var kelompok = ambilKelompokDariDom().filter(function(g) { return g.unitObjs.length > 0; });
+  if (kelompok.length === 0) {
+    alert('Silakan pilih unit kompetensi pada tab Kelompok Pekerjaan terlebih dahulu.');
+    return;
+  }
+  var namaKelompokList = kelompok.map(function(g) { return g.nama; }).join(', ');
+  document.getElementById('ia04-judul').value = 'Proyek Singkat Terintegrasi Skema ' + NAMA_SKEMA;
+  document.getElementById('ia04-situasi').value = 'Anda ditugaskan sebagai tenaga profesional pada bidang ' + NAMA_SKEMA
+    + ' untuk menyelesaikan studi kasus/proyek terstruktur yang mencakup tahapan: ' + namaKelompokList + '.';
+  document.getElementById('ia04-tugas').value = 'Menyusun perencanaan, mengeksekusi proyek singkat pada setiap kelompok pekerjaan ('
+    + namaKelompokList + '), serta mempresentasikan hasil proyek di hadapan asesor.';
+
+  var tindakanLines = [];
+  kelompok.forEach(function(g, idx) {
+    var daftarJudul = g.unitObjs.map(function(u) { return u.judul; }).join('; ');
+    tindakanLines.push((idx + 1) + '. Tahap ' + g.nama + ': Menyelesaikan deliverable untuk unit ' + daftarJudul + '.');
+  });
+  document.getElementById('ia04-tindakan').value = tindakanLines.join('\n');
+  document.getElementById('ia04-hasil').value = 'Dokumen kerja dan produk hasil proyek untuk masing-masing kelompok pekerjaan (' + namaKelompokList + ').';
+
+  // Susun juga Aspek Penilaian FR.IA.04B per Kelompok Pekerjaan
+  var wadahQ4 = document.getElementById('wadah-ia04b-questions');
+  wadahQ4.innerHTML = '';
+  kelompok.forEach(function(g) {
+    var kodeUnits = g.unitObjs.map(function(u) { return u.kode; }).join(', ');
+    var div = document.createElement('div');
+    div.className = 'ia04b-q-item';
+    div.style.cssText = 'border: 1px solid var(--border); border-radius: 6px; padding: 12px; margin-bottom: 10px; background: #fafafa;';
+    div.innerHTML = ''
+      + '<div style="display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 8px; margin-bottom: 8px;">'
+      + '  <input type="text" class="ia04b-lingkup" value="Penyajian proyek pada ' + g.nama.replace(/"/g, '&quot;') + '" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px; font-weight:600;">'
+      + '  <input type="text" class="ia04b-kuk" value="' + kodeUnits + '" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">'
+      + '  <input type="text" class="ia04b-dimensi" value="(TS, TMS, CMS)" style="padding:6px 10px; border:1px solid var(--border); border-radius:4px;">'
+      + '  <button type="button" class="btn btn-small btn-ghost" onclick="hapusElemenDom(this, \'.ia04b-q-item\')" style="color:#b91c1c;">Hapus</button>'
+      + '</div>'
+      + '<textarea class="ia04b-pertanyaan" rows="2" style="width:100%; padding:7px 10px; border:1px solid var(--border); border-radius:4px;">Jelaskan alur kerja, pemenuhan standar kualitas, dan penanganan kendala pada tahapan ' + g.nama + '!</textarea>';
+    wadahQ4.appendChild(div);
+  });
 }
 
 function tambahPertanyaanIa03() {
@@ -569,16 +921,9 @@ function tambahBuktiIa08() {
 }
 
 function siapkanPayloadMuk() {
-  var kelompok = [];
-  document.querySelectorAll('.kp-item').forEach(function(el, idx) {
-    var nama = (el.querySelector('.kp-nama').value || '').trim();
-    var units = [];
-    el.querySelectorAll('.kp-unit-cb:checked').forEach(function(cb) {
-      units.push(cb.value);
-    });
-    if (nama) {
-      kelompok.push({ id: 'kp_' + (idx + 1), nama: nama, urutan: idx + 1, units: units });
-    }
+  var kelompokRaw = ambilKelompokDariDom();
+  var kelompok = kelompokRaw.map(function(g, idx) {
+    return { id: g.id || ('kp_' + (idx + 1)), nama: g.nama, urutan: g.urutan || (idx + 1), units: g.units };
   });
 
   var qIa03 = [];
@@ -692,6 +1037,10 @@ function siapkanPayloadMuk() {
 
   document.getElementById('muk-json-input').value = JSON.stringify(payload);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  perbaruiStatistikKelompok();
+});
 </script>
 
 {% endblock %}
