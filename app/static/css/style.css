@@ -295,3 +295,74 @@ body {
 .cek-draft { display: flex; gap: 8px; align-items: center; font-size: 13.5px; margin: 4px 0 14px; }
 .masalah-list { margin: 8px 0 0; padding-left: 18px; font-size: 13.5px; }
 .masalah-list code { font-size: 12.5px; }
+
+/* ------------------------------------------- editor koreksi & gerbang (4F) */
+.btn[disabled], .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.btn-primary {
+  background: var(--navy-2);
+  color: #fff;
+  border-color: var(--navy-2);
+}
+.btn-primary:hover {
+  background: var(--navy-3);
+  border-color: var(--navy-3);
+}
+.btn-secondary {
+  background: #fff;
+  color: var(--navy-2);
+  border: 1px solid var(--border);
+}
+.btn-secondary:hover {
+  background: #f1f5f9;
+  border-color: #cbd8e6;
+}
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.page-head h1 {
+  margin: 4px 0;
+  font-size: 20px;
+}
+.page-head .eyebrow {
+  margin: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.page-head .eyebrow a {
+  color: var(--navy-2);
+  text-decoration: none;
+}
+.page-head .eyebrow a:hover {
+  text-decoration: underline;
+}
+.page-head .sub {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+.notice {
+  border-radius: 9px;
+  padding: 12px 15px;
+  font-size: 13.5px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid transparent;
+  margin-bottom: 14px;
+}
+.notice-sukses { background: var(--green-bg); color: #16663a; border-color: #bfe6ce; }
+.notice-galat { background: var(--red-bg); color: var(--red); border-color: #f3c9c5; }
+.notice-info { background: #eaf2fb; color: var(--navy-2); border-color: #c8dcf1; }

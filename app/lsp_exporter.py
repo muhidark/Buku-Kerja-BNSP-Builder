@@ -9,6 +9,8 @@ Menyediakan konversi hasil ekstraksi unit dan skema menjadi:
 import json
 from pathlib import Path
 
+from app import koreksi
+
 ROOT = Path(__file__).resolve().parent.parent
 
 
@@ -75,24 +77,17 @@ def unit_ke_smart_paste_text(data: dict) -> str:
 
 
 def ambil_json_unit(kode_unit: str) -> dict | None:
-    """Cari berkas JSON unit ekstraksi dari lokasi penyimpanan yang sah."""
-    jalur_prioritas = [
-        ROOT / 'data' / 'json' / 'browser_extraction' / f'{kode_unit}.json',
-        ROOT / 'data' / 'json' / 'schema_content_creator' / f'{kode_unit}.json',
-        ROOT / 'data' / 'json' / 'cross_skkni' / f'{kode_unit}.json',
-    ]
-    for p in jalur_prioritas:
-        if p.exists():
-            try:
-                return json.loads(p.read_text(encoding='utf-8'))
-            except Exception:
-                continue
+    """Cari berkas JSON unit ekstraksi dan terapkan koreksi manual bila ada."""
+    hasil_final = koreksi.ambil_unit_final(kode_unit)
+    if hasil_final is not None:
+        return hasil_final
 
-    # Fallback pencarian di seluruh data/json
+    # Fallback pencarian di seluruh data/json (kecuali folder koreksi)
     for p in (ROOT / 'data' / 'json').rglob(f'{kode_unit}.json'):
-        if p.is_file():
+        if p.is_file() and 'koreksi' not in p.parts:
             try:
-                return json.loads(p.read_text(encoding='utf-8'))
+                data_mesin = json.loads(p.read_text(encoding='utf-8'))
+                return koreksi.terapkan_koreksi_ke_data(data_mesin, kode_unit)
             except Exception:
                 continue
     return None

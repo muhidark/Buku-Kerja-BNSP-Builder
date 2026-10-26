@@ -14,15 +14,15 @@ from urllib.parse import quote
 
 from fastapi import FastAPI, File, Form, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app import jobs, library, schema_library, web_data
+from app import jobs, koreksi, library, schema_library, status_units, web_data
 from app.buku_kerja import susun_data_buku_kerja
-from app.lsp_exporter import skema_ke_lsp_data, unit_ke_lsp_dict, unit_ke_smart_paste_text
+from app.lsp_exporter import ambil_json_unit, skema_ke_lsp_data, unit_ke_lsp_dict, unit_ke_smart_paste_text
 from app.section_parser import flatten_nodes
 from app.services import document_service
 from app.api import dashboard as api_dashboard
@@ -191,7 +191,22 @@ def detail_skkni(request: Request, doc_id: str, q: str = '', page: int = 1,
     peta_validasi = validasi.get('unit') or {}
     manual = doc.get('verifikasi_manual') or {}
 
-    unit = list(doc.get('units') or [])
+    semua_unit_dok = list(doc.get('units') or [])
+    peta_status_3 = {}
+    ringkasan_status_3 = {'siap': 0, 'perlu': 0, 'gagal': 0}
+    for u_item in semua_unit_dok:
+        kd = u_item.get('kode_unit')
+        if not kd:
+            continue
+        st3 = status_units.status_unit(
+            kd,
+            verifikasi_manual=manual.get(kd),
+            wajib_json=False,
+        )
+        peta_status_3[kd] = st3
+        ringkasan_status_3[st3['status']] = ringkasan_status_3.get(st3['status'], 0) + 1
+
+    unit = list(semua_unit_dok)
     kata = (q or '').strip().lower()
     if kata:
         unit = [u for u in unit
@@ -209,10 +224,34 @@ def detail_skkni(request: Request, doc_id: str, q: str = '', page: int = 1,
         dok=doc, units=unit[mulai:mulai + BATAS_UNIT_PER_HALAMAN],
         q=q, page=halaman, halaman_total=halaman_total, total_unit=total,
         validasi=validasi, peta_validasi=peta_validasi, manual=manual,
+        peta_status_3=peta_status_3, ringkasan_status_3=ringkasan_status_3,
         pesan=pesan, tipe=tipe, csrf_token=token,
     )
     security.set_cookie_token(resp, token)
     return resp
+
+
+@app.get('/skkni/{doc_id}/pdf')
+def buka_pdf_skkni(request: Request, doc_id: str):
+    doc = library.ambil_dokumen(doc_id)
+    if not doc:
+        html = _render(request, 'tidak_ditemukan.html', judul='Dokumen tidak ditemukan',
+                       pesan='Dokumen SKKNI tidak ditemukan di perpustakaan.')
+        html.status_code = 404
+        return html
+    try:
+        jalur = library.jalur_pdf(doc)
+    except library.GalatUpload as e:
+        html = _render(request, 'tidak_ditemukan.html', judul='Berkas PDF tidak ditemukan',
+                       pesan=e.pesan)
+        html.status_code = e.kode
+        return html
+    nama_aman = re.sub(r'[^A-Za-z0-9._ -]+', '_', Path(doc.get('nama_asli') or 'skkni.pdf').name)
+    return FileResponse(
+        path=str(jalur),
+        media_type='application/pdf',
+        headers={'Content-Disposition': f'inline; filename="{nama_aman}"'},
+    )
 
 
 @app.post('/skkni/{doc_id}/verifikasi')
@@ -299,6 +338,11 @@ def detail_skema(request: Request, schema_id: str, q: str = '', page: int = 1,
     peta_dasar = schema_library.peta_kelengkapan()
     peta_status = {u['kode_unit']: schema_library.status_unit(dok, u['kode_unit'], peta_dasar)
                    for u in dok.get('units') or []}
+    gerbang = status_units.evaluasi_gerbang_skema(schema_id)
+    peta_status_3 = gerbang.get('peta_unit') or {}
+    for kd, st3 in peta_status_3.items():
+        if st3.get('elemen_count', 0) > 0 or st3.get('ada_koreksi'):
+            ada_json.add(kd)
 
     unit = list(dok.get('units') or [])
     kata = (q or '').strip().lower()
@@ -319,7 +363,8 @@ def detail_skema(request: Request, schema_id: str, q: str = '', page: int = 1,
     resp = _render(
         request, 'skema_detail.html', judul='Detail Skema',
         dok=dok, units=unit[mulai:mulai + BATAS_UNIT_PER_HALAMAN],
-        peta_status=peta_status, q=q, page=halaman, ada_browser=daftar_browser,
+        peta_status=peta_status, peta_status_3=peta_status_3, gerbang=gerbang,
+        q=q, page=halaman, ada_browser=daftar_browser,
         ada_json=ada_json,
         skema_lsp_json=skema_lsp_json, skema_smart_text=skema_smart_text,
         skema_lsp_count=len(skema_lsp_list),
@@ -384,6 +429,18 @@ def cetak_apl_skema(
         html.status_code = 404
         return html
 
+    gerbang = data.get('gerbang') or status_units.evaluasi_gerbang_skema(schema_id)
+    if gerbang.get('ada_gagal'):
+        gagal_list = [f"{u['kode_unit']} ({u['alasan']})" for u in gerbang['penahan'] if u['status'] == 'gagal']
+        html = _render(
+            request,
+            'tidak_ditemukan.html',
+            judul='Dokumen belum dapat dicetak',
+            pesan='Cetak Buku Kerja ditahan karena ada unit berstatus Gagal: ' + '; '.join(gagal_list),
+        )
+        html.status_code = 409
+        return html
+
     doc_mode = doc.lower() if doc.lower() in ['all', 'apl01', 'apl02'] else 'all'
     judul_map = {
         'all': f"FR.APL.01 & FR.APL.02 - {data['nama_skema']}",
@@ -402,7 +459,8 @@ def cetak_apl_skema(
 
 
 @app.get('/skema/{schema_id}/unit/{kode_unit}', response_class=HTMLResponse)
-def preview_unit(request: Request, schema_id: str, kode_unit: str):
+def preview_unit(request: Request, schema_id: str, kode_unit: str,
+                 pesan: str = '', tipe: str = ''):
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
         html = _render(request, 'tidak_ditemukan.html', judul='Skema tidak ditemukan',
@@ -416,15 +474,21 @@ def preview_unit(request: Request, schema_id: str, kode_unit: str):
         html.status_code = 404
         return html
 
-    berkas = jobs.JSON_OUT / f'{kode_unit}.json'
-    data = None
-    if berkas.exists():
-        try:
-            data = json.loads(berkas.read_text(encoding='utf-8'))
-        except Exception:
-            data = None
+    data = ambil_json_unit(kode_unit)
+    jalur_mesin = koreksi.cari_berkas_mesin(kode_unit)
+    berkas = str(jalur_mesin.relative_to(jobs.ROOT)) if jalur_mesin else f'data/json/browser_extraction/{kode_unit}.json'
 
     unit_skema = next((u for u in dok.get('units') or [] if u['kode_unit'] == kode_unit), None)
+    cocok = ((dok.get('hasil_pencocokan') or {}).get('units') or {}).get(kode_unit)
+    ver_manual = (dok.get('verifikasi_manual') or {}).get(kode_unit)
+    info_status = status_units.status_unit(
+        kode_unit,
+        data=data,
+        verifikasi_manual=ver_manual,
+        hasil_cocok=cocok,
+        wajib_json=True,
+    )
+
     bv = pp = []
     unit_lsp_json = ''
     unit_smart_text = ''
@@ -435,13 +499,211 @@ def preview_unit(request: Request, schema_id: str, kode_unit: str):
         unit_lsp_json = json.dumps([unit_dict], ensure_ascii=False, indent=2)
         unit_smart_text = unit_ke_smart_paste_text(data)
 
-    return _render(
+    token = security.token_dari_cookie(request)
+    resp = _render(
         request, 'unit_preview.html', judul='Hasil Ekstraksi Unit',
         dok=dok, kode=kode_unit, data=data, unit_skema=unit_skema,
+        info_status=info_status,
         bv=bv, pp=pp,
         unit_lsp_json=unit_lsp_json, unit_smart_text=unit_smart_text,
-        berkas=str(berkas.relative_to(jobs.ROOT)),
+        berkas=berkas, pesan=pesan, tipe=tipe, csrf_token=token,
     )
+    security.set_cookie_token(resp, token)
+    return resp
+
+
+@app.get('/skema/{schema_id}/unit/{kode_unit}/koreksi', response_class=HTMLResponse)
+def halaman_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
+                         pesan: str = '', tipe: str = ''):
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        html = _render(request, 'tidak_ditemukan.html', judul='Skema tidak ditemukan',
+                       pesan='Dokumen skema tidak ditemukan.')
+        html.status_code = 404
+        return html
+
+    if not re.fullmatch(r'[A-Z]\.\d{2}[A-Z]{2,3}\d{2}\.\d{3}\.\d', kode_unit or ''):
+        html = _render(request, 'tidak_ditemukan.html', judul='Kode unit tidak sah',
+                       pesan='Format kode unit tidak dikenali.')
+        html.status_code = 404
+        return html
+
+    unit_skema = next((u for u in dok.get('units') or [] if u['kode_unit'] == kode_unit), None)
+    data_mesin = koreksi.muat_json_mesin(kode_unit)
+    data_final = koreksi.ambil_unit_final(kode_unit)
+    info_koreksi = (data_final or {}).get('_koreksi') or koreksi.status_koreksi(kode_unit)
+
+    cocok = ((dok.get('hasil_pencocokan') or {}).get('units') or {}).get(kode_unit)
+    ver_manual = (dok.get('verifikasi_manual') or {}).get(kode_unit)
+    info_status = status_units.status_unit(
+        kode_unit,
+        data=data_final,
+        info_koreksi=info_koreksi,
+        verifikasi_manual=ver_manual,
+        hasil_cocok=cocok,
+        wajib_json=True,
+    )
+
+    elemen_sumber = (data_final or {}).get('elemen_kompetensi') or []
+    elemen_form = koreksi.normalisasi_elemen_koreksi(elemen_sumber)
+    if not elemen_form:
+        elemen_form = [{
+            'nomor': 1,
+            'nama': '',
+            'kuk': [{'nomor': '1.1', 'uraian': ''}],
+        }]
+
+    elemen_mesin_norm = koreksi.normalisasi_elemen_koreksi(
+        (data_mesin or {}).get('elemen_kompetensi') or []
+    )
+    peta_el_mesin = {el['nomor']: el['nama'] for el in elemen_mesin_norm}
+    peta_kuk_mesin = {
+        k['nomor']: k['uraian']
+        for el in elemen_mesin_norm
+        for k in (el.get('kuk') or [])
+    }
+
+    judul_unit = (
+        (data_final or {}).get('judul_unit')
+        or (unit_skema or {}).get('judul_skema')
+        or info_status.get('judul_unit')
+        or ''
+    )
+
+    token = security.token_dari_cookie(request)
+    resp = _render(
+        request, 'unit_koreksi.html', judul=f'Koreksi Unit {kode_unit}',
+        dok=dok, kode=kode_unit, judul_unit=judul_unit,
+        unit_skema=unit_skema, data_mesin=data_mesin, data=data_final,
+        elemen_form=elemen_form, elemen_mesin=elemen_mesin_norm,
+        peta_el_mesin=peta_el_mesin, peta_kuk_mesin=peta_kuk_mesin,
+        info_koreksi=info_koreksi, info_status=info_status,
+        pesan=pesan, tipe=tipe, csrf_token=token,
+    )
+    security.set_cookie_token(resp, token)
+    return resp
+
+
+@app.post('/skema/{schema_id}/unit/{kode_unit}/koreksi')
+async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str):
+    form = await request.form()
+    csrf_token = str(form.get('csrf_token') or '')
+    security.periksa_token(request, csrf_token)
+
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        return _ke_skema('Skema tidak ditemukan.', 'galat')
+
+    aksi = str(form.get('aksi') or '').strip()
+    if aksi == 'pertahankan':
+        koreksi.pertahankan_koreksi(kode_unit)
+        return RedirectResponse(
+            url=(f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=sukses&pesan='
+                 + quote('Koreksi manual dipertahankan terhadap hasil ekstraksi mesin terbaru.')),
+            status_code=303,
+        )
+
+    judul_unit = form.get('judul_unit')
+    judul_str = str(judul_unit) if judul_unit is not None else None
+    elemen_json_raw = form.get('elemen_json')
+
+    elemen_input: list[dict] = []
+    if elemen_json_raw:
+        try:
+            elemen_input = json.loads(str(elemen_json_raw))
+        except Exception:
+            return RedirectResponse(
+                url=(f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=galat&pesan='
+                     + quote('Format data koreksi tidak valid.')),
+                status_code=303,
+            )
+    else:
+        daftar_el_no = form.getlist('elemen_nomor')
+        daftar_el_nama = form.getlist('elemen_nama')
+        daftar_kuk_el = form.getlist('kuk_elemen')
+        daftar_kuk_no = form.getlist('kuk_nomor')
+        daftar_kuk_ur = form.getlist('kuk_uraian')
+
+        peta_el: dict[int, dict] = {}
+        urutan_el: list[int] = []
+        for idx, no_str in enumerate(daftar_el_no):
+            try:
+                no_el = int(str(no_str).strip())
+            except ValueError:
+                no_el = idx + 1
+            nama_el = str(daftar_el_nama[idx]) if idx < len(daftar_el_nama) else ''
+            peta_el[no_el] = {'nomor': no_el, 'nama': nama_el, 'kuk': []}
+            urutan_el.append(no_el)
+
+        for k_idx, no_kuk_raw in enumerate(daftar_kuk_no):
+            el_ref_raw = daftar_kuk_el[k_idx] if k_idx < len(daftar_kuk_el) else ''
+            no_kuk_str = str(no_kuk_raw).strip()
+            uraian_str = str(daftar_kuk_ur[k_idx]) if k_idx < len(daftar_kuk_ur) else ''
+            try:
+                no_el = int(str(el_ref_raw).strip())
+            except ValueError:
+                if '.' in no_kuk_str:
+                    try:
+                        no_el = int(no_kuk_str.split('.', 1)[0])
+                    except ValueError:
+                        no_el = urutan_el[0] if urutan_el else 1
+                else:
+                    no_el = urutan_el[0] if urutan_el else 1
+            if no_el not in peta_el:
+                peta_el[no_el] = {'nomor': no_el, 'nama': '', 'kuk': []}
+                urutan_el.append(no_el)
+            peta_el[no_el]['kuk'].append({
+                'nomor': no_kuk_str or f"{no_el}.{len(peta_el[no_el]['kuk']) + 1}",
+                'uraian': uraian_str,
+            })
+
+        elemen_input = [peta_el[n] for n in urutan_el]
+
+    try:
+        koreksi.simpan_koreksi(kode_unit, elemen_input, judul_unit=judul_str)
+    except ValueError as e:
+        return RedirectResponse(
+            url=(f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=galat&pesan='
+                 + quote(str(e))),
+            status_code=303,
+        )
+
+    lanjut = str(form.get('lanjut') or '').strip()
+    if lanjut == 'skema':
+        return RedirectResponse(
+            url=(f'/skema/{schema_id}?tipe=sukses&pesan='
+                 + quote(f'Koreksi unit {kode_unit} disimpan. Status unit kini Siap dipakai.')),
+            status_code=303,
+        )
+    return RedirectResponse(
+        url=(f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=sukses&pesan='
+             + quote(f'Koreksi unit {kode_unit} berhasil disimpan.')),
+        status_code=303,
+    )
+
+
+@app.post('/skema/{schema_id}/unit/{kode_unit}/koreksi/kembalikan')
+def kembalikan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
+                            csrf_token: str = Form('')):
+    security.periksa_token(request, csrf_token)
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        return _ke_skema('Skema tidak ditemukan.', 'galat')
+    dihapus = koreksi.hapus_koreksi(kode_unit)
+    pesan = (
+        f'Koreksi manual unit {kode_unit} dihapus; kembali menggunakan hasil ekstraksi mesin.'
+        if dihapus
+        else f'Unit {kode_unit} sudah menggunakan hasil ekstraksi mesin.'
+    )
+    return RedirectResponse(
+        url=f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=info&pesan={quote(pesan)}',
+        status_code=303,
+    )
+
+
+@app.get('/api/unit/{kode_unit}/status')
+def api_status_unit(kode_unit: str):
+    return status_units.status_unit(kode_unit, wajib_json=True)
 
 
 @app.get('/job/{job_id}', response_class=HTMLResponse)

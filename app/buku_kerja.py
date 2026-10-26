@@ -9,7 +9,7 @@ Menyediakan penyusunan data terstruktur untuk template dokumen cetak fisik:
 
 import re
 from typing import Any, Dict, List, Optional
-from app import schema_library
+from app import schema_library, status_units
 from app.lsp_exporter import ambil_json_unit
 
 
@@ -43,20 +43,22 @@ def susun_data_buku_kerja(
     if not doc:
         return None
 
-    nama_skema = (doc.get("nama_skema") or doc.get("nama_asli") or "Skema Sertifikasi").strip()
+    nama_skema = (doc.get("judul_skema") or doc.get("nama_skema") or doc.get("nama_berkas") or doc.get("nama_asli") or "Skema Sertifikasi").strip()
     jenis_skema = (doc.get("jenis_skema") or "Okupasi").strip()
     
     # Ambil nomor skema dari argumen atau metadata
     nomor_skema = no_skema.strip() or doc.get("kode_skema") or doc.get("nomor_skema") or ""
 
-    units_raw = doc.get("units") or []
+    units_raw = doc.get("unit_kompetensi") or doc.get("units") or []
     daftar_unit: List[Dict[str, Any]] = []
+    gerbang = status_units.evaluasi_gerbang_skema(schema_id)
+    peta_status = gerbang.get("peta_unit") or {}
 
     for idx, u in enumerate(units_raw):
         kode = u.get("kode_unit") or ""
-        judul = u.get("judul_skema") or ""
+        judul = u.get("judul_unit") or u.get("judul_skema") or ""
 
-        # Ambil detail ekstraksi jika ada di cache JSON
+        # Ambil detail ekstraksi (termasuk koreksi manual bila ada)
         data_ekstraksi = ambil_json_unit(kode)
         if data_ekstraksi:
             judul = data_ekstraksi.get("judul_unit") or judul
@@ -85,15 +87,8 @@ def susun_data_buku_kerja(
                 "kuk": kuks
             })
 
-        # Jika belum ada hasil ekstraksi, sediakan elemen minimal placeholder
-        if not elemen_list:
-            elemen_list.append({
-                "nomor": 1,
-                "nama": f"Melaksanakan pekerjaan {judul or kode}",
-                "kuk": ["1.1 Menerapkan prosedur kerja sesuai standar yang berlaku."]
-            })
-
         standar_acuan = deteksi_standar_skkni(kode)
+        info_st = peta_status.get(kode) or {}
 
         daftar_unit.append({
             "nomor_urut": idx + 1,
@@ -101,7 +96,10 @@ def susun_data_buku_kerja(
             "judul_unit": judul,
             "deskripsi_unit": deskripsi,
             "standar_acuan": standar_acuan,
-            "elemen": elemen_list
+            "elemen": elemen_list,
+            "status": info_st.get("status", "gagal"),
+            "label_status": info_st.get("label", "Gagal"),
+            "alasan_status": info_st.get("alasan", ""),
         })
 
     # Bukti persyaratan default untuk APL 01
@@ -126,4 +124,5 @@ def susun_data_buku_kerja(
         "daftar_unit": daftar_unit,
         "persyaratan_dasar": persyaratan_dasar,
         "persyaratan_admin": persyaratan_admin,
+        "gerbang": gerbang,
     }

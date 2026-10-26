@@ -5,20 +5,37 @@
 
 {% if not data %}
 <article class="card">
-  <h2>{{ kode }}</h2>
-  <p class="empty">Unit ini belum diekstrak dari browser. Jalankan ekstraksi dari halaman detail skema.</p>
-  <p><a class="btn" href="/skema/{{ dok.id }}">Buka detail skema</a></p>
+  <div class="card-head">
+    <h2>{{ kode }}</h2>
+    {% set st = info_status %}{% include "_status_badge.html" %}
+  </div>
+  <p class="empty">Unit ini belum diekstrak dari browser. Jalankan ekstraksi dari halaman detail skema atau isi melalui editor koreksi manual.</p>
+  <p class="aksi-group">
+    <a class="btn" href="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi">✎ Koreksi Manual Unit Ini</a>
+    <a class="btn btn-ghost" href="/skema/{{ dok.id }}">Buka detail skema</a>
+  </p>
 </article>
 {% else %}
 
 <article class="card">
   <div class="card-head">
     <h2>{{ data.kode_unit }}</h2>
-    <span class="badge {% if (data.validasi or {}).status == 'valid_struktur' %}badge-green{% else %}badge-amber{% endif %}">
-      struktur: {{ ((data.validasi or {}).status or '-').replace('_', ' ') }}
-    </span>
+    <div class="aksi-group" style="gap:8px; flex-wrap:wrap;">
+      {% set st = info_status %}{% include "_status_badge.html" %}
+      {% if info_status and info_status.skkni_id and info_status.halaman_awal %}
+        <a class="btn btn-small btn-ghost" href="/skkni/{{ info_status.skkni_id }}/pdf#page={{ info_status.halaman_awal }}" target="_blank" rel="noopener">
+          Buka PDF hal. {{ info_status.halaman_awal }} ↗
+        </a>
+      {% endif %}
+      <a class="btn btn-small" href="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi">✎ Koreksi Manual</a>
+    </div>
   </div>
   <p class="judul-unit">{{ data.judul_unit or '—' }}</p>
+  {% if info_status and info_status.alasan %}
+  <p class="note" style="margin-bottom:10px;">
+    <strong>Status Kesiapan:</strong> {{ info_status.label }} — {{ info_status.alasan }}
+  </p>
+  {% endif %}
   <dl class="info-grid">
     <div><dt>Sumber PDF</dt><dd>{{ (data.metadata_sumber or {}).nama_dokumen }}</dd></div>
     <div><dt>Rentang halaman (0-based)</dt><dd>{{ (data.metadata_sumber or {}).rentang_halaman_pdf }}</dd></div>

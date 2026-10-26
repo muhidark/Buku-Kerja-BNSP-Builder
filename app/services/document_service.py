@@ -14,7 +14,7 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 
-from app import jobs, library, schema_library
+from app import jobs, koreksi, library, schema_library, status_units
 from app.logging_config import ambil_logger
 from app.multi_docx_generator import generate_multi_docx
 
@@ -167,6 +167,11 @@ def validasi(schema_id: str, kode_list: list[str] | None = None) -> dict:
         u_skema = urutan_skema[kode]
         cocok = pencocokan.get(kode) or {}
         path_json = _cari_json(kode)
+        info_kor = koreksi.status_koreksi(kode)
+        ada_koreksi = bool(info_kor.get('ada_koreksi'))
+        konflik_koreksi = bool(info_kor.get('konflik'))
+        koreksi_aktif = ada_koreksi and not konflik_koreksi
+
         entri = {
             'kode_unit': kode,
             'judul': u_skema.get('judul_skema'),
@@ -177,25 +182,40 @@ def validasi(schema_id: str, kode_list: list[str] | None = None) -> dict:
             'struktur': None,
             'kelengkapan': None,
             'sha256_pdf': None,
+            'dikoreksi_manual': koreksi_aktif,
+            'konflik_koreksi': konflik_koreksi,
         }
 
-        if not path_json:
+        if not path_json and not ada_koreksi:
             masalah.append({'kode': kode, 'jenis': 'json_tidak_ada',
                             'pesan': 'JSON hasil ekstraksi belum tersedia.'})
             units.append(entri)
             continue
 
-        data = _baca(path_json)
+        if path_json:
+            data = _baca(path_json)
+            if not data and not ada_koreksi:
+                masalah.append({'kode': kode, 'jenis': 'json_rusak',
+                                'pesan': 'Berkas JSON tidak dapat dibaca.'})
+                units.append(entri)
+                continue
+            entri['json'] = str(path_json.relative_to(ROOT))
+        else:
+            data = None
+            entri['json'] = str(koreksi.path_koreksi(kode).relative_to(ROOT))
+
+        if ada_koreksi:
+            data = koreksi.terapkan_koreksi_ke_data(data, kode)
+
         if not data:
             masalah.append({'kode': kode, 'jenis': 'json_rusak',
                             'pesan': 'Berkas JSON tidak dapat dibaca.'})
             units.append(entri)
             continue
 
-        entri['json'] = str(path_json.relative_to(ROOT))
         entri['judul'] = data.get('judul_unit') or entri['judul']
 
-        if not data.get('kode_unit') or not data.get('judul_unit'):
+        if not data.get('kode_unit') or not (data.get('judul_unit') or entri['judul']):
             masalah.append({'kode': kode, 'jenis': 'identitas',
                             'pesan': 'Kode atau judul unit tidak lengkap pada JSON.'})
 
@@ -207,13 +227,20 @@ def validasi(schema_id: str, kode_list: list[str] | None = None) -> dict:
             masalah.append({'kode': kode, 'jenis': 'struktur',
                             'pesan': 'Elemen Kompetensi atau KUK tidak tersedia.'})
 
-        # Verifikasi manual oleh pengguna menyelesaikan temuan validasi ringan
-        # (struktur/kelengkapan), tetapi TIDAK menyembunyikan KUK yang hilang.
-        sudah_manual = kode in manual
-        entri['terverifikasi_manual'] = sudah_manual
-        entri['waktu_manual'] = (manual.get(kode) or {}).get('waktu') if sudah_manual else None
+        if konflik_koreksi:
+            masalah.append({'kode': kode, 'jenis': 'konflik_koreksi',
+                            'pesan': 'Hasil mesin berubah sejak dikoreksi manual; perlu peninjauan ulang.'})
 
-        status_struktur = (data.get('validasi') or {}).get('status')
+        # Verifikasi manual atau koreksi manual aktif menyelesaikan temuan validasi
+        sudah_manual = (kode in manual) or koreksi_aktif
+        entri['terverifikasi_manual'] = sudah_manual
+        entri['waktu_manual'] = (
+            info_kor.get('dikoreksi_pada')
+            if koreksi_aktif
+            else ((manual.get(kode) or {}).get('waktu') if kode in manual else None)
+        )
+
+        status_struktur = 'valid_struktur' if koreksi_aktif else (data.get('validasi') or {}).get('status')
         entri['struktur'] = status_struktur
         if status_struktur != 'valid_struktur':
             if sudah_manual:
@@ -222,9 +249,9 @@ def validasi(schema_id: str, kode_list: list[str] | None = None) -> dict:
                 masalah.append({'kode': kode, 'jenis': 'validasi_struktur',
                                 'pesan': f'Validasi struktur: {status_struktur or "belum dijalankan"}.'})
 
-        kelengkapan = (data.get('validasi_kelengkapan') or {}).get('status')
+        kelengkapan = 'valid_kelengkapan' if koreksi_aktif else (data.get('validasi_kelengkapan') or {}).get('status')
         entri['kelengkapan'] = kelengkapan
-        hilang = (data.get('validasi_kelengkapan') or {}).get('kuk_hilang') or []
+        hilang = [] if koreksi_aktif else ((data.get('validasi_kelengkapan') or {}).get('kuk_hilang') or [])
         if kelengkapan != 'valid_kelengkapan' and not sudah_manual:
             masalah.append({'kode': kode, 'jenis': 'validasi_kelengkapan',
                             'pesan': f'Validasi kelengkapan KUK: {kelengkapan or "belum dijalankan"}.'})
@@ -268,6 +295,18 @@ def buat_dokumen(schema_id: str, kode_list: list[str] | None = None,
         raise GalatDokumen('Skema tidak ditemukan.', 404)
 
     periksa = validasi(schema_id, kode_list)
+    masalah_gagal = [
+        m for m in periksa['masalah']
+        if m.get('jenis') in ('json_tidak_ada', 'json_rusak', 'struktur')
+    ]
+    if masalah_gagal:
+        daftar_kode = ', '.join(sorted({m['kode'] for m in masalah_gagal}))
+        raise GalatDokumen(
+            f'Dokumen tidak dapat dibuat karena ada unit berstatus Gagal ({daftar_kode}): '
+            'Elemen Kompetensi atau KUK belum terbaca.',
+            409,
+            periksa['masalah'],
+        )
     if not periksa['lengkap'] and not setujui_draft:
         raise GalatDokumen(
             'Dokumen belum dapat dibuat final karena ada unit yang perlu diperiksa. '

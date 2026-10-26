@@ -11,9 +11,12 @@
 <article class="card">
   <div class="card-head">
     <h2>{{ dok.nama_asli }}</h2>
-    <span class="badge {% if dok.status_identifikasi == 'lengkap' %}badge-green{% else %}badge-amber{% endif %}">
-      identifikasi: {{ (dok.status_identifikasi or '-').replace('_', ' ') }}
-    </span>
+    <div class="aksi-group">
+      <a class="btn btn-small btn-ghost" href="/skkni/{{ dok.id }}/pdf" target="_blank" rel="noopener">Buka PDF ↗</a>
+      <span class="badge {% if dok.status_identifikasi == 'lengkap' %}badge-green{% else %}badge-amber{% endif %}">
+        identifikasi: {{ (dok.status_identifikasi or '-').replace('_', ' ') }}
+      </span>
+    </div>
   </div>
 
   <dl class="info-grid">
@@ -97,15 +100,27 @@
     <tbody>
       {% for u in units %}
       {% set v = peta_validasi.get(u.kode_unit) %}
+      {% set st3 = (peta_status_3 or {}).get(u.kode_unit) %}
       <tr>
         <td>{{ (page - 1) * 10 + loop.index }}</td>
         <td><code>{{ u.kode_unit }}</code></td>
         <td>{{ u.judul_unit or '—' }}</td>
         <td class="num" title="Indeks PDF 0-based: {{ u.halaman_pdf_0based }}">
-          {{ u.halaman_tampil }} <span class="muted small">(1-based)</span>
+          <a href="/skkni/{{ dok.id }}/pdf#page={{ u.halaman_tampil }}" target="_blank" rel="noopener">
+            {{ u.halaman_tampil }} <span class="muted small">(1-based) ↗</span>
+          </a>
         </td>
         <td>
-          {% if u.kode_unit in manual %}
+          {% if st3 %}
+            {% set st = st3 %}
+            {% include "_status_badge.html" %}
+            <div class="small muted" style="margin-top:2px;">
+              {{ st3.elemen_count or 0 }} elemen · {{ st3.kuk_count or 0 }} KUK
+            </div>
+            {% if st3.alasan %}
+              <div class="small {% if st3.status in ('gagal', 'perlu') %}warn-text{% else %}muted{% endif %}">{{ st3.alasan }}</div>
+            {% endif %}
+          {% elif u.kode_unit in manual %}
             <span class="badge badge-blue">terverifikasi manual</span>
           {% elif u.status == 'teridentifikasi' %}
             <span class="badge badge-green">teridentifikasi</span>

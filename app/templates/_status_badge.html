@@ -1,0 +1,10 @@
+{# Partial lencana status 3-tingkat (Fase 4F): siap, perlu, gagal #}
+{% if st %}
+  {% if st.status == 'siap' %}
+    <span class="badge badge-green" title="{{ st.alasan }}">● {{ st.label }}</span>
+  {% elif st.status == 'perlu' %}
+    <span class="badge badge-amber" title="{{ st.alasan }}">● {{ st.label }}</span>
+  {% else %}
+    <span class="badge badge-red" title="{{ st.alasan }}">● {{ st.label }}</span>
+  {% endif %}
+{% endif %}

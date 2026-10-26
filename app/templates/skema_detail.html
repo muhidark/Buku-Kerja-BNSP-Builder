@@ -34,21 +34,22 @@
 </article>
 
 {% set ringkas = (dok.hasil_pencocokan or {}).ringkasan or {} %}
+{% set gr = (gerbang or {}).ringkasan or {'total': dok.jumlah_unit or 0, 'siap': 0, 'perlu': 0, 'gagal': 0} %}
 <section class="cards cards-3">
   <article class="card stat">
-    <span class="stat-label">Unit kompetensi</span>
-    <span class="stat-value">{{ dok.jumlah_unit or 0 }}</span>
-    <span class="stat-note">sesuai urutan dokumen</span>
+    <span class="stat-label">● Siap dipakai</span>
+    <span class="stat-value" style="color:#15803d;">{{ gr.siap }}</span>
+    <span class="stat-note">dari {{ gr.total }} unit kompetensi</span>
   </article>
   <article class="card stat">
-    <span class="stat-label">Ditemukan di SKKNI</span>
-    <span class="stat-value">{{ ringkas.ditemukan if ringkas else '-' }}</span>
-    <span class="stat-note">kode cocok persis</span>
+    <span class="stat-label">● Perlu diperiksa</span>
+    <span class="stat-value" style="color:#b45309;">{{ gr.perlu }}</span>
+    <span class="stat-note">perlu koreksi / verifikasi</span>
   </article>
   <article class="card stat">
-    <span class="stat-label">Belum ditemukan</span>
-    <span class="stat-value">{{ ringkas.tidak_ditemukan if ringkas else '-' }}</span>
-    <span class="stat-note">{{ ringkas.konflik or 0 }} konflik · {{ ringkas.judul_berbeda or 0 }} judul berbeda</span>
+    <span class="stat-label">● Gagal</span>
+    <span class="stat-value" style="color:#b91c1c;">{{ gr.gagal }}</span>
+    <span class="stat-note">{{ ringkas.ditemukan if ringkas else 0 }} cocok di SKKNI · {{ ringkas.tidak_ditemukan if ringkas else 0 }} belum ditemukan</span>
   </article>
 </section>
 
@@ -119,28 +120,64 @@
       </p>
       {% endif %}
 
+      {% if gerbang and not gerbang.siap_semua %}
+      <div class="alert {% if gerbang.ada_gagal %}alert-galat{% else %}alert-info{% endif %}" style="margin-bottom: 14px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap;">
+          <div>
+            <strong>⚠ Dokumen belum siap dibuat final:</strong>
+            terdapat {{ gerbang.ringkasan.gagal }} unit <strong>Gagal</strong> dan {{ gerbang.ringkasan.perlu }} unit <strong>Perlu diperiksa</strong>.
+            <ul style="margin:6px 0 0 18px; padding:0;">
+              {% for p_unit in gerbang.penahan %}
+              <li>
+                <code>{{ p_unit.kode_unit }}</code> ({{ p_unit.label }}): {{ p_unit.alasan }}
+                — <a href="/skema/{{ dok.id }}/unit/{{ p_unit.kode_unit }}/koreksi" style="font-weight:600; text-decoration:underline;">Koreksi</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <button type="button" class="btn btn-small btn-ghost" onclick="bukaModalGerbangDokumen()">
+            Lihat Detail Penahan
+          </button>
+        </div>
+      </div>
+      {% endif %}
+
       {% if ada_json %}
       <form method="post" action="/hasil/generate">
         <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
         <input type="hidden" name="schema_id" value="{{ dok.id }}">
         <div class="checklist" style="max-height: 260px; overflow-y: auto; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 6px; padding: 10px 14px; background: #fafafa;">
           {% for u in dok.units %}
+            {% set st3_chk = (peta_status_3 or {}).get(u.kode_unit) or {} %}
             {% if u.kode_unit in ada_json %}
             <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px; cursor: pointer;">
-              <input type="checkbox" name="kode_unit" value="{{ u.kode_unit }}" checked>
-              <span><code>{{ u.kode_unit }}</code> {{ u.judul_skema }}</span>
+              <input type="checkbox" name="kode_unit" value="{{ u.kode_unit }}" {% if st3_chk.status != 'gagal' %}checked{% endif %}>
+              <span>
+                <code>{{ u.kode_unit }}</code> {{ u.judul_skema }}
+                {% set st = st3_chk %}{% include "_status_badge.html" %}
+              </span>
             </label>
             {% endif %}
           {% endfor %}
         </div>
         <label class="cek-draft" style="display: block; margin-bottom: 15px; font-size: 13.5px;">
           <input type="checkbox" name="draft" value="1">
-          Buat sebagai draft bila ada unit yang perlu verifikasi
+          Buat sebagai draft bila ada unit yang perlu diperiksa
         </label>
-        <div>
-          <button type="submit" class="btn" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 8px 20px;">
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+          <button
+            type="submit"
+            class="btn"
+            style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 8px 20px;"
+            {% if gerbang and gerbang.ada_gagal %}disabled title="Tidak dapat membuat dokumen karena masih ada unit berstatus Gagal"{% endif %}
+          >
             📄 Buat Dokumen Word Sekarang
           </button>
+          {% if gerbang and not gerbang.siap_semua %}
+          <button type="button" class="btn btn-ghost btn-small" onclick="bukaModalGerbangDokumen()">
+            Mengapa ditahan? ({{ gerbang.penahan|length }} unit)
+          </button>
+          {% endif %}
         </div>
       </form>
       {% else %}
@@ -191,14 +228,24 @@
       <p class="muted small" style="margin-bottom: 16px;">
         Cetak dokumen fisik standar BNSP: <strong>FR.APL.01</strong> (Permohonan Sertifikasi) dan <strong>FR.APL.02</strong> (Asesmen Mandiri lengkap per Unit, Elemen, dan KUK). Murni template tanpa isian data asesi, siap print (Ctrl+P) atau simpan ke PDF.
       </p>
+      {% if gerbang and gerbang.ada_gagal %}
+      <div class="alert alert-galat" style="margin-bottom: 14px;">
+        Cetak Buku Kerja ditahan karena masih ada unit berstatus <strong>Gagal</strong> (0 elemen/KUK). Silakan lakukan <strong>Koreksi</strong> pada unit terkait terlebih dahulu.
+      </div>
+      {% endif %}
       <div class="aksi-group" style="gap: 10px; flex-wrap: wrap;">
-        <button type="button" class="btn btn-small" style="background:#16a34a; border-color:#16a34a; color:#fff;" onclick="bukaModalCetakApl('all')">
+        <button
+          type="button"
+          class="btn btn-small"
+          style="background:#16a34a; border-color:#16a34a; color:#fff;"
+          {% if gerbang and gerbang.ada_gagal %}disabled title="Ada unit Gagal"{% else %}onclick="bukaModalCetakApl('all')"{% endif %}
+        >
           🖨️ Cetak Semua Dokumen (Paket Lengkap)
         </button>
-        <button type="button" class="btn btn-small btn-ghost" onclick="bukaModalCetakApl('apl01')">
+        <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl01')"{% endif %}>
           📄 Cetak FR.APL.01
         </button>
-        <button type="button" class="btn btn-small btn-ghost" onclick="bukaModalCetakApl('apl02')">
+        <button type="button" class="btn btn-small btn-ghost" {% if gerbang and gerbang.ada_gagal %}disabled{% else %}onclick="bukaModalCetakApl('apl02')"{% endif %}>
           📝 Cetak FR.APL.02
         </button>
       </div>
@@ -224,7 +271,8 @@
     </thead>
     <tbody>
       {% for u in units %}
-      {% set st = peta_status.get(u.kode_unit) or {} %}
+      {% set st_lama = peta_status.get(u.kode_unit) or {} %}
+      {% set st3 = (peta_status_3 or {}).get(u.kode_unit) or {} %}
       {% set hasil = ((dok.hasil_pencocokan or {}).units or {}).get(u.kode_unit) or {} %}
       <tr>
         <td>{{ u.nomor_urut }}</td>
@@ -238,34 +286,50 @@
         <td>
           {% if hasil.pdf %}
             {{ hasil.pdf }}
-            <div class="small muted">halaman {{ (hasil.start_page or 0) + 1 }} (1-based)</div>
+            <div class="small muted">
+              {% if st3.skkni_id and st3.halaman_awal %}
+                <a href="/skkni/{{ st3.skkni_id }}/pdf#page={{ st3.halaman_awal }}" target="_blank" rel="noopener">
+                  halaman {{ st3.halaman_awal }}{% if st3.halaman_akhir and st3.halaman_akhir != st3.halaman_awal %}–{{ st3.halaman_akhir }}{% endif %} (1-based) ↗
+                </a>
+              {% else %}
+                halaman {{ (hasil.start_page or 0) + 1 }} (1-based)
+              {% endif %}
+            </div>
           {% else %}
             <span class="muted small">belum ditemukan</span>
           {% endif %}
         </td>
         <td>
-          <span class="badge {% if st.pencocokan == 'ditemukan' %}badge-green{% elif st.pencocokan == 'konflik' %}badge-amber{% else %}badge-red{% endif %}">
-            {{ (st.pencocokan or 'belum_ditemukan').replace('_', ' ') }}
-          </span>
-          <div class="small badge-baris">
-            <span class="tag-mini {{ 'on' if st.sudah_diekstrak else 'off' }}">diekstrak</span>
-            <span class="tag-mini {{ 'on' if st.valid_struktur else 'off' }}">valid struktur</span>
-            <span class="tag-mini {{ 'on' if st.valid_kelengkapan else 'off' }}">valid kelengkapan</span>
-            <span class="tag-mini {{ 'on' if st.terverifikasi_manual else 'off' }}">manual</span>
+          {% set st = st3 %}
+          {% include "_status_badge.html" %}
+          <div class="small muted" style="margin-top:4px;">
+            {{ st3.elemen_count or 0 }} elemen · {{ st3.kuk_count or 0 }} KUK
+            {% if st3.ada_koreksi and not st3.konflik_koreksi %}
+              · <span style="color:#15803d; font-weight:600;">✎ dikoreksi manual</span>
+            {% elif st3.konflik_koreksi %}
+              · <span class="warn-text" style="font-weight:600;">⚠ konflik koreksi</span>
+            {% endif %}
           </div>
+          {% if st3.alasan %}
+          <div class="small {% if st3.status == 'gagal' %}warn-text{% elif st3.status == 'perlu' %}warn-text{% else %}muted{% endif %}" style="margin-top:2px;">
+            {{ st3.alasan }}
+          </div>
+          {% endif %}
         </td>
         <td>
-          {% if u.kode_unit in ada_browser %}
-            <a class="btn btn-small" href="/skema/{{ dok.id }}/unit/{{ u.kode_unit }}">Preview</a>
-          {% elif st.pencocokan == 'ditemukan' %}
-            <form method="post" action="/skema/{{ dok.id }}/ekstrak" class="inline-form">
-              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-              <input type="hidden" name="kode_unit" value="{{ u.kode_unit }}">
-              <button type="submit" class="btn btn-small">Ekstrak</button>
-            </form>
-          {% else %}
-            <span class="muted small">—</span>
-          {% endif %}
+          <div class="aksi-group" style="gap:6px; flex-wrap:wrap;">
+            {% if u.kode_unit in ada_browser or u.kode_unit in ada_json %}
+              <a class="btn btn-small btn-ghost" href="/skema/{{ dok.id }}/unit/{{ u.kode_unit }}">Lihat</a>
+            {% endif %}
+            <a class="btn btn-small" href="/skema/{{ dok.id }}/unit/{{ u.kode_unit }}/koreksi">Koreksi</a>
+            {% if st_lama.pencocokan == 'ditemukan' %}
+              <form method="post" action="/skema/{{ dok.id }}/ekstrak" class="inline-form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                <input type="hidden" name="kode_unit" value="{{ u.kode_unit }}">
+                <button type="submit" class="btn btn-small btn-ghost">Ekstrak</button>
+              </form>
+            {% endif %}
+          </div>
         </td>
       </tr>
       {% endfor %}
@@ -315,6 +379,56 @@
   </p>
   {% endif %}
 </article>
+{% endif %}
+
+<!-- Modal Dialog C3: Gerbang Pembuatan Dokumen -->
+{% if gerbang and not gerbang.siap_semua %}
+<div id="modal-gerbang-dokumen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.65); z-index:99999; align-items:center; justify-content:center;">
+  <div style="max-width:580px; width:92%; margin:auto; background:#ffffff; box-shadow:0 10px 30px rgba(0,0,0,0.35); border-radius:8px; padding:24px; box-sizing:border-box;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid #e2e8f0; padding-bottom:10px;">
+      <h3 style="margin:0; font-size:16px; color:#b91c1c;">⚠ Dokumen belum bisa dibuat</h3>
+      <button type="button" onclick="tutupModalGerbangDokumen()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#64748b; line-height:1;">&times;</button>
+    </div>
+
+    {% if gerbang.ada_gagal %}
+    <div style="margin-bottom:14px;">
+      <p style="font-size:13.5px; font-weight:600; color:#991b1b; margin:0 0 8px;">
+        {{ gerbang.ringkasan.gagal }} unit gagal diekstrak dan belum memiliki KUK:
+      </p>
+      {% for u_g in gerbang.penahan if u_g.status == 'gagal' %}
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; background:#fef2f2; border:1px solid #fecaca; border-radius:6px; margin-bottom:6px;">
+        <div>
+          <div><code>{{ u_g.kode_unit }}</code> — <strong>{{ u_g.judul_unit }}</strong></div>
+          <div class="small muted">{{ u_g.alasan }}</div>
+        </div>
+        <a class="btn btn-small" href="/skema/{{ dok.id }}/unit/{{ u_g.kode_unit }}/koreksi">Koreksi</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {% if gerbang.ada_perlu %}
+    <div style="margin-bottom:16px;">
+      <p style="font-size:13.5px; font-weight:600; color:#92400e; margin:0 0 8px;">
+        {{ gerbang.ringkasan.perlu }} unit masih perlu diperiksa:
+      </p>
+      {% for u_p in gerbang.penahan if u_p.status == 'perlu' %}
+      <div style="display:flex; justify-content:space-between; align-items:center; gap:10px; padding:8px 10px; background:#fffbeb; border:1px solid #fde68a; border-radius:6px; margin-bottom:6px;">
+        <div>
+          <div><code>{{ u_p.kode_unit }}</code> — <strong>{{ u_p.judul_unit }}</strong></div>
+          <div class="small muted">{{ u_p.alasan }}</div>
+        </div>
+        <a class="btn btn-small" href="/skema/{{ dok.id }}/unit/{{ u_p.kode_unit }}/koreksi">Koreksi</a>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div style="display:flex; justify-content:flex-end;">
+      <button type="button" class="btn btn-ghost" onclick="tutupModalGerbangDokumen()">Tutup</button>
+    </div>
+  </div>
+</div>
 {% endif %}
 
 <!-- Modal Parameter Cetak Buku Kerja APL -->
@@ -413,6 +527,16 @@ function bukaModalCetakApl(docType) {
 
 function tutupModalCetakApl() {
   document.getElementById('modal-cetak-apl').style.display = 'none';
+}
+
+function bukaModalGerbangDokumen() {
+  var m = document.getElementById('modal-gerbang-dokumen');
+  if (m) m.style.display = 'flex';
+}
+
+function tutupModalGerbangDokumen() {
+  var m = document.getElementById('modal-gerbang-dokumen');
+  if (m) m.style.display = 'none';
 }
 
 function prosesCetakApl(e) {

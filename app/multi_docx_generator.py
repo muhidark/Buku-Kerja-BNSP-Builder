@@ -20,22 +20,27 @@ Contoh spesifikasi:
 import json
 from pathlib import Path
 
+from app import koreksi
 from app.docx_generator import dokumen_baru, tambah_unit
 
 DEFAULT_JSON_DIR = Path(__file__).resolve().parent.parent / 'data' / 'json' / 'cross_skkni'
 
 
 def _muat_unit(item: dict, json_dir: Path) -> dict:
-    """Ambil JSON unit berdasarkan kode (bukan nama berkas SKKNI)."""
+    """Ambil JSON unit berdasarkan kode (dan terapkan koreksi manual bila ada)."""
     kode = item['kode']
     if item.get('json'):
         path = Path(item['json'])
     else:
         path = json_dir / f'{kode}.json'
-    if not path.exists():
-        raise FileNotFoundError(f'JSON unit {kode} tidak ditemukan: {path}')
-    with open(path, encoding='utf-8') as f:
-        return json.load(f)
+    if path.exists():
+        with open(path, encoding='utf-8') as f:
+            data = json.load(f)
+        return koreksi.terapkan_koreksi_ke_data(data, kode) or data
+    unit_kor = koreksi.ambil_unit_final(kode)
+    if unit_kor is not None:
+        return unit_kor
+    raise FileNotFoundError(f'JSON unit {kode} tidak ditemukan: {path}')
 
 
 def generate_multi_docx(units: list[dict] | dict, output_path: str,
