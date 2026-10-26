@@ -38,4 +38,4 @@ echo "  alamat : http://$HOST:$PORT"
 echo "  berhenti: Ctrl+C"
 echo
 
-exec "$PY" -m uvicorn app.main:app --host "$HOST" --port "$PORT"
+exec "$PY" -m uvicorn app.main:app --host "$HOST" --port "$PORT" --reload
