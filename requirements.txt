@@ -1,17 +1,15 @@
-flatbuffers==25.12.19
-networkx==3.7
-numpy==2.5.4
-onnxruntime==1.31.0
-packaging==26.3
-protobuf==7.36.2
-psutil==7.2.2
+# Dependensi runtime — dipangkas & dipin (perbaikan Fase 0.2)
+#
+# Sebelumnya berkas ini memuat 11 paket yang tidak pernah diimpor aplikasi
+# (flatbuffers, networkx, numpy, onnxruntime, packaging, protobuf, psutil,
+# pymupdf4llm, pymupdf_layout, PyYAML, tabulate) dan tidak memuat
+# python-multipart, padahal FastAPI membutuhkannya untuk Form() dan UploadFile
+# (dipakai 19 kali di app/). Versi kini dipin seragam dengan '=='.
+
 pymupdf==2.0
-pymupdf4llm==2.0
-pymupdf_layout==2.0
-PyYAML==6.0.3
-tabulate==0.10.0
-python-docx>=1.1
-fastapi>=0.110
-uvicorn>=0.27
-jinja2>=3.1
-httpx>=0.27
+python-docx==1.2.0
+fastapi==0.161.1
+uvicorn==0.54.0
+jinja2==3.1.6
+httpx==0.28.1
+python-multipart==0.0.32
