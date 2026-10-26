@@ -730,12 +730,21 @@
 
     </div>
 
-    <!-- Footer Tombol Simpan -->
-    <div style="padding: 14px 22px; background: #f8fafc; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-      <span class="muted small">Perubahan akan langsung diterapkan pada seluruh formulir Buku Kerja skema ini.</span>
-      <button type="submit" class="btn" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 9px 22px; font-weight: 600;">
-        💾 Simpan Seluruh Pengaturan MUK
-      </button>
+    <!-- Footer Tombol Simpan (menempel di bawah agar perubahan tidak terlewat) -->
+    <div class="muk-simpan-bar" id="muk-simpan-bar">
+      <div class="muk-simpan-status">
+        <span class="muk-simpan-info" id="muk-simpan-info"></span>
+        <span class="muk-simpan-pesan" id="muk-simpan-pesan" role="alert"></span>
+        <span class="muted small">Perubahan diterapkan pada seluruh formulir Buku Kerja skema ini.</span>
+      </div>
+      <div class="aksi-group">
+        <button type="button" class="btn btn-small btn-ghost" id="muk-tombol-bagian" onclick="simpanBagianAktif()">
+          Simpan bagian ini
+        </button>
+        <button type="submit" class="btn btn-primary">
+          💾 Simpan Seluruh Pengaturan MUK
+        </button>
+      </div>
     </div>
   </article>
 </form>
@@ -1239,7 +1248,7 @@ function tambahBuktiIa08() {
   wadah.appendChild(div);
 }
 
-function siapkanPayloadMuk() {
+function susunPayload() {
   var kelompokRaw = ambilKelompokDariDom();
   var kelompok = kelompokRaw.map(function(g, idx) {
     return { id: g.id || ('kp_' + (idx + 1)), nama: g.nama, urutan: g.urutan || (idx + 1), units: g.units };
@@ -1354,11 +1363,187 @@ function siapkanPayloadMuk() {
     }
   };
 
-  document.getElementById('muk-json-input').value = JSON.stringify(payload);
+  return payload;
+}
+
+function siapkanPayloadMuk() {
+  // Dipanggil saat formulir lengkap dikirim (tombol "Simpan Seluruh...").
+  document.getElementById('muk-json-input').value = JSON.stringify(susunPayload());
+}
+
+/* =========================================================================
+   Penanda perubahan & simpan per bagian (langkah 3.4, temuan T-08).
+   Sebelumnya 88 isian berada dalam satu form tanpa penanda apa pun, sehingga
+   pengguna bisa menutup tab dan kehilangan pekerjaan tanpa peringatan.
+   ========================================================================= */
+var BAGIAN_PANEL = {
+  'muk-personel': ['personel'],
+  'muk-kelompok': ['kelompok_pekerjaan'],
+  'muk-ia02': ['ia02'],
+  'muk-ia03': ['ia03'],
+  'muk-ia04': ['ia04'],
+  'muk-ia05': ['ia05'],
+  'muk-ia06': ['ia06'],
+  'muk-ia07': ['ia07'],
+  'muk-ia08': ['ia08']
+};
+var panelKotor = {};
+
+function panelAktifId() {
+  var p = document.querySelector('.muk-panel.is-active');
+  return p ? p.id : 'muk-personel';
+}
+
+function panelDari(el) {
+  var p = el && el.closest ? el.closest('.muk-panel') : null;
+  return p ? p.id : null;
+}
+
+function namaBagian(panelId) {
+  var btn = document.getElementById('btn-' + panelId);
+  if (!btn) return 'bagian ini';
+  var teks = (btn.textContent || '').trim();
+  return teks.replace(/belum disimpan/i, '').trim() || 'bagian ini';
+}
+
+function perbaruiBilahSimpan() {
+  var n = Object.keys(panelKotor).length;
+  var info = document.getElementById('muk-simpan-info');
+  if (info) {
+    info.textContent = n === 0 ? ''
+      : (n === 1 ? '1 bagian belum disimpan' : n + ' bagian belum disimpan');
+  }
+  var tombol = document.getElementById('muk-tombol-bagian');
+  if (tombol) {
+    tombol.textContent = 'Simpan ' + namaBagian(panelAktifId());
+  }
+}
+
+function tandaiKotor(panelId) {
+  if (!panelId || !BAGIAN_PANEL[panelId] || panelKotor[panelId]) return;
+  panelKotor[panelId] = true;
+  var btn = document.getElementById('btn-' + panelId);
+  if (btn && !btn.querySelector('.muk-kotor')) {
+    var badge = document.createElement('span');
+    badge.className = 'muk-kotor';
+    badge.textContent = 'belum disimpan';
+    btn.appendChild(badge);
+  }
+  var pesan = document.getElementById('muk-simpan-pesan');
+  if (pesan) pesan.textContent = '';
+  perbaruiBilahSimpan();
+}
+
+function bersihkanKotor(panelId) {
+  delete panelKotor[panelId];
+  var btn = document.getElementById('btn-' + panelId);
+  if (btn) {
+    var badge = btn.querySelector('.muk-kotor');
+    if (badge) badge.remove();
+  }
+  perbaruiBilahSimpan();
+}
+
+function adaPerubahanBelumDisimpan() {
+  return Object.keys(panelKotor).length > 0;
+}
+
+function bersihkanSemuaKotor() {
+  Object.keys(panelKotor).forEach(bersihkanKotor);
+}
+
+function tampilkanPesanSimpan(teks) {
+  var el = document.getElementById('muk-simpan-pesan');
+  if (el) el.textContent = teks || '';
+}
+
+/* Validasi sederhana per bagian: menolak menyimpan bagian yang benar-benar
+   kosong, dengan pesan yang menyebut apa yang kurang. Bagian yang sudah ada
+   isinya selalu boleh disimpan agar alur kerja tidak terhambat. */
+function validasiBagian(panelId, bagian) {
+  if (panelId === 'muk-kelompok') {
+    var kp = bagian.kelompok_pekerjaan || [];
+    if (!kp.length) return 'Belum ada kelompok pekerjaan. Tambahkan minimal satu kelompok lebih dulu.';
+    if (kp.some(function(g) { return !g.nama; })) return 'Ada kelompok pekerjaan tanpa nama. Isi namanya dulu.';
+  }
+  if (panelId === 'muk-ia02') {
+    var a = bagian.ia02 || {};
+    if (!a.skenario && !a.langkah_kerja && !a.hasil_kerja && !a.durasi_waktu) {
+      return 'Skenario, langkah kerja, hasil kerja, dan durasi masih kosong semua.';
+    }
+  }
+  if (panelId === 'muk-ia03' && !(bagian.ia03 && (bagian.ia03.questions || []).length)) {
+    return 'Belum ada pertanyaan PMO (FR.IA.03). Tambahkan minimal satu pertanyaan.';
+  }
+  if (panelId === 'muk-ia04') {
+    var b = bagian.ia04 || {};
+    if (!b.judul_kegiatan && !(b.questions || []).length) {
+      return 'Judul kegiatan dan pertanyaan FR.IA.04 masih kosong semua.';
+    }
+  }
+  if (panelId === 'muk-ia05') {
+    var c = bagian.ia05 || {};
+    if (!c.pertanyaan && !c.kunci) return 'Naskah soal dan kunci jawaban FR.IA.05 masih kosong semua.';
+  }
+  if (panelId === 'muk-ia06' && !(bagian.ia06 && (bagian.ia06.questions || []).length)) {
+    return 'Belum ada pertanyaan esai (FR.IA.06). Tambahkan minimal satu pertanyaan.';
+  }
+  if (panelId === 'muk-ia07' && !(bagian.ia07 && (bagian.ia07.questions || []).length)) {
+    return 'Belum ada pertanyaan lisan (FR.IA.07). Tambahkan minimal satu pertanyaan.';
+  }
+  return '';
+}
+
+/* Menyimpan HANYA bagian pada tab yang sedang dibuka, sehingga tab lain tidak
+   ikut tersentuh (sebelumnya satu tombol menyimpan seluruh 88 isian). */
+function simpanBagianAktif() {
+  var panelId = panelAktifId();
+  var kunci = BAGIAN_PANEL[panelId] || [];
+  var penuh = susunPayload();
+  var bagian = {};
+  kunci.forEach(function(k) { bagian[k] = penuh[k]; });
+
+  var galat = validasiBagian(panelId, bagian);
+  if (galat) {
+    tampilkanPesanSimpan(galat);
+    return;
+  }
+  tampilkanPesanSimpan('');
+  document.getElementById('muk-json-input').value = JSON.stringify(bagian);
+  bersihkanSemuaKotor();   // jangan picu peringatan "tinggalkan halaman?"
+  var form = document.getElementById('form-muk');
+  // form.submit() tidak memicu onsubmit, jadi payload bagian tidak tertimpa.
+  form.submit();
+}
+
+function pasangPengawasPerubahan() {
+  var form = document.getElementById('form-muk');
+  if (!form) return;
+  form.addEventListener('input', function(e) { tandaiKotor(panelDari(e.target)); });
+  form.addEventListener('change', function(e) { tandaiKotor(panelDari(e.target)); });
+
+  document.querySelectorAll('.muk-panel').forEach(function(panel) {
+    panel.addEventListener('click', function() {
+      perbaruiBilahSimpan();
+      tampilkanPesanSimpan('');
+    });
+  });
+
+  form.addEventListener('submit', function() { bersihkanSemuaKotor(); });
+
+  window.addEventListener('beforeunload', function(e) {
+    if (!adaPerubahanBelumDisimpan()) return;
+    e.preventDefault();
+    e.returnValue = '';
+    return '';
+  });
+
+  perbaruiBilahSimpan();
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   perbaruiStatistikKelompok();
+  pasangPengawasPerubahan();
 });
 </script>
 

@@ -524,3 +524,21 @@ input[type="checkbox"], input[type="radio"] { width: 16px; height: 16px; accent-
   padding: 0; overflow: hidden; margin-bottom: 24px;
   box-shadow: var(--shadow); border: 1px solid var(--border);
 }
+
+/* --- halaman MUK: penanda perubahan & bilah simpan (langkah 3.4, T-08) --- */
+.muk-simpan-bar {
+  position: sticky; bottom: 0; z-index: 5;
+  padding: 12px 22px; background: #f8fafc; border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  gap: 12px; flex-wrap: wrap;
+}
+.muk-simpan-status { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.muk-simpan-info { font-size: 13px; font-weight: 700; color: var(--amber); }
+.muk-simpan-info:empty { display: none; }
+.muk-simpan-pesan { font-size: 12.5px; font-weight: 600; color: var(--red); }
+.muk-simpan-pesan:empty { display: none; }
+.muk-kotor {
+  display: inline-block; margin-left: 6px; padding: 1px 7px; border-radius: 999px;
+  background: var(--amber-bg); color: var(--amber);
+  font-size: 12px; font-weight: 700; white-space: nowrap;
+}
