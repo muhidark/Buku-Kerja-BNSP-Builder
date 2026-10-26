@@ -32,7 +32,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from app import schema_library, status_units
+from app import db, schema_library, status_units
 from app.lsp_exporter import ambil_json_unit
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -516,22 +516,36 @@ def muat_konfigurasi_muk(
     nama_skema: str = "Skema Sertifikasi",
     daftar_unit: Optional[List[Dict[str, Any]]] = None,
     nomor_skema: str = "",
+    kode_versi: str = "",
 ) -> Dict[str, Any]:
-    """Memuat konfigurasi MUK per skema dari disk, digabung dengan nilai default."""
+    """Memuat konfigurasi MUK per skema (bisa spesifik versi dari DB SQLite atau default aktif)."""
     unit_list = daftar_unit or []
     default_cfg = default_konfigurasi_muk(nama_skema, unit_list, nomor_skema=nomor_skema)
-    try:
-        jalur = _jalur_muk(schema_id)
-    except ValueError:
-        return default_cfg
 
-    if not jalur.exists():
-        return default_cfg
+    # 1. Coba ambil dari multi-versi SQLite
+    saved_db = None
+    if kode_versi:
+        row = db.ambil_versi_muk(schema_id, kode_versi)
+        if row and row.get("payload"):
+            saved_db = row["payload"]
+    else:
+        # Cari versi aktif di SQLite
+        semua_v = db.daftar_versi_muk_skema(schema_id)
+        aktif_v = next((v for v in semua_v if v.get("is_aktif")), None)
+        if aktif_v:
+            row = db.ambil_versi_muk(schema_id, aktif_v["kode_versi"])
+            if row and row.get("payload"):
+                saved_db = row["payload"]
 
-    try:
-        saved = json.loads(jalur.read_text(encoding="utf-8"))
-    except Exception:
-        return default_cfg
+    saved = saved_db
+    # 2. Bila belum ada di SQLite, muat dari file JSON legasi
+    if not saved:
+        try:
+            jalur = _jalur_muk(schema_id)
+            if jalur.exists():
+                saved = json.loads(jalur.read_text(encoding="utf-8"))
+        except Exception:
+            pass
 
     if not isinstance(saved, dict):
         return default_cfg
@@ -547,8 +561,16 @@ def muat_konfigurasi_muk(
     return default_cfg
 
 
-def simpan_konfigurasi_muk(schema_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
-    """Menyimpan konfigurasi MUK & Kelompok Pekerjaan untuk suatu skema ke disk."""
+def simpan_konfigurasi_muk(
+    schema_id: str,
+    payload: Dict[str, Any],
+    kode_versi: str = "v1",
+    nama_versi: str = "Paket MUK Utama",
+    deskripsi: str = "",
+    dibuat_oleh: Optional[int] = None,
+    is_aktif: bool = True,
+) -> Dict[str, Any]:
+    """Menyimpan konfigurasi MUK & Kelompok Pekerjaan ke file disk dan basis data SQLite (multi-versi)."""
     doc = schema_library.ambil_skema(schema_id)
     nama_skema = (doc or {}).get("nama_skema") or "Skema Sertifikasi"
     nomor_skema = (doc or {}).get("nomor_dokumen") or ""
@@ -558,7 +580,7 @@ def simpan_konfigurasi_muk(schema_id: str, payload: Dict[str, Any]) -> Dict[str,
         for u in units_raw
     ]
 
-    cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema)
+    cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema, kode_versi=kode_versi)
 
     if isinstance(payload.get("personel"), dict):
         for k, v in payload["personel"].items():
@@ -709,6 +731,21 @@ def simpan_konfigurasi_muk(schema_id: str, payload: Dict[str, Any]) -> Dict[str,
     cfg["diperbarui_pada"] = datetime.now().isoformat(timespec="seconds")
     jalur = _jalur_muk(schema_id)
     jalur.write_text(json.dumps(cfg, ensure_ascii=False, indent=2), encoding="utf-8")
+
+    # Simpan juga ke multi-versi SQLite
+    try:
+        db.simpan_versi_muk(
+            schema_id=schema_id,
+            kode_versi=kode_versi,
+            nama_versi=nama_versi,
+            data_payload=cfg,
+            deskripsi=deskripsi,
+            dibuat_oleh=dibuat_oleh,
+            is_aktif=is_aktif,
+        )
+    except Exception:
+        pass
+
     return cfg
 
 
@@ -868,6 +905,7 @@ def susun_data_buku_kerja(
     met_validator: str = "",
     nama_manajer: str = "",
     tanggal_pelaksanaan: str = "",
+    kode_versi: str = "",
 ) -> Optional[Dict[str, Any]]:
     """
     Menyusun data lengkap skema, unit kompetensi (Elemen + KUK), kelompok pekerjaan,
@@ -958,7 +996,7 @@ def susun_data_buku_kerja(
 
     # Muat konfigurasi MUK tersimpan untuk skema ini
     nomor_skema_awal = doc.get("kode_skema") or doc.get("nomor_skema") or doc.get("nomor_dokumen") or ""
-    muk_cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema=nomor_skema_awal)
+    muk_cfg = muat_konfigurasi_muk(schema_id, nama_skema, daftar_unit, nomor_skema=nomor_skema_awal, kode_versi=kode_versi)
     personel = muk_cfg.get("personel") or {}
 
     nomor_skema_final = no_skema.strip() or personel.get("nomor_skema") or nomor_skema_awal
@@ -1150,4 +1188,6 @@ def susun_data_buku_kerja(
         "daftar_dokumen": DAFTAR_DOKUMEN_BUKU_KERJA,
         "dimensi_labels": DIMENSI_KOMPETENSI_LABELS,
         "gerbang": gerbang,
+        "daftar_versi_muk": db.daftar_versi_muk_skema(schema_id),
+        "versi_aktif": kode_versi or next((v["kode_versi"] for v in db.daftar_versi_muk_skema(schema_id) if v.get("is_aktif")), "v1"),
     }

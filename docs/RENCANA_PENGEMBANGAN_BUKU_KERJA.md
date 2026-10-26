@@ -15,7 +15,7 @@
 | **Fase 3: Konversi Template Dokumen Buku Kerja ke Jinja2** | **SELESAI (100%)** | 25 parsial Jinja2 di `app/templates/buku_kerja/` (`APL.01–02`, `MAPA.01` [Obs/DIT/Port], `Peta Kelompok`, `MAPA.02`, `AK.01–07`, `IA.01–08`, dan `FR.VA` Form Kosongan) + mode cetak satuan & paket metode. |
 | **Fase 3B: Instrumen Lanjutan (`IA.06–08` & `FR.VA`)** | **SELESAI (100%)** | `FR.IA.06A/B/C` (Esai), `IA.07` (Lisan), `IA.08` (Ceklis Verifikasi Portofolio), dan `FR.VA` (Form Kosongan Validasi Asesmen). `IA.09` & `IA.10` dilewati sesuai arahan. |
 | **Fase 3C: Asisten Referensi BV/PP & Ekspor `.docx`/`.zip` Buku Kerja** | **SELESAI (100%)** | Ekstraksi & panel referensi otomatis Batasan Variabel (Peralatan/Perlengkapan) & Panduan Penilaian (Aspek Kritis/Pengetahuan/Sikap Kerja) di `/skema/{schema_id}/muk` dengan tombol tarik 1-klik ke `IA.02`, `IA.03`, `IA.06`, `IA.07` + Generator unduh `.docx` & bundel `.zip` bernomor urut (`app/buku_kerja_docx.py`). |
-| **Fase 1: Multi-User (Login/RBAC SQLite) & Katalog SKKNI Terpusat** | **BELUM** | Pemisahan role `Admin/Kurator Master` (verifikasi SKKNI & status berlaku/dicabut Kemnaker) vs `User/LSP/Asesor` (ruang kerja skema & MUK terpisah). |
+| **Fase 1: Multi-User (Login/RBAC SQLite) & Katalog SKKNI Terpusat** | **SELESAI (100%)** | Basis data SQLite `data/app.db` (`app/db.py`), otentikasi & manajemen sesi PBKDF2/SHA-256 (`admin` vs `asesor`), status regulasi Kemnaker (`Berlaku`/`Dicabut` + Kepmenaker pengganti), dan multi-versi paket MUK per skema. |
 | **Fase 4: REST API Eksternal (`/api/v1/...`) dengan API Key** | **BELUM** | Endpoint sinkronisasi otomatis ke plugin WordPress / LMS eksternal menggunakan `X-API-Key`. |
 
 ---
@@ -105,21 +105,19 @@ Mengacu pada paket dokumen acuan (contoh: *Skema Videografer*) dan template yang
      - `tarikPpKeIa03()`, `tarikPpKeIa06()`, dan `tarikPpKeIa07()` untuk menyusun draf pertanyaan dan kunci jawaban dari Aspek Kritis, Sikap Kerja, dan Pengetahuan SKKNI.
    - `app/buku_kerja_docx.py` & endpoint `/skema/{schema_id}/unduh-buku-kerja-docx` serta `/skema/{schema_id}/unduh-buku-kerja-zip`: Mengonversi seluruh formulir Buku Kerja menjadi dokumen Word (`.docx`) satuan, gabungan, maupun bundel `.zip` bernomor urut (`01_FR.APL.01.docx` s/d `25_FR.VA.docx`).
    - Seluruh pengujian otomatis (`tests/test_buku_kerja.py`, `tests/test_gerbang_dokumen.py`, `tests/test_koreksi.py`, `tests/test_koreksi_konflik.py`, `tests/test_web.py`) lulus 100%.
+5. **Katalog SKKNI Terpusat, SQLite Multi-User & Multi-Versi MUK (`Fase 1`):**
+   - Basis data SQLite lokal di `data/app.db` via modul `app/db.py` dengan tabel `pengguna`, `sesi`, `regulasi_skkni`, dan `muk_versi`.
+   - Sistem login dan manajemen sesi berbasis cookie `skkni_session` dengan hashing PBKDF2-HMAC-SHA256 (Akun bawaan: `admin` [Kurator Master] dan `asesor` [Penyusun Skema/MUK]).
+   - Status regulasi SKKNI Kemnaker (`Berlaku` vs `Dicabut` beserta nomor Kepmenaker pengganti) yang dapat dikurasi oleh Admin dan ditampilkan pada daftar & detail SKKNI.
+   - Dukungan Multi-Versi Paket MUK per skema (misal: Paket Versi A, Paket Versi B) yang disimpan secara terisolasi di SQLite dan terhubung langsung ke editor MUK.
 
 ---
 
 ## 4. Bagian C — Apa yang Belum Dikerjakan & Rencana Pengembangan Berikutnya
 
-Seluruh fitur inti ekstraksi, koreksi per-unit, Kelompok Pekerjaan, Asisten MUK (BV/PP), pencetakan HTML A4, dan ekspor `.docx`/`.zip` untuk 24 Dokumen Buku Kerja BNSP V.2023 telah **selesai 100%**. Tahapan pengembangan berikutnya berfokus pada arsitektur komersial multi-user dan integrasi eksternal:
+Seluruh fitur inti ekstraksi, koreksi per-unit, Kelompok Pekerjaan, Asisten MUK (BV/PP), pencetakan HTML A4, ekspor `.docx`/`.zip`, serta sistem database SQLite multi-user & multi-versi MUK telah **selesai 100%**. Tahapan pengembangan berikutnya berfokus pada integrasi eksternal:
 
-### Prioritas 1 — Katalog SKKNI Terpusat & Sistem Multi-User Komersial (Fase 1 Arsitektur SaaS)
-1. **Migrasi Metadata ke SQLite (`data/app.db`) & Autentikasi Multi-User (RBAC):**
-   - **Role `Admin / Kurator Master`:** Mengunggah PDF SKKNI, melakukan koreksi unit hingga berstatus `Siap dipakai`, serta memberi label status regulasi Kemnaker (`Berlaku` / `Dicabut` beserta tautan referensi Kepmenaker).
-   - **Role `User / LSP / Asesor`:** Menggunakan unit kompetensi dari **Katalog SKKNI Terpusat** secara instan (*Read-Only* terhadap Master SKKNI) untuk merakit Skema Sertifikasi dan Paket MUK di ruang kerjanya masing-masing tanpa saling menimpa.
-2. **Multi-Versi Paket MUK per Skema:**
-   - Memungkinkan satu skema memiliki beberapa versi paket soal/instrumen (misal: *Paket MUK Versi A*, *Paket MUK Versi B*).
-
-### Prioritas 2 — REST API Eksternal (`/api/v1/...`) dengan API Key (Fase 4 Integrasi)
+### Prioritas Terakhir — REST API Eksternal (`/api/v1/...`) dengan API Key (Fase 4 Integrasi)
 1. **Endpoint Terproteksi `X-API-Key`:**
    - `GET /api/v1/skkni` & `GET /api/v1/skkni/{kode_unit}` — Mengambil data unit, elemen, KUK, BV, dan PP yang sudah terverifikasi.
    - `GET /api/v1/skema` & `GET /api/v1/skema/{id}/muk` — Sinkronisasi langsung daftar unit, kelompok pekerjaan, dan instrumen MUK ke plugin WordPress (`lsp-certification-management`) tanpa *Smart Paste* manual.

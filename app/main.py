@@ -20,7 +20,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.concurrency import run_in_threadpool
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from app import jobs, koreksi, library, schema_library, status_units, web_data
+from app import db, jobs, koreksi, library, schema_library, status_units, web_data
 from app.buku_kerja import (
     DAFTAR_DOKUMEN_BUKU_KERJA,
     simpan_konfigurasi_muk,
@@ -47,6 +47,7 @@ from app.version import __version__
 from app.logging_config import inisialisasi_logging, ambil_logger
 
 logger = inisialisasi_logging()
+db.inisialisasi_db()
 
 BASE_DIR = Path(__file__).resolve().parent
 TEMPLATE_DIR = BASE_DIR / 'templates'
@@ -86,7 +87,11 @@ HALAMAN = [
 
 
 def _render(request: Request, template: str, **konteks) -> HTMLResponse:
-    """Render template dengan konteks navigasi standar."""
+    """Render template dengan konteks navigasi standar dan informasi pengguna sesi."""
+    token_sesi = request.cookies.get('skkni_session', '')
+    pengguna = db.ambil_pengguna_dari_sesi(token_sesi)
+    konteks.setdefault('pengguna_aktif', pengguna)
+    konteks.setdefault('csrf_token', security.token_dari_cookie(request))
     konteks.setdefault('halaman', HALAMAN)
     konteks.setdefault('versi', VERSI)
     path = request.url.path
@@ -115,6 +120,47 @@ def _ke_skema(pesan: str = '', tipe: str = '', doc_id: str = '') -> RedirectResp
     return _redirect_daftar('/skema', pesan, tipe, doc_id)
 
 
+@app.get('/login', response_class=HTMLResponse)
+def halaman_login(request: Request, pesan: str = '', tipe: str = ''):
+    token = security.token_dari_cookie(request)
+    resp = _render(request, 'login.html', judul='Masuk Akun', pesan=pesan, tipe=tipe, csrf_token=token)
+    security.set_cookie_token(resp, token)
+    return resp
+
+
+@app.post('/login')
+async def proses_login(request: Request):
+    form = await request.form()
+    csrf_token = str(form.get('csrf_token') or '')
+    security.periksa_token(request, csrf_token)
+
+    username = str(form.get('username') or '').strip()
+    password = str(form.get('password') or '').strip()
+
+    pengguna = db.autentikasi(username, password)
+    if not pengguna:
+        return RedirectResponse(
+            url='/login?tipe=galat&pesan=' + quote('Nama pengguna atau kata sandi salah.'),
+            status_code=303,
+        )
+
+    token_sesi = db.buat_sesi(pengguna['id'])
+    resp = RedirectResponse(url='/?tipe=sukses&pesan=' + quote(f'Selamat datang, {pengguna["nama_lengkap"]}!'), status_code=303)
+    resp.set_cookie('skkni_session', token_sesi, httponly=True, samesite='lax', path='/', max_age=60 * 60 * 24 * 7)
+    return resp
+
+
+@app.post('/logout')
+def proses_logout(request: Request, csrf_token: str = Form('')):
+    security.periksa_token(request, csrf_token)
+    token_sesi = request.cookies.get('skkni_session', '')
+    if token_sesi:
+        db.hapus_sesi(token_sesi)
+    resp = RedirectResponse(url='/login?tipe=info&pesan=' + quote('Anda telah berhasil keluar.'), status_code=303)
+    resp.delete_cookie('skkni_session', path='/')
+    return resp
+
+
 @app.get('/', response_class=HTMLResponse)
 def halaman_dashboard(request: Request):
     data = web_data.dashboard_data()
@@ -141,6 +187,15 @@ def halaman_skkni(request: Request, q: str = '', pesan: str = '', tipe: str = ''
                                          ('nama_asli', 'nomor', 'tahun', 'judul')).lower()]
 
     token = security.token_dari_cookie(request)
+    peta_reg = db.ambil_peta_regulasi()
+    for d in documents:
+        nomor_str = str(d.get('nomor') or '').strip()
+        tahun_str = str(d.get('tahun') or '').strip()
+        kode_pola = f"{tahun_str}-{nomor_str.zfill(3)}" if nomor_str and tahun_str else (d.get('id') or '')
+        reg_info = peta_reg.get(kode_pola) or peta_reg.get(d.get('id') or '')
+        d['status_regulasi'] = reg_info.get('status_regulasi') if reg_info else 'berlaku'
+        d['kepmen_pengganti'] = reg_info.get('kepmen_pengganti', '') if reg_info else ''
+
     resp = _render(
         request, 'skkni.html', judul='Dokumen SKKNI',
         daftar=documents, q=q, pesan=pesan, tipe=tipe, doc_sorot=doc,
@@ -150,6 +205,54 @@ def halaman_skkni(request: Request, q: str = '', pesan: str = '', tipe: str = ''
     )
     security.set_cookie_token(resp, token)
     return resp
+
+
+@app.post('/skkni/{doc_id}/regulasi')
+def perbarui_regulasi_skkni(request: Request, doc_id: str,
+                            status_regulasi: str = Form('berlaku'),
+                            kepmen_pengganti: str = Form(''),
+                            catatan: str = Form(''),
+                            csrf_token: str = Form('')):
+    security.periksa_token(request, csrf_token)
+    token_sesi = request.cookies.get('skkni_session', '')
+    pengguna = db.ambil_pengguna_dari_sesi(token_sesi)
+    if not pengguna or pengguna.get('peran') != 'admin':
+        return RedirectResponse(
+            url=f'/skkni/{doc_id}?tipe=galat&pesan=' + quote('Hanya Admin / Kurator Master yang berhak mengubah status regulasi SKKNI.'),
+            status_code=303,
+        )
+
+    dok = library.ambil_dokumen(doc_id)
+    if not dok:
+        return _ke_skkni('Dokumen SKKNI tidak ditemukan.', 'galat')
+
+    nomor_str = str(dok.get('nomor') or '').strip()
+    tahun_str = str(dok.get('tahun') or '').strip()
+    kode_pola = f"{tahun_str}-{nomor_str.zfill(3)}" if nomor_str and tahun_str else doc_id
+
+    db.simpan_status_regulasi(
+        kode_skkni=kode_pola,
+        status_regulasi=status_regulasi,
+        nomor_kepmen=f"Kepmenaker No. {nomor_str} Tahun {tahun_str}" if nomor_str else "",
+        judul_skkni=dok.get('judul') or dok.get('nama_asli') or "",
+        kepmen_pengganti=kepmen_pengganti,
+        catatan=catatan,
+    )
+    # Simpan juga pada doc_id langsung
+    if kode_pola != doc_id:
+        db.simpan_status_regulasi(
+            kode_skkni=doc_id,
+            status_regulasi=status_regulasi,
+            nomor_kepmen=f"Kepmenaker No. {nomor_str} Tahun {tahun_str}" if nomor_str else "",
+            judul_skkni=dok.get('judul') or dok.get('nama_asli') or "",
+            kepmen_pengganti=kepmen_pengganti,
+            catatan=catatan,
+        )
+
+    return RedirectResponse(
+        url=f'/skkni/{doc_id}?tipe=sukses&pesan=' + quote('Status regulasi SKKNI Kemnaker berhasil diperbarui.'),
+        status_code=303,
+    )
 
 
 @app.post('/skkni/upload')
@@ -229,12 +332,22 @@ def detail_skkni(request: Request, doc_id: str, q: str = '', page: int = 1,
     mulai = (halaman - 1) * BATAS_UNIT_PER_HALAMAN
 
     token = security.token_dari_cookie(request)
+    peta_reg = db.ambil_peta_regulasi()
+    nomor_str = str(doc.get('nomor') or '').strip()
+    tahun_str = str(doc.get('tahun') or '').strip()
+    kode_pola = f"{tahun_str}-{nomor_str.zfill(3)}" if nomor_str and tahun_str else doc_id
+    reg_info = peta_reg.get(kode_pola) or peta_reg.get(doc_id) or {}
+    status_reg = reg_info.get('status_regulasi', 'berlaku')
+    kepmen_ganti = reg_info.get('kepmen_pengganti', '')
+    catatan_reg = reg_info.get('catatan', '')
+
     resp = _render(
         request, 'skkni_detail.html', judul='Detail SKKNI',
         dok=doc, units=unit[mulai:mulai + BATAS_UNIT_PER_HALAMAN],
         q=q, page=halaman, halaman_total=halaman_total, total_unit=total,
         validasi=validasi, peta_validasi=peta_validasi, manual=manual,
         peta_status_3=peta_status_3, ringkasan_status_3=ringkasan_status_3,
+        status_regulasi=status_reg, kepmen_pengganti=kepmen_ganti, catatan_regulasi=catatan_reg,
         pesan=pesan, tipe=tipe, csrf_token=token,
     )
     security.set_cookie_token(resp, token)
@@ -589,6 +702,7 @@ def unduh_buku_kerja_zip(
 def halaman_muk_skema(
     request: Request,
     schema_id: str,
+    versi: str = '',
     pesan: str = '',
     tipe: str = '',
 ):
@@ -599,13 +713,14 @@ def halaman_muk_skema(
         html.status_code = 404
         return html
 
-    data = susun_data_buku_kerja(schema_id=schema_id)
+    data = susun_data_buku_kerja(schema_id=schema_id, kode_versi=versi)
     token = security.token_dari_cookie(request)
     resp = _render(
         request, 'skema_muk.html',
         judul=f"Pengaturan MUK - {dok.get('nama_skema', '')}",
         dok=dok,
         data=data,
+        versi_terpilih=versi or data.get('versi_aktif', 'v1'),
         pesan=pesan,
         tipe=tipe,
         csrf_token=token,
@@ -624,6 +739,14 @@ async def simpan_muk_skema(request: Request, schema_id: str):
     if not dok:
         return _ke_skema('Skema tidak ditemukan.', 'galat')
 
+    token_sesi = request.cookies.get('skkni_session', '')
+    pengguna = db.ambil_pengguna_dari_sesi(token_sesi)
+    dibuat_oleh = pengguna['id'] if pengguna else None
+
+    kode_versi = str(form.get('kode_versi') or 'v1').strip().lower()
+    nama_versi = str(form.get('nama_versi') or 'Paket MUK Utama').strip()
+    deskripsi_versi = str(form.get('deskripsi_versi') or '').strip()
+
     muk_json_raw = form.get('muk_json')
     if not muk_json_raw:
         return RedirectResponse(
@@ -632,7 +755,15 @@ async def simpan_muk_skema(request: Request, schema_id: str):
         )
     try:
         payload = json.loads(str(muk_json_raw))
-        simpan_konfigurasi_muk(schema_id, payload)
+        simpan_konfigurasi_muk(
+            schema_id,
+            payload,
+            kode_versi=kode_versi,
+            nama_versi=nama_versi,
+            deskripsi=deskripsi_versi,
+            dibuat_oleh=dibuat_oleh,
+            is_aktif=True,
+        )
     except Exception as e:
         return RedirectResponse(
             url=f'/skema/{schema_id}/muk?tipe=galat&pesan=' + quote(f'Gagal menyimpan MUK: {e}'),
@@ -640,7 +771,7 @@ async def simpan_muk_skema(request: Request, schema_id: str):
         )
 
     return RedirectResponse(
-        url=f'/skema/{schema_id}/muk?tipe=sukses&pesan=' + quote('Seluruh pengaturan MUK & Kelompok Pekerjaan berhasil disimpan.'),
+        url=f'/skema/{schema_id}/muk?versi={kode_versi}&tipe=sukses&pesan=' + quote(f'Seluruh pengaturan MUK & Kelompok Pekerjaan ({nama_versi}) berhasil disimpan.'),
         status_code=303,
     )
 

@@ -17,7 +17,7 @@
     <div>
       <h2 style="margin-bottom: 4px;">⚙️ Paket Materi Uji Kompetensi (MUK) — {{ dok.nama_skema }}</h2>
       <p class="muted small" style="margin: 0;">
-        Konfigurasi ini otomatis digunakan saat mencetak seluruh <strong>18 Dokumen Buku Kerja Asesor V.2023</strong>.
+        Konfigurasi ini otomatis digunakan saat mencetak seluruh <strong>24 Dokumen Buku Kerja Asesor V.2023</strong>.
       </p>
     </div>
     <div class="aksi-group">
@@ -28,6 +28,26 @@
       <a class="btn btn-small" style="background:#16a34a; border-color:#16a34a; color:#fff;" href="/skema/{{ dok.id }}/cetak-apl?doc=all" target="_blank">
         🖨️ Pratinjau &amp; Cetak Buku Kerja
       </a>
+    </div>
+  </div>
+
+  <!-- Baris Pilihan Multi-Versi Paket MUK -->
+  <div style="background: #f8fafc; border-top: 1px solid var(--border); padding: 12px 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-weight: 700; font-size: 13px; color: #334155;">🗂️ Versi Paket MUK:</span>
+      <select onchange="window.location.href='/skema/{{ dok.id }}/muk?versi=' + this.value" style="padding: 6px 12px; border: 1px solid var(--border); border-radius: 4px; font-weight: 600; background: #fff;">
+        {% for v in data.daftar_versi_muk %}
+        <option value="{{ v.kode_versi }}" {% if v.kode_versi == versi_terpilih %}selected{% endif %}>
+          {{ v.nama_versi }} ({{ v.kode_versi|upper }}){% if v.is_aktif %} &bull; [Aktif]{% endif %}
+        </option>
+        {% endfor %}
+        {% if not data.daftar_versi_muk %}
+        <option value="v1" selected>Paket MUK Utama (V1) &bull; [Aktif]</option>
+        {% endif %}
+      </select>
+    </div>
+    <div style="font-size: 12px; color: #64748b;">
+      Anda dapat menyimpan beberapa variasi paket soal/kasus (misal: <em>Versi A</em>, <em>Versi B</em>) untuk skema ini.
     </div>
   </div>
 </article>
@@ -46,6 +66,8 @@
 <form method="post" action="/skema/{{ dok.id }}/muk" id="form-muk" onsubmit="siapkanPayloadMuk()">
   <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
   <input type="hidden" name="muk_json" id="muk-json-input" value="">
+  <input type="hidden" name="kode_versi" id="muk-versi-input" value="{{ versi_terpilih or 'v1' }}">
+  <input type="hidden" name="nama_versi" id="muk-nama-versi-input" value="Paket MUK {{ (versi_terpilih or 'v1')|upper }}">
 
   <!-- Navigasi Tab MUK -->
   <article class="card" style="padding: 0; overflow: hidden;">

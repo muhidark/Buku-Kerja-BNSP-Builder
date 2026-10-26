@@ -36,8 +36,21 @@
         <h1>{{ judul }}</h1>
         <p class="muted">{% block subjudul %}Pengelolaan ekstraksi unit kompetensi SKKNI{% endblock %}</p>
       </div>
-      <div class="topbar-right">
-        <span class="badge badge-green">Lokal</span>
+      <div class="topbar-right" style="display: flex; align-items: center; gap: 10px;">
+        {% if pengguna_aktif %}
+          <div style="font-size: 12.5px; text-align: right;">
+            <strong>{{ pengguna_aktif.nama_lengkap }}</strong>
+            <div style="font-size: 11px; color: var(--muted);">
+              Peran: <span class="badge {% if pengguna_aktif.peran == 'admin' %}badge-amber{% else %}badge-green{% endif %}" style="padding: 1px 6px;">{{ pengguna_aktif.peran|upper }}</span>
+            </div>
+          </div>
+          <form method="post" action="/logout" style="margin: 0;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="btn btn-small btn-ghost" style="padding: 4px 10px; font-size: 11.5px;">Keluar</button>
+          </form>
+        {% else %}
+          <a href="/login" class="btn btn-small" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 4px 12px; font-size: 12px;">Masuk</a>
+        {% endif %}
       </div>
     </header>
 

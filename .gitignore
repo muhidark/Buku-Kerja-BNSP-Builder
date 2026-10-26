@@ -13,6 +13,8 @@ tmp/
 data/*/tmp/
 data/*/_uji*
 output/*/_uji*
+*.db
+data/app.db
 
 # Berkas sistem operasi & editor
 .DS_Store

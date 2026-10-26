@@ -1,0 +1,198 @@
+{
+  "personel": {
+    "nomor_skema": "",
+    "nama_asesor": "Asesor Versi 2",
+    "no_met": "",
+    "nama_tuk": "TUK Sewaktu",
+    "jenis_tuk": "sewaktu",
+    "metode_mapa": "observasi",
+    "kategori_asesi": 1,
+    "nama_penyusun": "Masriah",
+    "met_penyusun": "MET.000.032423 2019",
+    "nama_validator": "Eko Prasyanto",
+    "met_validator": "MET.000.014249 2019",
+    "nama_manajer_sertifikasi": "Iqbal",
+    "tanggal_pelaksanaan": "",
+    "tanggal_penyusunan": ""
+  },
+  "kelompok_pekerjaan": [
+    {
+      "id": "kp_1",
+      "nama": "Kelompok Pekerjaan 1 (SOCIAL MEDIA MARKETING)",
+      "urutan": 1,
+      "units": [
+        "J.63OPR00.004.2",
+        "J.63OPR00.005.2",
+        "J.63OPR00.013.2",
+        "M.70MKT00.012.1"
+      ]
+    }
+  ],
+  "ia02": {
+    "skenario": "Anda seorang asesi sedang mengajukan sertifikasi skema SOCIAL MEDIA MARKETING. Anda diharapkan mampu mendemonstrasikan seluruh tugas praktik sesuai dengan kelompok pekerjaan di atas secara profesional, terstruktur, dan memenuhi standar keselamatan kerja yang berlaku di tempat kerja.",
+    "langkah_kerja": "1. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar sesuai prosedur operasional standar.\n2. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar sesuai prosedur operasional standar.\n3. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut sesuai prosedur operasional standar.\n4. Melaksanakan aktivitas: Menggunakan Media Sosial dan Aplikasi Daring (Online Tools) sesuai prosedur operasional standar.",
+    "hasil_kerja": "Hasil pekerjaan berupa demonstrasi fisik/praktik langsung, bukti karya/dokumen pendukung, dan lembar verifikasi hasil pekerjaan yang diserahkan kepada asesor.",
+    "perlengkapan": "Alat Keselamatan & Kesehatan Kerja (K3)\nPerangkat media penyimpanan / flashdisk / cloud\nBahan penunjang demonstrasi / dokumen kerja\nFormulir checklist laporan pekerjaan",
+    "peralatan": "Komputer / laptop / gawai penunjang\nPerangkat kerja spesifik bidang profesi\nAksesori / peripheral pendukung teknis\nAlat Tulis Kantor (ATK)",
+    "durasi_waktu": "180 Menit"
+  },
+  "ia03": {
+    "panduan": "",
+    "questions": [
+      {
+        "order": 1,
+        "dimensi": "CMS",
+        "pertanyaan": "Jika pada saat pelaksanaan tugas atau demonstrasi praktik terjadi kendala teknis tak terduga (misalnya peralatan utama mati mendadak, data rusak, atau koneksi terputus), tindakan darurat dan sistematis apa yang pertama kali Anda lakukan?",
+        "kunci_jawaban": "Asesi mampu menjelaskan prosedur darurat penanganan insiden, isolasi masalah, dan pelaporan kepada supervisor sesuai SOP keselamatan kerja."
+      },
+      {
+        "order": 2,
+        "dimensi": "TRS",
+        "pertanyaan": "Jika lingkungan kerja atau perangkat/aplikasi yang Anda gunakan bermigrasi ke sistem atau versi baru yang belum pernah Anda operasikan sebelumnya, bagaimana strategi Anda untuk beradaptasi cepat agar hasil kerja tetap memenuhi standar?",
+        "kunci_jawaban": "Asesi mampu menerapkan prinsip transfer skills, mempelajari dokumentasi/manual sistem baru, serta melakukan pengujian fungsional secara mandiri."
+      },
+      {
+        "order": 3,
+        "dimensi": "JRES",
+        "pertanyaan": "Sebutkan prosedur dasar Keselamatan dan Kesehatan Kerja (K3) serta standar komunikasi etis yang wajib Anda patuhi selama melaksanakan seluruh tahapan demonstrasi pekerjaan!",
+        "kunci_jawaban": "Asesi mematuhi regulasi K3 lingkungan kerja, penggunaan APD/ergonomi yang tepat, dan komunikasi profesional terhadap rekan kerja maupun asesor."
+      },
+      {
+        "order": 4,
+        "dimensi": "TS",
+        "pertanyaan": "Jelaskan langkah-langkah kritis dalam memverifikasi ketepatan dan kualitas hasil kerja sebelum diserahkan kepada pihak manajemen atau pengguna akhir!",
+        "kunci_jawaban": "Asesi melakukan cek silang (quality control) terhadap spesifikasi output, memastikan kesesuaian format laporan, dan menandatangani bukti serah terima."
+      }
+    ]
+  },
+  "ia04": {
+    "judul_kegiatan": "Proyek Terstruktur Skema SOCIAL MEDIA MARKETING",
+    "situasi": "Anda ditugaskan sebagai tenaga profesional pada bidang SOCIAL MEDIA MARKETING untuk menyelesaikan suatu proyek kerja sesuai brief/permintaan klien dan standar operasional prosedur (SOP) industri.",
+    "tugas": "Menyusun perencanaan, menyiapkan perangkat/dokumen kerja, mengeksekusi tahapan kerja SOCIAL MEDIA MARKETING, serta mempresentasikan hasil akhir proyek di hadapan asesor.",
+    "tindakan": "1. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Pengolah Kata Tingkat Dasar sesuai prosedur operasional standar.\n2. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Lembar Sebar (Spreadsheet) Tingkat Dasar sesuai prosedur operasional standar.\n3. Melaksanakan aktivitas: Menggunakan Perangkat Lunak Presentasi Tingkat Lanjut sesuai prosedur operasional standar.\n4. Melaksanakan aktivitas: Menggunakan Media Sosial dan Aplikasi Daring (Online Tools) sesuai prosedur operasional standar.",
+    "data_informasi": "Dokumen brief proyek, SOP tempat kerja, standar K3, dan perangkat kerja pendukung.",
+    "hasil": "Dokumen perencanaan, produk/karya hasil kerja SOCIAL MEDIA MARKETING, dan materi presentasi hasil proyek.",
+    "hal_demonstrasi": "1. Penjelasan alur perencanaan dan konsep kerja.\n2. Demonstrasi hasil proyek singkat / produk kerja yang telah diselesaikan.\n3. Tanya jawab terkait pemenuhan kriteria unjuk kerja dan pemecahan masalah (problem solving).",
+    "waktu_proyek": "240 menit",
+    "waktu_presentasi": "30 menit",
+    "questions": [
+      {
+        "order": 1,
+        "lingkup": "Kesesuaian lingkup penyajian proyek skema SOCIAL MEDIA MARKETING",
+        "pertanyaan": "Jelaskan tahapan perencanaan dan persiapan yang Anda lakukan dalam menyelesaikan proyek singkat ini!",
+        "elemen_kuk": "J.63OPR00.004.2",
+        "dimensi": "(TS, TMS)"
+      },
+      {
+        "order": 2,
+        "lingkup": "Kesesuaian mutu hasil kerja terhadap standar industri / SOP",
+        "pertanyaan": "Bagaimana Anda memastikan hasil keluaran proyek telah memenuhi spesifikasi teknis dan standar kualitas yang ditetapkan?",
+        "elemen_kuk": "J.63OPR00.005.2",
+        "dimensi": "(TS, JRES)"
+      },
+      {
+        "order": 3,
+        "lingkup": "Penanganan kendala teknis dan manajemen waktu pengerjaan",
+        "pertanyaan": "Jika terjadi perubahan kebutuhan mendadak atau kendala peralatan saat pengerjaan proyek, langkah antisipasi apa yang Anda terapkan?",
+        "elemen_kuk": "M.70MKT00.012.1",
+        "dimensi": "(CMS, TRS)"
+      }
+    ]
+  },
+  "ia05": {
+    "jumlah_soal": 10,
+    "pertanyaan": "",
+    "kunci": ""
+  },
+  "ia06": {
+    "waktu": "60 Menit",
+    "questions": [
+      {
+        "order": 1,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 2,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 3,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 4,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 5,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      }
+    ]
+  },
+  "ia07": {
+    "questions": [
+      {
+        "order": 1,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 2,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      },
+      {
+        "order": 3,
+        "pertanyaan": "",
+        "kunci_jawaban": ""
+      }
+    ]
+  },
+  "ia08": {
+    "bukti_portofolio": [
+      "",
+      "",
+      "",
+      ""
+    ],
+    "klarifikasi": [
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      },
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      },
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      },
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      },
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      },
+      {
+        "no_unit": "",
+        "no_elemen": "",
+        "materi": ""
+      }
+    ],
+    "bukti_tambahan": ""
+  },
+  "diperbarui_pada": "2026-10-26T17:51:23"
+}

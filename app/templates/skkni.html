@@ -55,7 +55,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>No</th><th>Nama Dokumen</th><th>Nomor / Tahun</th><th>Halaman</th>
+        <th>No</th><th>Nama Dokumen</th><th>Nomor / Tahun</th><th>Status Kemnaker</th><th>Halaman</th>
         <th>Unit</th><th>Status Identifikasi</th><th>Ditambahkan</th><th></th>
       </tr>
     </thead>
@@ -68,6 +68,14 @@
           {% if d.sumber == 'proyek' %}<span class="tag">proyek</span>{% endif %}
         </td>
         <td>{% if d.nomor %}{{ d.nomor }} / {{ d.tahun }}{% else %}<span class="muted">belum teridentifikasi</span>{% endif %}</td>
+        <td>
+          {% if d.status_regulasi == 'dicabut' %}
+            <span class="badge" style="background:#fee2e2; color:#b91c1c; font-weight:700;">⛔ Dicabut</span>
+            {% if d.kepmen_pengganti %}<div class="small muted" style="margin-top:2px;">Ganti: {{ d.kepmen_pengganti }}</div>{% endif %}
+          {% else %}
+            <span class="badge badge-green">✓ Berlaku</span>
+          {% endif %}
+        </td>
         <td class="num">{{ d.halaman }}</td>
         <td class="num">{{ d.jumlah_unit or 0 }}</td>
         <td>
