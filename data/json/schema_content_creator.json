@@ -1,0 +1,139 @@
+{
+  "sumber": "21. Content Creator.docx",
+  "bagian": "Kemasan / Paket Kompetensi",
+  "tabel_index": 1,
+  "jumlah_unit": 10,
+  "units": [
+    {
+      "nomor_urut": 1,
+      "kode_unit": "J.63OPR00.009.2",
+      "judul_skema": "Menggunakan Aplikasi Berbasis Internet (Internet Based Applications Literacy)",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 2
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 2,
+      "kode_unit": "J.63OPR00.007.2",
+      "judul_skema": "Menggunakan Penelusur Situs Web (Web Browser)",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 3
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 3,
+      "kode_unit": "J.63OPR00.010.2",
+      "judul_skema": "Menggunakan Aplikasi Media Sosial",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 4
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 4,
+      "kode_unit": "J.59MTM00.002.1",
+      "judul_skema": "Melakukan Riset Kreatif Multimedia",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 5
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 5,
+      "kode_unit": "J.59MTM00.004.1",
+      "judul_skema": "Menyusun Creative Brief",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 6
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 6,
+      "kode_unit": "J.59MTM00.011.1",
+      "judul_skema": "Membuat Aset Visual Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 7
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 7,
+      "kode_unit": "J.59MTM00.015.1",
+      "judul_skema": "Membuat Aset Audio Berdasarkan Langkah Kerja yang Telah Ditetapkan",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 8
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 8,
+      "kode_unit": "J.59MTM00.018.1",
+      "judul_skema": "Mengintegrasikan Seluruh Komponen Multimedia Terkait Audio dan Visual",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 9
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 9,
+      "kode_unit": "M.70MKT00.013.1",
+      "judul_skema": "Melaksanakan Kegiatan Analisis di Media Sosial dan Media Bisnis Digital",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 10
+      },
+      "catatan": []
+    },
+    {
+      "nomor_urut": 10,
+      "kode_unit": "M.70MKT00.014.1",
+      "judul_skema": "Mempersiapkan Konten Digital",
+      "pola_kode_valid": true,
+      "sumber": {
+        "dokumen": "21. Content Creator.docx",
+        "bagian": "Kemasan / Paket Kompetensi",
+        "tabel_index": 1,
+        "baris_tabel": 11
+      },
+      "catatan": []
+    }
+  ],
+  "peringatan": []
+}
