@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict
 from urllib.parse import quote
 
-from fastapi import Depends, FastAPI, File, Form, Request, UploadFile
+from fastapi import Depends, FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, RedirectResponse, Response
 from fastapi.staticfiles import StaticFiles
@@ -23,6 +23,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from app import db, jobs, koreksi, library, schema_library, status_units, web_data
 from app.api import auth_guard
+from app.api import keamanan_http
 from app.buku_kerja import (
     DAFTAR_DOKUMEN_BUKU_KERJA,
     simpan_konfigurasi_muk,
@@ -62,10 +63,13 @@ VERSI = __version__
 app = FastAPI(
     title='Sistem Pembuatan Dokumen Buku Kerja Asessor V.2023',
     version=VERSI,
-    docs_url='/docs',
-    redoc_url='/redoc',
-    openapi_url='/openapi.json',
+    # Dokumentasi API dimatikan saat APP_ENV=produksi (temuan T-22).
+    docs_url=None if keamanan_http.PRODUKSI else '/docs',
+    redoc_url=None if keamanan_http.PRODUKSI else '/redoc',
+    openapi_url=None if keamanan_http.PRODUKSI else '/openapi.json',
 )
+
+app.add_middleware(keamanan_http.HeaderKeamanan)
 
 jobs.pulihkan_job_macet()
 auth_guard.pasang_penanganan_galat(app)
@@ -144,13 +148,33 @@ async def proses_login(request: Request):
     password = str(form.get('password') or '').strip()
     tujuan = auth_guard.tujuan_aman(str(form.get('next') or request.query_params.get('next') or ''))
 
+    # Batas percobaan login per (IP, username): 5 gagal -> blokir 60 detik.
+    ip = keamanan_http.ip_klien(request)
+    sisa = keamanan_http.pembatas_login.sisa_blokir(ip, username)
+    if sisa > 0:
+        raise HTTPException(
+            status_code=429,
+            detail=(f'Terlalu banyak percobaan masuk yang gagal. '
+                    f'Coba lagi dalam {sisa} detik.'),
+        )
+
     pengguna = db.autentikasi(username, password)
     if not pengguna:
+        # Kegagalan ke-5 tetap dijawab sebagai "sandi salah"; blokir berlaku
+        # pada percobaan BERIKUTNYA agar perilakunya tidak berubah di tengah
+        # rangkaian dan tidak membocorkan kapan ambang tercapai.
+        keamanan_http.pembatas_login.catat_gagal(ip, username)
+        sisa = keamanan_http.pembatas_login.sisa_blokir(ip, username)
+        if sisa > 0:
+            logger.warning('Percobaan login gagal berulang untuk %r dari %s; '
+                           'percobaan berikutnya diblokir %s detik.', username, ip, sisa)
         return RedirectResponse(
             url='/login?tipe=galat&pesan=' + quote('Nama pengguna atau kata sandi salah.')
             + (f'&next={quote(tujuan, safe="/")}' if tujuan != '/' else ''),
             status_code=303,
         )
+
+    keamanan_http.pembatas_login.bersihkan(ip, username)
 
     token_sesi = db.buat_sesi(pengguna['id'])
     if pengguna.get('must_change_password'):
