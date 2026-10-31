@@ -1,0 +1,177 @@
+<!-- ========================================== -->
+<!-- 5b. DOKUMEN STANDAR KOMPETENSI KERJA (SKKNI) -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-skkni-dok">
+    <div style="text-align: center; margin-bottom: 16px; border-bottom: 2px solid #000; padding-bottom: 10px;">
+        <h2 style="font-size: 15px; font-weight: 800; text-transform: uppercase; margin: 0; padding: 0; letter-spacing: 0.5px;">
+            STANDAR KOMPETENSI KERJA NASIONAL INDONESIA
+        </h2>
+        <h3 style="font-size: 13.5px; font-weight: 700; text-transform: uppercase; margin: 4px 0 0 0; color: #1e293b;">
+            KEMENTERIAN KETENAGAKERJAAN REPUBLIK INDONESIA
+        </h3>
+        <div style="font-size: 11px; color: #475569; margin-top: 4px;">
+            Unit-Unit Kompetensi Standar Acuan untuk Skema: <strong>{{ data.nama_skema }}</strong>
+        </div>
+    </div>
+
+    <!-- Ringkasan Paket Unit SKKNI -->
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 16px; font-size: 11px;">
+        <thead>
+            <tr style="background: #f1f5f9; text-align: center; font-weight: 700;">
+                <th width="6%">No</th>
+                <th width="24%">Kode Unit</th>
+                <th width="46%" style="text-align: left;">Judul Unit Kompetensi</th>
+                <th width="12%">Elemen</th>
+                <th width="12%">KUK</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in data.daftar_unit %}
+            {% set total_kuk = 0 %}
+            {% for el in u.elemen %}{% set total_kuk = total_kuk + el.kuk|length %}{% endfor %}
+            <tr>
+                <td style="text-align: center;">{{ loop.index }}</td>
+                <td style="font-family: monospace; font-weight: bold; text-align: center;">{{ u.kode_unit }}</td>
+                <td><strong>{{ u.judul_unit }}</strong></td>
+                <td style="text-align: center;">{{ u.elemen|length }} Elemen</td>
+                <td style="text-align: center;">{{ total_kuk }} KUK</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Rincian Standar per Unit Kompetensi (Format Lengkap Kemnaker) -->
+    {% for u in data.daftar_unit %}
+    <div style="margin-top: 24px; padding-top: 14px; border-top: 2px dashed #cbd5e1;" class="avoid-break">
+        <!-- Header Unit -->
+        <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 10px; font-size: 11px;">
+            <tr>
+                <td width="22%" style="background: #f8fafc; font-weight: 700;">KODE UNIT</td>
+                <td width="3%" style="text-align: center;">:</td>
+                <td><strong style="font-family: monospace; font-size: 12px; color: #1e3a8a;">{{ u.kode_unit }}</strong></td>
+            </tr>
+            <tr>
+                <td style="background: #f8fafc; font-weight: 700;">JUDUL UNIT</td>
+                <td style="text-align: center;">:</td>
+                <td><strong style="font-size: 12px;">{{ u.judul_unit }}</strong></td>
+            </tr>
+            <tr>
+                <td style="background: #f8fafc; font-weight: 700;">DESKRIPSI UNIT</td>
+                <td style="text-align: center;">:</td>
+                <td style="text-align: justify; line-height: 1.45;">
+                    {{ u.deskripsi_unit or ('Unit kompetensi ini berhubungan dengan pengetahuan, keterampilan, dan sikap kerja yang dibutuhkan dalam ' ~ u.judul_unit ~ '.') }}
+                </td>
+            </tr>
+            <tr>
+                <td style="background: #f8fafc; font-weight: 700;">STANDAR RUJUKAN</td>
+                <td style="text-align: center;">:</td>
+                <td>{{ u.standar_acuan or 'Standar Kompetensi Kerja Nasional Indonesia (SKKNI Kemnaker RI)' }}</td>
+            </tr>
+        </table>
+
+        <!-- Tabel Elemen & Kriteria Unjuk Kerja (KUK) -->
+        <div style="font-weight: 700; font-size: 11.5px; margin: 8px 0 4px 0; color: #0f172a;">
+            ELEMEN KOMPETENSI DAN KRITERIA UNJUK KERJA
+        </div>
+        <table class="lsp-doc-table lsp-table-bordered" style="font-size: 10.5px; margin-bottom: 12px;">
+            <thead>
+                <tr style="background: #f1f5f9; text-align: center; font-weight: 700;">
+                    <th width="35%" style="padding: 6px;">ELEMEN KOMPETENSI</th>
+                    <th width="65%" style="padding: 6px;">KRITERIA UNJUK KERJA (KUK)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for el in u.elemen %}
+                <tr>
+                    <td style="vertical-align: top; padding: 8px;">
+                        <strong>{{ el.nomor }}. {{ el.nama }}</strong>
+                    </td>
+                    <td style="vertical-align: top; padding: 6px 8px;">
+                        {% for k in el.kuk_items %}
+                        <div style="margin-bottom: 4px; display: flex; gap: 6px; text-align: justify; line-height: 1.35;">
+                            <span style="font-weight: 700; font-family: monospace; min-width: 26px;">{{ k.nomor }}</span>
+                            <span>{{ k.uraian }}</span>
+                        </div>
+                        {% else %}
+                            {% for raw_k in el.kuk %}
+                            <div style="margin-bottom: 4px; line-height: 1.35;">{{ raw_k }}</div>
+                            {% endfor %}
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Batasan Variabel & Panduan Penilaian (Terekstraksi Otentik dari SKKNI) -->
+        <table class="lsp-doc-table lsp-table-bordered" style="font-size: 10px; margin-bottom: 14px;">
+            <thead>
+                <tr style="background: #f8fafc; font-weight: 700;">
+                    <th width="50%" style="padding: 5px 8px;">BATASAN VARIABEL</th>
+                    <th width="50%" style="padding: 5px 8px;">PANDUAN PENILAIAN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="vertical-align: top; padding: 8px; line-height: 1.45;">
+                        {% if u.batasan_variabel and u.batasan_variabel.sections %}
+                            {% for sec in u.batasan_variabel.sections %}
+                            <div style="font-weight: bold; margin-top: {% if not loop.first %}6px{% else %}0{% endif %}; margin-bottom: 2px; color: #0f172a;">
+                                {{ sec.nomor }}. {{ sec.judul }}
+                            </div>
+                            {% if sec['items'] %}
+                                <div style="padding-left: 6px;">
+                                {% for it in sec['items'] %}
+                                <div style="margin-bottom: 3px; display: flex; gap: 4px; line-height: 1.35; text-align: justify;">
+                                    <span style="font-weight: 600; min-width: 22px;">{{ it.nomor }}</span>
+                                    <span>{{ it.teks or it.judul }}</span>
+                                </div>
+                                {% endfor %}
+                                </div>
+                            {% elif sec.teks and sec.teks != sec.judul %}
+                                <p style="margin: 0 0 4px 0; text-align: justify;">{{ sec.teks }}</p>
+                            {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div style="font-weight: bold; margin-bottom: 3px;">1. Kontekstualisasi Variabel:</div>
+                            <p style="margin: 0 0 5px 0;">Unit ini berlaku untuk seluruh rangkaian proses pekerjaan {{ u.judul_unit }} dalam konteks pelaksanaan tugas di tempat kerja maupun simulasi asesmen.</p>
+                            <div style="font-weight: bold; margin-bottom: 3px;">2. Peralatan dan Perlengkapan:</div>
+                            <p style="margin: 0 0 5px 0;">Perangkat kerja standar, media informasi, sarana komunikasi, dan formulir kerja yang relevan.</p>
+                            <div style="font-weight: bold; margin-bottom: 3px;">3. Norma dan Standar:</div>
+                            <p style="margin: 0;">SOP perusahaan/industri, kode etik profesi, dan standar keselamatan dan kesehatan kerja (K3).</p>
+                        {% endif %}
+                    </td>
+                    <td style="vertical-align: top; padding: 8px; line-height: 1.45;">
+                        {% if u.panduan_penilaian and u.panduan_penilaian.sections %}
+                            {% for sec in u.panduan_penilaian.sections %}
+                            <div style="font-weight: bold; margin-top: {% if not loop.first %}6px{% else %}0{% endif %}; margin-bottom: 2px; color: #0f172a;">
+                                {{ sec.nomor }}. {{ sec.judul }}
+                            </div>
+                            {% if sec['items'] %}
+                                <div style="padding-left: 6px;">
+                                {% for it in sec['items'] %}
+                                <div style="margin-bottom: 3px; display: flex; gap: 4px; line-height: 1.35; text-align: justify;">
+                                    <span style="font-weight: 600; min-width: 22px;">{{ it.nomor }}</span>
+                                    <span>{{ it.teks or it.judul }}</span>
+                                </div>
+                                {% endfor %}
+                                </div>
+                            {% elif sec.teks and sec.teks != sec.judul %}
+                                <p style="margin: 0 0 4px 0; text-align: justify;">{{ sec.teks }}</p>
+                            {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <div style="font-weight: bold; margin-bottom: 3px;">1. Konteks Penilaian:</div>
+                            <p style="margin: 0 0 5px 0;">Penilaian dilakukan dengan metode uji observasi demonstrasi praktik, tes lisan/tertulis, dan/atau verifikasi portofolio pada kondisi tempat kerja atau TUK sewaktu.</p>
+                            <div style="font-weight: bold; margin-bottom: 3px;">2. Persyaratan Kompetensi:</div>
+                            <p style="margin: 0 0 5px 0;">Memahami dasar-dasar operasional dan regulasi teknis yang terkait dengan {{ u.judul_unit }}.</p>
+                            <div style="font-weight: bold; margin-bottom: 3px;">3. Aspek Kritis:</div>
+                            <p style="margin: 0;">Ketepatan, ketelitian, dan konsistensi dalam menerapkan standar kompetensi pada seluruh kriteria unjuk kerja.</p>
+                        {% endif %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endfor %}
+</div>

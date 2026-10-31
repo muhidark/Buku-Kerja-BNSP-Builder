@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pemeriksaan Kelengkapan Dokumen - {{ dok.nama_skema }}</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              navy: '#0f172a',
+              hover: '#1d4ed8',
+              emerald: '#059669',
+              light: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+    }
+    /* Custom scrollbar for sidebar */
+    .checklist-scroll::-webkit-scrollbar {
+      width: 5px;
+    }
+    .checklist-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .checklist-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 4px;
+    }
+    .checklist-scroll::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+    .iframe-container iframe {
+      width: 100%;
+      height: 780px;
+      border: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col bg-slate-50 selection:bg-blue-100 selection:text-blue-700">
+
+  <!-- Header / Navbar Minimalis -->
+  <header class="w-full bg-white border-b border-slate-200/80 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo Kiri -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:scale-105">
+          <i data-lucide="book-open-check" class="w-5 h-5"></i>
+        </div>
+        <div class="flex items-center tracking-tight font-extrabold text-lg sm:text-xl">
+          <span class="text-blue-600">Buku Kerja</span>
+          <span class="text-slate-900 ml-1.5">Builder</span>
+          <span class="ml-2 text-[10px] font-black px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 border border-blue-200 uppercase tracking-wider">V2023</span>
+        </div>
+      </a>
+
+      <!-- Quick Action Right -->
+      <div class="flex items-center gap-3">
+        <a
+          href="/skema/{{ dok.id }}/kelompok-kerja"
+          class="hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 transition-all"
+        >
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Kelompok Kerja</span>
+        </a>
+        <a
+          href="/skema/{{ dok.id }}/unduh-buku-kerja"
+          class="inline-flex items-center gap-2 text-xs sm:text-sm font-bold px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-sm active:scale-95"
+        >
+          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Unduh Paket Lengkap</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Breadcrumb & Step Progress Bar -->
+  <section class="w-full bg-white border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+      <nav class="flex items-center gap-2">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1">
+          <i data-lucide="home" class="w-3.5 h-3.5"></i>
+          <span>Beranda</span>
+        </a>
+        <span>/</span>
+        <a href="/skema" class="hover:text-blue-600 flex items-center gap-1">
+          <i data-lucide="folder-kanban" class="w-3.5 h-3.5"></i>
+          <span>Katalog Skema</span>
+        </a>
+        <span>/</span>
+        <a href="/skema/{{ dok.id }}/siap-unduh" class="hover:text-blue-600 truncate max-w-[200px]" title="{{ dok.nama_skema }}">
+          {{ dok.nama_skema }}
+        </a>
+        <span>/</span>
+        <a href="/skema/{{ dok.id }}/kelompok-kerja" class="hover:text-blue-600">
+          Kelompok Kerja
+        </a>
+        <span>/</span>
+        <span class="text-blue-600 font-bold bg-blue-50 px-2 py-0.5 rounded border border-blue-200 flex items-center gap-1">
+          <i data-lucide="clipboard-check" class="w-3 h-3"></i>
+          0_Daftar Periksa Kelengkapan Dokumen
+        </span>
+      </nav>
+
+      <!-- Step Indicator -->
+      <div class="flex items-center gap-2 text-xs">
+        <span class="text-slate-400">Tahap 3 dari 4:</span>
+        <span class="font-bold text-slate-800">Pemeriksaan Bertahap ({{ active_idx + 1 }}/{{ total_items }})</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content Layout -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-6 flex-1 w-full">
+
+    <!-- Top Banner Card -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 p-5 sm:p-6 mb-6 shadow-xs">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2 mb-1.5 flex-wrap">
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
+              Formulir {{ active_idx + 1 }} dari {{ total_items }}
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200">
+              {{ item_aktif.kategori }}
+            </span>
+            <span class="px-2.5 py-0.5 rounded-full text-xs font-bold {% if item_aktif.orientasi == 'landscape' %}bg-amber-50 text-amber-700 border-amber-200{% else %}bg-indigo-50 text-indigo-700 border-indigo-200{% endif %}">
+              A4 {{ item_aktif.orientasi|upper }}
+            </span>
+          </div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight flex items-center gap-2">
+            <span>{{ item_aktif.nomor }}. {{ item_aktif.kode }}</span>
+            <span class="text-slate-400 font-normal">&mdash;</span>
+            <span class="text-blue-700">{{ item_aktif.judul }}</span>
+          </h1>
+          <p class="text-slate-600 text-sm mt-1 max-w-3xl">
+            {{ item_aktif.subjudul }} &bull; Rujukan standar BNSP Upgrading-RCC Asesor Kompetensi V.2023.
+          </p>
+        </div>
+
+        <!-- Quick Status Widget -->
+        <div class="flex items-center gap-3 shrink-0">
+          <div class="p-3 bg-slate-50 border border-slate-200 rounded-xl text-right">
+            <div class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Kemajuan Verifikasi</div>
+            <div class="text-lg font-black text-slate-900" id="counter-checked-text">0 / {{ total_items }} Form</div>
+            <div class="w-32 bg-slate-200 h-1.5 rounded-full mt-1 overflow-hidden">
+              <div id="progress-bar-checked" class="bg-emerald-600 h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two-Column Workspace Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- LEFT COLUMN: Daftar Periksa Kelengkapan Dokumen (0_Daftar Periksa) -->
+      <aside class="lg:col-span-4 bg-white rounded-2xl border border-slate-200/80 shadow-xs p-4 sticky top-20">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200 mb-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
+              <i data-lucide="list-checks" class="w-4 h-4"></i>
+            </div>
+            <div>
+              <h2 class="text-sm font-bold text-slate-900 leading-tight">Daftar Periksa</h2>
+              <span class="text-[10px] text-slate-500">0_Daftar Periksa Upgrading-RCC</span>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="tandaiSemuaSelesai()"
+            class="text-[11px] font-bold text-blue-600 hover:text-blue-800 hover:underline cursor-pointer"
+          >
+            Tandai Semua
+          </button>
+        </div>
+
+        <!-- Search / Filter Formulir -->
+        <div class="relative mb-3">
+          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-2.5"></i>
+          <input
+            type="text"
+            id="search-dokumen"
+            placeholder="Cari kode atau judul form..."
+            oninput="filterDaftarPeriksa(this.value)"
+            class="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 bg-slate-50"
+          >
+        </div>
+
+        <!-- Scrollable List of Categories & Items -->
+        <div class="checklist-scroll max-h-[620px] overflow-y-auto pr-1 space-y-4" id="wadah-daftar-periksa">
+          {% for group in tahapan_grouped %}
+          <div class="group-kategori-item" data-kategori="{{ group.kategori }}">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 bg-slate-100/80 px-2.5 py-1 rounded-md mb-1.5 flex items-center justify-between">
+              <span>{{ group.kategori }}</span>
+              <span class="text-[10px] font-semibold text-slate-400">{{ group.dokumen_list|length }}</span>
+            </div>
+            <div class="space-y-1">
+              {% for it in group.dokumen_list %}
+              {% set is_active = (it.id == item_aktif.id) %}
+              <div
+                class="dokumen-item flex items-center gap-2 p-2 rounded-xl transition-all border {% if is_active %}bg-blue-50/90 border-blue-400 shadow-xs font-semibold text-blue-900 ring-2 ring-blue-500/10{% else %}bg-white hover:bg-slate-50 border-slate-150 text-slate-700{% endif %}"
+                data-id="{{ it.id }}"
+                data-text="{{ it.nomor }} {{ it.kode }} {{ it.judul }}"
+              >
+                <!-- Checkbox verifikasi -->
+                <input
+                  type="checkbox"
+                  id="chk-{{ it.id }}"
+                  onchange="toggleVerifikasi('{{ it.id }}', this.checked)"
+                  class="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 cursor-pointer shrink-0"
+                  title="Tandai form telah diperiksa & lengkap"
+                >
+
+                <!-- Link to open this item -->
+                <a
+                  href="/skema/{{ dok.id }}/pemeriksaan?doc={{ it.id }}&amp;metode_mapa={{ data.metode_mapa }}"
+                  class="flex-1 flex items-start gap-2 min-w-0"
+                >
+                  <span class="px-1.5 py-0.5 text-[10px] font-black rounded shrink-0 {% if is_active %}bg-blue-600 text-white{% else %}bg-slate-100 text-slate-600 border border-slate-200{% endif %}">
+                    {{ it.nomor }}
+                  </span>
+                  <div class="min-w-0 flex-1">
+                    <div class="text-xs truncate font-bold flex items-center gap-1.5">
+                      <span>{{ it.kode }}</span>
+                      {% if it.id in ['ia02', 'ia03', 'ia04a', 'ia04b', 'ia05a', 'ia05b', 'ia05c', 'ia06a', 'ia06b', 'ia06c', 'ia07', 'ia08'] %}
+                      <span class="text-[9px] px-1 py-0.2 rounded bg-indigo-50 text-indigo-700 font-bold border border-indigo-200">Input</span>
+                      {% endif %}
+                      {% if not it.ada_preview %}
+                      <span class="text-[9px] px-1 py-0.2 rounded bg-amber-100 text-amber-700 font-semibold">Lampiran</span>
+                      {% endif %}
+                    </div>
+                    <div class="text-[11px] truncate {% if is_active %}text-blue-800{% else %}text-slate-500{% endif %}">
+                      {{ it.judul }}
+                    </div>
+                  </div>
+                </a>
+
+                {% if is_active %}
+                <span class="w-2 h-2 rounded-full bg-blue-600 shrink-0"></span>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Sticky Quick Nav Footer in Sidebar -->
+        <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs">
+          <a
+            href="/skema/{{ dok.id }}/kelompok-kerja"
+            class="text-slate-600 hover:text-slate-900 font-semibold flex items-center gap-1"
+          >
+            <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+            <span>Kelompok Kerja</span>
+          </a>
+          <a
+            href="/skema/{{ dok.id }}/unduh-buku-kerja"
+            class="text-emerald-700 hover:text-emerald-800 font-bold flex items-center gap-1"
+          >
+            <span>Unduh Buku Kerja</span>
+            <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+          </a>
+        </div>
+      </aside>
+
+      <!-- RIGHT COLUMN: Live A4 Document Preview & Controls -->
+      <section class="lg:col-span-8 flex flex-col gap-4">
+
+        <!-- Toolbar Kartu Formulir Aktif -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs flex flex-wrap items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              id="btn-toggle-active-chk"
+              onclick="toggleActiveCheck()"
+              class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-xs bg-white text-slate-700 border-slate-300 hover:bg-slate-50"
+            >
+              <i data-lucide="check-square" class="w-4 h-4 text-slate-500" id="icon-active-chk"></i>
+              <span id="text-active-chk">Tandai Sudah Diperiksa [ ]</span>
+            </button>
+            <span class="text-xs text-slate-500 hidden sm:inline">Status dokumen pada ceklis BNSP</span>
+          </div>
+
+          <!-- Document Action Buttons -->
+          <div class="flex items-center gap-2">
+            {% if item_aktif.id == 'skema_dok' %}
+            <a
+              id="btn-unduh-skema-asli"
+              href="/skema/{{ dok.id }}/unduh-skema-asli"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100 transition-all shadow-2xs"
+              title="Unduh berkas Word (.docx) Skema Sertifikasi yang diunggah"
+            >
+              <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
+              <span>Unduh Skema Asli (.docx)</span>
+            </a>
+            {% elif item_aktif.id == 'skkni_dok' %}
+            <a
+              id="btn-unduh-skkni-lengkap"
+              href="/skema/{{ dok.id }}/unduh-docx-skkni"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition-all shadow-2xs"
+              title="Unduh dokumen Word (.docx) Standar Kompetensi Kerja / SKKNI lengkap"
+            >
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Unduh SKKNI Lengkap (.docx)</span>
+            </a>
+            {% endif %}
+
+            {% if item_aktif.id in ['ia02', 'ia03', 'ia04a', 'ia04b', 'ia05a', 'ia05b', 'ia05c', 'ia06a', 'ia06b', 'ia06c', 'ia07', 'ia08'] %}
+            <button
+              type="button"
+              onclick="fokusTempatInput()"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 hover:bg-indigo-100 border border-indigo-200 transition-all shadow-2xs cursor-pointer"
+              title="Gulir ke tempat input butir soal / skenario"
+            >
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              <span>Tempat Input Soal/Skenario</span>
+            </button>
+            {% endif %}
+
+            {% if item_aktif.ada_preview and item_aktif.doc_code %}
+            <a
+              id="btn-unduh-docx"
+              href="/skema/{{ dok.id }}/unduh-buku-kerja-docx?doc={{ item_aktif.doc_code }}&amp;metode_mapa={{ data.metode_mapa }}"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-teal-50 text-teal-700 border border-teal-200 hover:bg-teal-100 transition-all"
+              title="Unduh berkas .DOCX tunggal untuk formulir ini"
+            >
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Unduh .DOCX</span>
+            </a>
+            <a
+              id="btn-cetak-full"
+              href="/skema/{{ dok.id }}/cetak-apl?doc={{ item_aktif.doc_code }}&amp;metode_mapa={{ data.metode_mapa }}"
+              target="_blank"
+              class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all border border-slate-200"
+              title="Buka pratinjau cetak A4 layar penuh di tab baru"
+            >
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i>
+              <span>Cetak / Tab Baru</span>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Pilihan Pendekatan Asesmen (3 Jenis MAPA) -->
+        <div class="bg-white rounded-2xl border border-blue-200/90 p-4 shadow-xs bg-gradient-to-r from-blue-50/70 via-indigo-50/40 to-slate-50">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+                <i data-lucide="layers" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs font-extrabold text-slate-900">Pendekatan Asesmen (3 Jenis MAPA)</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 uppercase" id="badge-metode-aktif">
+                    {{ (data.metode_mapa or 'observasi')|upper }}
+                  </span>
+                </div>
+                <div class="text-[11px] text-slate-600 mt-0.5">
+                  Pilih salah satu dari 3 pendekatan metode asesmen untuk disesuaikan pada FR.MAPA.01 &amp; FR.MAPA.02:
+                </div>
+              </div>
+            </div>
+
+            <!-- 3 Tombol Opsi MAPA -->
+            <div class="inline-flex p-1 bg-white border border-slate-200 rounded-xl shadow-2xs gap-1 self-start md:self-auto flex-wrap">
+              <!-- 1. Observasi Langsung -->
+              <button
+                type="button"
+                id="btn-metode-observasi"
+                onclick="gantiMetodeMapa('observasi')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer {% if data.metode_mapa == 'observasi' %}bg-blue-600 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}"
+              >
+                <span>🎯 Observasi Langsung</span>
+              </button>
+
+              <!-- 2. Kegiatan Terstruktur (DIT) -->
+              <button
+                type="button"
+                id="btn-metode-dit"
+                onclick="gantiMetodeMapa('dit')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer {% if data.metode_mapa == 'dit' %}bg-blue-600 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}"
+              >
+                <span>📋 Proyek Singkat (DIT)</span>
+              </button>
+
+              <!-- 3. Verifikasi Portfolio -->
+              <button
+                type="button"
+                id="btn-metode-portofolio"
+                onclick="gantiMetodeMapa('portofolio')"
+                class="px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer {% if data.metode_mapa == 'portofolio' %}bg-blue-600 text-white shadow-xs{% else %}text-slate-600 hover:bg-slate-100{% endif %}"
+              >
+                <span>📂 Verifikasi Portofolio</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tempat Input Formulir FR.IA (Interaktif & Auto-Generator SKKNI) -->
+        {% include "buku_kerja/_tempat_input_ia.html" %}
+
+        <!-- Preview Container -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-xs">
+          {% if item_aktif.ada_preview and item_aktif.doc_code %}
+          <!-- Iframe Pratinjau Lembar A4 Cetak Asli BNSP -->
+          <div class="iframe-container bg-slate-100 p-2 sm:p-4 rounded-xl border border-slate-200">
+            <div class="flex items-center justify-between pb-2 mb-2 border-b border-slate-200 text-xs text-slate-500">
+              <span class="font-medium flex items-center gap-1.5">
+                <i data-lucide="file-check" class="w-4 h-4 text-blue-600"></i>
+                Pratinjau Otentik Dokumen Resmi BNSP V.2023
+              </span>
+              <span class="text-[11px] font-mono bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-600">
+                Mode: {{ item_aktif.doc_code }} (A4)
+              </span>
+            </div>
+            <iframe
+              id="preview-frame"
+              src="/skema/{{ dok.id }}/cetak-apl?doc={{ item_aktif.doc_code }}&amp;metode_mapa={{ data.metode_mapa }}&amp;embed=1"
+              title="Pratinjau {{ item_aktif.kode }}"
+              loading="lazy"
+            ></iframe>
+          </div>
+          {% else %}
+          <!-- Kartu Petunjuk Khusus Lampiran / Acuan Eksternal -->
+          <div class="p-8 sm:p-10 text-center bg-slate-50 border border-slate-200 rounded-xl my-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-4 font-bold shadow-xs">
+              <i data-lucide="folder-archive" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-lg font-extrabold text-slate-900 mb-2">
+              {{ item_aktif.nomor }}. {{ item_aktif.kode }} &bull; {{ item_aktif.judul }}
+            </h3>
+            <p class="text-sm text-slate-600 max-w-xl mx-auto leading-relaxed mb-6">
+              {{ item_aktif.keterangan_lampiran }}
+            </p>
+
+            <div class="max-w-md mx-auto bg-white p-4 rounded-xl border border-slate-200 text-left text-xs space-y-2 mb-6">
+              <div class="font-bold text-slate-800 pb-1 border-b border-slate-100">
+                Panduan Pemeriksaan Asesor:
+              </div>
+              <label class="flex items-start gap-2 text-slate-600">
+                <input type="checkbox" class="mt-0.5 rounded text-blue-600">
+                <span>Kelengkapan dokumen fisik / arsip digital telah diverifikasi oleh Asesor.</span>
+              </label>
+              <label class="flex items-start gap-2 text-slate-600">
+                <input type="checkbox" class="mt-0.5 rounded text-blue-600">
+                <span>Memenuhi prinsip valid, asli, terkini, dan memadai (VATM).</span>
+              </label>
+              <label class="flex items-start gap-2 text-slate-600">
+                <input type="checkbox" class="mt-0.5 rounded text-blue-600">
+                <span>Tercatat pada Daftar Periksa Kelengkapan Dokumen Upgrading-RCC.</span>
+              </label>
+            </div>
+
+            <div class="flex items-center justify-center gap-3">
+              <button
+                type="button"
+                onclick="toggleVerifikasi('{{ item_aktif.id }}', true); updateActiveButtonState();"
+                class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-sm flex items-center gap-2 cursor-pointer"
+              >
+                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                <span>Tandai Lampiran Ini Lengkap</span>
+              </button>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+
+        <!-- Sticky Bottom Stepper Navigation -->
+        <div class="bg-white rounded-2xl border border-slate-200/80 p-4 shadow-sm flex flex-wrap items-center justify-between gap-3">
+          <!-- Tombol Sebelumnya -->
+          {% if prev_item %}
+          <a
+            href="/skema/{{ dok.id }}/pemeriksaan?doc={{ prev_item.id }}&amp;metode_mapa={{ data.metode_mapa }}"
+            class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all flex items-center gap-1.5"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Sebelumnya: {{ prev_item.kode }}</span>
+          </a>
+          {% else %}
+          <button
+            disabled
+            class="px-4 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-slate-400 font-bold text-xs cursor-not-allowed flex items-center gap-1.5"
+          >
+            <i data-lucide="arrow-left" class="w-4 h-4"></i>
+            <span>Awal Formulir</span>
+          </button>
+          {% endif %}
+
+          <!-- Posisi & Stepper Info -->
+          <div class="text-center">
+            <span class="text-xs font-bold text-slate-800">
+              Formulir {{ active_idx + 1 }} dari {{ total_items }}
+            </span>
+            <div class="text-[11px] text-slate-500 font-medium">
+              {{ item_aktif.kode }} ({{ item_aktif.tipe }})
+            </div>
+          </div>
+
+          <!-- Tombol Selanjutnya / Selesai -->
+          {% if next_item %}
+          <a
+            href="/skema/{{ dok.id }}/pemeriksaan?doc={{ next_item.id }}&amp;metode_mapa={{ data.metode_mapa }}"
+            class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-md active:scale-95 flex items-center gap-1.5"
+          >
+            <span>Selanjutnya: {{ next_item.kode }}</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </a>
+          {% else %}
+          <a
+            href="/skema/{{ dok.id }}/unduh-buku-kerja"
+            class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs transition-all shadow-md active:scale-95 flex items-center gap-1.5"
+          >
+            <span>Selesai &amp; Unduh Buku Kerja</span>
+            <i data-lucide="check-circle-2" class="w-4 h-4"></i>
+          </a>
+          {% endif %}
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto py-6 text-center text-xs text-slate-400 border-t border-slate-200 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+      Sistem Pembuatan Dokumen Buku Kerja Asesor V.2023 &bull; Standar BNSP &amp; Kemnaker RI
+    </div>
+  </footer>
+
+  <script>
+    const SCHEMA_ID = "{{ dok.id }}";
+    const ACTIVE_ITEM_ID = "{{ item_aktif.id }}";
+    const TOTAL_ITEMS = {{ total_items }};
+    const STORAGE_KEY = `rcc_checked_${SCHEMA_ID}`;
+
+    function ambilDaftarChecked() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function simpanDaftarChecked(arr) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+      } catch (e) {}
+    }
+
+    function syncCheckboxes() {
+      const checkedArr = ambilDaftarChecked();
+      let totalChecked = 0;
+
+      document.querySelectorAll('.dokumen-item').forEach(el => {
+        const id = el.dataset.id;
+        const chk = document.getElementById(`chk-${id}`);
+        const isChecked = checkedArr.includes(id);
+
+        if (chk) {
+          chk.checked = isChecked;
+        }
+
+        if (isChecked) {
+          totalChecked++;
+          el.classList.add('bg-emerald-50/40');
+        } else {
+          el.classList.remove('bg-emerald-50/40');
+        }
+      });
+
+      // Update counters & progress bar
+      const counterEl = document.getElementById('counter-checked-text');
+      const barEl = document.getElementById('progress-bar-checked');
+      if (counterEl) {
+        counterEl.textContent = `${totalChecked} / ${TOTAL_ITEMS} Form`;
+      }
+      if (barEl) {
+        const percent = Math.round((totalChecked / TOTAL_ITEMS) * 100);
+        barEl.style.width = `${percent}%`;
+      }
+
+      updateActiveButtonState();
+    }
+
+    function toggleVerifikasi(id, isChecked) {
+      let checkedArr = ambilDaftarChecked();
+      if (isChecked) {
+        if (!checkedArr.includes(id)) {
+          checkedArr.push(id);
+        }
+      } else {
+        checkedArr = checkedArr.filter(item => item !== id);
+      }
+      simpanDaftarChecked(checkedArr);
+      syncCheckboxes();
+    }
+
+    function updateActiveButtonState() {
+      const checkedArr = ambilDaftarChecked();
+      const isActiveChecked = checkedArr.includes(ACTIVE_ITEM_ID);
+      const btn = document.getElementById('btn-toggle-active-chk');
+      const txt = document.getElementById('text-active-chk');
+      const icon = document.getElementById('icon-active-chk');
+
+      if (!btn || !txt) return;
+
+      if (isActiveChecked) {
+        btn.className = "inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-xs bg-emerald-50 text-emerald-700 border-emerald-300";
+        txt.textContent = "Dokumen Terverifikasi [✓]";
+        icon.className = "w-4 h-4 text-emerald-600";
+      } else {
+        btn.className = "inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-xs bg-white text-slate-700 border-slate-300 hover:bg-slate-50";
+        txt.textContent = "Tandai Sudah Diperiksa [ ]";
+        icon.className = "w-4 h-4 text-slate-500";
+      }
+    }
+
+    function toggleActiveCheck() {
+      const checkedArr = ambilDaftarChecked();
+      const isActiveChecked = checkedArr.includes(ACTIVE_ITEM_ID);
+      toggleVerifikasi(ACTIVE_ITEM_ID, !isActiveChecked);
+    }
+
+    function tandaiSemuaSelesai() {
+      const allIds = [];
+      document.querySelectorAll('.dokumen-item').forEach(el => {
+        if (el.dataset.id) allIds.push(el.dataset.id);
+      });
+      simpanDaftarChecked(allIds);
+      syncCheckboxes();
+    }
+
+    function filterDaftarPeriksa(query) {
+      const clean = (query || '').toLowerCase().trim();
+      document.querySelectorAll('.dokumen-item').forEach(el => {
+        const text = (el.dataset.text || '').toLowerCase();
+        if (!clean || text.includes(clean)) {
+          el.style.display = 'flex';
+        } else {
+          el.style.display = 'none';
+        }
+      });
+    }
+
+    let currentMetodeMapa = "{{ data.metode_mapa or 'observasi' }}";
+
+    async function gantiMetodeMapa(metode) {
+      currentMetodeMapa = metode;
+
+      // Update style tombol aktif
+      ['observasi', 'dit', 'portofolio'].forEach(m => {
+        const btn = document.getElementById(`btn-metode-${m}`);
+        if (btn) {
+          if (m === metode) {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-blue-600 text-white shadow-xs";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-slate-600 hover:bg-slate-100";
+          }
+        }
+      });
+
+      const badge = document.getElementById('badge-metode-aktif');
+      if (badge) badge.textContent = metode.toUpperCase();
+
+      // Update iframe pratinjau
+      const iframe = document.getElementById('preview-frame');
+      const docCode = "{{ item_aktif.doc_code or '' }}";
+      if (iframe && docCode) {
+        iframe.src = `/skema/${SCHEMA_ID}/cetak-apl?doc=${docCode}&metode_mapa=${metode}&embed=1`;
+      }
+
+      // Update link tombol Unduh .DOCX & Cetak
+      const docxBtn = document.getElementById('btn-unduh-docx');
+      if (docxBtn && docCode) {
+        docxBtn.href = `/skema/${SCHEMA_ID}/unduh-buku-kerja-docx?doc=${docCode}&metode_mapa=${metode}`;
+      }
+      const printBtn = document.getElementById('btn-cetak-full');
+      if (printBtn && docCode) {
+        printBtn.href = `/skema/${SCHEMA_ID}/cetak-apl?doc=${docCode}&metode_mapa=${metode}`;
+      }
+
+      // Simpan metode ke konfigurasi server di latar belakang
+      try {
+        await fetch(`/skema/${SCHEMA_ID}/set-metode-mapa`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ metode_mapa: metode })
+        });
+      } catch (e) {}
+
+      // Update query param URL browser tanpa refresh penuh
+      const url = new URL(window.location);
+      url.searchParams.set('metode_mapa', metode);
+      window.history.replaceState({}, '', url);
+
+      // Sinkronkan seluruh tautan navigasi
+      document.querySelectorAll('a[href*="/pemeriksaan?doc="]').forEach(a => {
+        const hrefUrl = new URL(a.href, window.location.origin);
+        hrefUrl.searchParams.set('metode_mapa', metode);
+        a.href = hrefUrl.pathname + hrefUrl.search;
+      });
+    }
+
+    function fokusTempatInput() {
+      const el = document.getElementById('card-tempat-input-ia');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        const b = document.getElementById('body-tempat-input');
+        if (b && b.classList.contains('hidden')) {
+          toggleEditorVisibility();
+        }
+      }
+    }
+
+    // Initialize state on load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      syncCheckboxes();
+    });
+  </script>
+</body>
+</html>

@@ -14,6 +14,7 @@ Menyediakan:
 import hashlib
 import hmac
 import json
+import re
 import secrets
 import sqlite3
 import time
@@ -129,9 +130,30 @@ def _migrasi_001(conn: sqlite3.Connection) -> None:
     _tambah_kolom(conn, "kunci_api", "kedaluwarsa", "TEXT")
 
 
+def _migrasi_002(conn: sqlite3.Connection) -> None:
+    """Pelacakan IP, integrasi Google OAuth, dan isolasi multi-tenant."""
+    _tambah_kolom(conn, "pengguna", "google_id", "TEXT")
+    _tambah_kolom(conn, "pengguna", "ip_pendaftar", "TEXT")
+    _tambah_kolom(conn, "pengguna", "institusi", "TEXT")
+    conn.execute("""
+    CREATE TABLE IF NOT EXISTS audit_ip_aktivitas (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        ip_address TEXT NOT NULL,
+        pengguna_id INTEGER REFERENCES pengguna(id) ON DELETE SET NULL,
+        jenis_aksi TEXT NOT NULL,
+        schema_id TEXT,
+        user_agent TEXT,
+        dibuat_pada TEXT NOT NULL
+    )
+    """)
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_audit_ip ON audit_ip_aktivitas(ip_address, jenis_aksi)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_audit_pengguna ON audit_ip_aktivitas(pengguna_id)")
+
+
 #: (nomor, fungsi, keterangan) — urut naik, tidak boleh diacak.
 MIGRASI: List[Tuple[int, Any, str]] = [
     (1, _migrasi_001, "kolom must_change_password, kunci_hash, prefix, kedaluwarsa"),
+    (2, _migrasi_002, "kolom google_id, ip_pendaftar, institusi, dan tabel audit_ip_aktivitas"),
 ]
 
 #: Versi struktur yang diharapkan kode ini.
@@ -354,6 +376,25 @@ def buat_sesi(pengguna_id: int, durasi_detik: int = 60 * 60 * 24 * 7) -> str:
     return token
 
 
+def ambil_pengguna(pengguna_id: int) -> Optional[Dict[str, Any]]:
+    """Mengambil data profil pengguna berdasarkan ID."""
+    with _ambil_koneksi() as conn:
+        row = conn.execute("SELECT * FROM pengguna WHERE id = ?", (pengguna_id,)).fetchone()
+        if not row:
+            return None
+        return {
+            "id": row["id"],
+            "username": row["username"],
+            "nama_lengkap": row["nama_lengkap"],
+            "email": row["email"],
+            "peran": row["peran"],
+            "no_met": row["no_met"],
+            "institusi": row["institusi"] if "institusi" in row.keys() else "",
+            "google_id": row["google_id"] if "google_id" in row.keys() else None,
+            "must_change_password": bool(row["must_change_password"]) if "must_change_password" in row.keys() else False,
+        }
+
+
 def ambil_pengguna_dari_sesi(token: str) -> Optional[Dict[str, Any]]:
     """Mengambil data pengguna aktif berdasarkan token sesi yang valid."""
     if not token:
@@ -409,18 +450,222 @@ def daftar_pengguna() -> List[Dict[str, Any]]:
         return [dict(r) for r in rows]
 
 
-def tambah_pengguna(username: str, kata_sandi: str, nama_lengkap: str, peran: str = "asesor", email: str = "", no_met: str = "") -> int:
-    h, s = hash_kata_sandi(kata_sandi)
+def tambah_pengguna(username: str, kata_sandi: str, nama_lengkap: str, peran: str = "asesor", email: str = "", no_met: str = "", institusi: str = "", ip_pendaftar: str = "", google_id: str = "") -> int:
+    h, s = hash_kata_sandi(kata_sandi) if kata_sandi else ("", "")
     sekarang = datetime.now(timezone.utc).isoformat()
     with _ambil_koneksi() as conn:
         cur = conn.execute(
             """INSERT INTO pengguna
-               (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, dibuat_pada)
-               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-            (username.strip(), nama_lengkap.strip(), email.strip(), peran.strip(), h, s, no_met.strip(), sekarang),
+               (username, nama_lengkap, email, peran, hash_kata_sandi, garam, no_met, institusi, ip_pendaftar, google_id, dibuat_pada)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (username.strip(), nama_lengkap.strip(), email.strip(), peran.strip(), h, s, no_met.strip(), institusi.strip(), ip_pendaftar.strip(), google_id.strip() if google_id else None, sekarang),
         )
         conn.commit()
         return cur.lastrowid
+
+
+def ambil_pengguna_berdasarkan_email(email: str) -> Optional[Dict[str, Any]]:
+    """Mencari pengguna berdasarkan email."""
+    if not email or not email.strip():
+        return None
+    with _ambil_koneksi() as conn:
+        row = conn.execute("SELECT * FROM pengguna WHERE lower(email) = ?", (email.strip().lower(),)).fetchone()
+        if not row:
+            return None
+        return {
+            "id": row["id"],
+            "username": row["username"],
+            "nama_lengkap": row["nama_lengkap"],
+            "email": row["email"],
+            "peran": row["peran"],
+            "no_met": row["no_met"],
+            "institusi": row["institusi"] if "institusi" in row.keys() else "",
+            "google_id": row["google_id"] if "google_id" in row.keys() else None,
+            "must_change_password": bool(row["must_change_password"]) if "must_change_password" in row.keys() else False,
+        }
+
+
+def ambil_pengguna_berdasarkan_google_id(google_id: str) -> Optional[Dict[str, Any]]:
+    """Mencari pengguna berdasarkan Google ID unik."""
+    if not google_id or not str(google_id).strip():
+        return None
+    with _ambil_koneksi() as conn:
+        row = conn.execute("SELECT * FROM pengguna WHERE google_id = ?", (str(google_id).strip(),)).fetchone()
+        if not row:
+            return None
+        return {
+            "id": row["id"],
+            "username": row["username"],
+            "nama_lengkap": row["nama_lengkap"],
+            "email": row["email"],
+            "peran": row["peran"],
+            "no_met": row["no_met"],
+            "institusi": row["institusi"] if "institusi" in row.keys() else "",
+            "google_id": row["google_id"] if "google_id" in row.keys() else None,
+            "must_change_password": bool(row["must_change_password"]) if "must_change_password" in row.keys() else False,
+        }
+
+
+def daftar_pengguna_mandiri(username: str, kata_sandi: str, nama_lengkap: str, email: str = "", no_met: str = "", institusi: str = "", ip_pendaftar: str = "", user_agent: str = "") -> Dict[str, Any]:
+    """Pendaftaran mandiri asesor cepat. Memastikan username/email unik."""
+    uname = username.strip()
+    em = email.strip()
+    nl = nama_lengkap.strip()
+    if not uname:
+        raise ValueError("Nama pengguna (username) wajib diisi.")
+    if not nl:
+        raise ValueError("Nama lengkap asesor wajib diisi.")
+    if len(kata_sandi or "") < 6:
+        raise ValueError("Kata sandi minimal 6 karakter.")
+
+    with _ambil_koneksi() as conn:
+        # Cek username bentrok
+        ada_u = conn.execute("SELECT id FROM pengguna WHERE lower(username) = ?", (uname.lower(),)).fetchone()
+        if ada_u:
+            raise ValueError(f"Nama pengguna '{uname}' sudah digunakan. Silakan gunakan nama pengguna lain.")
+        if em:
+            ada_e = conn.execute("SELECT id FROM pengguna WHERE lower(email) = ?", (em.lower(),)).fetchone()
+            if ada_e:
+                raise ValueError(f"Email '{em}' sudah terdaftar. Silakan langsung masuk dengan akun Anda.")
+
+    user_id = tambah_pengguna(
+        username=uname,
+        kata_sandi=kata_sandi,
+        nama_lengkap=nl,
+        peran="asesor",
+        email=em,
+        no_met=no_met,
+        institusi=institusi,
+        ip_pendaftar=ip_pendaftar,
+    )
+
+    # Catat audit pembuatan akun dari IP ini
+    catat_audit_ip(
+        ip_address=ip_pendaftar or "-",
+        jenis_aksi="registrasi_mandiri",
+        pengguna_id=user_id,
+        user_agent=user_agent,
+    )
+
+    return ambil_pengguna(user_id)
+
+
+def masuk_atau_daftar_google(google_id: str, email: str, nama_lengkap: str, ip_address: str = "", user_agent: str = "") -> Dict[str, Any]:
+    """Masuk otomatis atau mendaftarkan akun baru via Google OAuth popup/credential."""
+    gid = str(google_id).strip()
+    em = (email or "").strip().lower()
+    nl = (nama_lengkap or "").strip() or em.split("@")[0] or "Asesor BNSP"
+
+    # 1. Cari berdasarkan Google ID
+    pengguna = ambil_pengguna_berdasarkan_google_id(gid)
+    if pengguna:
+        catat_audit_ip(ip_address=ip_address or "-", jenis_aksi="login_google", pengguna_id=pengguna["id"], user_agent=user_agent)
+        return pengguna
+
+    # 2. Cari berdasarkan Email bila Google ID belum terhubung
+    if em:
+        pengguna = ambil_pengguna_berdasarkan_email(em)
+        if pengguna:
+            # Hubungkan Google ID ke akun email yang sudah ada
+            with _ambil_koneksi() as conn:
+                conn.execute("UPDATE pengguna SET google_id = ? WHERE id = ?", (gid, pengguna["id"]))
+                conn.commit()
+            catat_audit_ip(ip_address=ip_address or "-", jenis_aksi="link_google_login", pengguna_id=pengguna["id"], user_agent=user_agent)
+            return ambil_pengguna(pengguna["id"])
+
+    # 3. Pengguna baru: Buat username unik dari email atau nama
+    base_uname = (em.split("@")[0] if em else nl.lower().replace(" ", "_"))
+    base_uname = re.sub(r"[^a-zA-Z0-9_]", "", base_uname)[:20] or "asesor"
+    calon_uname = base_uname
+
+    with _ambil_koneksi() as conn:
+        counter = 1
+        while conn.execute("SELECT id FROM pengguna WHERE lower(username) = ?", (calon_uname.lower(),)).fetchone():
+            calon_uname = f"{base_uname[:15]}_{counter}"
+            counter += 1
+
+    sandi_acak = secrets.token_urlsafe(16)
+    user_id = tambah_pengguna(
+        username=calon_uname,
+        kata_sandi=sandi_acak,
+        nama_lengkap=nl,
+        peran="asesor",
+        email=em,
+        no_met="",
+        institusi="",
+        ip_pendaftar=ip_address,
+        google_id=gid,
+    )
+
+    catat_audit_ip(ip_address=ip_address or "-", jenis_aksi="registrasi_google", pengguna_id=user_id, user_agent=user_agent)
+    return ambil_pengguna(user_id)
+
+
+# ==============================================================================
+# Audit Jejak IP & Deteksi Multi-Akun (Anti-Abuse)
+# ==============================================================================
+
+def catat_audit_ip(ip_address: str, jenis_aksi: str, pengguna_id: Optional[int] = None, schema_id: Optional[str] = None, user_agent: Optional[str] = None) -> None:
+    """Mencatat aktivitas IP klien ke tabel audit_ip_aktivitas."""
+    sekarang = datetime.now(timezone.utc).isoformat()
+    ip_bersih = (ip_address or "-").strip()
+    aksi_bersih = (jenis_aksi or "unknown").strip()
+    ua_bersih = (user_agent or "")[:300].strip()
+
+    try:
+        with _ambil_koneksi() as conn:
+            conn.execute(
+                """INSERT INTO audit_ip_aktivitas
+                   (ip_address, pengguna_id, jenis_aksi, schema_id, user_agent, dibuat_pada)
+                   VALUES (?, ?, ?, ?, ?, ?)""",
+                (ip_bersih, pengguna_id, aksi_bersih, schema_id, ua_bersih, sekarang),
+            )
+            conn.commit()
+    except Exception as e:
+        _log_aman().warning("Gagal mencatat audit IP: %s", e)
+
+
+def hitung_aktivitas_ip(ip_address: str, jenis_aksi: Optional[str] = None, hari: int = 30) -> int:
+    """Menghitung frekuensi aksi tertentu dari alamat IP dalam rentang N hari terakhir."""
+    ip_bersih = (ip_address or "-").strip()
+    if not ip_bersih or ip_bersih == "-":
+        return 0
+
+    with _ambil_koneksi() as conn:
+        if jenis_aksi:
+            row = conn.execute(
+                """SELECT COUNT(*) AS total FROM audit_ip_aktivitas
+                   WHERE ip_address = ? AND jenis_aksi = ?
+                     AND datetime(dibuat_pada) >= datetime('now', ?)""",
+                (ip_bersih, jenis_aksi, f"-{abs(hari)} days"),
+            ).fetchone()
+        else:
+            row = conn.execute(
+                """SELECT COUNT(*) AS total FROM audit_ip_aktivitas
+                   WHERE ip_address = ?
+                     AND datetime(dibuat_pada) >= datetime('now', ?)""",
+                (ip_bersih, f"-{abs(hari)} days"),
+            ).fetchone()
+        return row["total"] if row else 0
+
+
+def daftar_akun_dari_ip(ip_address: str) -> List[Dict[str, Any]]:
+    """Mendeteksi semua akun yang pernah terdaftar atau beraktivitas dari IP ini."""
+    ip_bersih = (ip_address or "-").strip()
+    if not ip_bersih or ip_bersih == "-":
+        return []
+
+    with _ambil_koneksi() as conn:
+        rows = conn.execute(
+            """SELECT DISTINCT p.id, p.username, p.nama_lengkap, p.email, p.dibuat_pada
+               FROM pengguna p
+               LEFT JOIN audit_ip_aktivitas a ON p.id = a.pengguna_id
+               WHERE p.ip_pendaftar = ? OR a.ip_address = ?
+               ORDER BY p.id ASC""",
+            (ip_bersih, ip_bersih),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
 
 
 # ==============================================================================

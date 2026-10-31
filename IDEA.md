@@ -1,0 +1,1 @@
+Aplikasi ekstraksi SKKNI & generator 24 dokumen Buku Kerja Asesor BNSP V.2023 berbasis Kelompok Pekerjaan. Dilengkapi editor instrumen MUK, ekspor Word/ZIP standar A4 Portrait-Landscape, serta REST API integrasi.

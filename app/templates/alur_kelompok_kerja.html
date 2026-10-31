@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penyusunan Kelompok Kerja - {{ dok.nama_skema }}</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              navy: '#0f172a',
+              hover: '#1d4ed8',
+              emerald: '#059669',
+              light: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+    }
+    .paper-shadow {
+      box-shadow: 0 10px 35px -5px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col bg-slate-50 selection:bg-blue-100 selection:text-blue-700">
+
+  <!-- Header / Navbar Minimalis -->
+  <header class="w-full bg-white border-b border-slate-200/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo Kiri -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:scale-105">
+          <i data-lucide="book-open-check" class="w-5 h-5"></i>
+        </div>
+        <div class="flex items-center tracking-tight font-extrabold text-lg sm:text-xl">
+          <span class="text-blue-600">Buku Kerja</span>
+          <span class="text-slate-900 ml-1.5">Builder</span>
+          <span class="ml-2 text-[10px] font-black px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 border border-blue-200 uppercase tracking-wider">V2023</span>
+        </div>
+      </a>
+
+      <!-- Right Side: Profile / Login -->
+      <div class="flex items-center">
+        {% if pengguna_aktif %}
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-xs font-bold text-slate-800">{{ pengguna_aktif.nama_lengkap }}</div>
+              <div class="text-[10px] text-slate-400 font-medium">Peran: {{ pengguna_aktif.peran|upper }}</div>
+            </div>
+            <form class="m-0" method="post" action="/logout">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                <span>Keluar</span>
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <a href="/login" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 transition-all shadow-xs active:scale-95">
+            <i data-lucide="log-in" class="w-4 h-4 text-slate-500"></i>
+            <span>Login</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-8 sm:py-12 px-4 sm:px-6 max-w-6xl mx-auto w-full pb-32">
+
+    <!-- Breadcrumb & Navigasi -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <nav class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 flex-wrap">
+        <a href="/" class="hover:text-blue-600 flex items-center gap-1">
+          <i data-lucide="home" class="w-3.5 h-3.5"></i>
+          <span>Beranda</span>
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-300"></i>
+        <a href="/skema/{{ dok.id }}/siap-unduh" class="hover:text-blue-600 truncate max-w-[200px]" title="{{ dok.nama_skema }}">
+          {{ dok.nama_skema }}
+        </a>
+        <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-slate-300"></i>
+        <span class="text-blue-600 font-bold">Penyusunan Kelompok Kerja</span>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <a href="/skema/{{ dok.id }}/siap-unduh" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-white hover:text-blue-600 transition-all bg-white shadow-2xs">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Kembali ke Hasil Ekstraksi</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Hero Header -->
+    <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+      <div class="relative inline-flex items-center justify-center mb-4">
+        <div class="w-16 h-16 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
+          <i data-lucide="folder-kanban" class="w-8 h-8 stroke-[2.2]"></i>
+        </div>
+        <span class="absolute -bottom-1 -right-1 bg-emerald-600 text-white rounded-full p-1 border-2 border-white shadow-sm">
+          <i data-lucide="check" class="w-3 h-3"></i>
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight mb-2">
+        Penyusunan Kelompok Kerja Asesmen
+      </h1>
+
+      <p class="text-xs sm:text-sm text-slate-500 leading-relaxed">
+        Kelompokkan seluruh unit kompetensi ke dalam paket kerja/pekerjaan yang kohesif. Susunan ini otomatis menjadi acuan skenario praktik (FR.IA.02), proyek terstruktur (FR.IA.04), dan peta rencana asesmen (FR.MAPA.01 &amp; 02) standar BNSP V.2023.
+      </p>
+    </div>
+
+    <!-- Status Cakupan Banner -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 mb-8 paper-shadow">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <div id="badge-cakupan-icon" class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0">
+            <i data-lucide="check-circle" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-bold text-slate-900 text-sm">Validasi Cakupan Unit Kompetensi</h3>
+              <span id="badge-persentase-cakupan" class="px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                100% Lengkap
+              </span>
+            </div>
+            <p id="teks-cakupan-status" class="text-xs text-slate-500 mt-0.5">
+              Seluruh {{ daftar_unit|length }} unit kompetensi telah masuk ke dalam kelompok kerja.
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2 self-start sm:self-center">
+          <button
+            type="button"
+            onclick="gabungkanSemuaUnitKeSatuKelompok()"
+            class="px-3 py-1.5 rounded-xl border border-blue-200 bg-blue-50/70 hover:bg-blue-100 text-blue-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer"
+          >
+            <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+            <span>Jadikan 1 Kelompok Utuh</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-100 rounded-full h-2 mt-4 overflow-hidden">
+        <div id="bar-cakupan-progress" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 100%;"></div>
+      </div>
+    </div>
+
+    <!-- Layout 2 Kolom: Editor Kelompok Kerja (Kiri) & Live Preview Peta Kelompok (Kanan) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      
+      <!-- KOLOM KIRI: Editor Kartu Kelompok Kerja (7 cols) -->
+      <div class="lg:col-span-7 space-y-5">
+        <div class="flex items-center justify-between">
+          <h2 class="text-sm font-extrabold text-slate-900 uppercase tracking-wider text-xs">
+            Daftar Paket Kelompok Kerja
+          </h2>
+          <span class="text-xs text-slate-400">Tentukan nama &amp; centang unit anggotanya</span>
+        </div>
+
+        <!-- Wadah Kartu Kelompok Kerja -->
+        <div id="wadah-kelompok-kerja" class="space-y-4">
+          <!-- Rendered via Jinja2 & Client JS -->
+        </div>
+
+        <!-- Tombol Tambah Kelompok Baru -->
+        <button
+          type="button"
+          onclick="tambahKelompokBaru()"
+          class="w-full py-3.5 rounded-2xl border-2 border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50/40 text-slate-600 hover:text-blue-600 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <i data-lucide="plus-circle" class="w-4 h-4"></i>
+          <span>Tambah Kelompok Kerja Baru</span>
+        </button>
+      </div>
+
+      <!-- KOLOM KANAN: Panduan BNSP & Pratinjau Tabel Peta Kelompok (5 cols) -->
+      <div class="lg:col-span-5 space-y-4">
+        
+        <!-- Panduan Card -->
+        <div class="bg-blue-50/80 border border-blue-200/80 rounded-2xl p-4 text-xs text-blue-900 leading-relaxed">
+          <div class="flex items-center gap-2 font-bold text-blue-950 mb-1.5">
+            <i data-lucide="info" class="w-4 h-4 text-blue-600 shrink-0"></i>
+            <span>Ketentuan BNSP Versi 2023:</span>
+          </div>
+          <ul class="list-disc list-inside space-y-1 text-blue-800 text-[11px]">
+            <li>Seluruh unit kompetensi skema wajib masuk ke minimal 1 kelompok kerja (target cakupan 100%).</li>
+            <li>Peta ini otomatis menyusun matriks pada <strong>FR.MAPA.01</strong>, <strong>FR.MAPA.02</strong>, dan dokumen cetak <strong>Peta Kelompok Pekerjaan</strong>.</li>
+            <li>Bila skema merupakan satu kesatuan alur demonstrasi kerja, semua unit dapat disatukan ke dalam 1 kelompok kerja.</li>
+          </ul>
+        </div>
+
+        <!-- Pratinjau Tabel Peta Kelompok A4 Live -->
+        <div class="bg-white border border-slate-200 rounded-2xl p-5 paper-shadow">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+            <div class="flex items-center gap-2">
+              <i data-lucide="table" class="w-4 h-4 text-slate-600"></i>
+              <h3 class="font-bold text-slate-900 text-xs uppercase tracking-wider">Pratinjau Tabel Peta Kelompok</h3>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-100 text-slate-600">Live Preview</span>
+          </div>
+
+          <div id="wadah-pratinjau-tabel" class="overflow-x-auto text-[11px]">
+            <!-- Live table generated by JavaScript -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- STICKY BOTTOM TOOLBAR -->
+    <div class="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-5xl px-4 z-40">
+      <div class="bg-white/95 backdrop-blur-md border border-slate-200 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2.5">
+          <span id="toolbar-status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span id="toolbar-status-text" class="font-bold text-slate-800">
+            Cakupan 100% · Siap melanjutkan
+          </span>
+        </div>
+
+        <div class="flex items-center gap-2.5 w-full sm:w-auto justify-end">
+          <a
+            href="/skema/{{ dok.id }}/siap-unduh"
+            class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold transition-all text-center"
+          >
+            Batal / Kembali
+          </a>
+          <button
+            type="button"
+            id="btn-simpan-kelompok"
+            onclick="simpanKelompokKerja()"
+            class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+          >
+            <span>Simpan &amp; Lanjutkan ke Pemeriksaan Dokumen</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl text-xs font-semibold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2.5">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-text">Notifikasi</span>
+  </div>
+
+  <!-- Client-side Logic -->
+  <script>
+    // Data master unit dari template
+    const masterUnits = [
+      {% for u in daftar_unit %}
+      {
+        kode_unit: "{{ u.kode_unit }}",
+        judul_unit: "{{ u.judul_unit|replace('\"', '\\\"') }}",
+        standar_acuan: "{{ u.standar_acuan or 'SKKNI' }}"
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ];
+
+    // Data kelompok saat ini
+    let kelompokList = [
+      {% for grp in raw_kp %}
+      {
+        id: "{{ grp.id or ('kp_' ~ loop.index) }}",
+        nama: "{{ grp.nama|replace('\"', '\\\"') }}",
+        urutan: {{ grp.urutan or loop.index }},
+        units: {{ grp.units|tojson }}
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ];
+
+    // Jika kelompok kosong, defaultkan 1 kelompok dengan seluruh unit
+    if (!kelompokList.length && masterUnits.length) {
+      kelompokList.push({
+        id: "kp_1",
+        nama: "Kelompok Pekerjaan 1 ({{ dok.nama_skema|replace('\"', '\\\"') }})",
+        urutan: 1,
+        units: masterUnits.map(u => u.kode_unit)
+      });
+    }
+
+    // Render kartu kelompok
+    function renderKelompokCards() {
+      const container = document.getElementById('wadah-kelompok-kerja');
+      container.innerHTML = '';
+
+      kelompokList.forEach((grp, idx) => {
+        const card = document.createElement('div');
+        card.className = "bg-white border border-slate-200 rounded-2xl p-5 paper-shadow space-y-4";
+        card.dataset.index = idx;
+
+        // Header Kelompok
+        let html = `
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 gap-3">
+            <div class="flex items-center gap-2 flex-1">
+              <span class="px-2.5 py-1 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 font-mono font-bold text-xs shrink-0">
+                KELOMPOK ${idx + 1}
+              </span>
+              <input
+                type="text"
+                value="${grp.nama || ''}"
+                placeholder="Nama kelompok pekerjaan..."
+                class="w-full px-3 py-1.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-xs sm:text-sm font-bold text-slate-800 transition-all"
+                oninput="updateNamaKelompok(${idx}, this.value)"
+              >
+            </div>
+            <div class="flex items-center gap-2 shrink-0">
+              <input
+                type="number"
+                min="1"
+                value="${grp.urutan || (idx + 1)}"
+                title="Urutan kelompok"
+                class="w-14 px-2 py-1.5 rounded-xl border border-slate-300 text-xs font-mono font-bold text-center text-slate-700"
+                oninput="updateUrutanKelompok(${idx}, this.value)"
+              >
+              ${kelompokList.length > 1 ? `
+                <button
+                  type="button"
+                  onclick="hapusKelompok(${idx})"
+                  class="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer"
+                  title="Hapus kelompok pekerjaan ini"
+                >
+                  <i data-lucide="trash-2" class="w-4 h-4"></i>
+                </button>
+              ` : ''}
+            </div>
+          </div>
+
+          <!-- Unit Selector Checkbox List -->
+          <div>
+            <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+              <span>Pilih Unit Kompetensi Anggota:</span>
+              <div class="flex items-center gap-2 text-[11px]">
+                <button type="button" onclick="pilihSemuaUnit(${idx}, true)" class="text-blue-600 hover:underline cursor-pointer">Pilih Semua</button>
+                <span class="text-slate-300">&bull;</span>
+                <button type="button" onclick="pilihSemuaUnit(${idx}, false)" class="text-slate-400 hover:text-slate-600 cursor-pointer">Kosongkan</button>
+              </div>
+            </div>
+
+            <div class="divide-y divide-slate-100 border border-slate-200/80 rounded-xl max-h-56 overflow-y-auto bg-slate-50/50">
+        `;
+
+        masterUnits.forEach(u => {
+          const checked = (grp.units || []).includes(u.kode_unit) ? 'checked' : '';
+          html += `
+            <label class="p-2.5 flex items-start gap-2.5 hover:bg-white transition-colors cursor-pointer text-xs">
+              <input
+                type="checkbox"
+                value="${u.kode_unit}"
+                ${checked}
+                onchange="toggleUnitKelompok(${idx}, '${u.kode_unit}', this.checked)"
+                class="mt-0.5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+              >
+              <div class="flex-1">
+                <span class="font-mono font-bold text-slate-800 text-[11px]">${u.kode_unit}</span>
+                <span class="text-slate-600 block text-[11px] leading-tight">${u.judul_unit}</span>
+              </div>
+            </label>
+          `;
+        });
+
+        html += `
+            </div>
+          </div>
+        `;
+
+        card.innerHTML = html;
+        container.appendChild(card);
+      });
+
+      lucide.createIcons();
+      updateCakupanDanPratinjau();
+    }
+
+    function updateNamaKelompok(idx, nama) {
+      kelompokList[idx].nama = nama;
+      updateCakupanDanPratinjau();
+    }
+
+    function updateUrutanKelompok(idx, urutan) {
+      kelompokList[idx].urutan = parseInt(urutan) || (idx + 1);
+      updateCakupanDanPratinjau();
+    }
+
+    function toggleUnitKelompok(idx, kodeUnit, isChecked) {
+      if (!kelompokList[idx].units) kelompokList[idx].units = [];
+      if (isChecked) {
+        if (!kelompokList[idx].units.includes(kodeUnit)) {
+          kelompokList[idx].units.push(kodeUnit);
+        }
+      } else {
+        kelompokList[idx].units = kelompokList[idx].units.filter(c => c !== kodeUnit);
+      }
+      updateCakupanDanPratinjau();
+    }
+
+    function pilihSemuaUnit(idx, pilihSemua) {
+      if (pilihSemua) {
+        kelompokList[idx].units = masterUnits.map(u => u.kode_unit);
+      } else {
+        kelompokList[idx].units = [];
+      }
+      renderKelompokCards();
+    }
+
+    function tambahKelompokBaru() {
+      const nextNo = kelompokList.length + 1;
+      kelompokList.push({
+        id: `kp_${nextNo}`,
+        nama: `Kelompok Pekerjaan ${nextNo}`,
+        urutan: nextNo,
+        units: []
+      });
+      renderKelompokCards();
+    }
+
+    function hapusKelompok(idx) {
+      if (kelompokList.length <= 1) return;
+      kelompokList.splice(idx, 1);
+      // Re-number
+      kelompokList.forEach((grp, i) => {
+        grp.urutan = i + 1;
+      });
+      renderKelompokCards();
+    }
+
+    function gabungkanSemuaUnitKeSatuKelompok() {
+      kelompokList = [{
+        id: "kp_1",
+        nama: "Kelompok Pekerjaan 1 ({{ dok.nama_skema|replace('\"', '\\\"') }})",
+        urutan: 1,
+        units: masterUnits.map(u => u.kode_unit)
+      }];
+      renderKelompokCards();
+      showToast('Seluruh unit berhasil digabungkan ke Kelompok 1.');
+    }
+
+    // Hitung persentase cakupan dan update tabel pratinjau live
+    function updateCakupanDanPratinjau() {
+      const assignedSet = new Set();
+      kelompokList.forEach(grp => {
+        (grp.units || []).forEach(uc => assignedSet.add(uc));
+      });
+
+      const totalMaster = masterUnits.length;
+      const totalAssigned = assignedSet.size;
+      const percent = totalMaster > 0 ? Math.round((totalAssigned / totalMaster) * 100) : 0;
+      const isComplete = percent >= 100;
+
+      // Update Bar & Teks
+      const bar = document.getElementById('bar-cakupan-progress');
+      const badge = document.getElementById('badge-persentase-cakupan');
+      const teks = document.getElementById('teks-cakupan-status');
+      const iconBox = document.getElementById('badge-cakupan-icon');
+      const toolbarDot = document.getElementById('toolbar-status-dot');
+      const toolbarText = document.getElementById('toolbar-status-text');
+
+      bar.style.width = `${percent}%`;
+
+      if (isComplete) {
+        bar.className = "bg-emerald-600 h-2 rounded-full transition-all duration-300";
+        badge.className = "px-2 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200";
+        badge.textContent = "100% Lengkap";
+        teks.textContent = `Seluruh ${totalMaster} unit kompetensi telah masuk ke dalam kelompok kerja.`;
+        iconBox.className = "w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold shrink-0";
+        iconBox.innerHTML = `<i data-lucide="check-circle" class="w-5 h-5"></i>`;
+        toolbarDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500";
+        toolbarText.textContent = "Cakupan 100% · Siap melanjutkan";
+      } else {
+        bar.className = "bg-amber-500 h-2 rounded-full transition-all duration-300";
+        badge.className = "px-2 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300";
+        badge.textContent = `${percent}% Terpetakan`;
+        const sisa = totalMaster - totalAssigned;
+        teks.textContent = `Masih ada ${sisa} unit kompetensi yang belum masuk kelompok kerja.`;
+        iconBox.className = "w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold shrink-0";
+        iconBox.innerHTML = `<i data-lucide="alert-circle" class="w-5 h-5"></i>`;
+        toolbarDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500";
+        toolbarText.textContent = `Cakupan ${percent}% (${sisa} unit belum terkelompokkan)`;
+      }
+
+      // Render Live Preview Table
+      const previewBox = document.getElementById('wadah-pratinjau-tabel');
+      let tableHtml = `
+        <table class="w-full text-left border border-slate-200 rounded-lg overflow-hidden">
+          <thead class="bg-slate-100/80 text-slate-700 font-bold border-b border-slate-200">
+            <tr>
+              <th class="p-2 border-r border-slate-200 w-8 text-center">No</th>
+              <th class="p-2 border-r border-slate-200">Kelompok &amp; Unit Anggota</th>
+              <th class="p-2 w-28 text-center">Kode Unit</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+      `;
+
+      if (!kelompokList.length) {
+        tableHtml += `<tr><td colspan="3" class="p-4 text-center text-slate-400">Belum ada kelompok kerja.</td></tr>`;
+      } else {
+        kelompokList.forEach((grp, idx) => {
+          const grpUnits = (grp.units || [])
+            .map(code => masterUnits.find(u => u.kode_unit === code))
+            .filter(Boolean);
+
+          if (!grpUnits.length) {
+            tableHtml += `
+              <tr class="bg-slate-50/50">
+                <td class="p-2 border-r border-slate-200 text-center font-bold font-mono">${idx + 1}</td>
+                <td class="p-2 border-r border-slate-200">
+                  <div class="font-bold text-slate-900">${grp.nama || `Kelompok Pekerjaan ${idx + 1}`}</div>
+                  <div class="text-[10px] text-rose-500 italic">Belum ada unit yang dicentang</div>
+                </td>
+                <td class="p-2 text-center text-slate-400 font-mono">-</td>
+              </tr>
+            `;
+          } else {
+            grpUnits.forEach((u, uIdx) => {
+              tableHtml += `
+                <tr class="hover:bg-slate-50/50">
+                  ${uIdx === 0 ? `
+                    <td rowspan="${grpUnits.length}" class="p-2 border-r border-slate-200 text-center font-bold font-mono bg-slate-50/30 align-top">
+                      ${idx + 1}
+                    </td>
+                    <td class="p-2 border-r border-slate-200 font-bold text-slate-900 bg-slate-50/20">
+                      <div class="text-blue-700">${grp.nama || `Kelompok Pekerjaan ${idx + 1}`}</div>
+                      <div class="font-normal text-slate-600 mt-0.5 text-[10px]">${u.judul_unit}</div>
+                    </td>
+                  ` : `
+                    <td class="p-2 border-r border-slate-200 text-slate-600 text-[10px]">
+                      ${u.judul_unit}
+                    </td>
+                  `}
+                  <td class="p-2 text-center font-mono font-bold text-[10px] text-slate-700 bg-slate-50/20">
+                    ${u.kode_unit}
+                  </td>
+                </tr>
+              `;
+            });
+          }
+        });
+      }
+
+      tableHtml += `
+          </tbody>
+        </table>
+      `;
+
+      previewBox.innerHTML = tableHtml;
+      lucide.createIcons();
+    }
+
+    // Simpan Kelompok Kerja via AJAX
+    async function simpanKelompokKerja() {
+      const btn = document.getElementById('btn-simpan-kelompok');
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      btn.innerHTML = `<span>Menyimpan...</span>`;
+
+      // Bersihkan dan format data payload
+      const payloadGroups = kelompokList.map((grp, idx) => ({
+        id: grp.id || `kp_${idx + 1}`,
+        nama: (grp.nama || `Kelompok Pekerjaan ${idx + 1}`).trim(),
+        urutan: grp.urutan || (idx + 1),
+        units: grp.units || []
+      })).filter(g => g.nama.length > 0);
+
+      try {
+        const resp = await fetch('/skema/{{ dok.id }}/simpan-kelompok-kerja', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            csrf_token: "{{ csrf_token }}",
+            kelompok_pekerjaan: payloadGroups
+          })
+        });
+
+        const data = await resp.json();
+        if (data.sukses) {
+          showToast(data.pesan || 'Kelompok kerja berhasil disimpan!');
+          setTimeout(() => {
+            window.location.href = data.redirect_url;
+          }, 600);
+        } else {
+          showToast(`Gagal: ${data.pesan}`);
+          btn.disabled = false;
+          btn.classList.remove('opacity-75');
+          btn.innerHTML = `<span>Simpan &amp; Lanjutkan ke Pemeriksaan Dokumen</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+          lucide.createIcons();
+        }
+      } catch (err) {
+        showToast('Terjadi kesalahan jaringan.');
+        btn.disabled = false;
+        btn.classList.remove('opacity-75');
+        btn.innerHTML = `<span>Simpan &amp; Lanjutkan ke Pemeriksaan Dokumen</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+        lucide.createIcons();
+      }
+    }
+
+    // Toast Helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      
+      toastText.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+
+    // Inisialisasi awal saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', () => {
+      renderKelompokCards();
+    });
+  </script>
+</body>
+</html>

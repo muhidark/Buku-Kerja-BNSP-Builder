@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buku Kerja Builder V2023 - Dokumen Siap Diunduh</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              navy: '#0f172a',
+              hover: '#1d4ed8',
+              emerald: '#059669',
+              light: '#f8fafc'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+    }
+    .custom-shadow {
+      box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.28), 0 4px 6px -4px rgba(37, 99, 235, 0.1);
+    }
+    .paper-shadow {
+      box-shadow: 0 10px 35px -5px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col bg-slate-50 selection:bg-blue-100 selection:text-blue-700">
+
+  <!-- Header / Navbar Minimalis -->
+  <header class="w-full bg-white border-b border-slate-200/80 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo Kiri -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:scale-105">
+          <i data-lucide="book-open-check" class="w-5 h-5"></i>
+        </div>
+        <div class="flex items-center tracking-tight font-extrabold text-lg sm:text-xl">
+          <span class="text-blue-600">Buku Kerja</span>
+          <span class="text-slate-900 ml-1.5">Builder</span>
+          <span class="ml-2 text-[10px] font-black px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 border border-blue-200 uppercase tracking-wider">V2023</span>
+        </div>
+      </a>
+
+      <!-- Right Side: Profile / Login -->
+      <div class="flex items-center">
+        {% if pengguna_aktif %}
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-xs font-bold text-slate-800">{{ pengguna_aktif.nama_lengkap }}</div>
+              <div class="text-[10px] text-slate-400 font-medium">Peran: {{ pengguna_aktif.peran|upper }}</div>
+            </div>
+            <form class="m-0" method="post" action="/logout">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                <span>Keluar</span>
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <button type="button" onclick="bukaModalAuth()" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 transition-all shadow-xs active:scale-95 cursor-pointer">
+            <i data-lucide="log-in" class="w-4 h-4 text-slate-500"></i>
+            <span>Masuk / Daftar</span>
+          </button>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content: Layar Siap Unduh -->
+  <main class="flex-grow py-8 sm:py-12 px-4 sm:px-6 max-w-5xl mx-auto w-full">
+    
+    <!-- Hero Status Section -->
+    <div class="text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+      
+      <!-- Big Animated Success Badge -->
+      <div class="relative inline-flex items-center justify-center mb-4">
+        <div class="w-20 h-20 rounded-3xl bg-emerald-50 border border-emerald-100 flex items-center justify-center text-emerald-600">
+          <i data-lucide="check-circle-2" class="w-10 h-10 stroke-[2.2]"></i>
+        </div>
+        <span class="absolute -bottom-1 -right-1 bg-blue-600 text-white rounded-full p-1 border-2 border-white shadow-sm">
+          <i data-lucide="file-check" class="w-3.5 h-3.5"></i>
+        </span>
+      </div>
+
+      <h1 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 tracking-tight mb-2.5">
+        Dokumen SKKNI Berhasil Diekstraksi!
+      </h1>
+      
+      <p class="text-sm sm:text-base text-slate-500 leading-relaxed">
+        Seluruh unit kompetensi dalam skema sertifikasi telah terekstraksi. Anda dapat mengunduh dokumen SKKNI hasil ekstraksi atau langsung melanjutkan penyusunan buku kerja.
+      </p>
+    </div>
+
+    <!-- Download Card & File Meta Section -->
+    <div class="bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-7 paper-shadow mb-8 text-left">
+      
+      <!-- File Metadata Row -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-100 gap-4">
+        <div class="flex items-start sm:items-center gap-3.5">
+          <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+            <i data-lucide="file-text" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 id="file-name" class="font-bold text-slate-900 text-base sm:text-lg">{{ dok.nama_skema or dok.nama_asli }}</h2>
+              {% if gerbang.siap_semua %}
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <i data-lucide="shield-check" class="w-3 h-3 text-emerald-600"></i> Terverifikasi Penuh
+                </span>
+              {% else %}
+                <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800 border border-amber-300">
+                  <i data-lucide="alert-triangle" class="w-3 h-3 text-amber-600"></i> {{ ringkasan.perlu }} Unit Perlu Diperiksa
+                </span>
+              {% endif %}
+            </div>
+            <div class="flex items-center gap-3 text-xs text-slate-400 font-medium mt-1">
+              <span class="text-slate-600 font-semibold" id="current-scheme-name">Skema: {{ dok.nama_skema or dok.nama_asli }}</span>
+              <span>•</span>
+              <span class="flex items-center gap-1"><i data-lucide="layers" class="w-3.5 h-3.5"></i> {{ total_unit }} Unit Terpetakan</span>
+              <span>•</span>
+              {% if gerbang.siap_semua %}
+                <span class="flex items-center gap-1 text-emerald-600 font-semibold"><i data-lucide="check-circle" class="w-3.5 h-3.5"></i> 100% Siap</span>
+              {% else %}
+                <span class="flex items-center gap-1 text-amber-600 font-semibold"><i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> {{ ringkasan.siap }}/{{ total_unit }} Unit Siap</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Switch Scheme -->
+        <a href="/" class="text-xs font-semibold text-slate-500 hover:text-blue-600 flex items-center gap-1.5 self-start sm:self-center transition-colors">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+          <span>Unggah Skema Baru</span>
+        </a>
+      </div>
+
+      <!-- Main Action Buttons -->
+      <div class="pt-6 pb-2">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3.5">
+          <!-- Download SKKNI Document Button -->
+          <div class="md:col-span-5">
+            <a href="/skema/{{ dok.id }}/unduh-docx-skkni" class="w-full h-full py-4 px-5 bg-white hover:bg-slate-50 text-slate-800 border-2 border-slate-200 hover:border-slate-300 font-bold rounded-xl flex items-center justify-center gap-2.5 transition-all duration-200 active:scale-[0.99] text-sm sm:text-base">
+              <i data-lucide="download" class="w-5 h-5 text-blue-600 stroke-[2.5]"></i>
+              <span>Unduh Dokumen SKKNI (.docx)</span>
+            </a>
+          </div>
+
+          <!-- Lanjutkan Pembuatan Buku Kerja Button -->
+          <div class="md:col-span-7">
+            {% if pengguna_aktif %}
+            <button type="button" onclick="bukaModalIdentitas()" class="w-full h-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-3 custom-shadow transition-all duration-200 active:scale-[0.99] text-sm sm:text-base text-center group cursor-pointer">
+              <span>Lanjutkan Pembuatan Buku Kerja {{ dok.nama_skema or 'Asesor' }}</span>
+              <i data-lucide="arrow-right" class="w-5 h-5 stroke-[2.5] transition-transform group-hover:translate-x-1"></i>
+            </button>
+            {% else %}
+            <button type="button" onclick="bukaModalAuth({schemaId: '{{ dok.id }}', nextUrl: '/skema/{{ dok.id }}/siap-unduh', tab: 'daftar'})" class="w-full h-full py-4 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl flex items-center justify-center gap-3 custom-shadow transition-all duration-200 active:scale-[0.99] text-sm sm:text-base text-center group cursor-pointer">
+              <span>Lanjutkan Pembuatan Buku Kerja {{ dok.nama_skema or 'Asesor' }}</span>
+              <i data-lucide="arrow-right" class="w-5 h-5 stroke-[2.5] transition-transform group-hover:translate-x-1"></i>
+            </button>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- Secondary File Downloads (Bundled Files) -->
+        <div class="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+          <span class="font-bold text-slate-400 uppercase tracking-wider text-[11px]">Format Ekstraksi Tersedia:</span>
+          <div class="flex items-center gap-2 flex-wrap">
+            <a href="/skema/{{ dok.id }}/unduh-docx-skkni" class="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-medium flex items-center gap-1.5 transition-colors">
+              <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i> Format Word (.docx)
+            </a>
+            <a href="/api/skema/{{ dok.id }}/export-lsp?download=true" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium flex items-center gap-1.5 transition-colors" title="Format JSON standar untuk integrasi plugin WordPress LSP">
+              <i data-lucide="code-2" class="w-3.5 h-3.5 text-slate-500"></i> Data JSON (Plugin WordPress)
+            </a>
+            <button onclick="salinJsonLsp()" class="px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 font-medium flex items-center gap-1.5 transition-colors">
+              <i data-lucide="copy" class="w-3.5 h-3.5 text-emerald-600"></i> Salin JSON ke Clipboard
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick Stats Grid -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+      <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs text-left">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Unit Skema</span>
+        <div class="flex items-baseline gap-2 mt-1">
+          <span class="text-2xl font-black text-slate-900">{{ total_unit }}</span>
+          <span class="text-xs text-blue-600 font-semibold">Kompetensi Inti</span>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs text-left">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Elemen</span>
+        <div class="flex items-baseline gap-2 mt-1">
+          <span class="text-2xl font-black text-slate-900">{{ total_elemen }}</span>
+          <span class="text-xs text-slate-400 font-semibold">Elemen Terurai</span>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs text-left">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">KUK Siap Uji</span>
+        <div class="flex items-baseline gap-2 mt-1">
+          <span class="text-2xl font-black text-slate-900">{{ total_kuk }}</span>
+          <span class="text-xs text-slate-400 font-semibold">Indikator Kerja</span>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs text-left">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Kepatuhan BNSP</span>
+        <div class="flex items-baseline gap-2 mt-1">
+          {% if gerbang.siap_semua %}
+            <span class="text-2xl font-black text-emerald-600">100%</span>
+            <span class="text-xs text-emerald-600 font-semibold">Siap Asesmen</span>
+          {% else %}
+            <span class="text-2xl font-black text-amber-600">{{ persen_siap }}%</span>
+            <span class="text-xs text-amber-700 font-semibold">{{ ringkasan.siap }}/{{ total_unit }} Unit Siap</span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Banner Peringatan Unit Perlu Diperiksa -->
+    {% if not gerbang.siap_semua %}
+    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-4 sm:p-5 mb-8 text-left flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex items-start gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center shrink-0">
+          <i data-lucide="alert-triangle" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <h4 class="font-bold text-amber-950 text-sm">
+            {{ ringkasan.perlu }} Unit Kompetensi Memerlukan Verifikasi Manual
+          </h4>
+          <p class="text-xs text-amber-800 mt-0.5 leading-relaxed">
+            Sistem mendeteksi catatan penomoran/struktur minor dari hasil ekstraksi PDF sumber. Anda dapat meninjau, mengoreksi, atau menyetujui sekaligus.
+          </p>
+        </div>
+      </div>
+      <button onclick="verifikasiSemua()" class="px-4 py-2.5 bg-amber-600 hover:bg-amber-700 text-white font-bold rounded-xl text-xs transition-all flex items-center gap-2 shrink-0 shadow-sm active:scale-95">
+        <i data-lucide="check-check" class="w-4 h-4"></i>
+        <span>Verifikasi Semua Unit</span>
+      </button>
+    </div>
+    {% endif %}
+
+    <!-- Tabel Status & Verifikasi Unit Kompetensi -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 paper-shadow mb-8 text-left">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+        <div>
+          <h3 class="font-bold text-slate-900 text-base">Status Kesiapan Unit Kompetensi</h3>
+          <p class="text-xs text-slate-400 mt-0.5">Tinjau hasil evaluasi mutu ekstraksi atau koreksi teks elemen &amp; KUK</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-semibold">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> {{ ringkasan.siap }} Siap
+          </span>
+          {% if ringkasan.perlu > 0 %}
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-300">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span> {{ ringkasan.perlu }} Perlu Diperiksa
+          </span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="mt-4 border border-slate-200 rounded-xl overflow-hidden text-xs">
+        <div class="bg-slate-50 px-3.5 py-2.5 border-b border-slate-200 font-bold text-slate-600 grid grid-cols-12 gap-2">
+          <div class="col-span-1 text-center">No</div>
+          <div class="col-span-3">Kode Unit</div>
+          <div class="col-span-4">Judul Unit Kompetensi</div>
+          <div class="col-span-2 text-center">Status</div>
+          <div class="col-span-2 text-right">Aksi</div>
+        </div>
+        <div class="divide-y divide-slate-100 bg-white">
+          {% for u in daftar_unit %}
+          <div class="px-3.5 py-3 grid grid-cols-12 gap-2 items-center">
+            <div class="col-span-1 text-center text-slate-400 font-semibold">{{ loop.index }}</div>
+            <div class="col-span-3">
+              <span class="font-mono font-bold text-blue-600 text-[11px]">{{ u.kode_unit }}</span>
+              <div class="text-[10px] text-slate-400 mt-0.5">{{ u.elemen_count or 0 }} Elemen • {{ u.kuk_count or 0 }} KUK</div>
+            </div>
+            <div class="col-span-4">
+              <span class="text-slate-800 font-medium line-clamp-2">{{ u.judul_unit }}</span>
+              {% if u.alasan and u.status != 'siap' %}
+                <div class="text-[10px] text-amber-700 mt-1 flex items-start gap-1 bg-amber-50/80 p-1.5 rounded border border-amber-200/60">
+                  <i data-lucide="info" class="w-3 h-3 text-amber-600 shrink-0 mt-0.5"></i>
+                  <span>{{ u.alasan }}</span>
+                </div>
+              {% endif %}
+            </div>
+            <div class="col-span-2 text-center">
+              {% if u.status == 'siap' %}
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Siap
+                </span>
+                {% if u.terverifikasi_manual %}
+                  <div class="text-[9px] text-emerald-600 font-semibold mt-0.5">Manual ✓</div>
+                {% endif %}
+              {% elif u.status == 'perlu' %}
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-50 text-amber-800 border border-amber-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Periksa
+                </span>
+              {% else %}
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-300">
+                  <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Gagal
+                </span>
+              {% endif %}
+            </div>
+            <div class="col-span-2 text-right flex items-center justify-end gap-1.5 flex-wrap">
+              {% if u.status != 'siap' %}
+                <button onclick="verifikasiUnit('{{ u.kode_unit }}')" class="px-2.5 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white text-[11px] font-bold transition-all flex items-center gap-1 shadow-2xs active:scale-95" title="Tandai unit ini terverifikasi manual">
+                  <i data-lucide="check" class="w-3 h-3"></i>
+                  <span>Verifikasi</span>
+                </button>
+              {% endif %}
+              <a href="/skema/{{ dok.id }}/unit/{{ u.kode_unit }}/koreksi" target="_blank" class="px-2 py-1 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-[11px] font-semibold transition-all flex items-center gap-1" title="Koreksi teks elemen &amp; KUK">
+                <i data-lucide="edit-3" class="w-3 h-3 text-slate-500"></i>
+                <span>Koreksi</span>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Security & Privacy Guarantee Badges -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center max-w-3xl mx-auto pt-2">
+      <div class="flex items-center justify-center sm:justify-start gap-3 p-3 text-slate-600 text-xs">
+        <i data-lucide="lock" class="w-4 h-4 text-slate-400"></i>
+        <span>Dokumen dienkripsi & diproteksi</span>
+      </div>
+      <div class="flex items-center justify-center gap-3 p-3 text-slate-600 text-xs">
+        <i data-lucide="clock" class="w-4 h-4 text-slate-400"></i>
+        <span>Tersimpan aman di server lokal</span>
+      </div>
+      <div class="flex items-center justify-center sm:justify-end gap-3 p-3 text-slate-600 text-xs">
+        <i data-lucide="check" class="w-4 h-4 text-emerald-500"></i>
+        <span>Bebas watermark & siap diedit</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Modal Input Identitas Buku Kerja -->
+  <div id="modal-identitas" class="hidden fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 paper-shadow border border-slate-200 relative text-left my-8 transform transition-all duration-300">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between pb-4 border-b border-slate-100 gap-4 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 flex items-center justify-center shrink-0">
+            <i data-lucide="file-signature" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Konfigurasi Identitas Buku Kerja</h3>
+            <p class="text-xs text-slate-400 mt-0.5">Lengkapi data asesi, TUK, asesor, penyusun, dan validator sebelum menyusun instrumen</p>
+          </div>
+        </div>
+        <button type="button" onclick="tutupModalIdentitas()" class="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Form Identitas -->
+      <form id="form-identitas-muk" onsubmit="simpanIdentitasMuk(event)" class="space-y-4 text-xs">
+        
+        <!-- 4. Skema Sertifikasi (Sesuai dokumen skema) & 3. Nomor Skema (boleh kosong) -->
+        <div class="grid grid-cols-1 sm:grid-cols-12 gap-3.5">
+          <div class="sm:col-span-8">
+            <label class="block font-bold text-slate-700 mb-1">
+              4. Skema Sertifikasi <span class="text-slate-400 font-normal">(sesuai dokumen skema)</span>
+            </label>
+            <input
+              type="text"
+              name="skema_sertifikasi"
+              value="{{ dok.nama_skema or dok.nama_asli }}"
+              required
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 bg-slate-50 font-bold text-slate-800 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 transition-all"
+            >
+          </div>
+          <div class="sm:col-span-4">
+            <label class="block font-bold text-slate-700 mb-1">
+              3. Nomor Skema <span class="text-slate-400 font-normal">(boleh kosong)</span>
+            </label>
+            <input
+              type="text"
+              name="nomor_skema"
+              value="{{ personel.nomor_skema or dok.nomor_dokumen or '' }}"
+              placeholder="Contoh: SKM/BNSP/0012/V/2023"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 transition-all font-mono"
+            >
+          </div>
+        </div>
+
+        <!-- 1. Nama Asesi (boleh kosong) & 2. TUK (boleh kosong) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">
+              1. Nama Asesi <span class="text-slate-400 font-normal">(boleh kosong)</span>
+            </label>
+            <input
+              type="text"
+              name="nama_asesi"
+              value="{{ personel.nama_asesi or '' }}"
+              placeholder="Ketik nama lengkap asesi (opsional)"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 transition-all"
+            >
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">
+              2. TUK <span class="text-slate-400 font-normal">(Tempat Uji Kompetensi, boleh kosong)</span>
+            </label>
+            <input
+              type="text"
+              name="nama_tuk"
+              value="{{ personel.nama_tuk or '' }}"
+              placeholder="Contoh: TUK Sewaktu / Mandiri / Nama PT"
+              class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 transition-all"
+            >
+          </div>
+        </div>
+
+        <!-- 5. Nama Asesor dan MET (boleh kosong) -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-2">
+          <span class="block font-bold text-slate-700 text-[11px] uppercase tracking-wider">
+            5. Asesor Penguji &amp; No. MET <span class="text-slate-400 font-normal normal-case">(boleh kosong)</span>
+          </span>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <input
+                type="text"
+                name="nama_asesor"
+                value="{{ personel.nama_asesor or '' }}"
+                placeholder="Nama Lengkap Asesor (opsional)"
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800"
+              >
+            </div>
+            <div>
+              <input
+                type="text"
+                name="no_met_asesor"
+                value="{{ personel.no_met or '' }}"
+                placeholder="No. Reg MET Asesor (opsional)"
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-mono"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. Nama Penyusun dan MET (Wajib diisi) -->
+        <div class="p-3.5 rounded-2xl bg-blue-50/50 border border-blue-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="block font-bold text-blue-950 text-[11px] uppercase tracking-wider">
+              6. Tim Penyusun MUK <span class="text-rose-600 font-black">* (Wajib diisi)</span>
+            </span>
+            <span class="text-[10px] text-blue-700 font-medium">Standar BNSP V2023</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Penyusun:</label>
+              <input
+                type="text"
+                name="nama_penyusun"
+                value="{{ personel.nama_penyusun or '' }}"
+                placeholder="Nama lengkap penyusun MUK"
+                required
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-bold"
+              >
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">No. Reg MET Penyusun:</label>
+              <input
+                type="text"
+                name="met_penyusun"
+                value="{{ personel.met_penyusun or '' }}"
+                placeholder="Contoh: MET.000.032423 2019"
+                required
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-mono font-bold"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Nama Validator dan MET (Wajib diisi) -->
+        <div class="p-3.5 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="block font-bold text-emerald-950 text-[11px] uppercase tracking-wider">
+              7. Tim Validator MUK <span class="text-rose-600 font-black">* (Wajib diisi)</span>
+            </span>
+            <span class="text-[10px] text-emerald-700 font-medium">Verifikasi Mutu</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Nama Validator:</label>
+              <input
+                type="text"
+                name="nama_validator"
+                value="{{ personel.nama_validator or '' }}"
+                placeholder="Nama lengkap validator MUK"
+                required
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-bold"
+              >
+            </div>
+            <div>
+              <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">No. Reg MET Validator:</label>
+              <input
+                type="text"
+                name="met_validator"
+                value="{{ personel.met_validator or '' }}"
+                placeholder="Contoh: MET.000.014249 2019"
+                required
+                class="w-full px-3 py-2 rounded-xl border border-slate-300 bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-mono font-bold"
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Actions Footer -->
+        <div class="pt-4 border-t border-slate-100 flex items-center justify-end gap-2.5">
+          <button
+            type="button"
+            onclick="tutupModalIdentitas()"
+            class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold transition-all"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            id="btn-submit-identitas"
+            class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-sm flex items-center gap-2 active:scale-95 cursor-pointer"
+          >
+            <span>Simpan &amp; Lanjutkan ke Kelompok Kerja</span>
+            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+      <p>&copy; 2023 - 2026 Buku Kerja Builder V2023. Perangkat Otomasi Asesmen Standar BNSP.</p>
+      <div class="flex items-center gap-4 text-slate-500">
+        <a href="/" class="hover:text-blue-600">Beranda</a>
+        <a href="/skema" class="hover:text-blue-600">Kelola Skema</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="fixed bottom-5 right-5 z-50 bg-slate-900 text-white px-4 py-3 rounded-xl text-xs font-semibold shadow-2xl transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-2.5">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span id="toast-text">Notifikasi</span>
+  </div>
+
+  <!-- Client-side Logic -->
+  <script>
+    lucide.createIcons();
+
+    // Modal Identitas Buku Kerja
+    function bukaModalIdentitas() {
+      const modal = document.getElementById('modal-identitas');
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function tutupModalIdentitas() {
+      const modal = document.getElementById('modal-identitas');
+      modal.classList.add('hidden');
+    }
+
+    async function simpanIdentitasMuk(e) {
+      e.preventDefault();
+      const form = document.getElementById('form-identitas-muk');
+      const btn = document.getElementById('btn-submit-identitas');
+      
+      btn.disabled = true;
+      btn.classList.add('opacity-75');
+      btn.innerHTML = `<span>Menyimpan...</span>`;
+
+      const formData = new FormData(form);
+      formData.append('csrf_token', "{{ csrf_token }}");
+
+      try {
+        const resp = await fetch('/skema/{{ dok.id }}/simpan-identitas-muk', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await resp.json();
+
+        if (data.sukses) {
+          showToast(data.pesan || 'Identitas disimpan. Membuka Penyusunan Kelompok Kerja...');
+          setTimeout(() => {
+            window.location.href = data.redirect_url;
+          }, 600);
+        } else {
+          showToast(`Gagal: ${data.pesan}`);
+          btn.disabled = false;
+          btn.classList.remove('opacity-75');
+          btn.innerHTML = `<span>Simpan &amp; Lanjutkan ke Kelompok Kerja</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+          lucide.createIcons();
+        }
+      } catch (err) {
+        showToast('Terjadi kesalahan jaringan.');
+        btn.disabled = false;
+        btn.classList.remove('opacity-75');
+        btn.innerHTML = `<span>Simpan &amp; Lanjutkan ke Kelompok Kerja</span><i data-lucide="arrow-right" class="w-4 h-4"></i>`;
+        lucide.createIcons();
+      }
+    }
+
+    // Verifikasi 1 Unit
+    async function verifikasiUnit(kodeUnit) {
+      showToast(`Memverifikasi unit ${kodeUnit}...`);
+      const formData = new FormData();
+      formData.append('kode_unit', kodeUnit);
+      formData.append('csrf_token', "{{ csrf_token }}");
+      try {
+        const resp = await fetch('/skema/{{ dok.id }}/verifikasi-unit', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await resp.json();
+        if (data.sukses) {
+          showToast(`Unit ${kodeUnit} terverifikasi manual!`);
+          setTimeout(() => window.location.reload(), 600);
+        } else {
+          showToast(`Gagal: ${data.pesan}`);
+        }
+      } catch (e) {
+        showToast('Gagal memverifikasi unit.');
+      }
+    }
+
+    // Verifikasi Semua Unit Sekaligus
+    async function verifikasiSemua() {
+      if (!confirm('Tandai seluruh unit pada skema ini sebagai terverifikasi manual?')) return;
+      showToast('Memverifikasi seluruh unit...');
+      const formData = new FormData();
+      formData.append('csrf_token', "{{ csrf_token }}");
+      try {
+        const resp = await fetch('/skema/{{ dok.id }}/verifikasi-semua-alur', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await resp.json();
+        if (data.sukses) {
+          showToast('Seluruh unit berhasil diverifikasi manual!');
+          setTimeout(() => window.location.reload(), 600);
+        } else {
+          showToast(`Gagal: ${data.pesan}`);
+        }
+      } catch (e) {
+        showToast('Gagal memproses verifikasi semua unit.');
+      }
+    }
+
+    // Salin JSON LSP ke Clipboard
+    async function salinJsonLsp() {
+      try {
+        const resp = await fetch('/api/skema/{{ dok.id }}/export-lsp');
+        const data = await resp.json();
+        const jsonStr = JSON.stringify(data.lsp_json, null, 2);
+        await navigator.clipboard.writeText(jsonStr);
+        showToast('JSON LSP berhasil disalin ke clipboard!');
+      } catch (e) {
+        showToast('Gagal menyalin data JSON.');
+      }
+    }
+
+    // Toast Helper
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toast-text');
+      
+      toastText.textContent = message;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+
+  {% include "_modal_auth.html" %}
+</body>
+</html>

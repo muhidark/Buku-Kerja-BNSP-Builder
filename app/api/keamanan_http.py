@@ -30,19 +30,22 @@ PRODUKSI = APP_ENV in ('produksi', 'production', 'prod')
 
 KEBIAKAN_CSP = (
     "default-src 'self'; "
-    "style-src 'self' 'unsafe-inline'; "
-    "script-src 'self' 'unsafe-inline'; "
-    "img-src 'self' data:; "
-    "font-src 'self'; "
-    "connect-src 'self'; "
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; "
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://unpkg.com https://accounts.google.com; "
+    "worker-src 'self' blob:; "
+    "child-src 'self' blob: https://accounts.google.com; "
+    "frame-src 'self' https://accounts.google.com; "
+    "img-src 'self' data: https:; "
+    "font-src 'self' data: https://fonts.gstatic.com https://unpkg.com; "
+    "connect-src 'self' https://cdn.tailwindcss.com https://accounts.google.com https://oauth2.googleapis.com; "
     "form-action 'self'; "
-    "frame-ancestors 'none'; "
+    "frame-ancestors 'self'; "
     "base-uri 'self'"
 )
 
 HEADER_KEAMANAN = {
     'X-Content-Type-Options': 'nosniff',
-    'X-Frame-Options': 'DENY',
+    'X-Frame-Options': 'SAMEORIGIN',
     'Referrer-Policy': 'same-origin',
     'Content-Security-Policy': KEBIAKAN_CSP,
 }

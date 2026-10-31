@@ -72,7 +72,7 @@ class TestBukuKerja(unittest.TestCase):
 
     def test_tentukan_dokumen_aktif(self):
         all_docs = tentukan_dokumen_aktif("all")
-        self.assertEqual(len(all_docs), 26)
+        self.assertEqual(len(all_docs), 29)
         self.assertIn("mapa01", all_docs)
         self.assertIn("ia01", all_docs)
         self.assertIn("ia06a", all_docs)

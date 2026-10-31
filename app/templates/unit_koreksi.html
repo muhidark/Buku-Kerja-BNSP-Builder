@@ -1,430 +1,686 @@
-{% extends "base.html" %}
-{% block subjudul %}Editor koreksi manual Elemen Kompetensi &amp; Kriteria Unjuk Kerja (KUK){% endblock %}
-{% block konten %}
-<div class="page-head">
-  <div>
-    <p class="eyebrow">
-      <a href="/skema">Skema Sertifikasi</a> /
-      <a href="/skema/{{ dok.id }}">{{ dok.nama_skema or dok.nama_asli }}</a> /
-      <a href="/skema/{{ dok.id }}/unit/{{ kode }}">{{ kode }}</a> /
-      Koreksi Manual
-    </p>
-    <h1>Koreksi Unit · <span class="mono">{{ kode }}</span></h1>
-    <p class="sub">{{ judul_unit or '-' }}</p>
-  </div>
-  <div class="head-actions" style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
-    {% set st = info_status %}
-    {% include "_status_badge.html" %}
-    {% if info_status.skkni_id and info_status.halaman_awal %}
-      <a class="btn btn-secondary" href="/skkni/{{ info_status.skkni_id }}/pdf#page={{ info_status.halaman_awal }}" target="_blank" rel="noopener">
-        Buka PDF hal. {{ info_status.halaman_awal }}{% if info_status.halaman_akhir and info_status.halaman_akhir != info_status.halaman_awal %}–{{ info_status.halaman_akhir }}{% endif %} ↗
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Koreksi Unit {{ kode }} - Buku Kerja Builder V2023</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#2563eb',
+              navy: '#0f172a',
+              hover: '#1d4ed8',
+              emerald: '#059669',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+    }
+    .custom-shadow {
+      box-shadow: 0 10px 25px -5px rgba(37, 99, 235, 0.2), 0 8px 10px -6px rgba(37, 99, 235, 0.15);
+    }
+    .paper-shadow {
+      box-shadow: 0 10px 35px -5px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04);
+    }
+  </style>
+</head>
+<body class="text-slate-800 antialiased min-h-screen flex flex-col bg-slate-50">
+
+  <!-- Header / Navbar Minimalis -->
+  <header class="w-full bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Logo Kiri -->
+      <a href="/" class="flex items-center gap-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-sm transition-transform group-hover:scale-105">
+          <i data-lucide="book-open-check" class="w-5 h-5"></i>
+        </div>
+        <div class="flex items-center tracking-tight font-extrabold text-lg sm:text-xl">
+          <span class="text-blue-600">Buku Kerja</span>
+          <span class="text-slate-900 ml-1.5">Builder</span>
+          <span class="ml-2 text-[10px] font-black px-2 py-0.5 rounded-md bg-blue-50 text-blue-600 border border-blue-200 uppercase tracking-wider">V2023</span>
+        </div>
       </a>
-    {% endif %}
-    <a class="btn btn-secondary" href="/skema/{{ dok.id }}/unit/{{ kode }}">Lihat Pratinjau</a>
-    <a class="btn btn-secondary" href="/skema/{{ dok.id }}">← Kembali ke Skema</a>
-  </div>
-</div>
 
-{% if pesan %}
-<div class="notice notice-{{ tipe or 'info' }}" role="status">
-  <span>{{ pesan }}</span>
-</div>
-{% endif %}
-
-{# Peringatan Konflik Hasil Mesin vs Koreksi Manual #}
-{% if info_koreksi and info_koreksi.konflik %}
-<div class="notice notice-galat" role="alert" style="flex-direction:column; align-items:flex-start; gap:0.75rem;">
-  <div>
-    <strong>⚠ Konflik Koreksi Terdeteksi: Hasil mesin berubah sejak dikoreksi manual</strong>
-    <p style="margin:0.35rem 0 0;">
-      Berkas ekstraksi mesin untuk unit <span class="mono">{{ kode }}</span> telah diperbarui setelah koreksi manual terakhir
-      ({{ info_koreksi.dikoreksi_pada or '-' }} oleh {{ info_koreksi.oleh or 'pengguna_lokal' }}).
-      Silakan tinjau perbandingan di bawah, lalu pilih apakah ingin mempertahankan koreksi Anda atau kembali ke hasil mesin baru.
-    </p>
-  </div>
-  <div class="baris-renggang">
-    <form action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi" method="post" class="inline-form">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <input type="hidden" name="aksi" value="pertahankan">
-      <button type="submit" class="btn btn-primary">Pertahankan Koreksi Manual</button>
-    </form>
-    <form action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post" class="inline-form">
-      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-      <button type="submit" class="btn btn-secondary">Gunakan Hasil Mesin Baru (Hapus Koreksi)</button>
-    </form>
-  </div>
-</div>
-{% endif %}
-
-{# Kotak Informasi Status & Sumber #}
-<section class="card mb-20">
-  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:1rem; flex-wrap:wrap;">
-    <div>
-      <strong>Status Kesiapan Unit:</strong>
-      {% set st = info_status %}
-      {% include "_status_badge.html" %}
-      <span class="muted" style="margin-left:0.5rem;">{{ info_status.alasan }}</span>
-      {% if info_koreksi and info_koreksi.ada_koreksi %}
-        <div class="muted" style="margin-top:0.35rem; font-size:0.88rem;">
-          ✎ Dikoreksi manual pada <span class="mono">{{ info_koreksi.dikoreksi_pada }}</span> oleh <strong>{{ info_koreksi.oleh }}</strong>
-          ({{ info_koreksi.jumlah_elemen_diubah or 0 }} nama elemen &amp; {{ info_koreksi.jumlah_kuk_diubah or 0 }} uraian KUK berbeda dari hasil mesin).
-        </div>
-      {% endif %}
-    </div>
-    <div class="muted" style="font-size:0.88rem; text-align:right;">
-      <div>Sumber PDF: <strong>{{ info_status.nama_skkni or 'Belum terhubung' }}</strong></div>
-      {% if info_status.halaman_awal %}
-        <div>Halaman PDF: <span class="mono">{{ info_status.halaman_awal }}{% if info_status.halaman_akhir and info_status.halaman_akhir != info_status.halaman_awal %}–{{ info_status.halaman_akhir }}{% endif %}</span></div>
-      {% endif %}
-    </div>
-  </div>
-</section>
-
-{# Tabel Perbandingan Berdampingan (Audit Riwayat Mesin vs Koreksi) bila ada koreksi #}
-{% if info_koreksi and info_koreksi.ada_koreksi and info_koreksi.perbandingan %}
-<section class="card mb-20">
-  <details {% if info_koreksi.konflik %}open{% endif %}>
-    <summary style="cursor:pointer; font-weight:600; color:var(--primary);">
-      🔍 Lihat Perbandingan Berdampingan: Teks Asli Mesin vs Teks Koreksi Manual
-    </summary>
-    <div class="table-wrap" style="margin-top:0.85rem;">
-      <table class="table">
-        <thead>
-          <tr>
-            <th style="width:90px;">No</th>
-            <th>Teks Hasil Ekstraksi Mesin</th>
-            <th>Teks Koreksi Manual</th>
-            <th style="width:110px;">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for el_diff in info_koreksi.perbandingan %}
-          <tr style="background:#f8fafc;">
-            <td class="mono"><strong>Elemen {{ el_diff.nomor }}</strong></td>
-            <td>{{ el_diff.nama_mesin or '(kosong pada hasil mesin)' }}</td>
-            <td><strong>{{ el_diff.nama_koreksi or '(kosong)' }}</strong></td>
-            <td>
-              {% if el_diff.nama_berubah %}
-                <span class="badge badge-amber">✎ Diubah</span>
-              {% else %}
-                <span class="badge badge-neutral">Sama</span>
-              {% endif %}
-            </td>
-          </tr>
-          {% for k_diff in el_diff.kuk %}
-          <tr>
-            <td class="mono" style="padding-left:1.25rem;">{{ k_diff.nomor }}</td>
-            <td class="muted">{{ k_diff.uraian_mesin or '(tidak ada pada hasil mesin)' }}</td>
-            <td>{{ k_diff.uraian_koreksi or '(kosong)' }}</td>
-            <td>
-              {% if k_diff.berubah %}
-                <span class="badge badge-amber">✎ Diubah</span>
-              {% else %}
-                <span class="badge badge-neutral">Sama</span>
-              {% endif %}
-            </td>
-          </tr>
-          {% endfor %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </details>
-</section>
-{% endif %}
-
-{# Form Utama Editor Koreksi Per-Unit #}
-<form id="form-koreksi-unit" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi" method="post">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-
-  <section class="card" style="margin-bottom:1rem;">
-    <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap;">
-      <label for="input-judul-unit" style="font-weight:600; min-width:110px;">Judul Unit:</label>
-      <input
-        id="input-judul-unit"
-        type="text"
-        name="judul_unit"
-        value="{{ judul_unit }}"
-        class="koreksi-input"
-        style="flex:1; padding:0.5rem 0.75rem; border:1px solid var(--border); border-radius:6px; font:inherit;"
-      >
-    </div>
-  </section>
-
-  <div id="daftar-elemen-container">
-    {% for el in elemen_form %}
-    {% set el_mesin_nama = peta_el_mesin.get(el.nomor, '') %}
-    <section class="card elemen-koreksi-card" data-elemen-no="{{ el.nomor }}" style="margin-bottom:1.15rem;">
-      <div class="card-head baris-kepala">
-        <div class="baris-cari">
-          <span class="badge badge-blue mono label-nomor-elemen tombol-mungil">
-            ELEMEN {{ el.nomor }}
-          </span>
-          <input type="hidden" name="elemen_nomor" value="{{ el.nomor }}" class="input-elemen-nomor">
-          <input
-            type="text"
-            name="elemen_nama"
-            value="{{ el.nama }}"
-            placeholder="Ketik nama elemen kompetensi..."
-            required
-            aria-label="Nama elemen kompetensi {{ el.nomor }}"
-            class="koreksi-input input-elemen-nama input-padat-tebal flex-1"
-           
-          >
-        </div>
-        <div style="display:flex; align-items:center; gap:0.5rem;">
-          {% if el_mesin_nama and el_mesin_nama != el.nama %}
-            <span class="badge badge-amber" title="Asli mesin: {{ el_mesin_nama }}">✎ diubah manual</span>
-          {% endif %}
-          <button type="button" class="btn btn-secondary btn-small btn-hapus-elemen" onclick="hapusElemen(this)" title="Hapus Elemen ini">
-            Hapus Elemen
-          </button>
-        </div>
-      </div>
-
-      {% if el_mesin_nama and el_mesin_nama != el.nama %}
-      <div class="muted" style="font-size:0.82rem; margin:-0.35rem 0 0.75rem 0; padding:0.35rem 0.6rem; background:#f8fafc; border-left:3px solid #B45309; border-radius:4px;">
-        <strong>Teks elemen hasil mesin:</strong> {{ el_mesin_nama }}
-      </div>
-      {% endif %}
-
-      <div class="daftar-kuk-container kolom-renggang">
-        {% for k in el.kuk %}
-        {% set kuk_mesin_ur = peta_kuk_mesin.get(k.nomor, '') %}
-        <div class="baris-kuk-koreksi kartu-baris">
-          <div class="sel-tengah">
-            <span class="badge badge-neutral mono label-nomor-kuk urut-teks" title="Nomor KUK dikunci otomatis agar urutan skema tidak rusak">{{ k.nomor }}</span>
-            <input type="hidden" name="kuk_elemen" value="{{ el.nomor }}" class="input-kuk-elemen">
-            <input type="hidden" name="kuk_nomor" value="{{ k.nomor }}" class="input-kuk-nomor">
-          </div>
-          <div class="flex-1">
-            <textarea
-              name="kuk_uraian"
-              rows="2"
-              required
-              placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..."
-              aria-label="Uraian KUK {{ k.nomor }}"
-              class="koreksi-input input-kuk-uraian area-teks"
-             
-            >{{ k.uraian }}</textarea>
-            {% if kuk_mesin_ur and kuk_mesin_ur != k.uraian %}
-            <div class="muted" style="font-size:0.8rem; margin-top:0.3rem; padding:0.3rem 0.5rem; background:#fffbeb; border-left:3px solid #B45309; border-radius:4px;">
-              <span class="badge badge-amber" style="font-size:0.72rem; margin-right:0.35rem;">✎ diubah manual</span>
-              <strong>Teks asli mesin:</strong> {{ kuk_mesin_ur }}
+      <!-- Right Side: Profile / Login -->
+      <div class="flex items-center">
+        {% if pengguna_aktif %}
+          <div class="flex items-center gap-3">
+            <div class="text-right">
+              <div class="text-xs font-bold text-slate-800">{{ pengguna_aktif.nama_lengkap }}</div>
+              <div class="text-[10px] text-slate-400 font-medium">Peran: {{ pengguna_aktif.peran|upper }}</div>
             </div>
-            {% endif %}
+            <form class="m-0" method="post" action="/logout">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all">
+                <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                <span>Keluar</span>
+              </button>
+            </form>
           </div>
-          <div class="pt-1">
-            <button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>
+        {% else %}
+          <a href="/login" class="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 transition-all shadow-xs active:scale-95">
+            <i data-lucide="log-in" class="w-4 h-4 text-slate-500"></i>
+            <span>Login</span>
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow py-8 px-4 sm:px-6 max-w-5xl mx-auto w-full pb-28">
+
+    <!-- Breadcrumb & Page Head -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4 mb-6">
+      <div>
+        <nav class="flex items-center gap-1.5 text-xs text-slate-400 font-medium mb-1.5">
+          <a href="/" class="hover:text-blue-600">Beranda</a>
+          <span>/</span>
+          <a href="/skema/{{ dok.id }}/siap-unduh" class="hover:text-blue-600">{{ dok.nama_skema or dok.nama_asli }}</a>
+          <span>/</span>
+          <span class="text-slate-600 font-semibold">{{ kode }}</span>
+          <span>/</span>
+          <span class="text-blue-600 font-bold">Koreksi Manual</span>
+        </nav>
+        <div class="flex items-center gap-2.5 flex-wrap">
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
+            Koreksi Unit · <span class="font-mono text-blue-600">{{ kode }}</span>
+          </h1>
+          {% if info_status.status == 'siap' %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Siap Dipakai
+            </span>
+          {% elif info_status.status == 'perlu' %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span> Perlu Diperiksa
+            </span>
+          {% else %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-300">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span> Gagal
+            </span>
+          {% endif %}
+        </div>
+        <p class="text-sm text-slate-500 mt-1">{{ judul_unit or '-' }}</p>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        {% if info_status.skkni_id and info_status.halaman_awal %}
+          <a href="/skkni/{{ info_status.skkni_id }}/pdf#page={{ info_status.halaman_awal }}" target="_blank" rel="noopener" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-all">
+            <i data-lucide="file-text" class="w-3.5 h-3.5 text-blue-600"></i>
+            <span>Buka PDF hal. {{ info_status.halaman_awal }}{% if info_status.halaman_akhir and info_status.halaman_akhir != info_status.halaman_awal %}–{{ info_status.halaman_akhir }}{% endif %} ↗</span>
+          </a>
+        {% endif %}
+        <a href="/skema/{{ dok.id }}/unit/{{ kode }}" class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-2xs transition-all">
+          <i data-lucide="eye" class="w-3.5 h-3.5 text-slate-500"></i>
+          <span>Lihat Pratinjau</span>
+        </a>
+        <a href="/skema/{{ dok.id }}/siap-unduh" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold shadow-2xs transition-all">
+          <i data-lucide="arrow-left" class="w-3.5 h-3.5"></i>
+          <span>Kembali ke Dokumen Siap Unduh</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Alert / Pesan Notifikasi -->
+    {% if pesan %}
+      <div class="mb-6 p-4 rounded-2xl flex items-center gap-3 {% if tipe == 'sukses' %}bg-emerald-50 border border-emerald-200 text-emerald-800{% elif tipe == 'galat' %}bg-rose-50 border border-rose-200 text-rose-800{% else %}bg-blue-50 border border-blue-200 text-blue-800{% endif %} text-xs font-semibold">
+        <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
+        <span>{{ pesan }}</span>
+      </div>
+    {% endif %}
+
+    <!-- Peringatan Konflik Koreksi -->
+    {% if info_koreksi and info_koreksi.konflik %}
+    <div class="mb-6 p-5 bg-rose-50 border border-rose-200 rounded-2xl text-left">
+      <div class="flex items-start gap-3.5">
+        <div class="w-9 h-9 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
+          <i data-lucide="alert-octagon" class="w-5 h-5"></i>
+        </div>
+        <div class="flex-1">
+          <h4 class="text-sm font-bold text-rose-950">Konflik Koreksi Terdeteksi: Hasil ekstraksi mesin berubah sejak dikoreksi</h4>
+          <p class="text-xs text-rose-800 mt-1 leading-relaxed">
+            Berkas ekstraksi mesin untuk unit <span class="font-mono font-bold">{{ kode }}</span> telah diperbarui setelah koreksi manual terakhir
+            ({{ info_koreksi.dikoreksi_pada or '-' }} oleh {{ info_koreksi.oleh or 'pengguna_lokal' }}).
+          </p>
+          <div class="mt-4 flex items-center gap-2">
+            <form action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi" method="post" class="m-0">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <input type="hidden" name="aksi" value="pertahankan">
+              <button type="submit" class="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-bold shadow-2xs">
+                Pertahankan Koreksi Manual
+              </button>
+            </form>
+            <form action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post" class="m-0">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="px-3.5 py-1.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold">
+                Gunakan Hasil Mesin Baru
+              </button>
+            </form>
           </div>
         </div>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Info Status & Sumber Card -->
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 paper-shadow mb-6 text-left flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-slate-700">Status Kesiapan Unit:</span>
+          {% if info_status.status == 'siap' %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Siap Dipakai
+            </span>
+          {% else %}
+            <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-bold bg-amber-50 text-amber-800 border border-amber-300">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Perlu Diperiksa
+            </span>
+          {% endif %}
+          {% if info_status.terverifikasi_manual %}
+            <span class="text-xs text-emerald-600 font-semibold">• Terverifikasi Manual</span>
+          {% endif %}
+        </div>
+        {% if info_status.alasan %}
+          <p class="text-xs text-slate-500 mt-1 leading-relaxed">{{ info_status.alasan }}</p>
+        {% endif %}
+        {% if info_koreksi and info_koreksi.ada_koreksi %}
+          <p class="text-xs text-amber-700 mt-1.5 font-medium flex items-center gap-1">
+            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+            Dikoreksi manual pada <span class="font-mono font-bold">{{ info_koreksi.dikoreksi_pada }}</span> oleh {{ info_koreksi.oleh }}
+            ({{ info_koreksi.jumlah_elemen_diubah or 0 }} elemen &amp; {{ info_koreksi.jumlah_kuk_diubah or 0 }} KUK diubah).
+          </p>
+        {% endif %}
+      </div>
+
+      <div class="text-xs text-slate-400 text-left sm:text-right shrink-0">
+        <div>Sumber PDF: <strong class="text-slate-700">{{ info_status.nama_skkni or 'Belum terhubung' }}</strong></div>
+        {% if info_status.halaman_awal %}
+          <div>Halaman: <span class="font-mono text-slate-600">{{ info_status.halaman_awal }}{% if info_status.halaman_akhir and info_status.halaman_akhir != info_status.halaman_awal %}–{{ info_status.halaman_akhir }}{% endif %}</span></div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Audit Perbandingan Berdampingan (bila ada koreksi) -->
+    {% if info_koreksi and info_koreksi.ada_koreksi and info_koreksi.perbandingan %}
+    <div class="bg-white border border-slate-200 rounded-2xl p-5 paper-shadow mb-6 text-left">
+      <details {% if info_koreksi.konflik %}open{% endif %} class="group">
+        <summary class="cursor-pointer font-bold text-sm text-blue-600 flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <i data-lucide="split" class="w-4 h-4"></i>
+            Lihat Perbandingan Berdampingan: Teks Asli Mesin vs Koreksi Manual
+          </span>
+          <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-open:rotate-180 transition-transform"></i>
+        </summary>
+        <div class="mt-4 border border-slate-200 rounded-xl overflow-hidden text-xs">
+          <table class="w-full text-left">
+            <thead class="bg-slate-50 border-b border-slate-200 text-slate-600 font-bold">
+              <tr>
+                <th class="py-2.5 px-3 w-28">No</th>
+                <th class="py-2.5 px-3">Teks Hasil Mesin</th>
+                <th class="py-2.5 px-3">Teks Koreksi Manual</th>
+                <th class="py-2.5 px-3 w-24 text-center">Status</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
+              {% for el_diff in info_koreksi.perbandingan %}
+              <tr class="bg-slate-50/60 font-semibold">
+                <td class="py-2 px-3 font-mono text-blue-700">Elemen {{ el_diff.nomor }}</td>
+                <td class="py-2 px-3 text-slate-500">{{ el_diff.nama_mesin or '(kosong)' }}</td>
+                <td class="py-2 px-3 text-slate-900">{{ el_diff.nama_koreksi or '(kosong)' }}</td>
+                <td class="py-2 px-3 text-center">
+                  {% if el_diff.nama_berubah %}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Diubah</span>
+                  {% else %}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600">Sama</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% for k_diff in el_diff.kuk %}
+              <tr>
+                <td class="py-2 px-3 font-mono text-slate-500 pl-6">{{ k_diff.nomor }}</td>
+                <td class="py-2 px-3 text-slate-400">{{ k_diff.uraian_mesin or '-' }}</td>
+                <td class="py-2 px-3 text-slate-700">{{ k_diff.uraian_koreksi or '-' }}</td>
+                <td class="py-2 px-3 text-center">
+                  {% if k_diff.berubah %}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800">Diubah</span>
+                  {% else %}
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-100 text-slate-600">Sama</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+    {% endif %}
+
+    <!-- Form Utama Editor Koreksi -->
+    <form id="form-koreksi-unit" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi" method="post" class="space-y-6">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+      <!-- Judul Unit Card -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 paper-shadow text-left">
+        <label for="input-judul-unit" class="block text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+          Judul Unit Kompetensi
+        </label>
+        <input
+          id="input-judul-unit"
+          type="text"
+          name="judul_unit"
+          value="{{ judul_unit }}"
+          class="koreksi-input w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 font-bold text-slate-900 text-sm transition-all"
+          required
+        >
+      </div>
+
+      <!-- Deskripsi Unit Card (Standar Kemnaker) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 paper-shadow text-left">
+        <div class="flex items-center justify-between mb-1.5">
+          <label for="input-deskripsi-unit" class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+            Deskripsi Unit Kompetensi
+          </label>
+          <span class="text-[11px] text-slate-400 font-medium">Standar SKKNI Kemnaker</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-2 leading-relaxed">
+          Uraian tugas dan lingkup pekerjaan yang mencakup persyaratan di tempat kerja seperti pengetahuan, keterampilan (termasuk K3, literasi, dan matematika dasar).
+        </p>
+        <textarea
+          id="input-deskripsi-unit"
+          name="deskripsi_unit"
+          rows="3"
+          placeholder="Ketik uraian deskripsi unit kompetensi..."
+          class="koreksi-input w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 text-xs sm:text-sm leading-relaxed transition-all"
+        >{{ deskripsi_unit }}</textarea>
+      </div>
+
+      <!-- Heading Tabel Elemen & KUK -->
+      <div class="flex items-center justify-between pt-2">
+        <div>
+          <h2 class="text-sm font-extrabold text-slate-900">Tabel Elemen Kompetensi &amp; Kriteria Unjuk Kerja (KUK)</h2>
+          <p class="text-xs text-slate-500">Uraian langkah kerja sistematis dan kriteria unjuk kerja yang dapat diobservasi dan diukur.</p>
+        </div>
+      </div>
+
+      <!-- Container Elemen Kompetensi -->
+      <div id="daftar-elemen-container" class="space-y-6 text-left">
+        {% for el in elemen_form %}
+        {% set el_mesin_nama = peta_el_mesin.get(el.nomor, '') %}
+        <section class="elemen-koreksi-card bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 paper-shadow transition-all" data-elemen-no="{{ el.nomor }}">
+          
+          <!-- Elemen Header Row -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3 mb-4">
+            <div class="flex items-center gap-2.5 flex-1">
+              <span class="label-nomor-elemen px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 font-mono font-extrabold text-xs shrink-0 border border-blue-200">
+                ELEMEN {{ el.nomor }}
+              </span>
+              <input type="hidden" name="elemen_nomor" value="{{ el.nomor }}" class="input-elemen-nomor">
+              <input
+                type="text"
+                name="elemen_nama"
+                value="{{ el.nama }}"
+                placeholder="Ketik nama elemen kompetensi..."
+                required
+                class="koreksi-input input-elemen-nama w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm font-bold text-slate-800 transition-all"
+              >
+            </div>
+            <div class="flex items-center gap-2 self-end sm:self-center">
+              {% if el_mesin_nama and el_mesin_nama != el.nama %}
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-50 text-amber-800 border border-amber-200">
+                  ✎ Diubah Manual
+                </span>
+              {% endif %}
+              <button type="button" class="btn-hapus-elemen text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600 text-slate-500 transition-all flex items-center gap-1" onclick="hapusElemen(this)">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>Hapus Elemen</span>
+              </button>
+            </div>
+          </div>
+
+          {% if el_mesin_nama and el_mesin_nama != el.nama %}
+          <div class="mb-4 p-2.5 bg-amber-50/70 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-start gap-1.5">
+            <i data-lucide="info" class="w-3.5 h-3.5 text-amber-600 shrink-0 mt-0.5"></i>
+            <div><strong>Teks asli mesin:</strong> {{ el_mesin_nama }}</div>
+          </div>
+          {% endif %}
+
+          <!-- Daftar KUK Container -->
+          <div class="daftar-kuk-container space-y-3">
+            {% for k in el.kuk %}
+            {% set kuk_mesin_ur = peta_kuk_mesin.get(k.nomor, '') %}
+            <div class="baris-kuk-koreksi flex items-start gap-3 p-3 bg-slate-50/70 border border-slate-200/80 rounded-xl hover:border-slate-300 transition-colors">
+              <div class="pt-2 shrink-0">
+                <span class="label-nomor-kuk font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs">
+                  {{ k.nomor }}
+                </span>
+                <input type="hidden" name="kuk_elemen" value="{{ el.nomor }}" class="input-kuk-elemen">
+                <input type="hidden" name="kuk_nomor" value="{{ k.nomor }}" class="input-kuk-nomor">
+              </div>
+              <div class="flex-1">
+                <textarea
+                  name="kuk_uraian"
+                  rows="2"
+                  required
+                  placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..."
+                  class="koreksi-input input-kuk-uraian w-full p-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-xs sm:text-sm text-slate-800 transition-all"
+                >{{ k.uraian }}</textarea>
+                {% if kuk_mesin_ur and kuk_mesin_ur != k.uraian %}
+                <div class="mt-1.5 p-2 bg-amber-50 border border-amber-200 rounded-lg text-[11px] text-amber-900 flex items-start gap-1">
+                  <span class="font-bold text-amber-700 shrink-0">Asli mesin:</span>
+                  <span>{{ kuk_mesin_ur }}</span>
+                </div>
+                {% endif %}
+              </div>
+              <button type="button" class="mt-1.5 p-1.5 rounded-lg hover:bg-rose-50 text-slate-400 hover:text-rose-600 transition-colors" onclick="hapusBarisKuk(this)" title="Hapus KUK ini">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- Tambah KUK Button -->
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <button type="button" class="btn-tambah-kuk inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl px-3 py-1.5 transition-colors" onclick="tambahBarisKuk(this)">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Tambah KUK {{ el.nomor }}.{{ (el.kuk|length) + 1 }}</span>
+            </button>
+          </div>
+        </section>
         {% endfor %}
       </div>
 
-      <div class="mt-12">
-        <button type="button" class="btn btn-secondary btn-small btn-tambah-kuk" onclick="tambahBarisKuk(this)">
-          + Tambah KUK {{ el.nomor }}.{{ (el.kuk|length) + 1 }}
+      <!-- Tambah Elemen Baru Button -->
+      <div>
+        <button type="button" onclick="tambahElemenBaru()" class="w-full py-4 rounded-2xl border-2 border-dashed border-slate-300 hover:border-blue-500 hover:bg-blue-50/40 text-slate-600 hover:text-blue-600 font-bold text-xs sm:text-sm transition-all flex items-center justify-center gap-2">
+          <i data-lucide="plus-circle" class="w-5 h-5"></i>
+          <span>Tambah Elemen Kompetensi Baru</span>
         </button>
       </div>
-    </section>
-    {% endfor %}
-  </div>
 
-  <div style="margin-bottom:1.5rem;">
-    <button type="button" class="btn btn-secondary" onclick="tambahElemenBaru()">
-      + Tambah Elemen Kompetensi
-    </button>
-  </div>
+      <!-- Batasan Variabel Card (Standar Kemnaker) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 paper-shadow text-left">
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-indigo-50 border border-indigo-200 text-indigo-700 font-mono font-bold text-xs">
+              BAGIAN 1
+            </span>
+            <label for="input-batasan-variabel" class="block text-sm font-extrabold text-slate-900">
+              Batasan Variabel
+            </label>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Standar SKKNI Kemnaker</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+          Konteks variabel, peralatan dan perlengkapan, peraturan yang diperlukan, serta norma dan standar tempat kerja. Gunakan format penomoran bertingkat standar (misal: <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">1. Konteks variabel</code> dan <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">1.1 Uraian...</code>).
+        </p>
+        <textarea
+          id="input-batasan-variabel"
+          name="batasan_variabel"
+          rows="9"
+          placeholder="1. Konteks variabel&#10;1.1 ...&#10;2. Peralatan dan perlengkapan&#10;2.1 ..."
+          class="koreksi-input w-full p-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-mono text-xs sm:text-sm leading-relaxed transition-all"
+        >{{ bv_teks }}</textarea>
+      </div>
 
-  {# Bilah Aksi Bawah (Sticky) #}
-  <div class="card" style="position:sticky; bottom:1rem; z-index:20; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap; box-shadow:0 4px 16px rgba(15,23,42,0.08); border:1px solid #cbd5e1;">
-    <div class="muted" style="font-size:0.9rem;">
-      <strong id="status-perubahan-teks">Siap disunting</strong> · Pintasan simpan cepat: <kbd style="padding:0.1rem 0.35rem; border:1px solid #cbd5e1; border-radius:4px; background:#f8fafc; font-family:monospace;">Ctrl+S</kbd>
-    </div>
-    <div class="baris-renggang">
-      {% if info_koreksi and info_koreksi.ada_koreksi %}
-      <button type="button" class="btn btn-secondary" onclick="konfirmasiKembalikanMesin()">
-        Kembalikan ke hasil mesin
-      </button>
-      {% endif %}
-      <button type="submit" name="lanjut" value="tetap" class="btn btn-primary" id="btn-simpan-koreksi">
-        Simpan koreksi
-      </button>
-      <button type="submit" name="lanjut" value="skema" class="btn btn-secondary">
-        Simpan &amp; Kembali ke Skema
-      </button>
-    </div>
-  </div>
-</form>
+      <!-- Panduan Penilaian Card (Standar Kemnaker) -->
+      <div class="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 paper-shadow text-left">
+        <div class="flex items-center justify-between mb-1.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2.5 py-1 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 font-mono font-bold text-xs">
+              BAGIAN 2
+            </span>
+            <label for="input-panduan-penilaian" class="block text-sm font-extrabold text-slate-900">
+              Panduan Penilaian
+            </label>
+          </div>
+          <span class="text-[11px] text-slate-400 font-medium">Standar SKKNI Kemnaker</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-3 leading-relaxed">
+          Konteks penilaian, persyaratan kompetensi, pengetahuan dan keterampilan yang diperlukan, sikap kerja yang diperlukan, serta aspek kritis penilaian. Gunakan format penomoran bertingkat standar (misal: <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">1. Konteks penilaian</code> dan <code class="font-mono bg-slate-100 px-1 py-0.5 rounded text-slate-700">1.1 Aspek...</code>).
+        </p>
+        <textarea
+          id="input-panduan-penilaian"
+          name="panduan_penilaian"
+          rows="9"
+          placeholder="1. Konteks penilaian&#10;1.1 ...&#10;2. Persyaratan kompetensi&#10;3. Pengetahuan dan keterampilan yang diperlukan&#10;4. Sikap kerja yang diperlukan&#10;5. Aspek kritis&#10;5.1 ..."
+          class="koreksi-input w-full p-4 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-slate-800 font-mono text-xs sm:text-sm leading-relaxed transition-all"
+        >{{ pp_teks }}</textarea>
+      </div>
 
-<form class="tersembunyi" id="form-kembalikan-mesin" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post">
-  <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-</form>
+      <!-- Bilah Aksi Bawah Sticky -->
+      <div class="fixed bottom-4 left-1/2 -translate-x-1/2 w-full max-w-4xl px-4 z-40">
+        <div class="bg-white/95 backdrop-blur border border-slate-200 rounded-2xl p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div class="flex items-center gap-2 text-slate-500">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            <span id="status-perubahan-teks" class="font-bold text-slate-700">Siap disunting</span>
+            <span class="text-slate-300">•</span>
+            <span>Pintasan: <kbd class="px-2 py-0.5 rounded bg-slate-100 font-mono text-[10px] border border-slate-200">Ctrl+S</kbd></span>
+          </div>
 
-<script>
-(function() {
-  var jumlahPerubahan = 0;
-  var labelPerubahan = document.getElementById('status-perubahan-teks');
-  var formKoreksi = document.getElementById('form-koreksi-unit');
+          <div class="flex items-center gap-2 flex-wrap justify-end w-full sm:w-auto">
+            {% if info_koreksi and info_koreksi.ada_koreksi %}
+            <button type="button" onclick="konfirmasiKembalikanMesin()" class="px-3.5 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold transition-all">
+              Kembalikan ke Hasil Mesin
+            </button>
+            {% endif %}
+            <button type="submit" name="lanjut" value="skema" class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold transition-all shadow-2xs">
+              Simpan &amp; Kembali ke Siap Unduh
+            </button>
+            <button type="submit" name="lanjut" value="tetap" id="btn-simpan-koreksi" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold transition-all shadow-sm active:scale-95 flex items-center gap-1.5">
+              <i data-lucide="save" class="w-4 h-4"></i>
+              <span>Simpan Koreksi</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
 
-  function tandaiBerubah() {
-    jumlahPerubahan += 1;
-    if (labelPerubahan) {
-      labelPerubahan.textContent = jumlahPerubahan + ' perubahan belum disimpan';
-      labelPerubahan.style.color = '#b45309';
-    }
-  }
+    <!-- Hidden Form Revert -->
+    <form class="hidden" id="form-kembalikan-mesin" action="/skema/{{ dok.id }}/unit/{{ kode }}/koreksi/kembalikan" method="post">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    </form>
+  </main>
 
-  document.addEventListener('input', function(e) {
-    if (e.target && e.target.classList && e.target.classList.contains('koreksi-input')) {
-      tandaiBerubah();
-    }
-  });
+  <!-- Script Lucide & Editor Logic -->
+  <script>
+    lucide.createIcons();
 
-  document.addEventListener('keydown', function(e) {
-    if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
-      e.preventDefault();
-      if (formKoreksi) {
-        formKoreksi.submit();
+    (function() {
+      let jumlahPerubahan = 0;
+      const labelPerubahan = document.getElementById('status-perubahan-teks');
+      const formKoreksi = document.getElementById('form-koreksi-unit');
+
+      function tandaiBerubah() {
+        jumlahPerubahan += 1;
+        if (labelPerubahan) {
+          labelPerubahan.textContent = jumlahPerubahan + ' perubahan belum disimpan';
+          labelPerubahan.classList.add('text-amber-600');
+          labelPerubahan.classList.remove('text-slate-700');
+        }
       }
-    }
-  });
 
-  window.perbaruiPenomoran = function() {
-    var daftarElemen = document.querySelectorAll('#daftar-elemen-container .elemen-koreksi-card');
-    daftarElemen.forEach(function(card, elIdx) {
-      var noEl = elIdx + 1;
-      card.setAttribute('data-elemen-no', String(noEl));
-      var badgeEl = card.querySelector('.label-nomor-elemen');
-      if (badgeEl) badgeEl.textContent = 'ELEMEN ' + noEl;
-      var inputNoEl = card.querySelector('.input-elemen-nomor');
-      if (inputNoEl) inputNoEl.value = String(noEl);
-
-      var barisKuks = card.querySelectorAll('.baris-kuk-koreksi');
-      barisKuks.forEach(function(row, kIdx) {
-        var noKuk = noEl + '.' + (kIdx + 1);
-        var badgeKuk = row.querySelector('.label-nomor-kuk');
-        if (badgeKuk) badgeKuk.textContent = noKuk;
-        var inEl = row.querySelector('.input-kuk-elemen');
-        if (inEl) inEl.value = String(noEl);
-        var inNo = row.querySelector('.input-kuk-nomor');
-        if (inNo) inNo.value = noKuk;
+      document.addEventListener('input', function(e) {
+        if (e.target && e.target.classList && e.target.classList.contains('koreksi-input')) {
+          tandaiBerubah();
+        }
       });
 
-      var btnTambah = card.querySelector('.btn-tambah-kuk');
-      if (btnTambah) {
-        btnTambah.textContent = '+ Tambah KUK ' + noEl + '.' + (barisKuks.length + 1);
-      }
-    });
-  };
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && (e.key === 's' || e.key === 'S')) {
+          e.preventDefault();
+          if (formKoreksi) {
+            formKoreksi.submit();
+          }
+        }
+      });
 
-  window.tambahBarisKuk = function(btn) {
-    var card = btn.closest('.elemen-koreksi-card');
-    if (!card) return;
-    var container = card.querySelector('.daftar-kuk-container');
-    var noEl = card.getAttribute('data-elemen-no') || '1';
-    var nextIdx = container.querySelectorAll('.baris-kuk-koreksi').length + 1;
-    var noKuk = noEl + '.' + nextIdx;
+      window.perbaruiPenomoran = function() {
+        const daftarElemen = document.querySelectorAll('#daftar-elemen-container .elemen-koreksi-card');
+        daftarElemen.forEach(function(card, elIdx) {
+          const noEl = elIdx + 1;
+          card.setAttribute('data-elemen-no', String(noEl));
+          const badgeEl = card.querySelector('.label-nomor-elemen');
+          if (badgeEl) badgeEl.textContent = 'ELEMEN ' + noEl;
+          const inputNoEl = card.querySelector('.input-elemen-nomor');
+          if (inputNoEl) inputNoEl.value = String(noEl);
 
-    var div = document.createElement('div');
-    div.className = 'baris-kuk-koreksi';
-    div.style.cssText = 'display:flex; align-items:flex-start; gap:0.65rem; padding:0.6rem; border:1px solid var(--border); border-radius:8px; background:#fcfcfd;';
-    div.innerHTML =
-      '<div class="sel-tengah">' +
-        '<span class="badge badge-neutral mono label-nomor-kuk urut-teks">' + noKuk + '</span>' +
-        '<input type="hidden" name="kuk_elemen" value="' + noEl + '" class="input-kuk-elemen">' +
-        '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
-      '</div>' +
-      '<div class="flex-1">' +
-        '<textarea name="kuk_uraian" rows="2" required aria-label="Uraian KUK ' + noKuk + '" placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
-      '</div>' +
-      '<div class="pt-1">' +
-        '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +
-      '</div>';
-    container.appendChild(div);
-    perbaruiPenomoran();
-    tandaiBerubah();
-    var ta = div.querySelector('textarea');
-    if (ta) ta.focus();
-  };
+          const barisKuks = card.querySelectorAll('.baris-kuk-koreksi');
+          barisKuks.forEach(function(row, kIdx) {
+            const noKuk = noEl + '.' + (kIdx + 1);
+            const badgeKuk = row.querySelector('.label-nomor-kuk');
+            if (badgeKuk) badgeKuk.textContent = noKuk;
+            const inEl = row.querySelector('.input-kuk-elemen');
+            if (inEl) inEl.value = String(noEl);
+            const inNo = row.querySelector('.input-kuk-nomor');
+            if (inNo) inNo.value = noKuk;
+          });
 
-  window.hapusBarisKuk = function(btn) {
-    var card = btn.closest('.elemen-koreksi-card');
-    if (!card) return;
-    var semuaBaris = card.querySelectorAll('.baris-kuk-koreksi');
-    if (semuaBaris.length <= 1) {
-      alert('Setiap elemen kompetensi harus memiliki minimal 1 KUK.');
-      return;
-    }
-    var row = btn.closest('.baris-kuk-koreksi');
-    if (row) row.remove();
-    perbaruiPenomoran();
-    tandaiBerubah();
-  };
+          const btnTambah = card.querySelector('.btn-tambah-kuk span');
+          if (btnTambah) {
+            btnTambah.textContent = 'Tambah KUK ' + noEl + '.' + (barisKuks.length + 1);
+          }
+        });
+        lucide.createIcons();
+      };
 
-  window.tambahElemenBaru = function() {
-    var container = document.getElementById('daftar-elemen-container');
-    var nextEl = container.querySelectorAll('.elemen-koreksi-card').length + 1;
-    var noKuk = nextEl + '.1';
+      window.tambahBarisKuk = function(btn) {
+        const card = btn.closest('.elemen-koreksi-card');
+        if (!card) return;
+        const container = card.querySelector('.daftar-kuk-container');
+        const noEl = card.getAttribute('data-elemen-no') || '1';
+        const nextIdx = container.querySelectorAll('.baris-kuk-koreksi').length + 1;
+        const noKuk = noEl + '.' + nextIdx;
 
-    var sec = document.createElement('section');
-    sec.className = 'card elemen-koreksi-card';
-    sec.setAttribute('data-elemen-no', String(nextEl));
-    sec.style.marginBottom = '1.15rem';
-    sec.innerHTML =
-      '<div class="card-head baris-kepala">' +
-        '<div class="baris-cari">' +
-          '<span class="badge badge-blue mono label-nomor-elemen tombol-mungil">ELEMEN ' + nextEl + '</span>' +
-          '<input type="hidden" name="elemen_nomor" value="' + nextEl + '" class="input-elemen-nomor">' +
-          '<input type="text" name="elemen_nama" value="" aria-label="Nama elemen kompetensi baru" placeholder="Ketik nama elemen kompetensi..." required class="koreksi-input input-elemen-nama input-padat-tebal flex-1">' +
-        '</div>' +
-        '<div>' +
-          '<button type="button" class="btn btn-secondary btn-small btn-hapus-elemen" onclick="hapusElemen(this)">Hapus Elemen</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="daftar-kuk-container kolom-renggang">' +
-        '<div class="baris-kuk-koreksi kartu-baris">' +
-          '<div class="sel-tengah">' +
-            '<span class="badge badge-neutral mono label-nomor-kuk urut-teks">' + noKuk + '</span>' +
-            '<input type="hidden" name="kuk_elemen" value="' + nextEl + '" class="input-kuk-elemen">' +
-            '<input type="hidden" name="kuk_nomor" value="' + noKuk + '" class="input-kuk-nomor">' +
-          '</div>' +
-          '<div class="flex-1">' +
-            '<textarea name="kuk_uraian" aria-label="Uraian KUK" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian area-teks"></textarea>' +
-          '</div>' +
-          '<div class="pt-1">' +
-            '<button type="button" class="btn btn-secondary btn-small" onclick="hapusBarisKuk(this)" title="Hapus baris KUK ini">×</button>' +
-          '</div>' +
-        '</div>' +
-      '</div>' +
-      '<div class="mt-12">' +
-        '<button type="button" class="btn btn-secondary btn-small btn-tambah-kuk" onclick="tambahBarisKuk(this)">+ Tambah KUK ' + nextEl + '.2</button>' +
-      '</div>';
-    container.appendChild(sec);
-    perbaruiPenomoran();
-    tandaiBerubah();
-    var inp = sec.querySelector('.input-elemen-nama');
-    if (inp) inp.focus();
-  };
+        const div = document.createElement('div');
+        div.className = 'baris-kuk-koreksi flex items-start gap-3 p-3 bg-slate-50/70 border border-slate-200/80 rounded-xl hover:border-slate-300 transition-colors';
+        div.innerHTML = `
+          <div class="pt-2 shrink-0">
+            <span class="label-nomor-kuk font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs">${noKuk}</span>
+            <input type="hidden" name="kuk_elemen" value="${noEl}" class="input-kuk-elemen">
+            <input type="hidden" name="kuk_nomor" value="${noKuk}" class="input-kuk-nomor">
+          </div>
+          <div class="flex-1">
+            <textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian w-full p-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-xs sm:text-sm text-slate-800 transition-all"></textarea>
+          </div>
+          <button type="button" class="mt-1.5 p-1.5 rounded-lg hover:bg-rose-50 text-slate-400 hover:text-rose-600 transition-colors" onclick="hapusBarisKuk(this)" title="Hapus KUK ini">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        `;
+        container.appendChild(div);
+        perbaruiPenomoran();
+        tandaiBerubah();
+        const ta = div.querySelector('textarea');
+        if (ta) ta.focus();
+      };
 
-  window.hapusElemen = function(btn) {
-    var container = document.getElementById('daftar-elemen-container');
-    var semua = container.querySelectorAll('.elemen-koreksi-card');
-    if (semua.length <= 1) {
-      alert('Unit kompetensi harus memiliki minimal 1 elemen.');
-      return;
-    }
-    var card = btn.closest('.elemen-koreksi-card');
-    if (card) card.remove();
-    perbaruiPenomoran();
-    tandaiBerubah();
-  };
+      window.hapusBarisKuk = function(btn) {
+        const card = btn.closest('.elemen-koreksi-card');
+        if (!card) return;
+        const semuaBaris = card.querySelectorAll('.baris-kuk-koreksi');
+        if (semuaBaris.length <= 1) {
+          alert('Setiap elemen kompetensi harus memiliki minimal 1 KUK.');
+          return;
+        }
+        const row = btn.closest('.baris-kuk-koreksi');
+        if (row) row.remove();
+        perbaruiPenomoran();
+        tandaiBerubah();
+      };
 
-  window.konfirmasiKembalikanMesin = function() {
-    if (confirm('Hapus koreksi manual untuk unit ini dan kembalikan ke hasil ekstraksi mesin?')) {
-      document.getElementById('form-kembalikan-mesin').submit();
-    }
-  };
-})();
-</script>
-{% endblock %}
+      window.tambahElemenBaru = function() {
+        const container = document.getElementById('daftar-elemen-container');
+        const nextEl = container.querySelectorAll('.elemen-koreksi-card').length + 1;
+        const noKuk = nextEl + '.1';
+
+        const sec = document.createElement('section');
+        sec.className = 'elemen-koreksi-card bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 paper-shadow transition-all';
+        sec.setAttribute('data-elemen-no', String(nextEl));
+        sec.innerHTML = `
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3 mb-4">
+            <div class="flex items-center gap-2.5 flex-1">
+              <span class="label-nomor-elemen px-3 py-1.5 rounded-xl bg-blue-50 text-blue-700 font-mono font-extrabold text-xs shrink-0 border border-blue-200">
+                ELEMEN ${nextEl}
+              </span>
+              <input type="hidden" name="elemen_nomor" value="${nextEl}" class="input-elemen-nomor">
+              <input type="text" name="elemen_nama" value="" placeholder="Ketik nama elemen kompetensi baru..." required class="koreksi-input input-elemen-nama w-full px-3.5 py-2 rounded-xl border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-sm font-bold text-slate-800 transition-all">
+            </div>
+            <div>
+              <button type="button" class="btn-hapus-elemen text-xs font-semibold px-2.5 py-1.5 rounded-lg border border-slate-200 hover:border-rose-300 hover:bg-rose-50 hover:text-rose-600 text-slate-500 transition-all flex items-center gap-1" onclick="hapusElemen(this)">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                <span>Hapus Elemen</span>
+              </button>
+            </div>
+          </div>
+          <div class="daftar-kuk-container space-y-3">
+            <div class="baris-kuk-koreksi flex items-start gap-3 p-3 bg-slate-50/70 border border-slate-200/80 rounded-xl hover:border-slate-300 transition-colors">
+              <div class="pt-2 shrink-0">
+                <span class="label-nomor-kuk font-mono font-bold text-xs px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 shadow-2xs">${noKuk}</span>
+                <input type="hidden" name="kuk_elemen" value="${nextEl}" class="input-kuk-elemen">
+                <input type="hidden" name="kuk_nomor" value="${noKuk}" class="input-kuk-nomor">
+              </div>
+              <div class="flex-1">
+                <textarea name="kuk_uraian" rows="2" required placeholder="Ketik uraian Kriteria Unjuk Kerja (KUK)..." class="koreksi-input input-kuk-uraian w-full p-2.5 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 text-xs sm:text-sm text-slate-800 transition-all"></textarea>
+              </div>
+              <button type="button" class="mt-1.5 p-1.5 rounded-lg hover:bg-rose-50 text-slate-400 hover:text-rose-600 transition-colors" onclick="hapusBarisKuk(this)" title="Hapus KUK ini">
+                <i data-lucide="x" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100">
+            <button type="button" class="btn-tambah-kuk inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-xl px-3 py-1.5 transition-colors" onclick="tambahBarisKuk(this)">
+              <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+              <span>Tambah KUK ${nextEl}.2</span>
+            </button>
+          </div>
+        `;
+        container.appendChild(sec);
+        perbaruiPenomoran();
+        tandaiBerubah();
+        const inp = sec.querySelector('.input-elemen-nama');
+        if (inp) inp.focus();
+      };
+
+      window.hapusElemen = function(btn) {
+        const container = document.getElementById('daftar-elemen-container');
+        const semua = container.querySelectorAll('.elemen-koreksi-card');
+        if (semua.length <= 1) {
+          alert('Unit kompetensi harus memiliki minimal 1 elemen.');
+          return;
+        }
+        const card = btn.closest('.elemen-koreksi-card');
+        if (card) card.remove();
+        perbaruiPenomoran();
+        tandaiBerubah();
+      };
+
+      window.konfirmasiKembalikanMesin = function() {
+        if (confirm('Hapus koreksi manual untuk unit ini dan kembalikan ke hasil ekstraksi mesin?')) {
+          document.getElementById('form-kembalikan-mesin').submit();
+        }
+      };
+    })();
+  </script>
+</body>
+</html>

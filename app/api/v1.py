@@ -326,8 +326,12 @@ def ambil_sinkronisasi_muk(
     if not data:
         raise HTTPException(status_code=404, detail=f"Skema '{schema_id}' tidak ditemukan.")
 
+    kp_obj = data.get("kelompok_pekerjaan")
+    groups_list = kp_obj.get("groups", []) if isinstance(kp_obj, dict) else (kp_obj if isinstance(kp_obj, list) else [])
+
     return {
         "status": "sukses",
+        "schema_muk_version": 2,
         "skema": {
             "id": schema_id,
             "kode_skema": data.get("no_skema") or data.get("kode_skema"),
@@ -339,7 +343,9 @@ def ambil_sinkronisasi_muk(
             "aktif": data.get("versi_aktif", "v1"),
             "daftar_versi": data.get("daftar_versi_muk", []),
         },
-        "kelompok_pekerjaan": data.get("kelompok_pekerjaan", []),
+        "kelompok_pekerjaan": groups_list,
+        "total_durasi_menit": kp_obj.get("total_durasi_menit", 120) if isinstance(kp_obj, dict) else 120,
+        "ringkasan_durasi": kp_obj.get("ringkasan_durasi", "") if isinstance(kp_obj, dict) else "",
         "ringkasan_kompetensi": {
             "total_unit": len(data.get("daftar_unit", [])),
             "total_elemen": data.get("total_elemen", 0),
@@ -347,15 +353,17 @@ def ambil_sinkronisasi_muk(
         },
         "daftar_unit": data.get("daftar_unit", []),
         "instrumen": {
+            "_deprecated": True,
+            "_catatan": "Instrumen praktik (IA.01, IA.02, IA.03, IA.04A, IA.04B) telah dipindahkan ke dalam masing-masing kelompok_pekerjaan[].instrumen. Nilai di sini adalah cerminan kelompok 1 untuk kompatibilitas mundur.",
             "ia_01": data.get("ia_01", {}),
-            "ia_02": data.get("ia_02", {}),
-            "ia_03": data.get("ia_03", {}),
-            "ia_04a": data.get("ia_04a", {}),
-            "ia_04b": data.get("ia_04b", {}),
-            "ia_05": data.get("ia_05", {}),
-            "ia_06": data.get("ia_06", {}),
-            "ia_07": data.get("ia_07", {}),
-            "ia_08": data.get("ia_08", {}),
+            "ia_02": data.get("ia02", data.get("ia_02", {})),
+            "ia_03": data.get("ia03", data.get("ia_03", {})),
+            "ia_04a": data.get("ia04", data.get("ia_04a", {})),
+            "ia_04b": data.get("ia04", data.get("ia_04b", {})),
+            "ia_05": data.get("ia05", data.get("ia_05", {})),
+            "ia_06": data.get("ia06", data.get("ia_06", {})),
+            "ia_07": data.get("ia07", data.get("ia_07", {})),
+            "ia_08": data.get("ia08", data.get("ia_08", {})),
             "ia_11": data.get("ia_11", {}),
             "va": data.get("va", {}),
             "ak_07": data.get("ak_07", {}),

@@ -1,0 +1,300 @@
+<!-- ========================================== -->
+<!-- 0. DAFTAR PERIKSA KELENGKAPAN DOKUMEN UPGRADING-RCC ASESOR KOMPETENSI -->
+<!-- ========================================== -->
+<div class="lsp-page-sheet" id="section-daftar-periksa">
+    <div style="text-align: center; margin-bottom: 14px;">
+        <h2 style="font-size: 14px; font-weight: 800; text-transform: uppercase; margin: 0; padding: 0; letter-spacing: 0.5px;">
+            DAFTAR PERIKSA KELENGKAPAN DOKUMEN
+        </h2>
+        <h3 style="font-size: 13px; font-weight: 700; text-transform: uppercase; margin: 2px 0 0 0; color: #1e293b;">
+            UPGRADING-RCC ASESOR KOMPETENSI
+        </h3>
+    </div>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-bottom: 12px; font-size: 11px;">
+        <tr>
+            <td width="22%" style="background: #f8fafc; font-weight: 700;">Skema Sertifikasi</td>
+            <td width="3%" style="text-align: center;">:</td>
+            <td><strong>{{ data.nama_skema }}</strong></td>
+        </tr>
+        <tr>
+            <td style="background: #f8fafc; font-weight: 700;">Nomor Skema</td>
+            <td style="text-align: center;">:</td>
+            <td><strong>{{ data.nomor_skema or '-' }}</strong></td>
+        </tr>
+        <tr>
+            <td style="background: #f8fafc; font-weight: 700;">Tempat Uji Kompetensi</td>
+            <td style="text-align: center;">:</td>
+            <td>{{ data.nama_tuk or 'TUK Sewaktu' }}</td>
+        </tr>
+        <tr>
+            <td style="background: #f8fafc; font-weight: 700;">Nama Asesor</td>
+            <td style="text-align: center;">:</td>
+            <td>{{ data.nama_asesor or '..................................................' }}</td>
+        </tr>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="font-size: 11px;">
+        <thead>
+            <tr style="background: #f1f5f9; text-align: center; font-weight: 700;">
+                <th width="5%" rowspan="2" style="vertical-align: middle; padding: 6px;">NO</th>
+                <th width="55%" rowspan="2" style="vertical-align: middle; padding: 6px; text-align: left;">JENIS DOKUMEN</th>
+                <th width="16%" colspan="2" style="padding: 4px;">STATUS*</th>
+                <th width="24%" rowspan="2" style="vertical-align: middle; padding: 6px;">KETERANGAN</th>
+            </tr>
+            <tr style="background: #f8fafc; text-align: center; font-weight: 700;">
+                <th width="8%" style="padding: 4px;">ADA</th>
+                <th width="8%" style="padding: 4px;">TIDAK</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- A. PELAKSANAAN ASESMEN -->
+            <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="padding: 6px 10px; font-size: 11.5px;">A. PELAKSANAAN ASESMEN</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">1</td>
+                <td>FR.APL.01. Permohonan Sertifikasi Kompetensi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Lengkap terisi</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">2</td>
+                <td>FR.APL.02. Asesmen Mandiri</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Seluruh unit &amp; KUK</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">3</td>
+                <td>Portofolio Asesi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Lampiran pendukung</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">4</td>
+                <td>FR.MAPA.01. Merencanakan Aktivitas dan Proses Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Standar BNSP V.2023</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" rowspan="3">5</td>
+                <td>a. Skema Sertifikasi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Dokumen Skema aktif</td>
+            </tr>
+            <tr>
+                <td>b. Standar Kompetensi (SKKNI)</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Standar SKKNI Kemnaker</td>
+            </tr>
+            <tr>
+                <td>c. Peta Kompetensi Pekerjaan (Peta Kelompok Pekerjaan)</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>{{ data.kelompok_pekerjaan.groups|length }} Kelompok Kerja</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">6</td>
+                <td>FR-MAPA.02. Peta Instrumen Asesmen Hasil Pendekatan Asesmen dan Perencanaan Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Matriks instrumen bukti</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">7</td>
+                <td>FR.AK.07. Ceklis Penyesuaian yang Wajar dan Beralasan</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Standar BNSP</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">8</td>
+                <td>FR.AK.04. Formulir Banding Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Prosedur banding</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">9</td>
+                <td>FR.AK.01. Persetujuan Asesmen dan Kerahasiaan</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Lembar persetujuan</td>
+            </tr>
+
+            <!-- INSTRUMEN ASESMEN -->
+            <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="padding: 6px 10px; font-size: 11.5px;">INSTRUMEN ASESMEN (disesuaikan dengan MAPA-01/MAPA-02)</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">10</td>
+                <td>FR.IA.01.CL - Ceklis Observasi Aktivitas Di Tempat Kerja atau Tempat Kerja Simulasi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Observasi KUK</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">11</td>
+                <td>FR.IA.02. TPD - Tugas Praktik Demonstrasi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Skenario &amp; langkah kerja</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">12</td>
+                <td>FR.IA.03. PMO - Pertanyaan Untuk Mendukung Observasi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Tanya jawab lisan</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" rowspan="2">13</td>
+                <td>a. FR.IA.04.A DIT - Daftar Instruksi Terstruktur (Penjelasan Proyek Singkat/Kegiatan Terstruktur Lainnya*)</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Instruksi studi kasus</td>
+            </tr>
+            <tr>
+                <td>b. FR.IA.04B. DIT - Penilaian Proyek Singkat atau Kegiatan Terstruktur Lainnya</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Rubrik penilaian</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">14</td>
+                <td>
+                    FR.IA.05.A DPT - Pertanyaan Tertulis Pilihan Ganda<br>
+                    FR.IA.05.B Lembar Kunci Jawaban Pilihan Ganda<br>
+                    FR.IA.05.C Lembar Jawaban Pilihan Ganda
+                </td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Soal, kunci &amp; lembar jawab</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">15</td>
+                <td>
+                    FR.IA.06.A. DPT - Pertanyaan Tertulis Esai<br>
+                    FR.IA.06.B. Lembar Kunci Jawaban Pertanyaan Tertulis Esai<br>
+                    FR.IA.06.C. Lembar Jawab Pertanyaan Esai
+                </td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Soal esai, kunci &amp; lembar jawab</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">16</td>
+                <td>FR.IA.07. DPL - Pertanyaan Lisan</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Daftar pertanyaan lisan</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">17</td>
+                <td>FR.IA.08. CVP - Ceklis Verifikasi Portofolio</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Verifikasi bukti VATM</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">18</td>
+                <td>FR.IA.09. PW - Pertanyaan Wawancara</td>
+                <td style="text-align: center;">☐</td>
+                <td style="text-align: center; color: #64748b;">☑</td>
+                <td>Jika dipersyaratkan</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">19</td>
+                <td>FR.IA.10. VPK - Verifikasi Pihak Ketiga</td>
+                <td style="text-align: center;">☐</td>
+                <td style="text-align: center; color: #64748b;">☑</td>
+                <td>Jika dipersyaratkan</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">20</td>
+                <td>FR.IA.11. CRP - Ceklis Reviu Produk</td>
+                <td style="text-align: center;">☐</td>
+                <td style="text-align: center; color: #64748b;">☑</td>
+                <td>Jika dipersyaratkan</td>
+            </tr>
+
+            <!-- B. KEPUTUSAN -->
+            <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="padding: 6px 10px; font-size: 11.5px;">B. KEPUTUSAN :</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">21</td>
+                <td>FR.AK.02. Rekaman Asesmen Kompetensi</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Rekap keputusan kompetensi</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">22</td>
+                <td>FR.AK.03. Umpan Balik dan Catatan Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Catatan &amp; evaluasi</td>
+            </tr>
+
+            <!-- C. LAPORAN ASESMEN -->
+            <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="padding: 6px 10px; font-size: 11.5px;">C. LAPORAN ASESMEN</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">23</td>
+                <td>FR.AK.05. Laporan Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Laporan resmi asesmen</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">24</td>
+                <td>FR.AK.06. Meninjau Proses Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Kaji ulang pelaksanaan</td>
+            </tr>
+
+            <!-- D. VALIDASI -->
+            <tr style="background: #e2e8f0; font-weight: 700;">
+                <td colspan="5" style="padding: 6px 10px; font-size: 11.5px;">D. VALIDASI</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;">25</td>
+                <td>FR.VA. Memberikan Kontribusi dalam Validasi Asesmen</td>
+                <td style="text-align: center; font-weight: bold; color: #15803d;">☑</td>
+                <td style="text-align: center;">☐</td>
+                <td>Validasi panduan mutu</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="lsp-doc-table lsp-table-bordered" style="margin-top: 14px; font-size: 11px;">
+        <tr style="background: #f8fafc; font-weight: 700; text-align: center;">
+            <td width="50%">Calon Asesor :</td>
+            <td width="50%">Master Asesor :</td>
+        </tr>
+        <tr>
+            <td style="padding: 10px 12px; height: 75px; vertical-align: top;">
+                <div>Nama : <strong>{{ data.nama_asesor or '..................................................' }}</strong></div>
+                <div style="margin-top: 35px;">Paraf : ..................................................</div>
+            </td>
+            <td style="padding: 10px 12px; height: 75px; vertical-align: top;">
+                <div>Nama : ..................................................</div>
+                <div style="margin-top: 35px;">Paraf : ..................................................</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="font-size: 10.5px; font-style: italic; background: #f8fafc; padding: 6px 10px;">
+                *) Master Asesor/Trainer menandatangani dokumen ini apabila dokumen telah siap dan tidak ada perbaikan lagi ☑
+            </td>
+        </tr>
+    </table>
+</div>

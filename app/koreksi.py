@@ -74,6 +74,74 @@ def hitung_hash_mesin(kode_unit: str) -> str:
     return hitung_hash_berkas(cari_berkas_mesin(kode_unit))
 
 
+def sections_ke_teks(nodes: list[dict]) -> str:
+    """Ubah daftar node hierarki sections ke teks outline bernomor yang mudah disunting."""
+    lines: list[str] = []
+    for n in nodes or []:
+        if not isinstance(n, dict):
+            continue
+        nomor = n.get('nomor')
+        teks = str(n.get('teks') or '').strip()
+        if n.get('is_numbered') and nomor:
+            lines.append(f"{nomor}. {teks}")
+        else:
+            lines.append(teks)
+        if n.get('items'):
+            sub = sections_ke_teks(n['items'])
+            if sub:
+                lines.append(sub)
+    return '\n'.join(lines)
+
+
+def teks_ke_sections(teks: str, default_halaman: int = 1) -> list[dict]:
+    """Ubah teks outline bernomor (mis. 1. Judul \\n 1.1 Uraian) ke struktur tree node sections."""
+    root_nodes: list[dict] = []
+    node_map: dict[str, dict] = {}
+    lines = [l.strip() for l in (teks or '').split('\n') if l.strip()]
+
+    last_node = None
+    for line in lines:
+        m = re.match(r'^(\d+(?:\.\d+)*)\.?\s+(.*)$', line)
+        if m:
+            nomor = m.group(1)
+            isi = m.group(2).strip()
+            parts = nomor.split('.')
+            level = len(parts)
+            parent_nomor = '.'.join(parts[:-1]) if len(parts) > 1 else None
+
+            node = {
+                'nomor': nomor,
+                'level': level,
+                'parent_nomor': parent_nomor,
+                'is_numbered': True,
+                'teks': isi,
+                'halaman_pdf': default_halaman,
+                'items': [],
+            }
+            node_map[nomor] = node
+            if parent_nomor and parent_nomor in node_map:
+                node_map[parent_nomor]['items'].append(node)
+            else:
+                root_nodes.append(node)
+            last_node = node
+        else:
+            if last_node:
+                last_node['teks'] += '\n' + line
+            else:
+                node = {
+                    'nomor': None,
+                    'level': 1,
+                    'parent_nomor': None,
+                    'is_numbered': False,
+                    'teks': line,
+                    'halaman_pdf': default_halaman,
+                    'items': [],
+                }
+                root_nodes.append(node)
+                last_node = node
+    return root_nodes
+
+
 def normalisasi_elemen_koreksi(elemen_input: list[dict]) -> list[dict]:
     """Normalisasi daftar elemen ke struktur simpan ``koreksi/{kode}.json``.
 
@@ -214,6 +282,9 @@ def simpan_koreksi(
     elemen: list[dict],
     oleh: str = 'muhadi',
     judul_unit: str | None = None,
+    deskripsi_unit: str | None = None,
+    batasan_variabel_teks: str | None = None,
+    panduan_penilaian_teks: str | None = None,
 ) -> dict:
     """Simpan koreksi manual ke ``data/json/koreksi/{kode_unit}.json`` secara atomik."""
     kode = _validasi_kode_unit(kode_unit)
@@ -233,7 +304,23 @@ def simpan_koreksi(
         'elemen': elemen_norm,
     }
     if judul_unit is not None:
-        payload['judul_unit'] = str(judul_unit).replace('\r\n', '\n').replace('\r', '\n')
+        payload['judul_unit'] = str(judul_unit).replace('\r\n', '\n').replace('\r', '\n').strip()
+    if deskripsi_unit is not None:
+        payload['deskripsi_unit'] = str(deskripsi_unit).replace('\r\n', '\n').replace('\r', '\n').strip()
+    if batasan_variabel_teks is not None:
+        bv_str = str(batasan_variabel_teks).replace('\r\n', '\n').replace('\r', '\n').strip()
+        payload['batasan_variabel'] = {
+            'ditemukan': bool(bv_str),
+            'teks_mentah': bv_str,
+            'sections': teks_ke_sections(bv_str) if bv_str else [],
+        }
+    if panduan_penilaian_teks is not None:
+        pp_str = str(panduan_penilaian_teks).replace('\r\n', '\n').replace('\r', '\n').strip()
+        payload['panduan_penilaian'] = {
+            'ditemukan': bool(pp_str),
+            'teks_mentah': pp_str,
+            'sections': teks_ke_sections(pp_str) if pp_str else [],
+        }
 
     jalur = path_koreksi(kode)
     tmp = jalur.with_suffix(f'.json.tmp.{os.getpid()}')
@@ -343,10 +430,11 @@ def terapkan_koreksi_ke_data(data_mesin: dict | None, kode_unit: str | None = No
         hasil = {
             'kode_unit': kode,
             'judul_unit': kor.get('judul_unit') or '',
+            'deskripsi_unit': kor.get('deskripsi_unit') or '',
             'elemen_kompetensi': elemen_baru,
             '_elemen_mesin': [],
-            'batasan_variabel': {},
-            'panduan_penilaian': {},
+            'batasan_variabel': kor.get('batasan_variabel') or {},
+            'panduan_penilaian': kor.get('panduan_penilaian') or {},
             'validasi': {
                 'status': 'valid_struktur',
                 'catatan': ['Dikoreksi manual oleh pengguna.'],
@@ -362,6 +450,12 @@ def terapkan_koreksi_ke_data(data_mesin: dict | None, kode_unit: str | None = No
         hasil['_elemen_mesin'] = copy.deepcopy(hasil.get('elemen_kompetensi') or [])
         if kor.get('judul_unit'):
             hasil['judul_unit'] = kor['judul_unit']
+        if kor.get('deskripsi_unit'):
+            hasil['deskripsi_unit'] = kor['deskripsi_unit']
+        if kor.get('batasan_variabel'):
+            hasil['batasan_variabel'] = copy.deepcopy(kor['batasan_variabel'])
+        if kor.get('panduan_penilaian'):
+            hasil['panduan_penilaian'] = copy.deepcopy(kor['panduan_penilaian'])
         hasil['elemen_kompetensi'] = elemen_baru
 
     perbandingan = bandingkan_mesin_dan_koreksi(

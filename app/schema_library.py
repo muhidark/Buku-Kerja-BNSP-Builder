@@ -73,13 +73,18 @@ def _baca_json(path: Path) -> dict | None:
 _sha256 = penyimpanan.sha256_berkas
 
 
-def daftar_skema() -> list[dict]:
+def daftar_skema(owner_id: int | None = None, is_admin: bool = False) -> list[dict]:
     if not META_DIR.exists():
         return []
     hasil = []
     for p in META_DIR.glob('*.json'):
         d = _baca_json(p)
         if d and d.get('id'):
+            if owner_id is not None and not is_admin:
+                # Multi-tenancy: Hanya tampilkan skema milik user ini
+                doc_owner = d.get('owner_id')
+                if doc_owner is not None and doc_owner != owner_id:
+                    continue
             hasil.append(d)
     hasil.sort(key=lambda d: d.get('tanggal_ditambah') or '', reverse=True)
     return hasil
@@ -89,6 +94,20 @@ def ambil_skema(schema_id: str) -> dict | None:
     if not ID_POLA.match(schema_id or ''):
         return None
     return _baca_json(META_DIR / f'{schema_id}.json')
+
+
+def klaim_skema(schema_id: str, owner_id: int, owner_username: str) -> bool:
+    """Mengklaim skema temporary/tanpa pemilik ke akun pengguna yang login/daftar."""
+    doc = ambil_skema(schema_id)
+    if not doc:
+        return False
+    # Klaim diizinkan bila skema belum memiliki pemilik atau sudah dimiliki oleh user ini
+    if not doc.get('owner_id') or doc.get('owner_id') == owner_id:
+        doc['owner_id'] = owner_id
+        doc['owner_username'] = owner_username
+        simpan_metadata(doc)
+        return True
+    return False
 
 
 def simpan_metadata(doc: dict) -> None:
@@ -284,15 +303,16 @@ def simpan_pencocokan(doc: dict, hasil: dict) -> dict:
 # Unggah
 # --------------------------------------------------------------------------
 
-def unggah(nama_asli: str, aliran, ukuran_dilaporkan: int | None = None) -> tuple[dict, bool]:
+def unggah(nama_asli: str, aliran, ukuran_dilaporkan: int | None = None, owner_id: int | None = None, owner_username: str | None = None) -> tuple[dict, bool]:
     siapkan_direktori()
 
     if ukuran_dilaporkan and ukuran_dilaporkan > BATAS_UKURAN:
         raise GalatSkema(f'Ukuran berkas melebihi batas {BATAS_UKURAN // (1024 * 1024)} MB.', 413)
 
     nama_bersih = Path(nama_asli or 'skema.docx').name
-    if not nama_bersih.lower().endswith('.docx'):
-        raise GalatSkema('Hanya dokumen .docx yang diterima (bukan .doc/.docm).')
+    ext = Path(nama_bersih).suffix.lower()
+    if ext not in ('.docx', '.pdf'):
+        raise GalatSkema('Hanya dokumen .docx atau .pdf yang diterima.')
 
     sid = uuid.uuid4().hex
     sementara = TMP_DIR / f'{sid}.part'
@@ -317,20 +337,34 @@ def unggah(nama_asli: str, aliran, ukuran_dilaporkan: int | None = None) -> tupl
         if total == 0:
             raise GalatSkema('Berkas kosong.')
 
-        validasi_docx(sementara, cek_ekstensi=False)   # nama sementara berakhiran .part
+        if ext == '.docx':
+            validasi_docx(sementara, cek_ekstensi=False)   # nama sementara berakhiran .part
         sha = h.hexdigest()
 
         for ada in daftar_skema():
             if ada.get('sha256') == sha:
-                sementara.unlink(missing_ok=True)
-                return ada, True
+                # Deduplikasi hanya jika dimiliki oleh user yang sama!
+                # User yang berbeda tetap diizinkan mengunggah skema yang sama sebagai salinan independen
+                if ada.get('owner_id') == owner_id:
+                    sementara.unlink(missing_ok=True)
+                    return ada, True
 
-        tujuan = DOCX_STORE / f'{sid}.docx'
+        tujuan = DOCX_STORE / f'{sid}{ext}'
         os.replace(sementara, tujuan)
 
-        info = baca_info(tujuan)
+        if ext == '.docx':
+            info = baca_info(tujuan)
+        else:
+            info = {
+                'nama_skema': nama_bersih.rsplit('.', 1)[0],
+                'judul_dokumen': nama_bersih,
+                'jenis_skema': 'Okupasi / Klaster',
+                'nomor_dokumen': None,
+            }
         doc = {
             'id': sid,
+            'owner_id': owner_id,
+            'owner_username': owner_username,
             'nama_asli': nama_bersih,
             'nama_internal': str(tujuan.relative_to(ROOT)),
             'sha256': sha,
@@ -350,7 +384,8 @@ def unggah(nama_asli: str, aliran, ukuran_dilaporkan: int | None = None) -> tupl
         }
 
         try:
-            skema = baca_skema(tujuan)
+            from app.schema_parser import baca_skema_berkas
+            skema = baca_skema_berkas(tujuan)
             doc['units'] = skema['units']
             doc['jumlah_unit'] = skema['jumlah_unit']
             doc['peringatan'] = skema['peringatan']
@@ -441,3 +476,22 @@ def tandai_manual(doc: dict, kode_unit: str) -> dict:
     }
     simpan_metadata(doc)
     return doc
+
+
+def hapus_skema(schema_id: str) -> bool:
+    """Menghapus skema dari perpustakaan (metadata, berkas docx, dan berkas muk)."""
+    if not ID_POLA.match(schema_id):
+        return False
+    meta_path = META_DIR / f"{schema_id}.json"
+    docx_path = DOCX_STORE / f"{schema_id}.docx"
+    muk_path = SKEMA_DIR / 'muk' / f"{schema_id}.json"
+
+    dihapus = False
+    if meta_path.exists():
+        meta_path.unlink()
+        dihapus = True
+    if docx_path.exists():
+        docx_path.unlink()
+    if muk_path.exists():
+        muk_path.unlink()
+    return dihapus

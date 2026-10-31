@@ -138,6 +138,53 @@ def baca_skema(path: str | Path) -> dict:
     }
 
 
+def baca_skema_pdf(path: str | Path) -> dict:
+    """Baca dokumen skema format PDF dan ekstrak daftar unit kompetensi."""
+    import fitz
+    path = Path(path)
+    doc = fitz.open(str(path))
+    pattern = re.compile(r'\b([A-Z]\.[A-Z0-9]{5,8}\.\d{3}\.\d{1,2})\b')
+    units = []
+    seen = set()
+    peringatan = []
+
+    for page_idx in range(len(doc)):
+        page = doc[page_idx]
+        text = page.get_text()
+        for line in text.split('\n'):
+            line = line.strip()
+            m = pattern.search(line)
+            if m:
+                kode = m.group(1)
+                if kode not in seen:
+                    seen.add(kode)
+                    judul = line.replace(kode, '').strip(' -:\t()[]0123456789.')
+                    units.append({
+                        'nomor_urut': len(units) + 1,
+                        'kode_unit': kode,
+                        'judul_skema': judul or f"Unit {kode}",
+                    })
+
+    if not units:
+        peringatan.append('Tidak ada kode unit kompetensi yang terdeteksi pada dokumen PDF.')
+
+    return {
+        'sumber': str(path),
+        'bagian': 'PDF Auto Extraction',
+        'jumlah_unit': len(units),
+        'units': units,
+        'peringatan': peringatan,
+    }
+
+
+def baca_skema_berkas(path: str | Path) -> dict:
+    """Deteksi jenis berkas (.docx atau .pdf) dan parse skema."""
+    p = Path(path)
+    if p.suffix.lower() == '.pdf':
+        return baca_skema_pdf(p)
+    return baca_skema(p)
+
+
 def simpan_skema(hasil: dict, output_path: str | Path) -> Path:
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)

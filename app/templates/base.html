@@ -59,7 +59,7 @@
             <button type="submit" class="btn btn-small btn-ghost" style="padding: 4px 10px; font-size: 12px;">Keluar</button>
           </form>
         {% else %}
-          <a href="/login" class="btn btn-small" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 4px 12px; font-size: 12px;">Masuk</a>
+          <button type="button" onclick="bukaModalAuth()" class="btn btn-small" style="background: var(--navy); border-color: var(--navy); color: #fff; padding: 4px 12px; font-size: 12px; cursor: pointer;">Masuk / Daftar</button>
         {% endif %}
       </div>
     </header>
@@ -83,5 +83,6 @@
   </div>
 </div>
 <script src="/static/js/app.js"></script>
+{% include "_modal_auth.html" %}
 </body>
 </html>

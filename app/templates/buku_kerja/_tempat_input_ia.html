@@ -1,0 +1,1613 @@
+<!-- ========================================================================= -->
+<!-- TEMPAT INPUT / EDITOR FORMULIR FR.IA (BNSP Upgrading-RCC V.2023)          -->
+<!-- Memberikan formulir input interaktif, penarik data SKKNI otomatis, & simpan -->
+<!-- ========================================================================= -->
+
+{% set doc_id = item_aktif.id %}
+{% set muk = data.muk_raw %}
+{% set ref_skkni = data.referensi_skkni %}
+{% set kp_info = data.kelompok_pekerjaan %}
+
+{% if doc_id in ['ia02', 'ia03', 'ia04a', 'ia04b', 'ia05a', 'ia05b', 'ia05c', 'ia06a', 'ia06b', 'ia06c', 'ia07', 'ia08'] %}
+<div class="bg-white rounded-2xl border border-indigo-200/90 shadow-xs overflow-hidden mb-4" id="card-tempat-input-ia">
+  
+  <!-- Header Tempat Input -->
+  <div class="px-5 py-3.5 bg-gradient-to-r from-indigo-50/90 via-blue-50/60 to-white border-b border-indigo-100 flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-bold shadow-xs shrink-0">
+        <i data-lucide="edit-3" class="w-4 h-4"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs sm:text-sm font-extrabold text-slate-900">Tempat Input &amp; Penyuntingan: {{ item_aktif.kode }}</span>
+          <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-indigo-100 text-indigo-700">Editor Aktif</span>
+        </div>
+        <p class="text-[11px] text-slate-500 mt-0.5">
+          Kustomisasi butir pertanyaan/skenario instrumen ini. Klik tombol <strong>Simpan</strong> untuk langsung memperbarui dokumen cetak A4 di bawah.
+        </p>
+      </div>
+    </div>
+
+    <!-- Toolbar Editor -->
+    <div class="flex items-center gap-2">
+      <a
+        href="/skema/{{ dok.id }}/muk"
+        target="_blank"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all shadow-2xs"
+        title="Buka seluruh 9 tab pengaturan MUK di tab baru"
+      >
+        <i data-lucide="settings" class="w-3.5 h-3.5 text-slate-500"></i>
+        <span>Pengaturan MUK Penuh</span>
+      </a>
+      <button
+        type="button"
+        onclick="toggleEditorVisibility()"
+        id="btn-toggle-editor"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold bg-slate-100 hover:bg-slate-200 text-slate-700 transition-all cursor-pointer"
+      >
+        <i data-lucide="chevron-up" class="w-3.5 h-3.5" id="icon-toggle-editor"></i>
+        <span id="text-toggle-editor">Sembunyikan</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Body Tempat Input (Collapsible) -->
+  <div id="body-tempat-input" class="p-5 space-y-5">
+
+    <!-- Notifikasi Simpan -->
+    <div id="ia-save-alert" class="hidden p-3.5 rounded-xl text-xs font-bold flex items-center justify-between border transition-all">
+      <div class="flex items-center gap-2" id="ia-save-alert-text">
+        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-600"></i>
+        <span>Perubahan instrumen berhasil disimpan!</span>
+      </div>
+      <button type="button" onclick="document.getElementById('ia-save-alert').classList.add('hidden')" class="text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-3.5 h-3.5"></i>
+      </button>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- PANEL KELOMPOK PEKERJAAN (Untuk Instrumen Praktik IA.01 s/d IA.04B) -->
+    <!-- =================================================================== -->
+    {% if doc_id in ['ia01', 'ia02', 'ia03', 'ia04a', 'ia04b'] and kp_info.groups %}
+    <div class="p-3 bg-indigo-50/60 rounded-xl border border-indigo-100 flex flex-wrap items-center justify-between gap-3 mb-2">
+      <div class="flex items-center gap-2 overflow-x-auto">
+        <span class="text-xs font-bold text-indigo-900 flex items-center gap-1 shrink-0">
+          <i data-lucide="layers" class="w-3.5 h-3.5 text-indigo-600"></i>
+          Pilih Kelompok:
+        </span>
+        {% for grp in kp_info.groups %}
+        <button
+          type="button"
+          class="btn-switch-kelompok px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer {% if loop.first %}bg-indigo-600 text-white shadow-2xs{% else %}bg-white text-slate-700 hover:bg-slate-100 border border-slate-200{% endif %}"
+          data-kelompok-id="{{ grp.id }}"
+          onclick="pindahKelompokEditor('{{ grp.id }}')"
+        >
+          {{ grp.nama }} ({{ grp.units|length }} Unit &bull; {{ grp.durasi_label }})
+        </button>
+        {% endfor %}
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-50 text-amber-800 border border-amber-200 flex items-center gap-1">
+          <i data-lucide="clock" class="w-3 h-3"></i>
+          Total Asesmen: {{ kp_info.total_durasi_menit }} Menit
+        </span>
+        <button
+          type="button"
+          onclick="bukaModalSalinInstrumen()"
+          class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all cursor-pointer shadow-2xs flex items-center gap-1"
+        >
+          <i data-lucide="copy" class="w-3 h-3 text-slate-500"></i>
+          Salin dari Kelompok Lain
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- =================================================================== -->
+    <!-- 1. FORM FR.IA.02: TUGAS PRAKTIK DEMONSTRASI (TPD)                   -->
+    <!-- =================================================================== -->
+    {% if doc_id == 'ia02' %}
+    {% set ia02 = muk.ia02 %}
+    <div class="space-y-4">
+      <!-- Quick Generator Buttons -->
+      <div class="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100">
+        <button
+          type="button"
+          onclick="tarikKelompokKeIa02()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer shadow-2xs"
+        >
+          <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+          <span>Susun Skenario &amp; Langkah dari Kelompok Kerja</span>
+        </button>
+        <button
+          type="button"
+          onclick="tarikBvKeIa02()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+        >
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Tarik Peralatan &amp; Perlengkapan dari SKKNI</span>
+        </button>
+      </div>
+
+      <!-- SKKNI Reference Panel -->
+      <details class="rounded-xl border border-emerald-200 bg-emerald-50/40 p-3 text-xs text-slate-700 group">
+        <summary class="font-bold text-emerald-800 cursor-pointer flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Referensi Batasan Variabel SKKNI ({{ ref_skkni.peralatan_unik|length }} Peralatan &bull; {{ ref_skkni.perlengkapan_unik|length }} Perlengkapan)</span>
+          </span>
+          <span class="text-[11px] text-emerald-600 group-open:hidden">Klik untuk melihat detail &darr;</span>
+        </summary>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-emerald-200/60 text-[11px]">
+          <div>
+            <div class="font-bold text-emerald-900 mb-1 flex items-center gap-1">
+              <i data-lucide="wrench" class="w-3 h-3"></i> Peralatan Ekstraksi SKKNI (2.1):
+            </div>
+            {% if ref_skkni.peralatan_unik %}
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+              {% for p in ref_skkni.peralatan_unik %}<li>{{ p }}</li>{% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-slate-400 italic">Belum ada data peralatan.</p>
+            {% endif %}
+          </div>
+          <div>
+            <div class="font-bold text-emerald-900 mb-1 flex items-center gap-1">
+              <i data-lucide="package" class="w-3 h-3"></i> Perlengkapan Ekstraksi SKKNI (2.2):
+            </div>
+            {% if ref_skkni.perlengkapan_unik %}
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+              {% for p in ref_skkni.perlengkapan_unik %}<li>{{ p }}</li>{% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-slate-400 italic">Belum ada data perlengkapan.</p>
+            {% endif %}
+          </div>
+        </div>
+      </details>
+
+      <!-- Input Fields -->
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-skenario">
+            A. Skenario Tugas Praktik Demonstrasi:
+          </label>
+          <textarea
+            id="inp-ia02-skenario"
+            rows="3"
+            class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50"
+            placeholder="Jelaskan skenario operasional pelaksanaan tugas praktik..."
+          >{{ ia02.skenario }}</textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-langkah">
+            B. Langkah-langkah Kerja (Satu langkah per baris):
+          </label>
+          <textarea
+            id="inp-ia02-langkah"
+            rows="5"
+            class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50 font-mono"
+            placeholder="1. Menyiapkan peralatan...&#10;2. Melakukan demonstrasi..."
+          >{{ ia02.langkah_kerja }}</textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-hasil">
+            C. Hasil Pekerjaan (Deliverable):
+          </label>
+          <textarea
+            id="inp-ia02-hasil"
+            rows="2"
+            class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50"
+            placeholder="Dokumen hasil atau bukti fisik pelaksanaan tugas..."
+          >{{ ia02.hasil_kerja }}</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-perlengkapan">
+              D1. Perlengkapan (Satu per baris):
+            </label>
+            <textarea
+              id="inp-ia02-perlengkapan"
+              rows="3"
+              class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50"
+            >{{ ia02.perlengkapan }}</textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-peralatan">
+              D2. Peralatan (Satu per baris):
+            </label>
+            <textarea
+              id="inp-ia02-peralatan"
+              rows="3"
+              class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50"
+            >{{ ia02.peralatan }}</textarea>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia02-durasi">
+            E. Alokasi Waktu Praktik:
+          </label>
+          <input
+            type="text"
+            id="inp-ia02-durasi"
+            value="{{ ia02.durasi_waktu }}"
+            class="max-w-xs w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50"
+            placeholder="Misal: 120 Menit"
+          >
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Tekan simpan untuk memperbarui lembar FR.IA.02.</span>
+        <button
+          type="button"
+          onclick="simpanIa02()"
+          id="btn-simpan-ia02"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Perubahan FR.IA.02</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 2. FORM FR.IA.03: PERTANYAAN MENDUKUNG OBSERVASI (PMO)              -->
+    <!-- =================================================================== -->
+    {% if doc_id == 'ia03' %}
+    {% set ia03 = muk.ia03 %}
+    <div class="space-y-4">
+      <!-- Quick Generator Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onclick="tarikPpKeIa03()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Susun Otomatis dari Aspek Kritis &amp; Sikap Kerja SKKNI</span>
+          </button>
+          <button
+            type="button"
+            onclick="tambahItemIa03()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+            <span>Tambah Butir Pertanyaan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SKKNI Reference Panel -->
+      <details class="rounded-xl border border-blue-200 bg-blue-50/40 p-3 text-xs text-slate-700 group">
+        <summary class="font-bold text-blue-800 cursor-pointer flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Referensi Panduan Penilaian SKKNI ({{ ref_skkni.aspek_kritis_list|length }} Aspek Kritis &bull; {{ ref_skkni.sikap_kerja_list|length }} Sikap Kerja)</span>
+          </span>
+          <span class="text-[11px] text-blue-600 group-open:hidden">Klik untuk melihat detail &darr;</span>
+        </summary>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3 pt-3 border-t border-blue-200/60 text-[11px]">
+          <div>
+            <div class="font-bold text-blue-900 mb-1">🎯 Aspek Kritis (5.x):</div>
+            {% if ref_skkni.aspek_kritis_list %}
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+              {% for it in ref_skkni.aspek_kritis_list %}<li><code>{{ it.kode_unit }}</code>: {{ it.teks }}</li>{% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-slate-400 italic">Belum ada aspek kritis.</p>
+            {% endif %}
+          </div>
+          <div>
+            <div class="font-bold text-blue-900 mb-1">🤝 Sikap Kerja (4.x):</div>
+            {% if ref_skkni.sikap_kerja_list %}
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+              {% for it in ref_skkni.sikap_kerja_list %}<li><code>{{ it.kode_unit }}</code>: {{ it.teks }}</li>{% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-slate-400 italic">Belum ada sikap kerja.</p>
+            {% endif %}
+          </div>
+        </div>
+      </details>
+
+      <!-- Dynamic Question List -->
+      <div id="wadah-ia03-items" class="space-y-3">
+        {% for q in ia03.questions %}
+        <div class="ia03-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+              <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia03-num">
+                {{ loop.index }}
+              </span>
+              <label class="text-[11px] font-bold text-slate-600">Dimensi Kompetensi:</label>
+              <select class="ia03-dimensi text-xs rounded-lg border border-slate-300 py-1 px-2 font-semibold bg-white">
+                {% for d_code, d_lbl in data.dimensi_labels.items() %}
+                <option value="{{ d_code }}" {% if q.dimensi == d_code %}selected{% endif %}>{{ d_lbl }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button
+              type="button"
+              onclick="this.closest('.ia03-q-row').remove(); renumberIa03();"
+              class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer"
+            >
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Hapus</span>
+            </button>
+          </div>
+          <textarea
+            class="ia03-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white"
+            rows="2"
+            placeholder="Tulis butir pertanyaan untuk mendukung observasi..."
+          >{{ q.pertanyaan }}</textarea>
+          <input
+            type="text"
+            class="ia03-kunci w-full text-xs rounded-xl border border-slate-200 p-2 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white"
+            value="{{ q.kunci_jawaban }}"
+            placeholder="Standar tanggapan / kunci jawaban yang diharapkan (opsional)"
+          >
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Pertanyaan ini otomatis dicetak pada lembar FR.IA.03.</span>
+        <button
+          type="button"
+          onclick="simpanIa03()"
+          id="btn-simpan-ia03"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Pertanyaan FR.IA.03</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 3. FORM FR.IA.04A & FR.IA.04B: PROYEK SINGKAT (DIT)                 -->
+    <!-- =================================================================== -->
+    {% if doc_id in ['ia04a', 'ia04b'] %}
+    {% set ia04 = muk.ia04 %}
+    <div class="space-y-4">
+      <!-- Quick Generator Buttons -->
+      <div class="flex flex-wrap items-center gap-2 pb-3 border-b border-slate-100">
+        <button
+          type="button"
+          onclick="tarikKelompokKeIa04()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer shadow-2xs"
+        >
+          <i data-lucide="zap" class="w-3.5 h-3.5"></i>
+          <span>Susun Otomatis Skenario STAR &amp; Rubrik dari Kelompok Kerja</span>
+        </button>
+        <button
+          type="button"
+          onclick="tambahItemIa04b()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+        >
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+          <span>Tambah Aspek Penilaian 04B</span>
+        </button>
+      </div>
+
+      <!-- Bagian 04A (STAR) -->
+      <div class="space-y-3">
+        <div class="text-xs font-black uppercase text-indigo-900 bg-indigo-50/70 px-3 py-1.5 rounded-lg border border-indigo-100">
+          Bagian A: Penjelasan Proyek Singkat (FR.IA.04A — Metode STAR)
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-judul">Judul Kegiatan / Proyek Singkat:</label>
+          <input
+            type="text"
+            id="inp-ia04-judul"
+            value="{{ ia04.judul_kegiatan }}"
+            class="w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50 font-bold text-slate-800"
+          >
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-situasi">S &ndash; Situation (Konteks &amp; Situasi Proyek):</label>
+            <textarea id="inp-ia04-situasi" rows="3" class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50">{{ ia04.situasi }}</textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-tugas">T &ndash; Task (Tugas yang Wajib Diselesaikan):</label>
+            <textarea id="inp-ia04-tugas" rows="3" class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50">{{ ia04.tugas }}</textarea>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-tindakan">A &ndash; Action (Instruksi Kerja Langkah Tindakan):</label>
+          <textarea id="inp-ia04-tindakan" rows="4" class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50 font-mono">{{ ia04.tindakan }}</textarea>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-data">Data / Informasi yang Disediakan:</label>
+            <textarea id="inp-ia04-data" rows="2" class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50">{{ ia04.data_informasi }}</textarea>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-hasil">R &ndash; Result (Hasil Akhir / Deliverable):</label>
+            <textarea id="inp-ia04-hasil" rows="2" class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50">{{ ia04.hasil }}</textarea>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+          <div class="md:col-span-2">
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-demonstrasi">Hal yang Dipresentasikan / Didemonstrasikan:</label>
+            <input type="text" id="inp-ia04-demonstrasi" value="{{ ia04.hal_demonstrasi }}" class="w-full text-xs rounded-xl border border-slate-200 p-2 bg-slate-50/50">
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia04-waktu">Waktu Pengerjaan / Presentasi:</label>
+            <input type="text" id="inp-ia04-waktu" value="{{ ia04.waktu_proyek }}" placeholder="Misal: 3 Hari / 15 Menit" class="w-full text-xs rounded-xl border border-slate-200 p-2 bg-slate-50/50">
+          </div>
+        </div>
+      </div>
+
+      <!-- Bagian 04B (Rubrik Penilaian) -->
+      <div class="space-y-3 pt-3 border-t border-slate-100">
+        <div class="text-xs font-black uppercase text-indigo-900 bg-indigo-50/70 px-3 py-1.5 rounded-lg border border-indigo-100 flex items-center justify-between">
+          <span>Bagian B: Daftar Pertanyaan Penilaian Proyek (FR.IA.04B)</span>
+          <span class="text-[10px] text-slate-500 font-normal">Rubrik Asesor Saat Presentasi</span>
+        </div>
+
+        <div id="wadah-ia04b-items" class="space-y-3">
+          {% for q in ia04.questions %}
+          <div class="ia04b-q-row p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+            <div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">
+              <input
+                type="text"
+                class="ia04b-lingkup sm:col-span-5 text-xs rounded-lg border border-slate-300 p-1.5 font-bold"
+                value="{{ q.lingkup }}"
+                placeholder="Lingkup penyajian proyek..."
+              >
+              <input
+                type="text"
+                class="ia04b-kuk sm:col-span-4 text-xs rounded-lg border border-slate-300 p-1.5 font-mono"
+                value="{{ q.elemen_kuk }}"
+                placeholder="Kode Unit / KUK rujukan"
+              >
+              <input
+                type="text"
+                class="ia04b-dimensi sm:col-span-2 text-xs rounded-lg border border-slate-300 p-1.5"
+                value="{{ q.dimensi }}"
+                placeholder="Dimensi (TS, TMS)"
+              >
+              <button
+                type="button"
+                onclick="this.closest('.ia04b-q-row').remove();"
+                class="sm:col-span-1 text-xs text-rose-600 hover:text-rose-800 font-semibold flex justify-end cursor-pointer"
+                title="Hapus baris ini"
+              >
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+            <textarea
+              class="ia04b-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2 focus:ring-2 focus:ring-indigo-500/20 bg-white"
+              rows="2"
+              placeholder="Daftar pertanyaan verifikasi proyek saat asesi mempresentasikan..."
+            >{{ q.pertanyaan }}</textarea>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Menyimpan FR.IA.04A dan FR.IA.04B sekaligus.</span>
+        <button
+          type="button"
+          onclick="simpanIa04()"
+          id="btn-simpan-ia04"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Skenario &amp; Penilaian FR.IA.04</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 4. FORM FR.IA.05A/B/C: PILIHAN GANDA (DPT)                          -->
+    <!-- =================================================================== -->
+    {% if doc_id in ['ia05a', 'ia05b', 'ia05c'] %}
+    {% set ia05 = muk.ia05 %}
+    <div class="space-y-4">
+      <div class="flex items-center justify-between gap-3 pb-3 border-b border-slate-100 flex-wrap">
+        <div class="flex items-center gap-2">
+          <label class="text-xs font-bold text-slate-700" for="inp-ia05-jumlah">Jumlah Soal Pilihan Ganda:</label>
+          <input
+            type="number"
+            id="inp-ia05-jumlah"
+            min="1"
+            max="100"
+            value="{{ ia05.jumlah_soal or 10 }}"
+            class="w-20 text-xs rounded-xl border border-slate-300 p-1.5 text-center font-bold"
+          >
+          <span class="text-[11px] text-slate-400">Menentukan jumlah baris di Kunci (IA.05B) &amp; LJK (IA.05C)</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+        <!-- Naskah Soal 05A -->
+        <div class="md:col-span-8 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-800" for="inp-ia05-pertanyaan">
+              Naskah Soal Pilihan Ganda (FR.IA.05A):
+            </label>
+            <span class="text-[11px] text-slate-400">Format: 1. Soal... [Enter] a. ... [Enter] b. ...</span>
+          </div>
+          <textarea
+            id="inp-ia05-pertanyaan"
+            rows="12"
+            class="w-full text-xs rounded-xl border border-slate-200 p-3 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50 leading-relaxed"
+            placeholder="1. Pada proses persiapan siaran acara, langkah pertama yang dilakukan adalah...&#10;a. Menyiapkan susunan acara&#10;b. Menguji mikrofon&#10;c. Berkoordinasi dengan produser&#10;d. Menyapa audiens"
+          >{{ ia05.pertanyaan }}</textarea>
+        </div>
+
+        <!-- Kunci Jawaban 05B -->
+        <div class="md:col-span-4 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <label class="text-xs font-bold text-slate-800" for="inp-ia05-kunci">
+              Kunci Jawaban (FR.IA.05B):
+            </label>
+            <span class="text-[11px] text-slate-400">Satu nomor per baris</span>
+          </div>
+          <textarea
+            id="inp-ia05-kunci"
+            rows="12"
+            class="w-full text-xs rounded-xl border border-slate-200 p-3 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-slate-50/50 font-mono font-bold text-indigo-900"
+            placeholder="1. A&#10;2. B&#10;3. D&#10;4. C"
+          >{{ ia05.kunci }}</textarea>
+        </div>
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Pembaruan langsung diterapkan ke FR.IA.05A, FR.IA.05B, &amp; FR.IA.05C.</span>
+        <button
+          type="button"
+          onclick="simpanIa05()"
+          id="btn-simpan-ia05"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Soal &amp; Kunci Pilihan Ganda</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 5. FORM FR.IA.06A/B/C: PERTANYAAN TERTULIS ESAI (DPT)               -->
+    <!-- =================================================================== -->
+    {% if doc_id in ['ia06a', 'ia06b', 'ia06c'] %}
+    {% set ia06 = muk.ia06 %}
+    <div class="space-y-4">
+      <!-- Quick Generator Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onclick="tarikPpKeIa06()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Susun Soal Esai dari Pengetahuan &amp; Aspek Kritis SKKNI</span>
+          </button>
+          <button
+            type="button"
+            onclick="tambahItemIa06()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+            <span>Tambah Butir Soal Esai</span>
+          </button>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <label class="text-xs font-bold text-slate-700" for="inp-ia06-waktu">Alokasi Waktu:</label>
+          <input
+            type="text"
+            id="inp-ia06-waktu"
+            value="{{ ia06.waktu or '60 Menit' }}"
+            class="w-28 text-xs rounded-xl border border-slate-300 p-1.5 text-center font-bold"
+          >
+        </div>
+      </div>
+
+      <!-- SKKNI Reference Panel -->
+      <details class="rounded-xl border border-indigo-200 bg-indigo-50/40 p-3 text-xs text-slate-700 group">
+        <summary class="font-bold text-indigo-900 cursor-pointer flex items-center justify-between">
+          <span class="flex items-center gap-2">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            <span>Referensi SKKNI ({{ ref_skkni.pengetahuan_list|length }} Pengetahuan &bull; {{ ref_skkni.aspek_kritis_list|length }} Aspek Kritis)</span>
+          </span>
+          <span class="text-[11px] text-indigo-600 group-open:hidden">Klik untuk melihat detail &darr;</span>
+        </summary>
+        <div class="mt-3 pt-3 border-t border-indigo-200/60 text-[11px] space-y-2">
+          <div>
+            <div class="font-bold text-indigo-900 mb-1">📖 Pengetahuan Kerja SKKNI (3.1):</div>
+            {% if ref_skkni.pengetahuan_list %}
+            <ul class="list-disc list-inside space-y-0.5 text-slate-600">
+              {% for it in ref_skkni.pengetahuan_list %}<li><code>{{ it.kode_unit }}</code>: {{ it.teks }}</li>{% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-slate-400 italic">Belum ada daftar pengetahuan.</p>
+            {% endif %}
+          </div>
+        </div>
+      </details>
+
+      <!-- Dynamic Question List -->
+      <div id="wadah-ia06-items" class="space-y-3">
+        {% for q in ia06.questions %}
+        <div class="ia06-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia06-num">
+                {{ loop.index }}
+              </span>
+              <span>Soal Esai Nomor <span class="ia06-num-text">{{ loop.index }}</span></span>
+            </span>
+            <button
+              type="button"
+              onclick="this.closest('.ia06-q-row').remove(); renumberIa06();"
+              class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer"
+            >
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Hapus</span>
+            </button>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Pertanyaan Esai (FR.IA.06A):</label>
+            <textarea
+              class="ia06-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 bg-white"
+              rows="2"
+              placeholder="Tulis butir pertanyaan esai..."
+            >{{ q.pertanyaan }}</textarea>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kunci Jawaban / Acuan Penilaian (FR.IA.06B):</label>
+            <textarea
+              class="ia06-kunci w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 bg-white"
+              rows="2"
+              placeholder="Tulis kunci jawaban atau acuan penilaian asesor..."
+            >{{ q.kunci_jawaban }}</textarea>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Menyimpan dan memperbarui FR.IA.06A, 06B, &amp; 06C.</span>
+        <button
+          type="button"
+          onclick="simpanIa06()"
+          id="btn-simpan-ia06"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Soal Esai FR.IA.06</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 6. FORM FR.IA.07: DAFTAR PERTANYAAN LISAN (DPL)                     -->
+    <!-- =================================================================== -->
+    {% if doc_id == 'ia07' %}
+    {% set ia07 = muk.ia07 %}
+    <div class="space-y-4">
+      <!-- Quick Generator Buttons -->
+      <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button
+            type="button"
+            onclick="tarikPpKeIa07()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-blue-50 text-blue-700 hover:bg-blue-100 border border-blue-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>Susun Pertanyaan Lisan dari Aspek Kritis &amp; Pengetahuan SKKNI</span>
+          </button>
+          <button
+            type="button"
+            onclick="tambahItemIa07()"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+          >
+            <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+            <span>Tambah Pertanyaan Lisan</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dynamic Question List -->
+      <div id="wadah-ia07-items" class="space-y-3">
+        {% for q in ia07.questions %}
+        <div class="ia07-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia07-num">
+                {{ loop.index }}
+              </span>
+              <span>Pertanyaan Lisan Nomor <span class="ia07-num-text">{{ loop.index }}</span></span>
+            </span>
+            <button
+              type="button"
+              onclick="this.closest('.ia07-q-row').remove(); renumberIa07();"
+              class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer"
+            >
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Hapus</span>
+            </button>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Pertanyaan Lisan (FR.IA.07):</label>
+            <textarea
+              class="ia07-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 bg-white"
+              rows="2"
+              placeholder="Tulis butir pertanyaan lisan..."
+            >{{ q.pertanyaan }}</textarea>
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kunci Jawaban Asesor:</label>
+            <textarea
+              class="ia07-kunci w-full text-xs rounded-xl border border-slate-200 p-2.5 focus:ring-2 focus:ring-indigo-500/20 bg-white"
+              rows="2"
+              placeholder="Tulis kunci jawaban atau standar tanggapan lisan..."
+            >{{ q.kunci_jawaban }}</textarea>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Pertanyaan lisan otomatis dicetak pada formulir FR.IA.07.</span>
+        <button
+          type="button"
+          onclick="simpanIa07()"
+          id="btn-simpan-ia07"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Pertanyaan Lisan FR.IA.07</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+
+    <!-- =================================================================== -->
+    <!-- 7. FORM FR.IA.08: CEKLIS VERIFIKASI PORTOFOLIO (CVP)                -->
+    <!-- =================================================================== -->
+    {% if doc_id == 'ia08' %}
+    {% set ia08 = muk.ia08 %}
+    <div class="space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div>
+          <h4 class="text-xs font-bold text-slate-800">Daftar Dokumen Portofolio Standar (FR.IA.08):</h4>
+          <p class="text-[11px] text-slate-500">Dapat dikosongkan jika asesmen portofolio diisi tulis tangan oleh asesor.</p>
+        </div>
+        <button
+          type="button"
+          onclick="tambahItemIa08()"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-200 transition-all cursor-pointer shadow-2xs"
+        >
+          <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
+          <span>Tambah Dokumen Bukti</span>
+        </button>
+      </div>
+
+      <div id="wadah-ia08-items" class="space-y-2">
+        {% for b in ia08.bukti_portofolio %}
+        <div class="ia08-bukti-row flex items-center gap-2">
+          <span class="w-6 text-center text-xs font-bold text-slate-500 ia08-num">{{ loop.index }}.</span>
+          <input
+            type="text"
+            class="ia08-teks flex-1 text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50 focus:bg-white"
+            value="{{ b }}"
+            placeholder="Nama dokumen portofolio (misal: Sertifikat Pelatihan, Logbook, Surat Keputusan Tugas)..."
+          >
+          <button
+            type="button"
+            onclick="this.closest('.ia08-bukti-row').remove(); renumberIa08();"
+            class="text-xs text-rose-600 hover:text-rose-800 p-2 cursor-pointer"
+          >
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1" for="inp-ia08-catatan">Catatan Bukti Tambahan:</label>
+        <input
+          type="text"
+          id="inp-ia08-catatan"
+          value="{{ ia08.bukti_tambahan }}"
+          class="w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50"
+          placeholder="Catatan tambahan untuk asesor (opsional)"
+        >
+      </div>
+
+      <!-- Save Button -->
+      <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-[11px] text-slate-400">Dokumen portofolio dicetak pada tabel CVP FR.IA.08.</span>
+        <button
+          type="button"
+          onclick="simpanIa08()"
+          id="btn-simpan-ia08"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs transition-all shadow-sm active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="save" class="w-4 h-4"></i>
+          <span>Simpan Bukti Portofolio FR.IA.08</span>
+        </button>
+      </div>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<!-- Modal Salin Instrumen Antar Kelompok -->
+<div id="modal-salin-instrumen" class="hidden fixed inset-0 z-50 bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
+  <div class="bg-white rounded-2xl max-w-md w-full p-5 shadow-xl border border-slate-200 space-y-4">
+    <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+      <h4 class="text-sm font-bold text-slate-800 flex items-center gap-2">
+        <i data-lucide="copy" class="w-4 h-4 text-indigo-600"></i>
+        Salin Instrumen dari Kelompok Lain
+      </h4>
+      <button type="button" onclick="tutupModalSalinInstrumen()" class="text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+    <div class="space-y-3 text-xs">
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Salin dari Kelompok Asal:</label>
+        <select id="salin-sumber-kelompok" class="w-full rounded-xl border border-slate-300 p-2 bg-slate-50 font-semibold">
+          {% for grp in kp_info.groups %}
+          <option value="{{ grp.id }}">{{ grp.nama }} ({{ grp.units|length }} Unit)</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Ke Kelompok Tujuan:</label>
+        <div id="salin-tujuan-nama" class="p-2 bg-indigo-50 border border-indigo-200 rounded-xl font-bold text-indigo-800"></div>
+      </div>
+      <div>
+        <label class="block font-bold text-slate-700 mb-1">Pilih Isian yang Ingin Disalin:</label>
+        <div class="space-y-1.5 p-2.5 bg-slate-50 border border-slate-200 rounded-xl" id="salin-pilihan-field">
+          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="salin-f-skenario" checked> <span>Skenario Praktik / Proyek</span></label>
+          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="salin-f-langkah" checked> <span>Langkah-langkah Kerja</span></label>
+          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="salin-f-hasil" checked> <span>Hasil Pekerjaan</span></label>
+          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="salin-f-peralatan" checked> <span>Peralatan &amp; Perlengkapan</span></label>
+          <label class="flex items-center gap-2 cursor-pointer"><input type="checkbox" id="salin-f-durasi"> <span>Alokasi Durasi Waktu</span></label>
+        </div>
+      </div>
+    </div>
+    <div class="pt-3 border-t border-slate-100 flex justify-end gap-2">
+      <button type="button" onclick="tutupModalSalinInstrumen()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 cursor-pointer">Batal</button>
+      <button type="button" onclick="eksekusiSalinInstrumen()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-xs cursor-pointer">Salin Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<!-- Scripts Logika Tempat Input & Generator SKKNI Otomatis -->
+<script>
+var SCHEMA_ID = {{ dok.id|tojson }};
+var NAMA_SKEMA = {{ dok.nama_skema|tojson }};
+var DOC_ID = {{ doc_id|tojson }};
+var MASTER_UNITS = [
+  {% for u in data.daftar_unit %}
+  { kode: {{ u.kode_unit|tojson }}, judul: {{ u.judul_unit|tojson }} }{% if not loop.last %},{% endif %}
+  {% endfor %}
+];
+var REF_SKKNI = {{ data.referensi_skkni|tojson }};
+var KP_INFO = {{ data.kelompok_pekerjaan|tojson }};
+var KELOMPOK_DATA = (KP_INFO && KP_INFO.groups) ? KP_INFO.groups : [];
+var ACTIVE_KELOMPOK_ID = (KELOMPOK_DATA && KELOMPOK_DATA.length > 0) ? KELOMPOK_DATA[0].id : 'kp_1';
+
+function pindahKelompokEditor(kelompokId) {
+  ACTIVE_KELOMPOK_ID = kelompokId;
+  document.querySelectorAll('.btn-switch-kelompok').forEach(function(btn) {
+    if (btn.getAttribute('data-kelompok-id') === kelompokId) {
+      btn.className = 'btn-switch-kelompok px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-indigo-600 text-white shadow-2xs';
+    } else {
+      btn.className = 'btn-switch-kelompok px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer bg-white text-slate-700 hover:bg-slate-100 border border-slate-200';
+    }
+  });
+
+  var grp = (KELOMPOK_DATA || []).find(function(g) { return g.id === kelompokId; });
+  if (!grp || !grp.instrumen) return;
+
+  if (DOC_ID === 'ia02' && grp.instrumen.ia02) {
+    var d = grp.instrumen.ia02;
+    if (document.getElementById('inp-ia02-skenario')) document.getElementById('inp-ia02-skenario').value = d.skenario || '';
+    if (document.getElementById('inp-ia02-langkah')) document.getElementById('inp-ia02-langkah').value = d.langkah_kerja || '';
+    if (document.getElementById('inp-ia02-hasil')) document.getElementById('inp-ia02-hasil').value = d.hasil_kerja || '';
+    if (document.getElementById('inp-ia02-perlengkapan')) document.getElementById('inp-ia02-perlengkapan').value = d.perlengkapan || '';
+    if (document.getElementById('inp-ia02-peralatan')) document.getElementById('inp-ia02-peralatan').value = d.peralatan || '';
+    if (document.getElementById('inp-ia02-durasi')) document.getElementById('inp-ia02-durasi').value = d.durasi_waktu || ((grp.durasi_menit || 120) + ' Menit');
+  }
+
+  if (DOC_ID === 'ia03' && grp.instrumen.ia03) {
+    var wadah = document.getElementById('wadah-ia03-items');
+    if (wadah) {
+      wadah.innerHTML = '';
+      (grp.instrumen.ia03.questions || []).forEach(function(q) {
+        tambahItemIa03(q.dimensi, q.pertanyaan, q.kunci_jawaban);
+      });
+    }
+  }
+
+  if ((DOC_ID === 'ia04a' || DOC_ID === 'ia04b') && (grp.instrumen.ia04a || grp.instrumen.ia04b)) {
+    var a = grp.instrumen.ia04a || {};
+    var b = grp.instrumen.ia04b || {};
+    if (document.getElementById('inp-ia04-judul')) document.getElementById('inp-ia04-judul').value = a.judul_proyek || a.judul_kegiatan || '';
+    if (document.getElementById('inp-ia04-situasi')) document.getElementById('inp-ia04-situasi').value = a.situasi || '';
+    if (document.getElementById('inp-ia04-tugas')) document.getElementById('inp-ia04-tugas').value = a.tugas || '';
+    if (document.getElementById('inp-ia04-tindakan')) document.getElementById('inp-ia04-tindakan').value = a.tindakan || '';
+    if (document.getElementById('inp-ia04-data')) document.getElementById('inp-ia04-data').value = a.data_informasi || '';
+    if (document.getElementById('inp-ia04-hasil')) document.getElementById('inp-ia04-hasil').value = a.hasil || '';
+    if (document.getElementById('inp-ia04-demonstrasi')) document.getElementById('inp-ia04-demonstrasi').value = a.hal_demonstrasi || '';
+    if (document.getElementById('inp-ia04-waktu')) document.getElementById('inp-ia04-waktu').value = a.waktu_proyek || '240 menit';
+
+    var wadah4 = document.getElementById('wadah-ia04b-items');
+    if (wadah4) {
+      wadah4.innerHTML = '';
+      var qList = (b.questions && b.questions.length > 0) ? b.questions : (a.questions || []);
+      qList.forEach(function(q) {
+        var kukStr = Array.isArray(q.kuk) ? q.kuk.join('; ') : (q.elemen_kuk || '');
+        tambahItemIa04b(q.lingkup, kukStr, q.dimensi, q.pertanyaan);
+      });
+    }
+  }
+}
+
+function bukaModalSalinInstrumen() {
+  var grp = (KELOMPOK_DATA || []).find(function(g) { return g.id === ACTIVE_KELOMPOK_ID; });
+  var tujuanEl = document.getElementById('salin-tujuan-nama');
+  if (tujuanEl && grp) {
+    tujuanEl.textContent = grp.nama + ' (' + (grp.units || []).length + ' Unit)';
+  }
+  var modal = document.getElementById('modal-salin-instrumen');
+  if (modal) modal.classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+}
+
+function tutupModalSalinInstrumen() {
+  var modal = document.getElementById('modal-salin-instrumen');
+  if (modal) modal.classList.add('hidden');
+}
+
+function eksekusiSalinInstrumen() {
+  var sumberSelect = document.getElementById('salin-sumber-kelompok');
+  var sumberId = sumberSelect ? sumberSelect.value : null;
+  if (!sumberId) return;
+  if (sumberId === ACTIVE_KELOMPOK_ID) {
+    alert('Kelompok asal dan kelompok tujuan sama. Silakan pilih kelompok asal yang berbeda.');
+    return;
+  }
+  var grpSumber = (KELOMPOK_DATA || []).find(function(g) { return g.id === sumberId; });
+  if (!grpSumber || !grpSumber.instrumen) {
+    alert('Data instrumen kelompok asal tidak ditemukan.');
+    return;
+  }
+
+  if (!confirm('Apakah Anda yakin ingin menyalin isian yang dipilih dari ' + grpSumber.nama + ' ke kelompok ini?')) {
+    return;
+  }
+
+  var cSkenario = (document.getElementById('salin-f-skenario') || {}).checked;
+  var cLangkah = (document.getElementById('salin-f-langkah') || {}).checked;
+  var cHasil = (document.getElementById('salin-f-hasil') || {}).checked;
+  var cPeralatan = (document.getElementById('salin-f-peralatan') || {}).checked;
+  var cDurasi = (document.getElementById('salin-f-durasi') || {}).checked;
+
+  if (DOC_ID === 'ia02') {
+    var srcIa02 = grpSumber.instrumen.ia02 || {};
+    if (cSkenario && srcIa02.skenario && document.getElementById('inp-ia02-skenario')) document.getElementById('inp-ia02-skenario').value = srcIa02.skenario;
+    if (cLangkah && srcIa02.langkah_kerja && document.getElementById('inp-ia02-langkah')) document.getElementById('inp-ia02-langkah').value = srcIa02.langkah_kerja;
+    if (cHasil && srcIa02.hasil_kerja && document.getElementById('inp-ia02-hasil')) document.getElementById('inp-ia02-hasil').value = srcIa02.hasil_kerja;
+    if (cPeralatan) {
+      if (srcIa02.perlengkapan && document.getElementById('inp-ia02-perlengkapan')) document.getElementById('inp-ia02-perlengkapan').value = srcIa02.perlengkapan;
+      if (srcIa02.peralatan && document.getElementById('inp-ia02-peralatan')) document.getElementById('inp-ia02-peralatan').value = srcIa02.peralatan;
+    }
+    if (cDurasi && srcIa02.durasi_waktu && document.getElementById('inp-ia02-durasi')) document.getElementById('inp-ia02-durasi').value = srcIa02.durasi_waktu;
+  }
+
+  tutupModalSalinInstrumen();
+  showSaveAlert('Isian dari ' + grpSumber.nama + ' berhasil disalin ke formulir. Klik "Simpan" untuk menerapkan.', true);
+}
+  {% for u in data.daftar_unit %}
+  { kode: {{ u.kode_unit|tojson }}, judul: {{ u.judul_unit|tojson }} }{% if not loop.last %},{% endif %}
+  {% endfor %}
+];
+var REF_SKKNI = {{ data.referensi_skkni|tojson }};
+var KP_INFO = {{ data.kelompok_pekerjaan|tojson }};
+
+function toggleEditorVisibility() {
+  var b = document.getElementById('body-tempat-input');
+  var txt = document.getElementById('text-toggle-editor');
+  var icon = document.getElementById('icon-toggle-editor');
+  if (!b) return;
+  if (b.classList.contains('hidden')) {
+    b.classList.remove('hidden');
+    txt.textContent = 'Sembunyikan';
+    icon.setAttribute('data-lucide', 'chevron-up');
+  } else {
+    b.classList.add('hidden');
+    txt.textContent = 'Buka Tempat Input';
+    icon.setAttribute('data-lucide', 'chevron-down');
+  }
+  if (window.lucide) lucide.createIcons();
+}
+
+function showSaveAlert(pesan, sukses) {
+  var al = document.getElementById('ia-save-alert');
+  var txt = document.getElementById('ia-save-alert-text');
+  if (!al || !txt) return;
+  al.className = 'p-3.5 rounded-xl text-xs font-bold flex items-center justify-between border transition-all '
+    + (sukses ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : 'bg-rose-50 text-rose-800 border-rose-200');
+  txt.innerHTML = (sukses ? '<i data-lucide="check-circle" class="w-4 h-4 text-emerald-600 shrink-0"></i>' : '<i data-lucide="alert-circle" class="w-4 h-4 text-rose-600 shrink-0"></i>')
+    + '<span>' + pesan + '</span>';
+  al.classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+
+  // Reload iframe preview agar langsung menampilkan dokumen hasil input
+  var frame = document.getElementById('preview-frame');
+  if (frame) {
+    try {
+      frame.contentWindow.location.reload();
+    } catch (e) {
+      frame.src = frame.src;
+    }
+  }
+}
+
+async function kirimSimpanAjax(payload, btnId, teksAsli) {
+  var btn = document.getElementById(btnId);
+  if (btn) {
+    btn.disabled = true;
+    btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Menyimpan...</span>';
+    if (window.lucide) lucide.createIcons();
+  }
+
+  try {
+    var resp = await fetch('/skema/' + SCHEMA_ID + '/simpan-muk-bagian', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var res = await resp.json();
+    if (res.sukses) {
+      showSaveAlert(res.pesan || 'Perubahan berhasil disimpan!', true);
+    } else {
+      showSaveAlert(res.pesan || 'Gagal menyimpan perubahan.', false);
+    }
+  } catch (err) {
+    showSaveAlert('Terjadi kesalahan jaringan: ' + err.message, false);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.innerHTML = '<i data-lucide="save" class="w-4 h-4"></i><span>' + teksAsli + '</span>';
+      if (window.lucide) lucide.createIcons();
+    }
+  }
+}
+
+/* =========================================================================
+   Handler IA.02 (TPD)
+   ========================================================================= */
+function tarikKelompokKeIa02() {
+  var kelompok = (KP_INFO && KP_INFO.groups) || [];
+  if (kelompok.length === 0) {
+    alert('Kelompok pekerjaan belum disusun. Silakan atur pada menu Kelompok Kerja terlebih dahulu.');
+    return;
+  }
+  var namaKelompokList = kelompok.map(function(g) { return g.nama; }).join(', ');
+  var skenario = 'Anda sebagai asesi pada skema ' + NAMA_SKEMA + ' diminta untuk mendemonstrasikan tugas praktik yang mencakup '
+    + kelompok.length + ' kelompok pekerjaan (' + namaKelompokList + ') sesuai prosedur operasional standar (SOP) dan standar keselamatan kerja (K3).';
+
+  var langkahLines = [];
+  var stepNo = 1;
+  kelompok.forEach(function(g) {
+    (g.units || []).forEach(function(u) {
+      langkahLines.push(stepNo + '. [' + g.nama + '] Melaksanakan ' + (u.judul_unit || u.judul || u.kode_unit) + ' (' + (u.kode_unit || u.kode) + ') sesuai kriteria unjuk kerja.');
+      stepNo++;
+    });
+  });
+
+  var hasilLines = kelompok.map(function(g, i) {
+    return (i + 1) + '. Bukti hasil demonstrasi kerja pada ' + g.nama;
+  }).join('; ');
+
+  var elSkenario = document.getElementById('inp-ia02-skenario');
+  var elLangkah = document.getElementById('inp-ia02-langkah');
+  var elHasil = document.getElementById('inp-ia02-hasil');
+  if (elSkenario) elSkenario.value = skenario;
+  if (elLangkah) elLangkah.value = langkahLines.join('\n');
+  if (elHasil) elHasil.value = hasilLines + '.';
+}
+
+function tarikBvKeIa02() {
+  var peralatan = (REF_SKKNI && REF_SKKNI.peralatan_unik) || [];
+  var perlengkapan = (REF_SKKNI && REF_SKKNI.perlengkapan_unik) || [];
+  if (peralatan.length === 0 && perlengkapan.length === 0) {
+    alert('Belum ada data ekstraksi Batasan Variabel (Peralatan/Perlengkapan) pada SKKNI skema ini.');
+    return;
+  }
+  var elPerlengkapan = document.getElementById('inp-ia02-perlengkapan');
+  var elPeralatan = document.getElementById('inp-ia02-peralatan');
+  if (elPerlengkapan && perlengkapan.length > 0) elPerlengkapan.value = perlengkapan.join('\n');
+  if (elPeralatan && peralatan.length > 0) elPeralatan.value = peralatan.join('\n');
+}
+
+function simpanIa02() {
+  var d = {
+    skenario: (document.getElementById('inp-ia02-skenario') || {}).value || '',
+    langkah_kerja: (document.getElementById('inp-ia02-langkah') || {}).value || '',
+    hasil_kerja: (document.getElementById('inp-ia02-hasil') || {}).value || '',
+    perlengkapan: (document.getElementById('inp-ia02-perlengkapan') || {}).value || '',
+    peralatan: (document.getElementById('inp-ia02-peralatan') || {}).value || '',
+    durasi_waktu: (document.getElementById('inp-ia02-durasi') || {}).value || ''
+  };
+  var payload = {
+    kelompok_id: ACTIVE_KELOMPOK_ID,
+    bagian: 'ia02',
+    data: d,
+    ia02: d
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia02', 'Simpan Perubahan FR.IA.02');
+}
+
+/* =========================================================================
+   Handler IA.03 (PMO)
+   ========================================================================= */
+function renumberIa03() {
+  document.querySelectorAll('#wadah-ia03-items .ia03-q-row').forEach(function(row, idx) {
+    var num = row.querySelector('.ia03-num');
+    if (num) num.textContent = idx + 1;
+  });
+}
+
+function tambahItemIa03(dim, pert, kunci) {
+  var wadah = document.getElementById('wadah-ia03-items');
+  if (!wadah) return;
+  var idx = wadah.querySelectorAll('.ia03-q-row').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia03-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2';
+  div.innerHTML = ''
+    + '<div class="flex items-center justify-between gap-2">'
+    + '  <div class="flex items-center gap-2">'
+    + '    <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia03-num">' + idx + '</span>'
+    + '    <label class="text-[11px] font-bold text-slate-600">Dimensi Kompetensi:</label>'
+    + '    <select class="ia03-dimensi text-xs rounded-lg border border-slate-300 py-1 px-2 font-semibold bg-white">'
+    + '      <option value="TS"' + (dim === 'TS' ? ' selected' : '') + '>TS - Task Skills</option>'
+    + '      <option value="TMS"' + (dim === 'TMS' ? ' selected' : '') + '>TMS - Task Management Skills</option>'
+    + '      <option value="CMS"' + (dim === 'CMS' ? ' selected' : '') + '>CMS - Contingency Management Skills</option>'
+    + '      <option value="JRES"' + (dim === 'JRES' ? ' selected' : '') + '>JRES - Job/Role Environment Skills</option>'
+    + '      <option value="TRS"' + (dim === 'TRS' ? ' selected' : '') + '>TRS - Transfer Skills</option>'
+    + '    </select>'
+    + '  </div>'
+    + '  <button type="button" onclick="this.closest(\'.ia03-q-row\').remove(); renumberIa03();" class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer">'
+    + '    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Hapus</span>'
+    + '  </button>'
+    + '</div>'
+    + '<textarea class="ia03-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-white" rows="2" placeholder="Tulis butir pertanyaan...">' + (pert || '') + '</textarea>'
+    + '<input type="text" class="ia03-kunci w-full text-xs rounded-xl border border-slate-200 p-2 bg-white" value="' + (kunci || '').replace(/"/g, '&quot;') + '" placeholder="Standar tanggapan / kunci jawaban (opsional)">';
+  wadah.appendChild(div);
+  if (window.lucide) lucide.createIcons();
+}
+
+function tarikPpKeIa03() {
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  var sikapList = (REF_SKKNI && REF_SKKNI.sikap_kerja_list) || [];
+  if (aspekList.length === 0 && sikapList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Aspek Kritis / Sikap Kerja) pada SKKNI skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia03-items');
+  if (wadah) wadah.innerHTML = '';
+
+  aspekList.forEach(function(item, idx) {
+    var dim = (idx % 2 === 0) ? 'TS' : 'CMS';
+    var pert = 'Berdasarkan aspek kritis unit ' + item.kode_unit + ' (' + item.judul_unit + '), bagaimana Anda memastikan: ' + item.teks + '?';
+    var kunci = 'Asesi mampu mendemonstrasikan dan menjelaskan prosedur pemenuhan aspek kritis: ' + item.teks + '.';
+    tambahItemIa03(dim, pert, kunci);
+  });
+
+  sikapList.slice(0, 3).forEach(function(item) {
+    var pert = 'Selama pelaksanaan pekerjaan pada unit ' + item.kode_unit + ', bagaimana Anda menerapkan sikap kerja: ' + item.teks + '?';
+    var kunci = 'Asesi mematuhi standar sikap kerja: ' + item.teks + ' sesuai SOP tempat kerja.';
+    tambahItemIa03('JRES', pert, kunci);
+  });
+}
+
+function simpanIa03() {
+  var questions = [];
+  document.querySelectorAll('#wadah-ia03-items .ia03-q-row').forEach(function(el, idx) {
+    var pert = (el.querySelector('.ia03-pertanyaan').value || '').trim();
+    if (pert) {
+      questions.push({
+        order: idx + 1,
+        dimensi: el.querySelector('.ia03-dimensi').value,
+        pertanyaan: pert,
+        kunci_jawaban: (el.querySelector('.ia03-kunci').value || '').trim()
+      });
+    }
+  });
+
+  var payload = {
+    kelompok_id: ACTIVE_KELOMPOK_ID,
+    bagian: 'ia03',
+    data: {
+      questions: questions
+    },
+    ia03: {
+      questions: questions
+    }
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia03', 'Simpan Pertanyaan FR.IA.03');
+}
+
+/* =========================================================================
+   Handler IA.04 (DIT Proyek Singkat)
+   ========================================================================= */
+function tarikKelompokKeIa04() {
+  var kelompok = (KP_INFO && KP_INFO.groups) || [];
+  if (kelompok.length === 0) {
+    alert('Kelompok pekerjaan belum disusun. Silakan atur pada menu Kelompok Kerja terlebih dahulu.');
+    return;
+  }
+  var namaKelompokList = kelompok.map(function(g) { return g.nama; }).join(', ');
+  var elJudul = document.getElementById('inp-ia04-judul');
+  var elSituasi = document.getElementById('inp-ia04-situasi');
+  var elTugas = document.getElementById('inp-ia04-tugas');
+  var elTindakan = document.getElementById('inp-ia04-tindakan');
+  var elHasil = document.getElementById('inp-ia04-hasil');
+
+  if (elJudul) elJudul.value = 'Proyek Singkat Terintegrasi Skema ' + NAMA_SKEMA;
+  if (elSituasi) elSituasi.value = 'Anda ditugaskan sebagai tenaga profesional pada bidang ' + NAMA_SKEMA
+    + ' untuk menyelesaikan studi kasus/proyek terstruktur yang mencakup tahapan: ' + namaKelompokList + '.';
+  if (elTugas) elTugas.value = 'Menyusun perencanaan, mengeksekusi proyek singkat pada setiap kelompok pekerjaan ('
+    + namaKelompokList + '), serta mempresentasikan hasil proyek di hadapan asesor.';
+
+  var tindakanLines = [];
+  kelompok.forEach(function(g, idx) {
+    var daftarJudul = (g.units || []).map(function(u) { return u.judul_unit || u.judul; }).join('; ');
+    tindakanLines.push((idx + 1) + '. Tahap ' + g.nama + ': Menyelesaikan deliverable untuk unit ' + daftarJudul + '.');
+  });
+  if (elTindakan) elTindakan.value = tindakanLines.join('\n');
+  if (elHasil) elHasil.value = 'Dokumen kerja dan produk hasil proyek untuk masing-masing kelompok pekerjaan (' + namaKelompokList + ').';
+
+  // Susun aspek penilaian IA.04B
+  var wadahQ4 = document.getElementById('wadah-ia04b-items');
+  if (wadahQ4) {
+    wadahQ4.innerHTML = '';
+    kelompok.forEach(function(g) {
+      var kodeUnits = (g.units || []).map(function(u) { return u.kode_unit || u.kode; }).join(', ');
+      tambahItemIa04b(
+        'Penyajian proyek pada ' + g.nama,
+        kodeUnits,
+        '(TS, TMS, CMS)',
+        'Jelaskan alur kerja, pemenuhan standar kualitas, dan penanganan kendala pada tahapan ' + g.nama + '!'
+      );
+    });
+  }
+}
+
+function tambahItemIa04b(lingkup, kuk, dimensi, pert) {
+  var wadah = document.getElementById('wadah-ia04b-items');
+  if (!wadah) return;
+  var div = document.createElement('div');
+  div.className = 'ia04b-q-row p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2';
+  div.innerHTML = ''
+    + '<div class="grid grid-cols-1 sm:grid-cols-12 gap-2 items-center">'
+    + '  <input type="text" class="ia04b-lingkup sm:col-span-5 text-xs rounded-lg border border-slate-300 p-1.5 font-bold" value="' + (lingkup || '').replace(/"/g, '&quot;') + '" placeholder="Lingkup proyek...">'
+    + '  <input type="text" class="ia04b-kuk sm:col-span-4 text-xs rounded-lg border border-slate-300 p-1.5 font-mono" value="' + (kuk || '').replace(/"/g, '&quot;') + '" placeholder="Kode Unit / KUK">'
+    + '  <input type="text" class="ia04b-dimensi sm:col-span-2 text-xs rounded-lg border border-slate-300 p-1.5" value="' + (dimensi || '').replace(/"/g, '&quot;') + '" placeholder="Dimensi (TS, TMS)">'
+    + '  <button type="button" onclick="this.closest(\'.ia04b-q-row\').remove();" class="sm:col-span-1 text-xs text-rose-600 hover:text-rose-800 font-semibold flex justify-end cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i></button>'
+    + '</div>'
+    + '<textarea class="ia04b-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2 bg-white" rows="2" placeholder="Daftar pertanyaan verifikasi presentasi proyek...">' + (pert || '') + '</textarea>';
+  wadah.appendChild(div);
+  if (window.lucide) lucide.createIcons();
+}
+
+function simpanIa04() {
+  var qIa04b = [];
+  document.querySelectorAll('#wadah-ia04b-items .ia04b-q-row').forEach(function(el, idx) {
+    var lingkup = (el.querySelector('.ia04b-lingkup').value || '').trim();
+    var pert = (el.querySelector('.ia04b-pertanyaan').value || '').trim();
+    if (lingkup || pert) {
+      qIa04b.push({
+        order: idx + 1,
+        lingkup: lingkup,
+        pertanyaan: pert,
+        elemen_kuk: (el.querySelector('.ia04b-kuk').value || '').trim(),
+        dimensi: (el.querySelector('.ia04b-dimensi').value || '').trim()
+      });
+    }
+  });
+
+  var d4 = {
+    judul_kegiatan: (document.getElementById('inp-ia04-judul') || {}).value || '',
+    judul_proyek: (document.getElementById('inp-ia04-judul') || {}).value || '',
+    situasi: (document.getElementById('inp-ia04-situasi') || {}).value || '',
+    tugas: (document.getElementById('inp-ia04-tugas') || {}).value || '',
+    tindakan: (document.getElementById('inp-ia04-tindakan') || {}).value || '',
+    data_informasi: (document.getElementById('inp-ia04-data') || {}).value || '',
+    hasil: (document.getElementById('inp-ia04-hasil') || {}).value || '',
+    hal_demonstrasi: (document.getElementById('inp-ia04-demonstrasi') || {}).value || '',
+    waktu_proyek: (document.getElementById('inp-ia04-waktu') || {}).value || '',
+    waktu_presentasi: (document.getElementById('inp-ia04-waktu') || {}).value || '',
+    questions: qIa04b
+  };
+
+  var payload = {
+    kelompok_id: ACTIVE_KELOMPOK_ID,
+    bagian: 'ia04a',
+    data: d4,
+    ia04: d4
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia04', 'Simpan Skenario & Penilaian FR.IA.04');
+}
+
+/* =========================================================================
+   Handler IA.05 (Pilihan Ganda)
+   ========================================================================= */
+function simpanIa05() {
+  var jmlInput = document.getElementById('inp-ia05-jumlah');
+  var jml = jmlInput ? parseInt(jmlInput.value || '10', 10) : 10;
+  var pert = (document.getElementById('inp-ia05-pertanyaan') || {}).value || '';
+  var kunci = (document.getElementById('inp-ia05-kunci') || {}).value || '';
+
+  var payload = {
+    ia05: {
+      jumlah_soal: jml,
+      pertanyaan: pert,
+      kunci: kunci
+    }
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia05', 'Simpan Soal & Kunci Pilihan Ganda');
+}
+
+/* =========================================================================
+   Handler IA.06 (Esai)
+   ========================================================================= */
+function renumberIa06() {
+  document.querySelectorAll('#wadah-ia06-items .ia06-q-row').forEach(function(row, idx) {
+    var num = row.querySelector('.ia06-num');
+    var txt = row.querySelector('.ia06-num-text');
+    if (num) num.textContent = idx + 1;
+    if (txt) txt.textContent = idx + 1;
+  });
+}
+
+function tambahItemIa06(pert, kunci) {
+  var wadah = document.getElementById('wadah-ia06-items');
+  if (!wadah) return;
+  var idx = wadah.querySelectorAll('.ia06-q-row').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia06-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2';
+  div.innerHTML = ''
+    + '<div class="flex items-center justify-between">'
+    + '  <span class="text-xs font-bold text-slate-800 flex items-center gap-2">'
+    + '    <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia06-num">' + idx + '</span>'
+    + '    <span>Soal Esai Nomor <span class="ia06-num-text">' + idx + '</span></span>'
+    + '  </span>'
+    + '  <button type="button" onclick="this.closest(\'.ia06-q-row\').remove(); renumberIa06();" class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer">'
+    + '    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Hapus</span>'
+    + '  </button>'
+    + '</div>'
+    + '<div>'
+    + '  <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Pertanyaan Esai (FR.IA.06A):</label>'
+    + '  <textarea class="ia06-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-white" rows="2" placeholder="Tulis butir pertanyaan esai...">' + (pert || '') + '</textarea>'
+    + '</div>'
+    + '<div>'
+    + '  <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kunci Jawaban / Acuan Penilaian (FR.IA.06B):</label>'
+    + '  <textarea class="ia06-kunci w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-white" rows="2" placeholder="Tulis kunci jawaban atau acuan penilaian asesor...">' + (kunci || '') + '</textarea>'
+    + '</div>';
+  wadah.appendChild(div);
+  if (window.lucide) lucide.createIcons();
+}
+
+function tarikPpKeIa06() {
+  var pengList = (REF_SKKNI && REF_SKKNI.pengetahuan_list) || [];
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  if (pengList.length === 0 && aspekList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Pengetahuan / Aspek Kritis) pada SKKNI skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia06-items');
+  if (wadah) wadah.innerHTML = '';
+  var gabungan = [];
+  aspekList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Jelaskan langkah-langkah dan parameter utama untuk memastikan: ' + item.teks + ' pada unit ' + item.kode_unit + ' (' + item.judul_unit + ')!',
+      kunci: 'Menjelaskan prosedur teknis dan verifikasi pemenuhan aspek kritis: ' + item.teks + ' sesuai standar kerja.'
+    });
+  });
+  pengList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Uraikan konsep dan penerapan pengetahuan mengenai "' + item.teks + '" dalam melaksanakan unit ' + item.kode_unit + ' (' + item.judul_unit + ')!',
+      kunci: 'Menguraikan konsep, fungsi, dan penerapan praktis ' + item.teks + ' pada pekerjaan ' + item.judul_unit + '.'
+    });
+  });
+
+  gabungan.slice(0, 10).forEach(function(q) {
+    tambahItemIa06(q.pert, q.kunci);
+  });
+}
+
+function simpanIa06() {
+  var qIa06 = [];
+  document.querySelectorAll('#wadah-ia06-items .ia06-q-row').forEach(function(el, idx) {
+    var pert = (el.querySelector('.ia06-pertanyaan').value || '').trim();
+    if (pert) {
+      qIa06.push({
+        order: idx + 1,
+        pertanyaan: pert,
+        kunci_jawaban: (el.querySelector('.ia06-kunci').value || '').trim()
+      });
+    }
+  });
+
+  var payload = {
+    ia06: {
+      waktu: (document.getElementById('inp-ia06-waktu') || {}).value || '60 Menit',
+      questions: qIa06
+    }
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia06', 'Simpan Soal Esai FR.IA.06');
+}
+
+/* =========================================================================
+   Handler IA.07 (Pertanyaan Lisan)
+   ========================================================================= */
+function renumberIa07() {
+  document.querySelectorAll('#wadah-ia07-items .ia07-q-row').forEach(function(row, idx) {
+    var num = row.querySelector('.ia07-num');
+    var txt = row.querySelector('.ia07-num-text');
+    if (num) num.textContent = idx + 1;
+    if (txt) txt.textContent = idx + 1;
+  });
+}
+
+function tambahItemIa07(pert, kunci) {
+  var wadah = document.getElementById('wadah-ia07-items');
+  if (!wadah) return;
+  var idx = wadah.querySelectorAll('.ia07-q-row').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia07-q-row p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-2';
+  div.innerHTML = ''
+    + '<div class="flex items-center justify-between">'
+    + '  <span class="text-xs font-bold text-slate-800 flex items-center gap-2">'
+    + '    <span class="w-5 h-5 rounded bg-indigo-100 text-indigo-700 text-[11px] font-black flex items-center justify-center ia07-num">' + idx + '</span>'
+    + '    <span>Pertanyaan Lisan Nomor <span class="ia07-num-text">' + idx + '</span></span>'
+    + '  </span>'
+    + '  <button type="button" onclick="this.closest(\'.ia07-q-row\').remove(); renumberIa07();" class="text-xs text-rose-600 hover:text-rose-800 font-semibold inline-flex items-center gap-1 cursor-pointer">'
+    + '    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i><span>Hapus</span>'
+    + '  </button>'
+    + '</div>'
+    + '<div>'
+    + '  <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Pertanyaan Lisan (FR.IA.07):</label>'
+    + '  <textarea class="ia07-pertanyaan w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-white" rows="2" placeholder="Tulis butir pertanyaan lisan...">' + (pert || '') + '</textarea>'
+    + '</div>'
+    + '<div>'
+    + '  <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Kunci Jawaban Asesor:</label>'
+    + '  <textarea class="ia07-kunci w-full text-xs rounded-xl border border-slate-200 p-2.5 bg-white" rows="2" placeholder="Tulis kunci jawaban lisan...">' + (kunci || '') + '</textarea>'
+    + '</div>';
+  wadah.appendChild(div);
+  if (window.lucide) lucide.createIcons();
+}
+
+function tarikPpKeIa07() {
+  var aspekList = (REF_SKKNI && REF_SKKNI.aspek_kritis_list) || [];
+  var pengList = (REF_SKKNI && REF_SKKNI.pengetahuan_list) || [];
+  if (aspekList.length === 0 && pengList.length === 0) {
+    alert('Belum ada data ekstraksi Panduan Penilaian (Aspek Kritis / Pengetahuan) pada SKKNI skema ini.');
+    return;
+  }
+  var wadah = document.getElementById('wadah-ia07-items');
+  if (wadah) wadah.innerHTML = '';
+  var gabungan = [];
+  aspekList.forEach(function(item) {
+    gabungan.push({
+      pert: 'Mengapa aspek "' + item.teks + '" sangat kritis dalam menyelesaikan unit ' + item.kode_unit + '? Jelaskan secara lisan!',
+      kunci: 'Asesi menjelaskan alasan kritis dan cara memastikan ' + item.teks + ' berjalan sesuai standar.'
+    });
+  });
+  pengList.slice(0, 5).forEach(function(item) {
+    gabungan.push({
+      pert: 'Jelaskan secara singkat bagaimana Anda menerapkan pengetahuan "' + item.teks + '" pada unit ' + item.kode_unit + '!',
+      kunci: 'Asesi menjelaskan penerapan praktis ' + item.teks + ' sesuai konteks unit kompetensi.'
+    });
+  });
+
+  gabungan.slice(0, 8).forEach(function(q) {
+    tambahItemIa07(q.pert, q.kunci);
+  });
+}
+
+function simpanIa07() {
+  var qIa07 = [];
+  document.querySelectorAll('#wadah-ia07-items .ia07-q-row').forEach(function(el, idx) {
+    var pert = (el.querySelector('.ia07-pertanyaan').value || '').trim();
+    if (pert) {
+      qIa07.push({
+        order: idx + 1,
+        pertanyaan: pert,
+        kunci_jawaban: (el.querySelector('.ia07-kunci').value || '').trim()
+      });
+    }
+  });
+
+  var payload = {
+    ia07: {
+      questions: qIa07
+    }
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia07', 'Simpan Pertanyaan Lisan FR.IA.07');
+}
+
+/* =========================================================================
+   Handler IA.08 (Portofolio)
+   ========================================================================= */
+function renumberIa08() {
+  document.querySelectorAll('#wadah-ia08-items .ia08-bukti-row').forEach(function(row, idx) {
+    var num = row.querySelector('.ia08-num');
+    if (num) num.textContent = (idx + 1) + '.';
+  });
+}
+
+function tambahItemIa08(teks) {
+  var wadah = document.getElementById('wadah-ia08-items');
+  if (!wadah) return;
+  var idx = wadah.querySelectorAll('.ia08-bukti-row').length + 1;
+  var div = document.createElement('div');
+  div.className = 'ia08-bukti-row flex items-center gap-2';
+  div.innerHTML = ''
+    + '<span class="w-6 text-center text-xs font-bold text-slate-500 ia08-num">' + idx + '.</span>'
+    + '<input type="text" class="ia08-teks flex-1 text-xs rounded-xl border border-slate-200 p-2.5 bg-slate-50/50 focus:bg-white" value="' + (teks || '').replace(/"/g, '&quot;') + '" placeholder="Nama dokumen portofolio...">'
+    + '<button type="button" onclick="this.closest(\'.ia08-bukti-row\').remove(); renumberIa08();" class="text-xs text-rose-600 hover:text-rose-800 p-2 cursor-pointer"><i data-lucide="trash-2" class="w-4 h-4"></i></button>';
+  wadah.appendChild(div);
+  if (window.lucide) lucide.createIcons();
+}
+
+function simpanIa08() {
+  var buktiList = [];
+  document.querySelectorAll('#wadah-ia08-items .ia08-bukti-row').forEach(function(el) {
+    var t = (el.querySelector('.ia08-teks').value || '').trim();
+    if (t) buktiList.push(t);
+  });
+
+  var payload = {
+    ia08: {
+      bukti_portofolio: buktiList,
+      bukti_tambahan: (document.getElementById('inp-ia08-catatan') || {}).value || ''
+    }
+  };
+  kirimSimpanAjax(payload, 'btn-simpan-ia08', 'Simpan Bukti Portofolio FR.IA.08');
+}
+</script>
+{% endif %}

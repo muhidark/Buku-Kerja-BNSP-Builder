@@ -29,7 +29,11 @@ DEFAULT_JSON_DIR = Path(__file__).resolve().parent.parent / 'data' / 'json' / 'c
 
 def _muat_unit(item: dict, json_dir: Path) -> dict:
     """Ambil JSON unit berdasarkan kode (dan terapkan koreksi manual bila ada)."""
-    kode = item['kode']
+    kode = item.get('kode') or item.get('kode_unit') or ''
+    from app.lsp_exporter import ambil_json_unit
+    data = ambil_json_unit(kode)
+    if data is not None:
+        return data
     if item.get('json'):
         path = Path(item['json'])
     else:

@@ -218,10 +218,23 @@ def halaman_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
         or ''
     )
 
+    deskripsi_unit = (data_final or {}).get('deskripsi_unit') or (data_mesin or {}).get('deskripsi_unit') or ''
+
+    # Batasan Variabel
+    bv_raw = (data_final or {}).get('batasan_variabel') or (data_mesin or {}).get('batasan_variabel') or {}
+    bv_sections = bv_raw.get('sections') or []
+    bv_teks = koreksi.sections_ke_teks(bv_sections) if bv_sections else bv_raw.get('teks_mentah', '')
+
+    # Panduan Penilaian
+    pp_raw = (data_final or {}).get('panduan_penilaian') or (data_mesin or {}).get('panduan_penilaian') or {}
+    pp_sections = pp_raw.get('sections') or []
+    pp_teks = koreksi.sections_ke_teks(pp_sections) if pp_sections else pp_raw.get('teks_mentah', '')
+
     token = security.token_dari_cookie(request)
     resp = render(
         request, 'unit_koreksi.html', judul=f'Koreksi Unit {kode_unit}',
-        dok=dok, kode=kode_unit, judul_unit=judul_unit,
+        dok=dok, kode=kode_unit, judul_unit=judul_unit, deskripsi_unit=deskripsi_unit,
+        bv_teks=bv_teks, pp_teks=pp_teks,
         unit_skema=unit_skema, data_mesin=data_mesin, data=data_final,
         elemen_form=elemen_form, elemen_mesin=elemen_mesin_norm,
         peta_el_mesin=peta_el_mesin, peta_kuk_mesin=peta_kuk_mesin,
@@ -255,6 +268,10 @@ async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
 
     judul_unit = form.get('judul_unit')
     judul_str = str(judul_unit) if judul_unit is not None else None
+    deskripsi_unit = form.get('deskripsi_unit')
+    deskripsi_str = str(deskripsi_unit) if deskripsi_unit is not None else None
+    bv_str = form.get('batasan_variabel')
+    pp_str = form.get('panduan_penilaian')
     elemen_json_raw = form.get('elemen_json')
 
     elemen_input: list[dict] = []
@@ -310,7 +327,14 @@ async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
         elemen_input = [peta_el[n] for n in urutan_el]
 
     try:
-        koreksi.simpan_koreksi(kode_unit, elemen_input, judul_unit=judul_str)
+        koreksi.simpan_koreksi(
+            kode_unit,
+            elemen_input,
+            judul_unit=judul_str,
+            deskripsi_unit=deskripsi_str,
+            batasan_variabel_teks=str(bv_str) if bv_str is not None else None,
+            panduan_penilaian_teks=str(pp_str) if pp_str is not None else None,
+        )
     except ValueError as e:
         return RedirectResponse(
             url=(f'/skema/{schema_id}/unit/{kode_unit}/koreksi?tipe=galat&pesan='
@@ -321,7 +345,7 @@ async def simpan_koreksi_unit(request: Request, schema_id: str, kode_unit: str,
     lanjut = str(form.get('lanjut') or '').strip()
     if lanjut == 'skema':
         return RedirectResponse(
-            url=(f'/skema/{schema_id}?tipe=sukses&pesan='
+            url=(f'/skema/{schema_id}/siap-unduh?tipe=sukses&pesan='
                  + quote(f'Koreksi unit {kode_unit} disimpan. Status unit kini Siap dipakai.')),
             status_code=303,
         )

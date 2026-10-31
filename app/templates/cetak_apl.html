@@ -16,6 +16,19 @@
             font-size: 12px;
             line-height: 1.35;
         }
+        {% if embed %}
+        body {
+            background-color: #f8fafc;
+        }
+        .lsp-paper-container {
+            padding: 10px 0;
+            gap: 16px;
+        }
+        .lsp-page-sheet {
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e2e8f0;
+        }
+        {% endif %}
 
         /* Non-Printable Top Action Bar */
         .lsp-print-topbar {
@@ -299,6 +312,7 @@
 </head>
 <body>
 
+    {% if not embed %}
     <!-- Non-Printable Top Action Bar -->
     <div class="lsp-print-topbar lsp-no-print">
         <div class="lsp-print-topbar-title">
@@ -351,9 +365,17 @@
             </a>
         </div>
     </div>
+    {% endif %}
 
     <!-- Printable Paper Container -->
     <div class="lsp-paper-container">
+
+        <!-- ========================================== -->
+        <!-- 0. DAFTAR PERIKSA KELENGKAPAN DOKUMEN UPGRADING-RCC -->
+        <!-- ========================================== -->
+        {% if 'daftar_periksa' in dokumen_aktif %}
+            {% include "buku_kerja/_form_daftar_periksa.html" %}
+        {% endif %}
 
         <!-- ========================================== -->
         <!-- 1. FR.APL.01 : PERMOHONAN SERTIFIKASI KOMPETENSI -->
@@ -773,6 +795,16 @@
         <!-- 4. FR.MAPA.01 -->
         {% if 'mapa01' in dokumen_aktif %}
             {% include "buku_kerja/_form_mapa01.html" %}
+        {% endif %}
+
+        <!-- 5a. Dokumen Skema Sertifikasi yang Diunggah -->
+        {% if 'skema_dok' in dokumen_aktif %}
+            {% include "buku_kerja/_form_skema_dok.html" %}
+        {% endif %}
+
+        <!-- 5b. Dokumen Standar Kompetensi Kerja (SKKNI) Terekstraksi -->
+        {% if 'skkni_dok' in dokumen_aktif %}
+            {% include "buku_kerja/_form_skkni_dok.html" %}
         {% endif %}
 
         <!-- 5c. Peta Kelompok Pekerjaan -->

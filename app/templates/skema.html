@@ -1,99 +1,652 @@
-{% extends "base.html" %}
-{% block subjudul %}Perpustakaan dokumen skema sertifikasi dan pencocokan unit{% endblock %}
-{% block konten %}
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-slate-50">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ judul }} - SKKNI Extractor &amp; Buku Kerja Asesor</title>
 
-{% if pesan %}
-<div class="alert alert-{{ tipe or 'info' }}">
-  <span>{{ pesan }}</span>
-  {% if doc_sorot %}<a href="/skema/{{ doc_sorot }}">Buka skema</a>{% endif %}
-</div>
-{% endif %}
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-{% set total_unit = daftar|sum(attribute='jumlah_unit') %}
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-<section class="cards cards-3">
-  <article class="card stat">
-    <span class="stat-label">Dokumen skema</span>
-    <span class="stat-value">{{ total_semua }}</span>
-    <span class="stat-note">Total DOCX yang dikelola</span>
-  </article>
-  <article class="card stat">
-    <span class="stat-label">Unit pada hasil tampil</span>
-    <span class="stat-value">{{ total_unit }}</span>
-    <span class="stat-note">{{ daftar|length }} skema</span>
-  </article>
-  <article class="card stat">
-    <span class="stat-label">Batas unggah</span>
-    <span class="stat-value stat-text">{{ batas_mb }} MB</span>
-    <span class="stat-note">Hanya .docx, divalidasi ZIP &amp; struktur</span>
-  </article>
-</section>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              blue: '#0052cc',
+              hover: '#0747a6',
+              light: '#f4f7fc',
+            }
+          },
+          boxShadow: {
+            'card': '0 2px 10px rgba(0, 0, 0, 0.04), 0 1px 3px rgba(0, 0, 0, 0.02)',
+            'card-hover': '0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04)',
+          }
+        }
+      }
+    }
+  </script>
 
-<article class="card">
-  <h2>Unggah Skema Sertifikasi</h2>
-  <form class="upload" method="post" action="/skema/upload" enctype="multipart/form-data">
-    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
-    <input type="file" name="berkas" accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required aria-label="Pilih berkas dokumen skema (.docx) yang akan diunggah">
-    <button type="submit" class="btn">Unggah &amp; baca unit</button>
-  </form>
-  <p class="note">
-    Hanya format .docx (bukan .doc/.docm). Signature ZIP, struktur Word, ukuran isi arsip,
-    dan keberadaan makro diperiksa. Duplikat SHA-256 ditolak; nama asli hanya disimpan
-    sebagai metadata.
-  </p>
-</article>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    }
+    .custom-scroll::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-full text-slate-800 antialiased selection:bg-blue-500 selection:text-white">
 
-<article class="card">
-  <div class="card-head">
-    <h2>Daftar Skema</h2>
-    <form class="cari" method="get" action="/skema">
-      <input type="search" name="q" value="{{ q }}" placeholder="Cari nama skema atau berkas..." aria-label="Cari skema sertifikasi">
-      <button type="submit" class="btn btn-ghost">Cari</button>
-      {% if q %}<a class="btn btn-ghost" href="/skema">Reset</a>{% endif %}
-    </form>
+  <!-- TOP HEADER / NAVBAR -->
+  <header class="bg-white border-b border-slate-200/90 sticky top-0 z-40 backdrop-blur-md bg-white/95">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <div class="flex items-center gap-3">
+        <a href="/" class="flex items-center gap-2.5 group">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 group-hover:bg-blue-700 text-white flex items-center justify-center font-black shadow-xs transition-all">
+            <i data-lucide="award" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-sm font-black tracking-tight text-slate-900 group-hover:text-blue-600 transition-colors flex items-center gap-1.5">
+              <span>Buku Kerja Asesor</span>
+              <span class="text-[10px] font-bold px-1.5 py-0.2 rounded bg-blue-100 text-blue-700 uppercase">V.2023</span>
+            </div>
+            <div class="text-[11px] text-slate-400 font-medium">Katalog Skema Sertifikasi BNSP</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-1 text-xs font-bold text-slate-600">
+        <a href="/" class="px-3 py-2 rounded-xl hover:bg-slate-100 hover:text-slate-900 transition-colors flex items-center gap-1.5">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          <span>Beranda</span>
+        </a>
+        <a href="/skema" class="px-3 py-2 rounded-xl bg-blue-50 text-blue-700 transition-colors flex items-center gap-1.5 font-extrabold">
+          <i data-lucide="folder-kanban" class="w-4 h-4"></i>
+          <span>Pustaka Buku Kerja</span>
+        </a>
+      </nav>
+
+      <!-- Action: Upload Baru & Akun -->
+      <div class="flex items-center gap-2.5">
+        <button
+          type="button"
+          onclick="bukaModalUnggah()"
+          class="inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-xs active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="plus" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Tambah Skema Baru</span>
+          <span class="sm:hidden">Tambah</span>
+        </button>
+
+        {% if pengguna_aktif %}
+          <div class="flex items-center gap-2 pl-2 border-l border-slate-200">
+            <div class="text-right hidden sm:block">
+              <div class="text-xs font-bold text-slate-800">{{ pengguna_aktif.nama_lengkap }}</div>
+              <div class="text-[10px] text-slate-400 font-medium uppercase">{{ pengguna_aktif.peran }}</div>
+            </div>
+            <form class="m-0" method="post" action="/logout">
+              <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+              <button type="submit" class="p-2 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-50 transition-all cursor-pointer" title="Keluar">
+                <i data-lucide="log-out" class="w-4 h-4"></i>
+              </button>
+            </form>
+          </div>
+        {% else %}
+          <button type="button" onclick="bukaModalAuth()" class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-2 rounded-xl border border-slate-200 text-slate-700 hover:bg-slate-50 transition-all cursor-pointer">
+            <i data-lucide="log-in" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span>Masuk / Daftar</span>
+          </button>
+        {% endif %}
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+    <!-- Alert Notifikasi Pesan -->
+    {% if pesan %}
+    <div class="mb-6 p-4 rounded-2xl border flex items-center justify-between gap-3 text-xs sm:text-sm font-semibold {% if tipe == 'sukses' %}bg-emerald-50 text-emerald-800 border-emerald-200{% elif tipe == 'galat' %}bg-rose-50 text-rose-800 border-rose-200{% else %}bg-blue-50 text-blue-800 border-blue-200{% endif %}">
+      <div class="flex items-center gap-2.5">
+        {% if tipe == 'sukses' %}
+        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600 shrink-0"></i>
+        {% elif tipe == 'galat' %}
+        <i data-lucide="alert-triangle" class="w-5 h-5 text-rose-600 shrink-0"></i>
+        {% else %}
+        <i data-lucide="info" class="w-5 h-5 text-blue-600 shrink-0"></i>
+        {% endif %}
+        <span>{{ pesan }}</span>
+      </div>
+      <button type="button" onclick="this.parentElement.remove()" class="text-slate-400 hover:text-slate-600 p-1">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+    {% endif %}
+
+    <!-- Top Hero Banner: Katalog Buku Kerja Asesor -->
+    <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-blue-950 rounded-3xl p-6 sm:p-8 text-white mb-8 shadow-md relative overflow-hidden">
+      <!-- Background pattern -->
+      <div class="absolute -right-12 -bottom-12 w-64 h-64 rounded-full bg-blue-500/10 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div class="max-w-2xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-blue-200 text-xs font-semibold backdrop-blur-xs mb-3 border border-white/10">
+            <i data-lucide="layers" class="w-3.5 h-3.5 text-blue-400"></i>
+            <span>Pustaka Skema &amp; Master Buku Kerja Asesor</span>
+          </div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+            Kumpulan Buku Kerja Berdasarkan Skema Asesmen
+          </h1>
+          <p class="text-slate-300 text-xs sm:text-sm leading-relaxed">
+            Kelola dan unduh paket lengkap Buku Kerja Asesor (24 formulir berstandar resmi BNSP V.2023) untuk setiap skema sertifikasi LSP. Cek verifikasi dokumen, atur kelompok kerja, serta kustomisasi butir uji kompetensi.
+          </p>
+        </div>
+
+        <!-- 4 Quick Metrik Counters -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 shrink-0">
+          <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-3 text-center min-w-[100px]">
+            <div class="text-2xl font-black text-white">{{ total_semua }}</div>
+            <div class="text-[10px] text-blue-200 font-semibold uppercase tracking-wider mt-0.5">Total Skema</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-3 text-center min-w-[100px]">
+            <div class="text-2xl font-black text-emerald-400">{{ total_unit_semua }}</div>
+            <div class="text-[10px] text-emerald-200 font-semibold uppercase tracking-wider mt-0.5">Unit SKKNI</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-3 text-center min-w-[100px]">
+            <div class="text-2xl font-black text-amber-400">{{ total_siap_unduh }}</div>
+            <div class="text-[10px] text-amber-200 font-semibold uppercase tracking-wider mt-0.5">Siap Unduh</div>
+          </div>
+          <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-3 text-center min-w-[100px]">
+            <div class="text-2xl font-black text-indigo-300">V.2023</div>
+            <div class="text-[10px] text-indigo-200 font-semibold uppercase tracking-wider mt-0.5">Format BNSP</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toolbar Pencarian & Filter -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 p-4 mb-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      
+      <!-- Form Pencarian -->
+      <form method="get" action="/skema" class="flex-1 max-w-md relative m-0">
+        <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3.5 top-3"></i>
+        <input
+          type="search"
+          name="q"
+          value="{{ q }}"
+          placeholder="Cari nama skema, nomor dokumen, atau jenis..."
+          class="w-full pl-10 pr-4 py-2 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-medium"
+        >
+        {% if q %}
+        <a href="/skema" class="absolute right-3 top-2.5 text-xs text-slate-400 hover:text-slate-600 font-bold" title="Hapus filter">
+          &times;
+        </a>
+        {% endif %}
+      </form>
+
+      <!-- View Switcher & Counter -->
+      <div class="flex items-center gap-3 justify-between md:justify-end">
+        <span class="text-xs text-slate-500 font-semibold">
+          Menampilkan <strong class="text-slate-900">{{ daftar|length }}</strong> dari {{ total_semua }} Skema
+        </span>
+
+        <div class="inline-flex p-1 bg-slate-100 rounded-xl gap-1 border border-slate-200">
+          <button
+            type="button"
+            onclick="setTampilan('grid')"
+            id="btn-view-grid"
+            class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-2xs"
+            title="Tampilan Grid Kartu"
+          >
+            <i data-lucide="grid" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Kartu</span>
+          </button>
+          <button
+            type="button"
+            onclick="setTampilan('list')"
+            id="btn-view-list"
+            class="px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-900"
+            title="Tampilan Tabel Rinci"
+          >
+            <i data-lucide="list" class="w-3.5 h-3.5"></i>
+            <span class="hidden sm:inline">Tabel</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DAFTAR SKEMA: MODE 1 (GRID CARDS) -->
+    <div id="wadah-skema-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for sk in daftar %}
+      <article class="bg-white rounded-3xl border border-slate-200/90 shadow-card hover:shadow-card-hover transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+        
+        <!-- Header Kartu -->
+        <div class="p-6 pb-4">
+          <div class="flex items-start justify-between gap-3 mb-3">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200 uppercase tracking-wider">
+                {{ sk.jenis_skema or 'Okupasi Nasional' }}
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {% if sk.siap_unduh %}bg-emerald-50 text-emerald-700 border border-emerald-200{% else %}bg-amber-50 text-amber-700 border border-amber-200{% endif %}">
+                {% if sk.siap_unduh %}Buku Kerja Lengkap [✓]{% else %}Perlu Dilengkapi{% endif %}
+              </span>
+              <span class="px-2 py-0.5 rounded-md text-[10px] font-mono font-bold bg-slate-100 text-slate-600">
+                MAPA: {{ sk.metode_mapa|upper }}
+              </span>
+            </div>
+
+            <!-- Tombol Hapus / Opsi -->
+            <button
+              type="button"
+              onclick="konfirmasiHapus('{{ sk.id }}', '{{ sk.nama_skema }}')"
+              class="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-all cursor-pointer shrink-0"
+              title="Hapus skema ini"
+            >
+              <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <h2 class="text-lg font-extrabold text-slate-900 group-hover:text-blue-600 transition-colors tracking-tight line-clamp-2">
+            <a href="/skema/{{ sk.id }}/pemeriksaan">
+              {{ sk.nama_skema or sk.nama_asli }}
+            </a>
+          </h2>
+          
+          <div class="flex items-center gap-2 text-xs text-slate-400 mt-1.5 font-medium">
+            <span>Nomor: {{ sk.nomor_dokumen or 'SKM/LSP/V/2023' }}</span>
+            <span>&bull;</span>
+            <span class="truncate max-w-[200px]" title="{{ sk.nama_asli }}">{{ sk.nama_asli }}</span>
+          </div>
+
+          <!-- 3 Metrik Pill Badges -->
+          <div class="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-slate-100 text-center">
+            <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-150">
+              <div class="text-base font-black text-slate-900">{{ sk.jumlah_unit_final }}</div>
+              <div class="text-[10px] text-slate-400 font-semibold uppercase">Unit SKKNI</div>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-150">
+              <div class="text-base font-black text-slate-900">{{ sk.jumlah_kelompok }}</div>
+              <div class="text-[10px] text-slate-400 font-semibold uppercase">Kel. Kerja</div>
+            </div>
+            <div class="p-2.5 rounded-2xl bg-slate-50 border border-slate-150">
+              <div class="text-base font-black text-blue-600">24 Form</div>
+              <div class="text-[10px] text-slate-400 font-semibold uppercase">Buku Kerja</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tombol Aksi Bawah -->
+        <div class="p-5 bg-slate-50/80 border-t border-slate-100 flex flex-col gap-2.5">
+          <!-- 3 Tombol Utama -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <a
+              href="/skema/{{ sk.id }}/pemeriksaan"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-xs active:scale-95 text-center"
+            >
+              <i data-lucide="clipboard-check" class="w-4 h-4"></i>
+              <span>Pemeriksaan &amp; Input</span>
+            </a>
+            <a
+              href="/skema/{{ sk.id }}/unduh-buku-kerja-zip?doc=all"
+              class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs transition-all shadow-xs active:scale-95 text-center"
+            >
+              <i data-lucide="archive" class="w-4 h-4 text-blue-400"></i>
+              <span>Unduh Bundel (.ZIP)</span>
+            </a>
+          </div>
+
+          <!-- Secondary Actions -->
+          <div class="flex items-center justify-between text-xs pt-2 border-t border-slate-200/60 font-semibold text-slate-600">
+            <a href="/skema/{{ sk.id }}/kelompok-kerja" class="hover:text-blue-600 flex items-center gap-1">
+              <i data-lucide="network" class="w-3.5 h-3.5"></i>
+              <span>Kelompok Kerja</span>
+            </a>
+            <a href="/skema/{{ sk.id }}/unduh-buku-kerja-docx?doc=all" class="hover:text-blue-600 flex items-center gap-1">
+              <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
+              <span>Word Gabungan</span>
+            </a>
+            <a href="/skema/{{ sk.id }}/unduh-buku-kerja" class="text-emerald-700 hover:text-emerald-800 flex items-center gap-1 font-bold">
+              <span>Halaman Unduh</span>
+              <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+            </a>
+          </div>
+        </div>
+
+      </article>
+      {% else %}
+      <!-- Empty State -->
+      <div class="col-span-full bg-white rounded-3xl border border-slate-200/90 p-12 text-center my-4">
+        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4 font-bold shadow-xs">
+          <i data-lucide="folder-search" class="w-8 h-8"></i>
+        </div>
+        <h3 class="text-lg font-extrabold text-slate-900 mb-1">Tidak Ada Skema Sertifikasi yang Cocok</h3>
+        <p class="text-xs sm:text-sm text-slate-500 max-w-md mx-auto mb-6">
+          {% if q %}
+          Tidak ditemukan skema dengan kata kunci "<strong>{{ q }}</strong>". Silakan periksa kembali atau hapus kata pencarian.
+          {% else %}
+          Belum ada dokumen skema yang tersimpan di perpustakaan. Mulai dengan mengunggah berkas Word (.docx) skema sertifikasi Anda.
+          {% endif %}
+        </p>
+        {% if q %}
+        <a href="/skema" class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-slate-700 hover:bg-slate-50">
+          <span>Hapus Filter Pencarian</span>
+        </a>
+        {% else %}
+        <button
+          type="button"
+          onclick="bukaModalUnggah()"
+          class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all active:scale-95 cursor-pointer"
+        >
+          <i data-lucide="upload" class="w-4 h-4"></i>
+          <span>Unggah Skema Pertama Anda</span>
+        </button>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- DAFTAR SKEMA: MODE 2 (TABLE VIEW) -->
+    <div id="wadah-skema-list" class="hidden bg-white rounded-3xl border border-slate-200/90 shadow-card overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs divide-y divide-slate-100">
+          <thead>
+            <tr class="bg-slate-50/80 text-slate-600 font-bold uppercase tracking-wider text-[11px]">
+              <th class="py-3.5 px-5">Nama Skema Sertifikasi</th>
+              <th class="py-3.5 px-4">Jenis</th>
+              <th class="py-3.5 px-4 text-center">Unit</th>
+              <th class="py-3.5 px-4 text-center">Kelompok</th>
+              <th class="py-3.5 px-4 text-center">Metode MAPA</th>
+              <th class="py-3.5 px-4 text-center">Status</th>
+              <th class="py-3.5 px-5 text-right">Aksi Dokumen</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 font-medium text-slate-700">
+            {% for sk in daftar %}
+            <tr class="hover:bg-slate-50/60 transition-colors">
+              <td class="py-4 px-5">
+                <a href="/skema/{{ sk.id }}/pemeriksaan" class="font-extrabold text-slate-900 hover:text-blue-600 text-sm block">
+                  {{ sk.nama_skema or sk.nama_asli }}
+                </a>
+                <span class="text-[11px] text-slate-400 font-mono">{{ sk.nomor_dokumen or 'SKM/LSP/V/2023' }}</span>
+              </td>
+              <td class="py-4 px-4">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 text-blue-700 border border-blue-200">
+                  {{ sk.jenis_skema or 'Okupasi' }}
+                </span>
+              </td>
+              <td class="py-4 px-4 text-center font-bold font-mono text-slate-900">
+                {{ sk.jumlah_unit_final }}
+              </td>
+              <td class="py-4 px-4 text-center font-bold font-mono text-slate-900">
+                {{ sk.jumlah_kelompok }}
+              </td>
+              <td class="py-4 px-4 text-center font-bold uppercase text-[10px] text-slate-600">
+                {{ sk.metode_mapa }}
+              </td>
+              <td class="py-4 px-4 text-center">
+                <span class="px-2 py-0.5 rounded-full text-[10px] font-bold {% if sk.siap_unduh %}bg-emerald-50 text-emerald-700 border border-emerald-200{% else %}bg-amber-50 text-amber-700 border border-amber-200{% endif %}">
+                  {% if sk.siap_unduh %}Lengkap [✓]{% else %}Draft{% endif %}
+                </span>
+              </td>
+              <td class="py-4 px-5 text-right">
+                <div class="inline-flex items-center gap-1.5 justify-end">
+                  <a
+                    href="/skema/{{ sk.id }}/pemeriksaan"
+                    class="px-2.5 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-[11px] transition-all"
+                    title="Pemeriksaan Dokumen"
+                  >
+                    Periksa
+                  </a>
+                  <a
+                    href="/skema/{{ sk.id }}/unduh-buku-kerja-zip?doc=all"
+                    class="px-2.5 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-white font-bold text-[11px] transition-all"
+                    title="Unduh Arsip ZIP 24 Dokumen Word"
+                  >
+                    .ZIP
+                  </a>
+                  <button
+                    type="button"
+                    onclick="konfirmasiHapus('{{ sk.id }}', '{{ sk.nama_skema }}')"
+                    class="p-1.5 text-slate-400 hover:text-rose-600 rounded-lg transition-colors cursor-pointer"
+                    title="Hapus Skema"
+                  >
+                    <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- MODAL UNGGAH SKEMA BARU -->
+  <div id="modal-unggah-skema" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl border border-slate-100">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold shadow-2xs">
+            <i data-lucide="upload-cloud" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="text-base sm:text-lg font-black text-slate-900">Unggah Skema Sertifikasi Baru</h3>
+            <p class="text-xs text-slate-400">Berkas Microsoft Word (.docx) resmi LSP</p>
+          </div>
+        </div>
+        <button
+          type="button"
+          onclick="tutupModalUnggah()"
+          class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 flex items-center justify-center transition-all cursor-pointer"
+        >
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <!-- Form Unggah Alur Baru -->
+      <form id="form-unggah-alur" onsubmit="kirimUnggahanAlur(event)">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+
+        <div
+          id="dropzone-area"
+          onclick="document.getElementById('file-input-skema').click()"
+          class="border-2 border-dashed border-slate-300 hover:border-blue-500 rounded-2xl p-6 text-center cursor-pointer transition-all bg-slate-50/50 hover:bg-blue-50/30 mb-4"
+        >
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 text-blue-600 flex items-center justify-center mx-auto mb-3">
+            <i data-lucide="file-up" class="w-6 h-6"></i>
+          </div>
+          <p class="text-xs font-bold text-slate-800 mb-1" id="label-file-skema">
+            Klik atau seret berkas .DOCX skema ke area ini
+          </p>
+          <p class="text-[11px] text-slate-400">
+            Maksimum ukuran berkas {{ batas_mb }} MB. Sistem otomatis membaca tabel unit kompetensi.
+          </p>
+          <input
+            type="file"
+            id="file-input-skema"
+            name="berkas"
+            accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            class="hidden"
+            onchange="updateFileLabel(this)"
+          >
+        </div>
+
+        <div id="upload-status-box" class="hidden mb-4 p-3 rounded-xl text-xs font-bold border"></div>
+
+        <div class="flex items-center justify-end gap-2.5 pt-4 border-t border-slate-100">
+          <button
+            type="button"
+            onclick="tutupModalUnggah()"
+            class="px-4 py-2.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all cursor-pointer"
+          >
+            Batal
+          </button>
+          <button
+            type="submit"
+            id="btn-submit-unggah"
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition-all shadow-md active:scale-95 cursor-pointer"
+          >
+            <i data-lucide="upload" class="w-4 h-4"></i>
+            <span>Mulai Proses Skema</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
   </div>
 
-  {% if daftar %}
-  <table class="table">
-    <thead>
-      <tr><th>No</th><th>Nama Skema</th><th>Jumlah Unit</th><th>Unit Ditemukan</th>
-          <th>Status</th><th>Tanggal</th><th></th></tr>
-    </thead>
-    <tbody>
-      {% for d in daftar %}
-      {% set ringkas = (d.hasil_pencocokan or {}).ringkasan or {} %}
-      <tr{% if d.id == doc_sorot %} class="is-sorot"{% endif %}>
-        <td>{{ loop.index }}</td>
-        <td>
-          {{ d.nama_skema or '(nama belum teridentifikasi)' }}
-          <div class="small muted">{{ d.nama_asli }}{% if d.jenis_skema %} · {{ d.jenis_skema }}{% endif %}</div>
-        </td>
-        <td class="num">{{ d.jumlah_unit or 0 }}</td>
-        <td class="num">{{ ringkas.ditemukan if ringkas else '-' }}</td>
-        <td>
-          {% if d.status_identifikasi == 'lengkap' and not ringkas %}
-            <span class="badge badge-green">terbaca</span>
-          {% elif ringkas and ringkas.tidak_ditemukan == 0 and ringkas.konflik == 0 %}
-            <span class="badge badge-green">lengkap</span>
-          {% elif ringkas %}
-            <span class="badge badge-amber">perlu verifikasi</span>
-          {% else %}
-            <span class="badge badge-amber">perlu verifikasi</span>
-          {% endif %}
-          {% if ringkas and ringkas.konflik %}<div class="small warn-text">{{ ringkas.konflik }} konflik</div>{% endif %}
-          {% if ringkas and ringkas.judul_berbeda %}<div class="small warn-text">{{ ringkas.judul_berbeda }} judul berbeda</div>{% endif %}
-        </td>
-        <td class="nowrap">{{ (d.tanggal_ditambah or '')[:16] }}</td>
-        <td><a class="btn btn-small" href="/skema/{{ d.id }}">Detail</a></td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% else %}
-  <p class="empty">
-    {% if q %}Tidak ada skema yang cocok dengan "{{ q }}".{% else %}
-    Belum ada dokumen skema. Unggah DOCX skema sertifikasi untuk memulai.{% endif %}
-  </p>
-  {% endif %}
-</article>
-{% endblock %}
+  <!-- MODAL KONFIRMASI HAPUS -->
+  <div id="modal-konfirmasi-hapus" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs hidden">
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center shadow-2xl border border-slate-100">
+      <div class="w-14 h-14 rounded-2xl bg-rose-50 text-rose-600 flex items-center justify-center mx-auto mb-4 font-bold shadow-2xs">
+        <i data-lucide="alert-triangle" class="w-7 h-7"></i>
+      </div>
+      <h3 class="text-base font-extrabold text-slate-900 mb-1">Hapus Skema Sertifikasi?</h3>
+      <p class="text-xs text-slate-500 leading-relaxed mb-6">
+        Apakah Anda yakin ingin menghapus skema <strong id="nama-skema-hapus" class="text-slate-800"></strong>? Tindakan ini akan menghapus seluruh data Buku Kerja terkait.
+      </p>
+
+      <form id="form-hapus-skema" method="post" action="" class="flex items-center justify-center gap-3 m-0">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+        <button
+          type="button"
+          onclick="tutupModalHapus()"
+          class="px-4 py-2.5 rounded-xl border border-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-all cursor-pointer"
+        >
+          Batal
+        </button>
+        <button
+          type="submit"
+          class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs transition-all shadow-md cursor-pointer"
+        >
+          Ya, Hapus Skema
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    function setTampilan(mode) {
+      const grid = document.getElementById('wadah-skema-grid');
+      const list = document.getElementById('wadah-skema-list');
+      const btnGrid = document.getElementById('btn-view-grid');
+      const btnList = document.getElementById('btn-view-list');
+
+      if (mode === 'list') {
+        grid.classList.add('hidden');
+        list.classList.remove('hidden');
+        btnList.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-2xs";
+        btnGrid.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-900";
+      } else {
+        grid.classList.remove('hidden');
+        list.classList.add('hidden');
+        btnGrid.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer bg-white text-slate-900 shadow-2xs";
+        btnList.className = "px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer text-slate-500 hover:text-slate-900";
+      }
+    }
+
+    function bukaModalUnggah() {
+      document.getElementById('modal-unggah-skema').classList.remove('hidden');
+    }
+
+    function tutupModalUnggah() {
+      document.getElementById('modal-unggah-skema').classList.add('hidden');
+    }
+
+    function updateFileLabel(inp) {
+      if (inp.files && inp.files[0]) {
+        document.getElementById('label-file-skema').textContent = inp.files[0].name;
+      }
+    }
+
+    async function kirimUnggahanAlur(e) {
+      e.preventDefault();
+      const fileInput = document.getElementById('file-input-skema');
+      if (!fileInput.files || !fileInput.files[0]) {
+        alert('Silakan pilih berkas skema (.docx) terlebih dahulu.');
+        return;
+      }
+
+      const btn = document.getElementById('btn-submit-unggah');
+      const statusBox = document.getElementById('upload-status-box');
+      btn.disabled = true;
+      btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Memproses Skema...</span>';
+      if (window.lucide) lucide.createIcons();
+
+      const formData = new FormData(document.getElementById('form-unggah-alur'));
+      try {
+        const resp = await fetch('/skema/unggah-alur', {
+          method: 'POST',
+          body: formData
+        });
+        const res = await resp.json();
+        if (res.sukses) {
+          statusBox.className = "mb-4 p-3 rounded-xl text-xs font-bold border bg-emerald-50 text-emerald-800 border-emerald-200 block";
+          statusBox.textContent = `Skema "${res.nama_skema}" berhasil diproses! Mengarahkan...`;
+          setTimeout(() => {
+            window.location.href = res.tujuan_url;
+          }, 600);
+        } else {
+          statusBox.className = "mb-4 p-3 rounded-xl text-xs font-bold border bg-rose-50 text-rose-800 border-rose-200 block";
+          statusBox.textContent = res.pesan || 'Gagal memproses berkas skema.';
+          btn.disabled = false;
+          btn.innerHTML = '<i data-lucide="upload" class="w-4 h-4"></i><span>Mulai Proses Skema</span>';
+          if (window.lucide) lucide.createIcons();
+        }
+      } catch (err) {
+        statusBox.className = "mb-4 p-3 rounded-xl text-xs font-bold border bg-rose-50 text-rose-800 border-rose-200 block";
+        statusBox.textContent = 'Terjadi kesalahan jaringan: ' + err.message;
+        btn.disabled = false;
+        btn.innerHTML = '<i data-lucide="upload" class="w-4 h-4"></i><span>Mulai Proses Skema</span>';
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function konfirmasiHapus(id, nama) {
+      document.getElementById('nama-skema-hapus').textContent = nama || id;
+      document.getElementById('form-hapus-skema').action = `/skema/${id}/hapus`;
+      document.getElementById('modal-konfirmasi-hapus').classList.remove('hidden');
+    }
+
+    function tutupModalHapus() {
+      document.getElementById('modal-konfirmasi-hapus').classList.add('hidden');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
+
+  {% include "_modal_auth.html" %}
+</body>
+</html>

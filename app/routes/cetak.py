@@ -6,10 +6,11 @@ Dipindahkan dari `app/main.py` (temuan T-19) tanpa mengubah perilaku: decorator
 
 import re
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import HTMLResponse, Response
 
-from app import schema_library, status_units
+from app import db, schema_library, status_units
+from app.api import auth_guard, keamanan_http
 from app.buku_kerja import DAFTAR_DOKUMEN_BUKU_KERJA, susun_data_buku_kerja, tentukan_dokumen_aktif
 from app.buku_kerja_docx import NAMA_BERKAS_DOKUMEN, buat_docx_buku_kerja_bytes, buat_zip_buku_kerja_bytes
 
@@ -34,6 +35,7 @@ def cetak_apl_skema(
     no_met: str = '',
     metode_mapa: str = '',
     kategori_asesi: int = 0,
+    embed: int = 0,
 ):
     data = susun_data_buku_kerja(
         schema_id=schema_id,
@@ -75,6 +77,7 @@ def cetak_apl_skema(
         data=data,
         doc_mode=doc_mode,
         dokumen_aktif=dokumen_aktif,
+        embed=(embed == 1),
     )
 
 
@@ -88,7 +91,37 @@ def unduh_buku_kerja_docx(
     no_met: str = '',
     metode_mapa: str = '',
     kategori_asesi: int = 0,
+    embed: int = 0,
 ):
+    dok = schema_library.ambil_skema(schema_id)
+    if not dok:
+        html = render(request, 'tidak_ditemukan.html', judul='Skema tidak ditemukan',
+                       pesan='Dokumen skema tidak ditemukan.')
+        html.status_code = 404
+        return html
+
+    pengguna = auth_guard.pengguna_dari_request(request)
+    doc_owner = dok.get('owner_id')
+    if doc_owner:
+        if not pengguna or (pengguna.get('peran') != 'admin' and doc_owner != pengguna['id']):
+            raise HTTPException(status_code=403, detail='Akses Ditolak: Dokumen Paket ZIP ini adalah milik pengguna lain.')
+
+    # Catat audit IP unduh Paket ZIP Buku Kerja
+    ip = keamanan_http.ip_klien(request)
+    ua = request.headers.get('user-agent', '')
+    db.catat_audit_ip(ip, 'unduh_buku_kerja_zip', pengguna['id'] if pengguna else None, schema_id, ua)
+
+    pengguna = auth_guard.pengguna_dari_request(request)
+    doc_owner = dok.get('owner_id')
+    if doc_owner:
+        if not pengguna or (pengguna.get('peran') != 'admin' and doc_owner != pengguna['id']):
+            raise HTTPException(status_code=403, detail='Akses Ditolak: Dokumen Buku Kerja ini adalah milik pengguna lain.')
+
+    # Catat audit IP unduh Buku Kerja DOCX
+    ip = keamanan_http.ip_klien(request)
+    ua = request.headers.get('user-agent', '')
+    db.catat_audit_ip(ip, 'unduh_buku_kerja_docx', pengguna['id'] if pengguna else None, schema_id, ua)
+
     data = susun_data_buku_kerja(
         schema_id=schema_id,
         no_skema=no_skema,
@@ -148,6 +181,7 @@ def unduh_buku_kerja_zip(
     no_met: str = '',
     metode_mapa: str = '',
     kategori_asesi: int = 0,
+    embed: int = 0,
 ):
     dok = schema_library.ambil_skema(schema_id)
     if not dok:
@@ -155,6 +189,17 @@ def unduh_buku_kerja_zip(
                        pesan='Dokumen skema tidak ditemukan.')
         html.status_code = 404
         return html
+
+    pengguna = auth_guard.pengguna_dari_request(request)
+    doc_owner = dok.get('owner_id')
+    if doc_owner:
+        if not pengguna or (pengguna.get('peran') != 'admin' and doc_owner != pengguna['id']):
+            raise HTTPException(status_code=403, detail='Akses Ditolak: Dokumen Paket ZIP ini adalah milik pengguna lain.')
+
+    # Catat audit IP unduh Paket ZIP Buku Kerja
+    ip = keamanan_http.ip_klien(request)
+    ua = request.headers.get('user-agent', '')
+    db.catat_audit_ip(ip, 'unduh_buku_kerja_zip', pengguna['id'] if pengguna else None, schema_id, ua)
 
     gerbang = status_units.evaluasi_gerbang_skema(schema_id)
     if gerbang.get('ada_gagal'):
